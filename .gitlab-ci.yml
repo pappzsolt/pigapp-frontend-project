@@ -16,8 +16,10 @@ copy:
   - pwd
   - ls -al
   - scp -i ./id_rsa.pub -r ../pigapp_frontend  $SSH_USER@$REMOTE_SERVER:/works/
+  when: manual
 
 start:
   stage: start
   script:
   - echo "start"
+  when: manual
