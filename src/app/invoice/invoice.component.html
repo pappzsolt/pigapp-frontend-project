@@ -1,12 +1,16 @@
 <div class="invoice-card">
 
   <div class="invoice-title">
-    {{ invoice.user }}
+    <p>{{ invoice.invoice_name }}</p>
   </div>
 
   <div class="course-description">
-    <p>{{ invoice.invoice_name }}</p>
+    <p>{{ invoice.id }}</p>
+    <p>{{ invoice.user }}</p>
+    <p>{{ invoice.invoice_note }}</p>
+    <p>{{ invoice.amount }} Ft</p>
+    <p>{{ invoice.enable_invoice }}</p>
     <p>{{ invoice.create_invoice_date }}</p>
   </div>
-  <button >View Course</button>
+  <button (click)="onInvoiceView()">View Invoice with cost</button>
 </div>

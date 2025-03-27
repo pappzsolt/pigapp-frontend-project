@@ -6,7 +6,10 @@
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
-      <app-invoice [invoice]="coreInvoice" ></app-invoice>
+
+      <app-invoice *ngFor="let invoice of invoices"
+          (invoiceSelected)="onInvoiceSelected($event)"
+          [invoice]="invoice"></app-invoice>
     </div>
   </div>
 </main>
