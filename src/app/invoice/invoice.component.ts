@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { INVOICES } from './../../../db-data-invoice';
+import { Invoice } from '../../model/invoice';
 @Component({
   selector: 'app-invoice',
   imports: [],
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvoiceComponent implements OnInit{
 
+  @Input()
+  invoice!: Invoice;
+
   constructor(){}
 
-  
+
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }

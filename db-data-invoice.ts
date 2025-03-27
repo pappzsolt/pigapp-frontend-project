@@ -1,0 +1,47 @@
+export const INVOICES: any =[
+  {
+      "id": 2,
+      "user": "papp.zsolt.gabor@gmail.com",
+      "invoice_name": "erste",
+      "invoice_note": "erste",
+      "create_invoice_date": "2021-02-11T14:39:35.182000Z",
+      "enable_invoice": 1,
+      "amount": 1000
+  },
+  {
+      "id": 3,
+      "user": "papp.zsolt.gabor@gmail.com",
+      "invoice_name": "raiffeisen111111",
+      "invoice_note": "raiffeisen111111",
+      "create_invoice_date": "2024-04-20T13:18:26.572000Z",
+      "enable_invoice": 0,
+      "amount": 1002
+  },
+  {
+      "id": 1,
+      "user": "papp.zsolt.gabor@gmail.com",
+      "invoice_name": "erste__1",
+      "invoice_note": "erste__1",
+      "create_invoice_date": "2020-08-26T13:18:26.572000Z",
+      "enable_invoice": 0,
+      "amount": 1004
+  },
+  {
+      "id": 4,
+      "user": "papp.zsolt.gabor@gmail.com",
+      "invoice_name": "test",
+      "invoice_note": "test",
+      "create_invoice_date": "2025-03-05T07:19:10.732293Z",
+      "enable_invoice": 0,
+      "amount": 1000
+  },
+  {
+      "id": 9,
+      "user": "papp.zsolt.gabor@gmail.com",
+      "invoice_name": "test nagyon nagyon_1",
+      "invoice_note": "test nagyon nagyon note_1",
+      "create_invoice_date": "2025-03-11T07:23:38.328396Z",
+      "enable_invoice": 0,
+      "amount": 1000
+  }
+]
