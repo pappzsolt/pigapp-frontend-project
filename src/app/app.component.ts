@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { InvoiceComponent } from "./invoice/invoice.component";
 import { Invoice } from '../model/invoice';
 import { CommonModule } from '@angular/common';
-import {  HttpClient } from '@angular/common/http';
+import {  HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -19,43 +19,56 @@ import { Observable } from 'rxjs';
 
 export class AppComponent implements OnInit{
 
-  invoices$! : Observable<Invoice[]>;
   invoices: any;
+
   private http = inject(HttpClient);
+
+  access: any;
 
   constructor(){}
 
   ngOnInit(){
 
-    /* const params = new HttpParams()
-      .set("username","papp.zsolt.gabor@gmail.com")
-      .set("password","2EdrufrU"); */
+
     const jsonData =
       {
-        "username": "papp.zsolt.gabor@gmail.com ",
+        "email": "papp.zsolt.gabor@gmail.com ",
         "password": "2EdrufrU"
 
       }
       ;
 
-    this.http.post<any>('http://192.168.1.37:8000/api/token-auth/',jsonData)
+    this.http.post<any>('http://192.168.1.37:8000/api/token/',jsonData)
       .subscribe({
         next: (response) => {
-          const token = response.token;
+          this.access = response.access;
           console.log('Kapott válasz:', response);
-          console.log('token:', token);
+          console.log('access:', "Bearer "+this.access);
         },
         error: (err) => {
           console.error('Hiba történt:', err);
         }
       });
 
+      const headers = new HttpHeaders({
+        'Authorization': 'Bearer '+this.access,
+      });
 
-
-
-
-    this.invoices$ = this.http.get<Invoice[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/');
-
+    this.http.get<any[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/', {headers})
+      .subscribe(
+        {
+          next: (response) => {
+            console.log('Válasz:', response);
+            // Itt dolgozhatsz a válasz adataival, például az UI frissítésével
+          },
+          error: (err) => {
+            console.error('Hiba111:', err);
+          },
+          complete: () => {
+            console.log('GET kérés befejeződött');
+          }
+        }
+      );
   }
 
   onInvoiceSelected(invoice:Invoice){
