@@ -34,7 +34,6 @@ export class AppComponent implements OnInit{
 
   };
 
-
   async getAccessToken(){
     const response = await this.http.post<any>('http://192.168.1.37:8000/api/token/', this.jsonData).toPromise();
     return  response.access;
