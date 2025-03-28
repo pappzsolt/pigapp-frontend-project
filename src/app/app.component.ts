@@ -15,24 +15,20 @@ import { Observable } from 'rxjs';
   styleUrl: './app.component.css'
 })
 
-
-
 export class AppComponent implements OnInit{
 
   invoices: any;
-
   private token: string = '';
-
   private http = inject(HttpClient);
-
-  constructor(){}
-
   jsonData =
   {
     "email": "papp.zsolt.gabor@gmail.com ",
     "password": "2EdrufrU"
 
   };
+
+  constructor(){}
+
 
   async getAccessToken(){
     const response = await this.http.post<any>('http://192.168.1.37:8000/api/token/', this.jsonData).toPromise();
@@ -52,10 +48,9 @@ export class AppComponent implements OnInit{
     this.token = token;
   }
 
-  getAccess(): string {
+  getToken(): string {
     return this.token;
   }
-
 
   async getInvoiceList(){
 
@@ -64,12 +59,10 @@ export class AppComponent implements OnInit{
       console.log('A token nem lett beállítva!');
       return;
     }else{
-
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+this.token
+        'Authorization': 'Bearer '+this.getToken()
       });
-
       this.http.get<any[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/', {headers})
         .subscribe(
           {
