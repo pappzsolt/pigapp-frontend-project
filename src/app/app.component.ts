@@ -5,6 +5,8 @@ import { InvoiceComponent } from "./invoice/invoice.component";
 import { Invoice } from '../model/invoice';
 import { CommonModule } from '@angular/common';
 import {  HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -17,13 +19,11 @@ import {  HttpClient } from '@angular/common/http';
 
 export class AppComponent implements OnInit{
 
+  invoices$! : Observable<Invoice[]>;
   invoices: any;
-
   private http = inject(HttpClient);
 
   constructor(){}
-
-
 
   ngOnInit(){
 
@@ -38,9 +38,24 @@ export class AppComponent implements OnInit{
       }
       ;
 
-    this.http.post('http://192.168.1.37:8000/api/token-auth/',jsonData)
-    .subscribe(invoices => {this.invoices = invoices}
-    );
+    this.http.post<any>('http://192.168.1.37:8000/api/token-auth/',jsonData)
+      .subscribe({
+        next: (response) => {
+          const token = response.token;
+          console.log('Kapott válasz:', response);
+          console.log('token:', token);
+        },
+        error: (err) => {
+          console.error('Hiba történt:', err);
+        }
+      });
+
+
+
+
+
+    this.invoices$ = this.http.get<Invoice[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/');
+
   }
 
   onInvoiceSelected(invoice:Invoice){
