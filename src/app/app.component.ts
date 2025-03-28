@@ -1,9 +1,10 @@
 import { INVOICES } from './../../db-data-invoice';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { InvoiceComponent } from "./invoice/invoice.component";
 import { Invoice } from '../model/invoice';
 import { CommonModule } from '@angular/common';
+import {  HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -11,12 +12,43 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
 
-  invoices = INVOICES;
 
+
+export class AppComponent implements OnInit{
+
+  invoices: any;
+
+  private http = inject(HttpClient);
+
+  constructor(){}
+
+
+
+  ngOnInit(){
+
+    /* const params = new HttpParams()
+      .set("username","papp.zsolt.gabor@gmail.com")
+      .set("password","2EdrufrU"); */
+    const jsonData =
+      {
+        "username": "papp.zsolt.gabor@gmail.com ",
+        "password": "2EdrufrU"
+
+      }
+      ;
+
+    this.http.post('http://192.168.1.37:8000/api/token-auth/',jsonData)
+    .subscribe(invoices => {this.invoices = invoices}
+    );
+  }
 
   onInvoiceSelected(invoice:Invoice){
-    console.log("App component click",invoice)
+    console.log("App component click",invoice);
   }
+
 }
+
+
+
+
