@@ -21,54 +21,75 @@ export class AppComponent implements OnInit{
 
   invoices: any;
 
-  private http = inject(HttpClient);
+  private token: string = '';
 
-  access: any;
+  private http = inject(HttpClient);
 
   constructor(){}
 
-  ngOnInit(){
+  jsonData =
+  {
+    "email": "papp.zsolt.gabor@gmail.com ",
+    "password": "2EdrufrU"
+
+  };
 
 
-    const jsonData =
-      {
-        "email": "papp.zsolt.gabor@gmail.com ",
-        "password": "2EdrufrU"
+  async getAccessToken(){
+    const response = await this.http.post<any>('http://192.168.1.37:8000/api/token/', this.jsonData).toPromise();
+    return  response.access;
+  }
 
-      }
-      ;
+  async useAccessToken(): Promise<void> {
+    try {
+      const accessToken = await this.getAccessToken();
+      this.setAccessToken(accessToken);
+    } catch (err) {
+      console.error('Hiba a token megszerzésében:', err);
+    }
+  }
 
-    this.http.post<any>('http://192.168.1.37:8000/api/token/',jsonData)
-      .subscribe({
-        next: (response) => {
-          this.access = response.access;
-          console.log('Kapott válasz:', response);
-          console.log('access:', "Bearer "+this.access);
-        },
-        error: (err) => {
-          console.error('Hiba történt:', err);
-        }
-      });
+  async setAccessToken(token: string): Promise<void> {
+    this.token = token;
+  }
+
+  getAccess(): string {
+    return this.token;
+  }
+
+
+  async getInvoiceList(){
+
+    await this.useAccessToken();
+    if (!this.token) {
+      console.log('A token nem lett beállítva!');
+      return;
+    }else{
 
       const headers = new HttpHeaders({
-        'Authorization': 'Bearer '+this.access,
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+this.token
       });
 
-    this.http.get<any[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/', {headers})
-      .subscribe(
-        {
-          next: (response) => {
-            console.log('Válasz:', response);
-            // Itt dolgozhatsz a válasz adataival, például az UI frissítésével
-          },
-          error: (err) => {
-            console.error('Hiba111:', err);
-          },
-          complete: () => {
-            console.log('GET kérés befejeződött');
+      this.http.get<any[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/', {headers})
+        .subscribe(
+          {
+            next: (response) => {
+              this.invoices = response;
+            },
+            error: (err) => {
+              console.error('Hiba:', err);
+            },
+            complete: () => {
+              console.log('GET kérés befejeződött');
+            }
           }
-        }
-      );
+        );
+      }
+  }
+
+  ngOnInit(){
+    this.getInvoiceList()
   }
 
   onInvoiceSelected(invoice:Invoice){
