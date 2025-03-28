@@ -1,6 +1,6 @@
-<div class="card" style="width: 18rem;">
+<div [appHighlighted]="false" class="card" style="width: 18rem;">
   <div class="card-header">
-    <h3>{{ invoiceIndex + '.' +invoice.invoice_name }}</h3><ng-content select="h3"></ng-content>
+    <ng-content select="h3"></ng-content><h3>{{ invoiceIndex + '.' +invoice.invoice_name }}</h3>
   </div>
 
   <ul class="list-group">

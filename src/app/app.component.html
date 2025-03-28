@@ -42,8 +42,8 @@
   </div>
 </nav>
 
-<div class="container-md">
-    <app-invoice *ngFor="let invoice of invoices;index as i" (invoiceSelected)="onInvoiceSelected($event)" [invoice]="invoice" [invoiceIndex]="i + 1">
+<div  class="container-md">
+    <app-invoice   *ngFor="let invoice of invoices;index as i" (invoiceSelected)="onInvoiceSelected($event)"  [invoice]="invoice" [invoiceIndex]="i + 1">
       <h3>számla</h3>
     </app-invoice>
 </div>

@@ -4,7 +4,6 @@ import { RouterOutlet } from '@angular/router';
 import { InvoiceComponent } from "./invoice/invoice.component";
 import { Invoice } from '../model/invoice';
 import { CommonModule } from '@angular/common';
-
 @Component({
   selector: 'app-root',
   standalone: true,

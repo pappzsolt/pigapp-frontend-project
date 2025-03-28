@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { INVOICES } from './../../../db-data-invoice';
 import { Invoice } from '../../model/invoice';
+import { HighlightedDirective } from "./../directives/highlighted.directive";
+
 @Component({
   selector: 'app-invoice',
-  imports: [],
   standalone: true,
+  imports: [HighlightedDirective],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.css'
 })
