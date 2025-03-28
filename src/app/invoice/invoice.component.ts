@@ -15,6 +15,9 @@ export class InvoiceComponent implements OnInit{
   })
   invoice!: Invoice;
 
+  @Input()
+  invoiceIndex!: number;
+
   @Output()
   invoiceSelected = new EventEmitter<Invoice>();
 
@@ -22,11 +25,11 @@ export class InvoiceComponent implements OnInit{
 
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 
   onInvoiceView(){
-    console.log("invoice click");
+    // console.log("invoice click");
     this.invoiceSelected.emit(this.invoice);
   }
 
