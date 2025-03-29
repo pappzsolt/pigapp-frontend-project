@@ -20,7 +20,7 @@ export class AppComponent implements OnInit{
 
 
   invoices$: Observable<Invoice[]> = of([]);
-  invoices: any;
+
   private token: string = '';
   private http = inject(HttpClient);
 
@@ -69,11 +69,11 @@ export class AppComponent implements OnInit{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '+this.getToken()
       });
-      this.http.get<Invoice[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/', {headers})
-        .subscribe(
+      this.invoices$ = this.http.get<Invoice[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/', {headers})
+      this.invoices$.subscribe(
           {
             next: (response: Invoice[]) => {
-              this.invoices = response;
+              // console.log(response);
             },
             error: (err) => {
               console.error('Hiba:', err);
