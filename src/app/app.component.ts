@@ -5,7 +5,7 @@ import { InvoiceComponent } from "./invoice/invoice.component";
 import { Invoice } from '../model/invoice';
 import { CommonModule } from '@angular/common';
 import {  HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +18,14 @@ import { Observable } from 'rxjs';
 
 export class AppComponent implements OnInit{
 
+
+  invoices$: Observable<Invoice[]> = of([]);
   invoices: any;
   private token: string = '';
   private http = inject(HttpClient);
+
+
+
   jsonData =
   {
     "email": "papp.zsolt.gabor@gmail.com ",
@@ -64,10 +69,10 @@ export class AppComponent implements OnInit{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '+this.getToken()
       });
-      this.http.get<any[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/', {headers})
+      this.http.get<Invoice[]>('http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/', {headers})
         .subscribe(
           {
-            next: (response) => {
+            next: (response: Invoice[]) => {
               this.invoices = response;
             },
             error: (err) => {
