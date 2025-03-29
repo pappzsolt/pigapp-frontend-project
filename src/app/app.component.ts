@@ -6,6 +6,7 @@ import { Invoice } from '../model/invoice';
 import { CommonModule } from '@angular/common';
 import {  HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { InvoicesService } from './services/invoices.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit{
 
   private token: string = '';
   private http = inject(HttpClient);
-
+  private invoicesService = inject(InvoicesService);
 
 
   jsonData =
@@ -87,7 +88,8 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.getInvoiceList()
+    this.getInvoiceList();
+    console.log(this.invoicesService);
   }
 
   onInvoiceSelected(invoice:Invoice){
