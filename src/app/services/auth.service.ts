@@ -17,14 +17,14 @@ export class AuthService {
   };
 
   constructor(private http: HttpClient) {
-
+    this.login()
   }
 
   login(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
         // console.log("tokne valasz:"+response.access)
-        if (response && response.access) {
+        if (response && response.access  && !localStorage.getItem('jwt_token')) {
           localStorage.setItem('jwt_token', response.access);
         }
       })
@@ -34,7 +34,7 @@ export class AuthService {
   ok(): void {
     this.login().subscribe(
       (response) => {
-        this.saveToken(response.access);
+        console.log("ok")
       },
       (error) => {
         console.log('Hibás felhasználónév vagy jelszó!');
