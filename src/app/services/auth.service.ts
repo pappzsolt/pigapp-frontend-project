@@ -33,7 +33,7 @@ export class AuthService {
   login(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
-        
+
         if (response && response.access  ) {
           localStorage.setItem('jwt_token', response.access);
         }
@@ -46,9 +46,7 @@ export class AuthService {
     localStorage.setItem('jwt_token', token);
   }
 
-  // Token lekérése a localStorage-ból
   getToken(): string | null {
-    // console.log("mivan?"+localStorage.getItem('jwt_token'))
     return localStorage.getItem('jwt_token');
   }
 
