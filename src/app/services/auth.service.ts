@@ -23,7 +23,7 @@ export class AuthService {
   login(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
-        // Ha van token a válaszban, akkor elmentjük a localStorage-ba
+        console.log("tokne valasz:"+response.token)
         if (response && response.token) {
           localStorage.setItem('jwt_token', response.token);
         }
@@ -31,23 +31,27 @@ export class AuthService {
     );
   }
 
-  logout(): void {
-    localStorage.removeItem('jwt_token');
-  }
-
-  getToken(): Observable<any> {
-    return this.login().pipe(
-      switchMap(() => {
-        const token = localStorage.getItem('jwt_token');
-        console.log("Token: " + token);
-        return of(token); // Visszaadjuk az Observable-t
-      })
+  ok(): void {
+    this.login().subscribe(
+      (response) => {
+        // Sikeres bejelentkezés: a backend válaszában lévő token elmentése
+        this.saveToken(response.token);
+        // Navigálj át egy védett oldalra, például a Dashboard-ra
+      },
+      (error) => {
+        // Hibakezelés
+        console.log('Hibás felhasználónév vagy jelszó!');
+      }
     );
   }
+  saveToken(token: string): void {
+    localStorage.setItem('jwt_token', token);
+  }
 
-  isLoggedIn(): boolean {
-    const token = this.getToken();
-    return !!token;
+  // Token lekérése a localStorage-ból
+  getToken(): string | null {
+    console.log("mivan?"+localStorage.getItem('jwt_token'))
+    return localStorage.getItem('jwt_token');
   }
 
 }
