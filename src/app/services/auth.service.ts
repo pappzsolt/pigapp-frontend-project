@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -21,15 +21,14 @@ export class AuthService {
   }
 
   login(): Observable<any> {
-    return this.http
-      .post<any>(this.apiUrl, this.jsonData)
-      .pipe(
-        tap((response) => {
-          if (response && response.token) {
-            localStorage.setItem('jwt_token', response.token);
-          }
-        })
-      );
+    return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
+      tap((response) => {
+        // Ha van token a válaszban, akkor elmentjük a localStorage-ba
+        if (response && response.token) {
+          localStorage.setItem('jwt_token', response.token);
+        }
+      })
+    );
   }
 
   logout(): void {
@@ -37,8 +36,13 @@ export class AuthService {
   }
 
   getToken(): Observable<any> {
-    const token = localStorage.getItem('jwt_token');
-    return of(token);
+    return this.login().pipe(
+      switchMap(() => {
+        const token = localStorage.getItem('jwt_token');
+        console.log("Token: " + token);
+        return of(token); // Visszaadjuk az Observable-t
+      })
+    );
   }
 
   isLoggedIn(): boolean {
