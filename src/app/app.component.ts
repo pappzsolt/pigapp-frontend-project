@@ -20,7 +20,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit{
 
   private http = inject(HttpClient);
-  // private authService = inject(AuthService);
+  private authService = inject(AuthService);
 
   invoices$: Observable<Invoice[]> = of([]);
 
@@ -31,10 +31,14 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(){
-    console.warn('%c[AppComponent] :onnit', 'color: red;');
+    /* this.authService.login().subscribe(
+      (token) => {
+        console.log('Token:', token.access); // Csak a sikeres választ kezeljük
+      }
+    ) */
     //const aaa =this.authService.getAccessToken()
     // console.warn('%c[AppComponent] token:', 'color: red;'+aaa);
-    this. invoices$ = this.invoicesService.getInvoiceList();
+    this.invoices$ = this.invoicesService.getInvoiceList();
   }
 
   onInvoiceSelected(invoice:Invoice){
