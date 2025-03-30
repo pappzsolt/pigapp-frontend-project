@@ -29,7 +29,6 @@ export class AuthService {
     );
   }
 
-
   saveToken(token: string): void {
     localStorage.setItem('jwt_token', token);
   }
