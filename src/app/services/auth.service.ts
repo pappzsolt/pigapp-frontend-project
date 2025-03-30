@@ -38,11 +38,8 @@ export class AuthService {
 
   getToken(): Observable<any> {
     const token = localStorage.getItem('jwt_token');
-    // Ha van token, egy Observable-t adunk vissza
-    return of(token);  // Ha null, akkor is egy Observable<any>-t adunk vissza
+    return of(token);
   }
-
-
 
   isLoggedIn(): boolean {
     const token = this.getToken();
