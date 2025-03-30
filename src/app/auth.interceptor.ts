@@ -34,6 +34,7 @@ import { AuthService } from './services/auth.service';  // Az AuthService-t az i
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       // Token lekérése az AuthService-ből
+      this.authService.ok()
       const token = this.authService.getToken();
 
       // Ha van token, hozzáadjuk a kéréshez, és csak a 'Authorization' headerhez
