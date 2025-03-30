@@ -23,7 +23,7 @@ export class AuthService {
   login(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
-        console.log("tokne valasz:"+response.access)
+        // console.log("tokne valasz:"+response.access)
         if (response && response.access) {
           localStorage.setItem('jwt_token', response.access);
         }
