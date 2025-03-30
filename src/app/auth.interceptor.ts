@@ -9,11 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Lekérjük a JWT tokent a szolgáltatásból
-    this.authService.ok()
     const token = this.authService.getToken();
-
-    // Ha van token, hozzáadjuk a fejléchez
     if (token) {
       request = request.clone({
         setHeaders: {
@@ -21,8 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
     }
-
-    // Továbbküldjük a módosított kérés
     return next.handle(request);
   }
 }

@@ -26,18 +26,10 @@ export class AppComponent implements OnInit{
 
   private invoicesService = inject(InvoicesService);
 
-  constructor(){
-    // console.log("ngOninit");
-  }
+  constructor(){}
 
   ngOnInit(){
-    /* this.authService.login().subscribe(
-      (token) => {
-        console.log('Token:', token.access); // Csak a sikeres választ kezeljük
-      }
-    ) */
-    //const aaa =this.authService.getAccessToken()
-    // console.warn('%c[AppComponent] token:', 'color: red;'+aaa);
+    this.authService.login();
     this.invoices$ = this.invoicesService.getInvoiceList();
   }
 

@@ -16,20 +16,8 @@ export class AuthService {
     "password": "2EdrufrU"
   };
 
-  constructor(private http: HttpClient) {
-    // localStorage.removeItem('jwt_token');
+  constructor(private http: HttpClient) {}
 
-  }
-  ok(): void {
-    this.login().subscribe(
-      (response) => {
-
-      },
-      (error) => {
-        console.log('Hibás felhasználónév vagy jelszó!');
-      }
-    );
-  }
   login(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
