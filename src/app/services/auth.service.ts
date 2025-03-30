@@ -37,7 +37,7 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('jwt_token');
   }
-  
+
   getRefresh(): string | null {
     return localStorage.getItem('jwt_refresh');
   }
