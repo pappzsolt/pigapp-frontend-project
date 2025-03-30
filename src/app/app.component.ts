@@ -30,7 +30,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
     //this.authService.login().subscribe();
-    this.authService.login()
+    this.authService.login().subscribe()
     this.invoices$ = this.invoicesService.getInvoiceList();
   }
 
