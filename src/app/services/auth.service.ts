@@ -47,7 +47,7 @@ export class AuthService {
 
   // Token lekérése a localStorage-ból
   getToken(): string | null {
-    console.log("mivan?"+localStorage.getItem('jwt_token'))
+    // console.log("mivan?"+localStorage.getItem('jwt_token'))
     return localStorage.getItem('jwt_token');
   }
 
