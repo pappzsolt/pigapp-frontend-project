@@ -11,31 +11,25 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private authService = inject(AuthService);
 
-  constructor() {
-    console.warn('%c[AuthInterceptor] :AuthInterceptor', 'color: red;');
-  }
-
-
-
+  constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-
-    this.authService.saveDataToSessionStorage()
-  
-
-    // Új fejléc hozzáadása a kéréshez
-    const clonedRequest = req.clone({
-      setHeaders: {
-        // Például egy Authorization header:
-        Authorization: `Bearer YOUR_ACCESS_TOKEN_HERE`
-      }
-    });
-
-    console.log('%c[Interceptor] Modified Request:', 'color: blue;', clonedRequest);
-
-    // Visszaküldjük a módosított kérést
-    return next.handle(clonedRequest);
+    return this.authService.getToken().pipe(
+      take(1),
+      switchMap((token) => {
+        if (token) {
+          const clonedRequest = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          return next.handle(clonedRequest);
+        }
+        return next.handle(req);
+      })
+    );
   }
 }
+
 
