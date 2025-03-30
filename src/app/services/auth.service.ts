@@ -31,16 +31,7 @@ export class AuthService {
     );
   }
 
-  ok(): void {
-    this.login().subscribe(
-      (response) => {
-        console.log("ok")
-      },
-      (error) => {
-        console.log('Hibás felhasználónév vagy jelszó!');
-      }
-    );
-  }
+
   saveToken(token: string): void {
     localStorage.setItem('jwt_token', token);
   }
