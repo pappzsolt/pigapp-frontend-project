@@ -23,9 +23,9 @@ export class AuthService {
   login(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
-        console.log("tokne valasz:"+response.token)
-        if (response && response.token) {
-          localStorage.setItem('jwt_token', response.token);
+        console.log("tokne valasz:"+response.access)
+        if (response && response.access) {
+          localStorage.setItem('jwt_token', response.access);
         }
       })
     );
@@ -34,12 +34,9 @@ export class AuthService {
   ok(): void {
     this.login().subscribe(
       (response) => {
-        // Sikeres bejelentkezés: a backend válaszában lévő token elmentése
-        this.saveToken(response.token);
-        // Navigálj át egy védett oldalra, például a Dashboard-ra
+        this.saveToken(response.access);
       },
       (error) => {
-        // Hibakezelés
         console.log('Hibás felhasználónév vagy jelszó!');
       }
     );
