@@ -24,6 +24,7 @@ export class AuthService {
 
         if (response && response.access  ) {
           localStorage.setItem('jwt_token', response.access);
+          localStorage.setItem('jwt_refresh', response.refresh);
         }
       })
     );
@@ -36,6 +37,9 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('jwt_token');
   }
-
+  
+  getRefresh(): string | null {
+    return localStorage.getItem('jwt_refresh');
+  }
 }
 
