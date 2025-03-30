@@ -29,7 +29,8 @@ export class AppComponent implements OnInit{
   constructor(){}
 
   ngOnInit(){
-    this.authService.login().subscribe();
+    //this.authService.login().subscribe();
+    this.authService.login()
     this.invoices$ = this.invoicesService.getInvoiceList();
   }
 

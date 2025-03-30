@@ -18,7 +18,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(): Observable<any> {
+/*   login_2(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
 
@@ -28,7 +28,30 @@ export class AuthService {
         }
       })
     );
-  }
+  } */
+login(): Observable<any[]> {
+    return new Observable<any[]>((observer) => {
+      this.http.post<any>(this.apiUrl, this.jsonData)
+            .subscribe({
+              next: (response) => {
+                observer.next(response);  // Az adatok továbbítása a feliratkozott komponensnek
+                if (response && response.access  ) {
+                  localStorage.setItem('jwt_token', response.access);
+                  localStorage.setItem('jwt_refresh', response.refresh);
+                }
+              },
+              error: (err) => {
+                console.error('Hiba:', err);
+                observer.error(err);  // Hiba esetén kiadjuk az error-t
+              },
+              complete: () => {
+                observer.complete();  // Az Observable befejeződött
+              }
+            });
+        },
+    )};
+
+
 
   saveToken(token: string): void {
     localStorage.setItem('jwt_token', token);
