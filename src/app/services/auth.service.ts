@@ -55,7 +55,7 @@ export class AuthService {
       }
     }
 
-  getExpireDate() {
+/*   getExpireDate() {
     const expireDate = this.decodedTokenObj.exp;
     if (expireDate) {
       const expirationDate = new Date(expireDate * 1000);
@@ -64,23 +64,32 @@ export class AuthService {
       console.error('Az exp mező nem található.');
       return null
     }
+  } */
+
+  getExpireDate(): Date | 0 {
+      const expireDate = this.decodedTokenObj?.exp;
+      if (expireDate) {
+          return new Date(expireDate * 1000);  // Unix timestamp -> Date objektum
+      }
+      return 0;  // Ha nincs expireDate, 0-t adunk vissza
   }
 
   checkExpireDate(){
     this.decodeToken()
     const expireDate = this.getExpireDate()
     console.log('Lejárati dátum111:', expireDate);
+    console.log("lejart?:"+this.isTokenExpired())
   }
 
-/*   isTokenExpired(): boolean {
-
-    const expiryTime: number = this.getExpireDate() ?? 0;
-    if (expiryTime) {
-      return ((1000 * expiryTime) - (new Date()).getTime()) < 5000;
-    } else {
+  isTokenExpired(): boolean {
+    const expiryTime: number | 0 | Date = this.decodedTokenObj?.exp;
+    if (expiryTime === 0) {
       return false;
     }
-  } */
+    const expiryTimeInMillis = expiryTime instanceof Date ? expiryTime.getTime() : expiryTime;
+    return ((1000 * expiryTimeInMillis) - (new Date()).getTime()) < 5000;
+  }
+
 
 
   saveToken(token: string): void {
