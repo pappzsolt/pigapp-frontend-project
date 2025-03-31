@@ -29,14 +29,14 @@ export class AppComponent implements OnInit{
   constructor(){}
 
   ngOnInit(){
-    if(this.authService.isTokenExpired()){
+  /*   if(this.authService.isTokenExpired()){
       console.log("ha lejart login elott:"+this.authService.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
       this.authService.login().subscribe({
         next: (response) => {
           this.authService.saveJwtToken(response.access);
           this.authService.saveJwtRefresh(response.refresh);
-          console.log('Sikeres bejelentkezés:', response);
-          console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
+          console.log('saveJwtToken:', response);
+          console.log("saveJwtToken utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
         },
         error: (error) => {
           console.error('Bejelentkezési hiba:', error);
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit{
       // console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
     }else{
       console.log("minden ok")
-    }
+    } */
 
     this.invoices$ = this.invoicesService.getInvoiceList();
   }

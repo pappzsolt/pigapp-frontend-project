@@ -31,20 +31,36 @@ import { AuthService } from './services/auth.service';  // Az AuthService-t az i
           constructor(private authService: AuthService) {}
 
           intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-            const token1 = this.authService.getJwtToken();
+            const token = this.authService.getJwtToken();
             let authReq = req;
-            if (token1) {
-              authReq = this.addToken(req, token1);
+            if (token) {
+              console.log("eredeti111 token::"+token)
+              authReq = this.addToken(req, token);
             }
             return next.handle(authReq).pipe(
               catchError((error: HttpErrorResponse) => {
-                const token2 = this.authService.getJwtToken();
-                if (error.status === 401 && token2) {
-                  return next.handle(this.addToken(req, token2));
+                if (error.status === 401) {
+                  //
+                      this.authService.login().subscribe({
+                          next: (response) => {
+                            this.authService.saveJwtToken(response.access);
+                            this.authService.saveJwtRefresh(response.refresh);
+                          },
+                          error: (error) => {
+                            console.error('Bejelentkezési hiba:', error);
+                          }
+                        });
+
+                      //
+                      const token = this.authService.getJwtToken();
+                      if ( token) {
+                        console.error('uj token:',token );
+                        return next.handle(this.addToken(req, token));
+                    }
                 }
-                return throwError(() => error);
-              })
-            );
+                    return throwError(() => error);
+                  })
+                );
           }
 
           private addToken(req: HttpRequest<any>, token: string) {
