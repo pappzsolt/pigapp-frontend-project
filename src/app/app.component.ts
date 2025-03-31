@@ -26,11 +26,13 @@ export class AppComponent implements OnInit{
 
   private invoicesService = inject(InvoicesService);
 
-  constructor(){}
+  constructor(){
+    this.authService.login().subscribe()
+  }
 
   ngOnInit(){
     //this.authService.login().subscribe();
-    this.authService.login().subscribe()
+
     this.invoices$ = this.invoicesService.getInvoiceList();
   }
 

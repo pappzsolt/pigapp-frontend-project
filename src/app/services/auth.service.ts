@@ -18,26 +18,27 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-/*   login_2(): Observable<any> {
+/*    login(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
 
         if (response && response.access  ) {
-          localStorage.setItem('jwt_token', response.access);
-          localStorage.setItem('jwt_refresh', response.refresh);
+          sessionStorage.setItem('jwt_token', response.access);
+          sessionStorage.setItem('jwt_refresh', response.refresh);
         }
       })
     );
   } */
-login(): Observable<any[]> {
+
+  login(): Observable<any[]> {
     return new Observable<any[]>((observer) => {
       this.http.post<any>(this.apiUrl, this.jsonData)
             .subscribe({
               next: (response) => {
                 observer.next(response);  // Az adatok továbbítása a feliratkozott komponensnek
                 if (response && response.access  ) {
-                  localStorage.setItem('jwt_token', response.access);
-                  localStorage.setItem('jwt_refresh', response.refresh);
+                  sessionStorage.setItem('jwt_token', response.access);
+                  sessionStorage.setItem('jwt_refresh', response.refresh);
                 }
               },
               error: (err) => {
@@ -54,15 +55,15 @@ login(): Observable<any[]> {
 
 
   saveToken(token: string): void {
-    localStorage.setItem('jwt_token', token);
+    sessionStorage.setItem('jwt_token', token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwt_token');
+    return sessionStorage.getItem('jwt_token');
   }
 
   getRefresh(): string | null {
-    return localStorage.getItem('jwt_refresh');
+    return sessionStorage.getItem('jwt_refresh');
   }
 }
 

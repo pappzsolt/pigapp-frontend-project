@@ -7,19 +7,23 @@ import { AuthService } from './services/auth.service';  // Az AuthService-t az i
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
+  
+    intercept(req: HttpRequest<any>,
+          next: HttpHandler): Observable<HttpEvent<any>> {
+          const token = this.authService.getToken();
+          const refresh = this.authService.getRefresh();
+          if (token) {
+              const cloned = req.clone({
+                  headers: req.headers.set("Authorization",
+                      "Bearer " + token)
+              });
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken();
-    const refresh = this.authService.getRefresh();
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
+              return next.handle(cloned);
+          }
+          else {
+              return next.handle(req);
+          }
         }
-      });
-    }
-    return next.handle(request);
-  }
 }
 
 
