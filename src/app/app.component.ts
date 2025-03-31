@@ -27,19 +27,7 @@ export class AppComponent implements OnInit{
   private invoicesService = inject(InvoicesService);
 
   constructor(){
-    if(this.authService.isTokenExpired()){
-      console.log("ha lejart:"+this.authService.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
-      this.authService.login().subscribe({
-        next: (response) => {
-          console.log('Sikeres bejelentkezés:', response);
-        },
-        error: (error) => {
-          console.error('Bejelentkezési hiba:', error);
-        }
-      });
-      console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
 
-    }
   }
 
   ngOnInit(){
