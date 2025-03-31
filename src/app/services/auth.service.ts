@@ -97,7 +97,12 @@ export class AuthService {
     sessionStorage.setItem('jwt_refresh', token);
   }
   getJwtToken(): string | null {
-    return sessionStorage.getItem('jwt_token');
+    if(!this.isTokenExpired)
+      return sessionStorage.getItem('jwt_token');
+    else{
+      this.login();
+      return sessionStorage.getItem('jwt_token');
+    }
   }
 
   getJwtRefresh(): string | null {
