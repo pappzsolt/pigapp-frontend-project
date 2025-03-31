@@ -97,10 +97,11 @@ export class AuthService {
     sessionStorage.setItem('jwt_refresh', token);
   }
   getJwtToken(): string | null {
-    if(!this.isTokenExpired)
-      return sessionStorage.getItem('jwt_token');
-    else{
+    if(!this.isTokenExpired()){
       this.login();
+      return sessionStorage.getItem('jwt_token');
+    }
+    else{
       return sessionStorage.getItem('jwt_token');
     }
   }
