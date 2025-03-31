@@ -26,9 +26,7 @@ export class AppComponent implements OnInit{
 
   private invoicesService = inject(InvoicesService);
 
-  constructor(){
-
-  }
+  constructor(){}
 
   ngOnInit(){
     if(this.authService.isTokenExpired()){
