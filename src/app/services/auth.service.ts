@@ -19,7 +19,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(): Observable<any[]> {
+  login(): Observable<any> {
+    return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
+      tap((response) => {
+        if (response && response.access) {
+          this.saveJwtToken(response.access);
+          this.saveJwtRefresh(response.refresh);
+        }
+      }),
+      catchError((error) => {
+        console.error('Hiba:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  login____(): Observable<any[]> {
     return new Observable<any[]>((observer) => {
       this.http.post<any>(this.apiUrl, this.jsonData)
             .subscribe({
