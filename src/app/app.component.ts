@@ -27,7 +27,23 @@ export class AppComponent implements OnInit{
   private invoicesService = inject(InvoicesService);
 
   constructor(){
-
+    if(this.authService.isTokenExpired()){
+      console.log("ha lejartconstructor:"+this.authService.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
+      this.authService.login().subscribe({
+        next: (response) => {
+          this.authService.saveJwtToken(response.access);
+          this.authService.saveJwtRefresh(response.refresh);
+          console.log('Sikeres bejelentkezésconstructor:', response);
+          console.log("login utanconstructor:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
+        },
+        error: (error) => {
+          console.error('Bejelentkezési hiba:', error);
+        }
+      });
+      // console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
+    }else{
+      console.log("minden ok")
+    }
   }
 
   ngOnInit(){
@@ -38,12 +54,13 @@ export class AppComponent implements OnInit{
           this.authService.saveJwtToken(response.access);
           this.authService.saveJwtRefresh(response.refresh);
           console.log('Sikeres bejelentkezés:', response);
+          console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
         },
         error: (error) => {
           console.error('Bejelentkezési hiba:', error);
         }
       });
-      console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
+      // console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
     }else{
       console.log("minden ok")
     }

@@ -19,7 +19,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+
   login(): Observable<any> {
+    return this.http.post<any>(this.apiUrl, this.jsonData)
+  }
+
+  login___2(): Observable<any> {
     return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
       tap((response) => {
         if (response && response.access) {
