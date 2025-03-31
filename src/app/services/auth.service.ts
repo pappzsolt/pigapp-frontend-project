@@ -39,7 +39,7 @@ export class AuthService {
     );
   }
 
-  login____(): Observable<any[]> {
+  login____1(): Observable<any[]> {
     return new Observable<any[]>((observer) => {
       this.http.post<any>(this.apiUrl, this.jsonData)
             .subscribe({
@@ -78,17 +78,6 @@ export class AuthService {
     sessionStorage.removeItem('jwt_refresh');
     sessionStorage.setItem('jwt_refresh', token);
   }
-/*   getJwtToken(): string | null {
-    if(this.isTokenExpired()){
-      console.log("ha lejart:"+this.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
-      this.login().subscribe();
-      console.log("login utan:"+this.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
-      return sessionStorage.getItem('jwt_token');
-    }
-    else{
-      return sessionStorage.getItem('jwt_token');
-    }
-  } */
 
   getJwtToken(): string | null {
     return sessionStorage.getItem('jwt_token');
