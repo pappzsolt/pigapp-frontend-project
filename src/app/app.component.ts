@@ -44,8 +44,10 @@ export class AppComponent implements OnInit{
         }
       });
       console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
+    }else{
+      console.log("minden ok")
     }
-    
+
     this.invoices$ = this.invoicesService.getInvoiceList();
   }
 
