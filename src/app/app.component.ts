@@ -35,6 +35,8 @@ export class AppComponent implements OnInit{
       console.log("ha lejart:"+this.authService.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
       this.authService.login().subscribe({
         next: (response) => {
+          this.authService.saveJwtToken(response.access);
+          this.authService.saveJwtRefresh(response.refresh);
           console.log('Sikeres bejelentkezés:', response);
         },
         error: (error) => {
@@ -43,6 +45,7 @@ export class AppComponent implements OnInit{
       });
       console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
     }
+    
     this.invoices$ = this.invoicesService.getInvoiceList();
   }
 
