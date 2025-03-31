@@ -28,6 +28,7 @@ export class AppComponent implements OnInit{
 
   constructor(){
     this.authService.login().subscribe()
+    this.authService.checkExpireDate()
   }
 
   ngOnInit(){
