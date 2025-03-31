@@ -74,7 +74,7 @@ export class AuthService {
       return 0;  // Ha nincs expireDate, 0-t adunk vissza
   }
 
-  checkExpireDate(){
+  printExpireDate(){
     this.decodeToken()
     const expireDate = this.getExpireDate()
     console.log('Lejárati dátum111:', expireDate);
