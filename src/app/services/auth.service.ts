@@ -16,8 +16,6 @@ export class AuthService {
     "password": "2EdrufrU"
   };
 
-  decodedTokenObj: any;
-
 
   constructor(private http: HttpClient) {}
 
@@ -43,62 +41,35 @@ export class AuthService {
         },
     )};
 
-  decodeToken() {
-    const token = this.getJwtToken()
-      if (token) {
-          this.decodedTokenObj = this.getJwtDecode(token);
-          return this.decodedTokenObj;
-          //console.log("decode token:"+this.decodedToken.exp)
-      }
-      else{
-        return null;
-      }
-    }
-
-/*   getExpireDate() {
-    const expireDate = this.decodedTokenObj.exp;
-    if (expireDate) {
-      const expirationDate = new Date(expireDate * 1000);
-      return expirationDate
-    } else {
-      console.error('Az exp mező nem található.');
-      return null
-    }
-  } */
-
-  getExpireDate(): Date | 0 {
-      const expireDate = this.decodedTokenObj?.exp;
-      if (expireDate) {
-          return new Date(expireDate * 1000);  // Unix timestamp -> Date objektum
-      }
-      return 0;  // Ha nincs expireDate, 0-t adunk vissza
-  }
-
-  printExpireDate(){
-    this.decodeToken()
-    const expireDate = this.getExpireDate()
-    console.log('Lejárati dátum111:', expireDate);
-    console.log("lejart?:"+this.isTokenExpired())
-  }
-
   isTokenExpired(): boolean {
-    const expiryTime: number | 0 | Date = this.decodedTokenObj?.exp;
-    if (expiryTime === 0) {
-      return false;
-    }
-    const expiryTimeInMillis = expiryTime instanceof Date ? expiryTime.getTime() : expiryTime;
-    return ((1000 * expiryTimeInMillis) - (new Date()).getTime()) < 5000;
+    const expirationDate = this.getTokenExpirationDate();
+    console.log("expirationDate:"+expirationDate)
+    if (!expirationDate) return true; // Ha nincs token vagy nincs exp mező, akkor tekintsük lejártnak
+
+    return expirationDate.getTime() < Date.now(); // Ha a dátum a jelenlegi idő előtt van, akkor lejárt
   }
+
 
   saveJwtToken(token: string): void {
+    sessionStorage.removeItem('jwt_token');
     sessionStorage.setItem('jwt_token', token);
   }
   saveJwtRefresh(token: string): void {
+    sessionStorage.removeItem('jwt_refresh');
     sessionStorage.setItem('jwt_refresh', token);
   }
   getJwtToken(): string | null {
     if(this.isTokenExpired()){
-      this.login();
+      console.log("ha lejart:"+this.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
+      this.login().subscribe({
+        next: (response) => {
+          console.log('Sikeres bejelentkezés lefutott');
+        },
+        error: (error) => {
+          console.error('hiba:', error);
+        }
+      });
+      console.log("login utan:"+this.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
       return sessionStorage.getItem('jwt_token');
     }
     else{
@@ -112,6 +83,21 @@ export class AuthService {
 
   getJwtDecode(token: string): any {
       return jwtDecode(token);
+  }
+
+  getTokenExpirationDate(): Date | null {
+    const token =  sessionStorage.getItem('jwt_token');
+    if (!token) return null;
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      if (!decodedToken.exp) return null;
+
+      return new Date(decodedToken.exp * 1000);
+    } catch (error) {
+      console.error('Hibás token:', error);
+      return null;
+    }
   }
 }
 
