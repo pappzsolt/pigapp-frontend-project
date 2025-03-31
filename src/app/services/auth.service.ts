@@ -28,8 +28,8 @@ export class AuthService {
               next: (response) => {
                 observer.next(response);
                 if (response && response.access  ) {
-                  sessionStorage.setItem('jwt_token', response.access);
-                  sessionStorage.setItem('jwt_refresh', response.refresh);
+                  this.saveJwtToken(response.access);
+                  this.saveJwtRefresh(response.refresh);
                 }
               },
               error: (err) => {
@@ -44,7 +44,7 @@ export class AuthService {
     )};
 
   decodeToken() {
-    const token = this.getToken()
+    const token = this.getJwtToken()
       if (token) {
           this.decodedTokenObj = this.getJwtDecode(token);
           return this.decodedTokenObj;
@@ -90,17 +90,17 @@ export class AuthService {
     return ((1000 * expiryTimeInMillis) - (new Date()).getTime()) < 5000;
   }
 
-
-
-  saveToken(token: string): void {
+  saveJwtToken(token: string): void {
     sessionStorage.setItem('jwt_token', token);
   }
-
-  getToken(): string | null {
+  saveJwtRefresh(token: string): void {
+    sessionStorage.setItem('jwt_refresh', token);
+  }
+  getJwtToken(): string | null {
     return sessionStorage.getItem('jwt_token');
   }
 
-  getRefresh(): string | null {
+  getJwtRefresh(): string | null {
     return sessionStorage.getItem('jwt_refresh');
   }
 
