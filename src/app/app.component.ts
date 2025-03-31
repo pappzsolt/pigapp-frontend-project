@@ -30,7 +30,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
     if(this.authService.isTokenExpired()){
-      console.log("ha lejart:"+this.authService.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
+      console.log("ha lejart login elott:"+this.authService.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
       this.authService.login().subscribe({
         next: (response) => {
           this.authService.saveJwtToken(response.access);

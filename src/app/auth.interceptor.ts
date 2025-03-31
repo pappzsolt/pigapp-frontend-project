@@ -7,11 +7,12 @@ import { AuthService } from './services/auth.service';  // Az AuthService-t az i
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
-
+    
     intercept(req: HttpRequest<any>,
           next: HttpHandler): Observable<HttpEvent<any>> {
           const token = this.authService.getJwtToken();
           // const refresh = this.authService.getJwtRefresh();
+          //401 es hibat kezelni !!!!!!!!!!!!!!!!!!!hogy akkor ujra probalkozzon a token -el
           if (token) {
               const cloned = req.clone({
                   headers: req.headers.set("Authorization",
