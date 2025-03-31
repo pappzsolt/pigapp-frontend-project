@@ -43,7 +43,6 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(){
-
     if(this.authService.isTokenExpired()){
       console.log("ha lejart:"+this.authService.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
       this.authService.login().subscribe({
@@ -55,10 +54,7 @@ export class AppComponent implements OnInit{
         }
       });
       console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
-
     }
-
-
     this.invoices$ = this.invoicesService.getInvoiceList();
   }
 
