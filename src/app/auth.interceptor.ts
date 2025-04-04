@@ -34,7 +34,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token = this.authService.getJwtToken();
+    console.log(this.authService.isTokenExpired());
     if (token && token) {
+      this.authService.getTokenExpirationDate();
       request = request.clone({
         setHeaders: {
           'Content-Type': 'application/json',
@@ -47,7 +49,6 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((err: any) => {
         if (err instanceof HttpErrorResponse && err.status === 401) {
           console.log("401-es hiba - új token kérése");
-
           return this.authService.login().pipe(
             switchMap(response => {
               // Tokenek mentése
