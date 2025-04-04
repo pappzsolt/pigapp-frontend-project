@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpInterceptor, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
 import { AuthService } from './services/auth.service';  // Az AuthService-t az implementációdtól függően kell implementálni
 
 @Injectable()
-/* export class AuthInterceptor implements HttpInterceptor {
+ /* export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
 
@@ -24,48 +24,54 @@ import { AuthService } from './services/auth.service';  // Az AuthService-t az i
               return next.handle(req);
           }
         }
-} */
-        @Injectable()
-        export class AuthInterceptor implements HttpInterceptor {
+}
+ */
 
-          constructor(private authService: AuthService) {}
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
 
-          intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-            const token = this.authService.getJwtToken();
-            let authReq = req;
-            if (token) {
-              console.log("eredeti111 token::"+token)
-              authReq = this.addToken(req, token);
-            }
-            return next.handle(authReq).pipe(
-              catchError((error: HttpErrorResponse) => {
-                if (error.status === 401) {
-                  //
-                      this.authService.login().subscribe({
-                          next: (response) => {
-                            this.authService.saveJwtToken(response.access);
-                            this.authService.saveJwtRefresh(response.refresh);
-                          },
-                          error: (error) => {
-                            console.error('Bejelentkezési hiba:', error);
-                          }
-                        });
+  constructor(private authService: AuthService) {}
 
-                      //
-                      const token = this.authService.getJwtToken();
-                      if ( token) {
-                        console.error('uj token:',token );
-                        return next.handle(this.addToken(req, token));
-                    }
-                }
-                    return throwError(() => error);
-                  })
-                );
-          }
-
-          private addToken(req: HttpRequest<any>, token: string) {
-            return req.clone({
-              headers: req.headers.set('Authorization', `Bearer ${token}`)
-            });
-          }
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let token = this.authService.getJwtToken();
+    if (token && token) {
+      request = request.clone({
+        setHeaders: {
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${token}`
         }
+      });
+    }
+
+    return next.handle(request).pipe( tap(() => {},
+
+      (err: any) => {
+      if (err instanceof HttpErrorResponse) {
+        let token = this.authService.getJwtToken();
+        if (err.status !== 401) {
+          console.log("401----")
+            return;
+
+        }else{
+          this.authService.login().subscribe(response => {
+            this.authService.saveJwtRefresh(response.refresh);
+            this.authService.saveJwtToken(response.access);
+            console.log('401 -ben login:', response);
+            token = this.authService.getJwtToken();
+            console.log("401 -ben get token:"+token)
+            request = request.clone({
+              setHeaders: {
+                'Content-Type': 'application/json',
+                Authorization: `JWT ${token}`
+              }
+            });
+          }, error => {
+            console.error('Hiba történt:', error);
+            });
+
+
+        }
+      }
+    }));
+  }
+}
