@@ -24,43 +24,6 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl, this.jsonData)
   }
 
-  login___2(): Observable<any> {
-    return this.http.post<any>(this.apiUrl, this.jsonData).pipe(
-      tap((response) => {
-        if (response && response.access) {
-          // this.saveJwtToken(response.access);
-          // this.saveJwtRefresh(response.refresh);
-        }
-      }),
-      catchError((error) => {
-        console.error('Hiba:', error);
-        return throwError(() => error);
-      })
-    );
-  }
-
-  login____1(): Observable<any[]> {
-    return new Observable<any[]>((observer) => {
-      this.http.post<any>(this.apiUrl, this.jsonData)
-            .subscribe({
-              next: (response) => {
-                observer.next(response);
-                if (response && response.access  ) {
-                  this.saveJwtToken(response.access);
-                  this.saveJwtRefresh(response.refresh);
-                }
-              },
-              error: (err) => {
-                console.error('Hiba:', err);
-                observer.error(err);
-              },
-              complete: () => {
-                observer.complete();
-              }
-            });
-        },
-    )};
-
   isTokenExpired(): boolean {
     const expirationDate = this.getTokenExpirationDate();
     console.log("expirationDate:"+expirationDate)

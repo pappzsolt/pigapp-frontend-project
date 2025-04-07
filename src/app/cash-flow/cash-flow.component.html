@@ -1,1 +1,14 @@
-<p>cash-flow works!</p>
+<div [appHighlighted]="false" class="card" style="width: 18rem;">
+  <div class="card-header">
+    <ng-content select="h3"></ng-content><h3>{{ cashflow.cash_flow_name }}</h3>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item">{{ cashflow.cashflowgroup	 }}</li>
+    <li class="list-group-item">{{ cashflow.user}}</li>
+    <li class="list-group-item">{{ cashflow.invoice	 }}</li>
+    <li class="list-group-item">{{ cashflow.cash_flow_note }}</li>
+    <li class="list-group-item">{{ cashflow.amount}} Ft</li>
+    <li class="list-group-item">{{ cashflow.cash_flow_date }}</li>
+  </ul>
+</div>

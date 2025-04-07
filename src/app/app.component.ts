@@ -7,10 +7,13 @@ import { from, Observable, of } from 'rxjs';
 import { Invoice } from '../model/invoice';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
+import { CashFlowServiceService } from './services/cash-flow.service.service';
+import { Cashflow } from '../model/cashflow';
+import { CashFlowComponent } from "./cash-flow/cash-flow.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, InvoiceComponent,CommonModule],
+  imports: [RouterOutlet, InvoiceComponent,CashFlowComponent,CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -23,31 +26,16 @@ export class AppComponent implements OnInit{
   private authService = inject(AuthService);
 
   invoices$: Observable<Invoice[]> = of([]);
+  cashflows$: Observable<Cashflow[]> = of([]);
 
   private invoicesService = inject(InvoicesService);
+  private cashFlowService = inject(CashFlowServiceService);
 
   constructor(){}
 
   ngOnInit(){
-  /*   if(this.authService.isTokenExpired()){
-      console.log("ha lejart login elott:"+this.authService.isTokenExpired()+" regi token:"+sessionStorage.getItem('jwt_token'))
-      this.authService.login().subscribe({
-        next: (response) => {
-          this.authService.saveJwtToken(response.access);
-          this.authService.saveJwtRefresh(response.refresh);
-          console.log('saveJwtToken:', response);
-          console.log("saveJwtToken utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
-        },
-        error: (error) => {
-          console.error('Bejelentkezési hiba:', error);
-        }
-      });
-      // console.log("login utan:"+this.authService.isTokenExpired()+" uj_token:"+sessionStorage.getItem('jwt_token'))
-    }else{
-      console.log("minden ok")
-    } */
-
     this.invoices$ = this.invoicesService.getInvoiceList();
+    this.cashflows$ = this.cashFlowService.getCashFlowList();
   }
 
   onInvoiceSelected(invoice:Invoice){
