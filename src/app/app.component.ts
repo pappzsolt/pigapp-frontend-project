@@ -10,10 +10,12 @@ import { AuthService } from './services/auth.service';
 import { CashFlowServiceService } from './services/cash-flow.service.service';
 import { Cashflow } from '../model/cashflow';
 import { CashFlowComponent } from "./cash-flow/cash-flow.component";
+import { GroupByThreePipe } from './pipe/group-by-three.pipe';
+import { GroupByPipe } from './pipe/group-by.pipe';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, InvoiceComponent,CashFlowComponent,CommonModule],
+  imports: [RouterOutlet, InvoiceComponent,CashFlowComponent,CommonModule,GroupByThreePipe,GroupByPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -27,6 +29,8 @@ export class AppComponent implements OnInit{
 
   invoices$: Observable<Invoice[]> = of([]);
   cashflows$: Observable<Cashflow[]> = of([]);
+  // groupedInvoices: any[][] = [];
+
 
   private invoicesService = inject(InvoicesService);
   private cashFlowService = inject(CashFlowServiceService);
@@ -36,6 +40,13 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     this.invoices$ = this.invoicesService.getInvoiceList();
     this.cashflows$ = this.cashFlowService.getCashFlowList();
+
+    /* this.invoices$.subscribe(invoices => {
+      this.groupedInvoices = [];
+      for (let i = 0; i < invoices.length; i += 3) {
+        this.groupedInvoices.push(invoices.slice(i, i + 3));
+      }
+    }); */
   }
 
   onInvoiceSelected(invoice:Invoice){

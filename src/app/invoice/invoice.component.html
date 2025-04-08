@@ -1,4 +1,4 @@
-<div [appHighlighted]="false" class="card" style="width: 18rem;">
+<!-- <div [appHighlighted]="false" class="card" style="width: 18rem;">
   <div class="card-header">
     <ng-content select="h3"></ng-content><h3>{{ invoiceIndex + '.' +invoice.invoice_name }}</h3>
   </div>
@@ -13,5 +13,19 @@
   </ul>
 
   <button type="button" class="btn btn-primary">View Invoice with cost</button>
-</div>
+</div> -->
+
+    <div class="card-header">
+      <ng-content select="h3"></ng-content><h3>{{ invoiceIndex + '.' + invoice.invoice_name }}</h3>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item">{{ invoice.id }}</li>
+      <li class="list-group-item">{{ invoice.user }}</li>
+      <li class="list-group-item">{{ invoice.invoice_note }}</li>
+      <li class="list-group-item">{{ invoice.amount }} Ft</li>
+      <li class="list-group-item">{{ invoice.enable_invoice }}</li>
+      <li class="list-group-item">{{ invoice.create_invoice_date }}</li>
+      <li class="list-group-item"><button type="button" class="btn btn-primary">View Invoice with cost</button></li>
+    </ul>
+
 
