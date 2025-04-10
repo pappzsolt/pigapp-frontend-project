@@ -24,6 +24,9 @@ export class InvoiceComponent implements OnInit{
   @Output()
   invoiceSelected = new EventEmitter<Invoice>();
 
+  @Output('invoiceChanged')
+  invoiceEmitter = new EventEmitter<Invoice>();
+
   constructor(){}
 
 
@@ -36,4 +39,7 @@ export class InvoiceComponent implements OnInit{
     this.invoiceSelected.emit(this.invoice);
   }
 
+  onSaveClicked(invoice_note:string){
+    this.invoiceEmitter.emit({...this.invoice,invoice_note});
+  }
 }

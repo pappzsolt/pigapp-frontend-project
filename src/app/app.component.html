@@ -73,6 +73,7 @@
     <div class="col-md-4" *ngFor="let invoice of group; index as i">
       <app-invoice
         (invoiceSelected)="onInvoiceSelected($event)"
+        (invoiceChanged)="onInvoiceSave($event)"
         [invoice]="invoice"
         [invoiceIndex]="i + 1">
         <h3>számla</h3>

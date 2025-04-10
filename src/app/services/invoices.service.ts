@@ -14,7 +14,7 @@ export class InvoicesService {
 
   private invoiceUrl = "http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/";
 
-
+  private invoiceSaveUrl = "http://192.168.1.37:8000/api/pigapp_app/only_invoice_detail/";
 
   constructor() {}
 
@@ -37,5 +37,9 @@ export class InvoicesService {
             });
         },
     )};
+
+  saveInvoice(invoice:Invoice){
+    return this.http.put(this.invoiceSaveUrl+invoice.id,invoice);
   }
+}
 

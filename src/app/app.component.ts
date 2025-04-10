@@ -53,6 +53,11 @@ export class AppComponent implements OnInit{
     console.log("App component click",invoice);
   }
 
+  onInvoiceSave(invoice:Invoice){
+    this.invoicesService.saveInvoice(invoice).subscribe(
+      () => console.log("invoice save")
+    );
+  }
 }
 
 
