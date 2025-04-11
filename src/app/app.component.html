@@ -42,31 +42,13 @@
   </div>
 </nav>
 
-<!-- <div  class="container-lg">
-    <app-invoice   *ngFor="let invoice of invoices$ | async;index as i" (invoiceSelected)="onInvoiceSelected($event)"  [invoice]="invoice" [invoiceIndex]="i + 1">
-      <h3>számla</h3>
-    </app-invoice>
-</div> -->
 
-<!--
-<div class="container">
-  <app-invoice   *ngFor="let invoice of invoices$ | async;index as i" (invoiceSelected)="onInvoiceSelected($event)"  [invoice]="invoice" [invoiceIndex]="i + 1">
-    <h3>számla</h3>
-  </app-invoice>
-</div> -->
-
-<!-- <div class="container">
-  <div class="row" *ngFor="let group of groupedInvoices">
-    <div class="col-md-4" *ngFor="let invoice of group; index as i">
-      <app-invoice
-        (invoiceSelected)="onInvoiceSelected($event)"
-        [invoice]="invoice"
-        [invoiceIndex]="i + 1">
-        <h3>számla</h3>
-      </app-invoice>
-    </div>
-  </div>
-</div> -->
+<div  class="container-md">
+  <h1>cash</h1>
+  <app-cash-flow   *ngFor="let cashflow of cashflows$ | async;index as i;"  [cashflow]="cashflow">
+    <h3>cash</h3>
+  </app-cash-flow>
+</div>
 
 <div class="container mx-auto p-4">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" *ngFor="let group of invoices$ | async | groupBy: 3">
@@ -82,10 +64,5 @@
   </div>
 </div>
 
-<div  class="container-md">
-  <h1>cash</h1>
-  <app-cash-flow   *ngFor="let cashflow of cashflows$ | async;index as i;"  [cashflow]="cashflow">
-    <h3>cash</h3>
-  </app-cash-flow>
-</div>
+
 <router-outlet />
