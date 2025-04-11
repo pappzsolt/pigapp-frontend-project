@@ -1,33 +1,3 @@
-<!-- <div [appHighlighted]="false" class="card" style="width: 18rem;">
-  <div class="card-header">
-    <ng-content select="h3"></ng-content><h3>{{ invoiceIndex + '.' +invoice.invoice_name }}</h3>
-  </div>
-
-  <ul class="list-group">
-    <li class="list-group-item">{{ invoice.id }}</li>
-    <li class="list-group-item">{{ invoice.user }}</li>
-    <li class="list-group-item">{{ invoice.invoice_note }}</li>
-    <li class="list-group-item">{{ invoice.amount }} Ft</li>
-    <li class="list-group-item">{{ invoice.enable_invoice }}</li>
-    <li class="list-group-item">{{ invoice.create_invoice_date }}</li>
-  </ul>
-
-  <button type="button" class="btn btn-primary">View Invoice with cost</button>
-</div> -->
-
-<!--     <div class="card-header">
-      <ng-content select="h3"></ng-content><h3>{{ invoiceIndex + '.' + invoice.invoice_name }}</h3>
-    </div>
-    <ul class="list-group">
-      <li class="list-group-item">{{ invoice.id }}</li>
-      <li class="list-group-item">{{ invoice.user }}</li>
-      <li class="list-group-item"><input #invoiceNote [value]="invoice.invoice_note"></li>
-      <li class="list-group-item">{{ invoice.amount }} Ft</li>
-      <li class="list-group-item">{{ invoice.enable_invoice }}</li>
-      <li class="list-group-item">{{ invoice.create_invoice_date }}</li>
-      <li class="list-group-item"><button (click)="onSaveClicked(invoiceNote.value)" button class="btn btn-primary">Save invoice</button></li>
-    </ul> -->
-
     <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
       <div class="card-header">
         <ng-content select="h3"></ng-content><h3>{{ invoiceIndex + '.' + invoice.invoice_name }}</h3>
