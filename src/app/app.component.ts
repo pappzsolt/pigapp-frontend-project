@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, inject, InjectionToken, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { InvoiceComponent } from "./invoice/invoice.component";
 import { CommonModule } from '@angular/common';
@@ -12,12 +12,26 @@ import { Cashflow } from '../model/cashflow';
 import { CashFlowComponent } from "./cash-flow/cash-flow.component";
 import { GroupByThreePipe } from './pipe/group-by-three.pipe';
 import { GroupByPipe } from './pipe/group-by.pipe';
+
+
+function invoicesServiceProvider(): InvoicesService{
+  return new InvoicesService();
+}
+export const INVOICES_SERVICE = new InjectionToken<InvoicesService>('INVOICES_SERVICE')
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, InvoiceComponent,CashFlowComponent,CommonModule,GroupByThreePipe,GroupByPipe],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [
+    {
+      provide: INVOICES_SERVICE,
+      useFactory: invoicesServiceProvider,
+      deps: []
+    }
+  ]
 })
 
 
@@ -32,10 +46,12 @@ export class AppComponent implements OnInit{
   // groupedInvoices: any[][] = [];
 
 
-  private invoicesService = inject(InvoicesService);
+  // private invoicesService = inject(InvoicesService);
   private cashFlowService = inject(CashFlowServiceService);
 
-  constructor(){}
+  constructor(@Inject(INVOICES_SERVICE) private invoicesService: InvoicesService){
+
+  }
 
   ngOnInit(){
     this.invoices$ = this.invoicesService.getInvoiceList();
