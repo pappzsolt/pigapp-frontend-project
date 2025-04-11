@@ -12,12 +12,10 @@ import { Cashflow } from '../model/cashflow';
 import { CashFlowComponent } from "./cash-flow/cash-flow.component";
 import { GroupByThreePipe } from './pipe/group-by-three.pipe';
 import { GroupByPipe } from './pipe/group-by.pipe';
+import { APP_CONFIG, AppConfig, CONFIG_TOKEN } from './config';
 
 
-function invoicesServiceProvider(): InvoicesService{
-  return new InvoicesService();
-}
-export const INVOICES_SERVICE = new InjectionToken<InvoicesService>('INVOICES_SERVICE')
+
 
 @Component({
   selector: 'app-root',
@@ -25,13 +23,12 @@ export const INVOICES_SERVICE = new InjectionToken<InvoicesService>('INVOICES_SE
   imports: [RouterOutlet, InvoiceComponent,CashFlowComponent,CommonModule,GroupByThreePipe,GroupByPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [
+/*   providers: [
     {
-      provide: INVOICES_SERVICE,
-      useFactory: invoicesServiceProvider,
-      deps: []
+      provide: CONFIG_TOKEN,useFactory: () => APP_CONFIG,
+
     }
-  ]
+  ] */
 })
 
 
@@ -49,8 +46,8 @@ export class AppComponent implements OnInit{
   // private invoicesService = inject(InvoicesService);
   private cashFlowService = inject(CashFlowServiceService);
 
-  constructor(@Inject(INVOICES_SERVICE) private invoicesService: InvoicesService){
-
+  constructor(private invoicesService: InvoicesService, @Inject(CONFIG_TOKEN) private config: AppConfig){
+    console.log(config)
   }
 
   ngOnInit(){
