@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-cash-flow-groups',
+  standalone: true,
   imports: [],
   templateUrl: './cash-flow-groups.component.html',
   styleUrl: './cash-flow-groups.component.css'
