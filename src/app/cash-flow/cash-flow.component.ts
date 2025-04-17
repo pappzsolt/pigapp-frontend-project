@@ -1,22 +1,33 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, inject } from '@angular/core';
 import { Cashflow } from '../../model/cashflow';
 import { HighlightedDirective } from "./../directives/highlighted.directive";
+import { Observable, of } from 'rxjs';
+import { CashFlowServiceService } from '../services/cash-flow.service.service';
 @Component({
   selector: 'app-cash-flow',
+  standalone: true,
   imports: [HighlightedDirective],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.css'
 })
 export class CashFlowComponent implements OnInit{
-  @Input({
+
+
+/*   @Input({
     required: true
   })
-  cashflow!: Cashflow;
-  
+  cashfLow!: Cashflow; */
+
+  @Input()
+  invoiceIndex!: number;
+
+  cashflows$: Observable<Cashflow[]> = of([]);
+  private cashFlowService = inject(CashFlowServiceService);
+
   constructor(){}
 
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.cashflows$ = this.cashFlowService.getCashFlowList();
   }
 }

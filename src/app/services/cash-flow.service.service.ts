@@ -21,7 +21,7 @@ export class CashFlowServiceService {
   private formattedDate = `${this.year}-${this.month}-${this.day}`;
 
 
-  private cashFlowUrl = "http://192.168.1.37:8000/api/pigapp_app/list_cash_flow_filter_date/"+this.formattedDate;
+  private cashFlowUrl = "http://192.168.1.37:8000/api/pigapp_app/list_cash_flow_filter_date/"+"2025-03-01";
 
   constructor() {
     console.log(this.formattedDate); // Példa: 2025-04-07
@@ -29,6 +29,7 @@ export class CashFlowServiceService {
 
   getCashFlowList(): Observable<Cashflow[]> {
     return new Observable<Cashflow[]>((observer) => {
+          console.log(this.formattedDate);
           this.http.get<Cashflow[]>(this.cashFlowUrl)
             .subscribe({
               next: (response) => {

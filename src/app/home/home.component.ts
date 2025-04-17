@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(){
     this.invoices$ = this.invoicesService.getInvoiceList();
-    this.cashflows$ = this.cashFlowService.getCashFlowList();
+
 
     /* this.invoices$.subscribe(invoices => {
       this.groupedInvoices = [];
