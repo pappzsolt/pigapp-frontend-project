@@ -3,10 +3,12 @@ import { Cashflow } from '../../model/cashflow';
 import { HighlightedDirective } from "./../directives/highlighted.directive";
 import { Observable, of } from 'rxjs';
 import { CashFlowServiceService } from '../services/cash-flow.service.service';
+import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-cash-flow',
   standalone: true,
-  imports: [HighlightedDirective],
+  imports: [CommonModule],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.css'
 })
@@ -19,7 +21,7 @@ export class CashFlowComponent implements OnInit{
   cashfLow!: Cashflow; */
 
   @Input()
-  invoiceIndex!: number;
+  cashflowIndex!: number;
 
   cashflows$: Observable<Cashflow[]> = of([]);
   private cashFlowService = inject(CashFlowServiceService);

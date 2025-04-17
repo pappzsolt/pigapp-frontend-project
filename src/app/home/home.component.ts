@@ -8,9 +8,6 @@ import { RouterOutlet } from '@angular/router';
 import { from, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
-import { CashFlowServiceService } from '../services/cash-flow.service.service';
-import { Cashflow } from './../../model/cashflow';
-import { CashFlowComponent } from "../cash-flow/cash-flow.component";
 import { GroupByThreePipe } from '../pipe/group-by-three.pipe';
 import { GroupByPipe } from '../pipe/group-by.pipe';
 import { APP_CONFIG, AppConfig, CONFIG_TOKEN } from '../config';
@@ -19,7 +16,7 @@ import { InvoicesService } from '../services/invoices.service';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterOutlet, InvoiceComponent,CashFlowComponent,CommonModule,GroupByThreePipe,GroupByPipe],
+  imports: [RouterOutlet, InvoiceComponent,CommonModule,GroupByThreePipe,GroupByPipe],
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -30,8 +27,7 @@ export class HomeComponent implements OnInit{
   private authService = inject(AuthService);
 
   invoices$: Observable<Invoice[]> = of([]);
-  cashflows$: Observable<Cashflow[]> = of([]);
-  private cashFlowService = inject(CashFlowServiceService);
+
 
   constructor(private invoicesService: InvoicesService, @Inject(CONFIG_TOKEN) private config: AppConfig){
     console.log(config)
