@@ -8,3 +8,7 @@ export interface InvoiceSumCost {
   get_last_day : string,
   invoice: number
 }
+export interface InvoiceIdWithName {
+  id: number,
+  invoice_name: string
+}
