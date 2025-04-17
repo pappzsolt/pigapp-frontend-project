@@ -52,13 +52,13 @@ Aktuális havi fizetés
       </thead>
       <tbody>
       <!--  -->
-        <tr *ngFor="let cashflow of cashflowsActual$ | async">
-          <td class="px-4 py-2 border-b">{{ cashflow.cashflowgroup }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.user }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.invoice }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.cash_flow_note }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.amount }} Ft</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.cash_flow_date }}</td>
+        <tr *ngFor="let cashflow_last of cashflowsActual$ | async">
+          <td class="px-4 py-2 border-b">{{ cashflow_last.cashflowgroup }}</td>
+          <td class="px-4 py-2 border-b">{{ cashflow_last.user }}</td>
+          <td class="px-4 py-2 border-b">{{ cashflow_last.invoice }}</td>
+          <td class="px-4 py-2 border-b">{{ cashflow_last.cash_flow_note }}</td>
+          <td class="px-4 py-2 border-b">{{ cashflow_last.amount }} Ft</td>
+          <td class="px-4 py-2 border-b">{{ cashflow_last.cash_flow_date }}</td>
         </tr>
       </tbody>
     </table>
