@@ -49,7 +49,7 @@ export class CashFlowServiceService {
             });
         },
     )};
-    getCashFlowListActual(): Observable<Cashflow[]> {
+ /*    getCashFlowListActual(): Observable<Cashflow[]> {
       return new Observable<Cashflow[]>((observer) => {
             this.http.get<Cashflow[]>(this.cashFlowActual)
               .subscribe({
@@ -65,6 +65,10 @@ export class CashFlowServiceService {
                 }
               });
           },
-      )};
+      )}; */
+      getCashFlowLast(): Observable<Cashflow> {
+        return this.http.get<Cashflow>(this.cashFlowActual);
+      }
+
 
 }

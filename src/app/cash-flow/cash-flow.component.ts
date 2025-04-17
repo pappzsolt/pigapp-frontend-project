@@ -25,7 +25,7 @@ export class CashFlowComponent implements OnInit{
 
   cashflows$: Observable<Cashflow[]> = of([]);
 
-  cashflowsActual$: Observable<Cashflow[]> = of([]);
+  cashflowActual$: Observable<Cashflow> = of();
 
   private cashFlowService = inject(CashFlowServiceService);
 
@@ -34,6 +34,6 @@ export class CashFlowComponent implements OnInit{
 
   ngOnInit(): void {
     this.cashflows$ = this.cashFlowService.getCashFlowListAll();
-    this.cashflowsActual$ = this.cashFlowService.getCashFlowListActual();
+    this.cashflowActual$ = this.cashFlowService.getCashFlowLast();
   }
 }

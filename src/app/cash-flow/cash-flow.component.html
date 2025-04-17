@@ -34,12 +34,12 @@
   </div>
 </div>  -->
 
-Aktuális havi fizetés
 
-<div  class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4 rounded">
-  <p class="font-semibold"></p>
+
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4 rounded">
+  <p class="font-semibold">Aktuális havi fizetés</p>
   <div class="container mx-auto p-4">
-    <table class="min-w-full table-auto">
+    <table class="min-w-full table-auto" *ngIf="cashflowActual$ | async as cashflow_last">
       <thead>
         <tr>
           <th class="px-4 py-2 text-left border-b">Típus</th>
@@ -51,8 +51,7 @@ Aktuális havi fizetés
         </tr>
       </thead>
       <tbody>
-      <!--  -->
-        <tr *ngFor="let cashflow_last of cashflowsActual$ | async">
+        <tr>
           <td class="px-4 py-2 border-b">{{ cashflow_last.cashflowgroup }}</td>
           <td class="px-4 py-2 border-b">{{ cashflow_last.user }}</td>
           <td class="px-4 py-2 border-b">{{ cashflow_last.invoice }}</td>
@@ -66,9 +65,10 @@ Aktuális havi fizetés
 </div>
 
 
-Utolsó 10 hónap
+
+
 <div  class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4 rounded">
-  <p class="font-semibold"></p>
+  <p class="font-semibold">Utolsó 10 hónap</p>
   <div class="container mx-auto p-4">
     <table class="min-w-full table-auto">
       <thead>
