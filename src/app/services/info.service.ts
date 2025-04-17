@@ -12,15 +12,17 @@ import { InvoiceIdWithName, InvoiceSumCost } from '../../model/invoice_sum_cost.
 export class InfoService {
 
   private http = inject(HttpClient);
-  // invoiceIdWithName$: Observable<InvoiceIdWithName[]> = of([]);
+
 
   /* itt majd le kell kérni az invoiceid at es mondegyikre meghívni az url -t az eredmény egy tömbe jönne */
 
   private invoiceSumCostListAllUrl = "http://192.168.1.37:8000/api/pigapp_app/all_invoice_sum_cost_list/all";
   private invoiceSumCostInvoicePaidTrueUrl = "http://192.168.1.37:8000/api/pigapp_app/invoice_sum_cost_list/2/true";
   private invoiceSumCostInvoicePaidFalseUrl = "http://192.168.1.37:8000/api/pigapp_app/invoice_sum_cost_list/2/false";
-
+  invoiceIdWithName: Observable<InvoiceIdWithName[]> = of([]);
   private invoiceOnlyIdsUrl = "http://192.168.1.37:8000/api/pigapp_app/invoice_only_ids/";
+  private invoiceSumCost: InvoiceSumCost[] | undefined;
+
 
   constructor() { }
 
@@ -48,4 +50,18 @@ export class InfoService {
       map(data => data[0]) // csak az első elem
     );
   }
+  getSumInvoiceWithCostPaidNotPaid(): void {
+    console.error('hallo');
+    this.getInvoiceIdWithNameAll().subscribe({
+      next: (invoiceIdWithName) => {
+        invoiceIdWithName.forEach((invoice, index) => {
+          console.log(`Index: ${index}, ID: ${invoice.id}, Invoice Name: ${invoice.invoice_name}`);
+        });
+      },
+      error: (err) => {
+        console.error('Hiba történt:', err);
+      }
+    });
+  }
+
 }

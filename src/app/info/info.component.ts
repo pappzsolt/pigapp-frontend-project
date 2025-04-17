@@ -16,13 +16,17 @@ export class InfoComponent implements OnInit{
   invoiceIdWithName$: Observable<InvoiceIdWithName[]> = of([]);
   invoiceSumCost$: Observable<InvoiceSumCost> | undefined;
 
-  constructor(private infoService: InfoService){}
+  constructor(private infoService: InfoService){
+    console.error('hallo');
+  }
 
   ngOnInit(): void {
 
     this.invoiceSumCost$ = this.infoService.getFirstInvoiceSumCostAll();
 
-    this.invoiceIdWithName$ = this.infoService.getInvoiceIdWithNameAll();
+    // this.invoiceIdWithName$ = this.infoService.getInvoiceIdWithNameAll();
+    console.error('hallo');
+    this.infoService.getSumInvoiceWithCostPaidNotPaid();
 
   }
 }
