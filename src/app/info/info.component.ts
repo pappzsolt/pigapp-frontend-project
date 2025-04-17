@@ -23,10 +23,5 @@ export class InfoComponent implements OnInit{
   ngOnInit(): void {
 
     this.invoiceSumCost$ = this.infoService.getFirstInvoiceSumCostAll();
-
-    // this.invoiceIdWithName$ = this.infoService.getInvoiceIdWithNameAll();
-    console.error('hallo');
-    this.infoService.getSumInvoiceWithCostPaidNotPaid();
-
   }
 }

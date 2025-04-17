@@ -26,42 +26,25 @@ export class InfoService {
 
   constructor() { }
 
-
   getInvoiceIdWithNameAll(): Observable<InvoiceIdWithName[]> {
-    return new Observable<InvoiceIdWithName[]>((observer) => {
-          this.http.get<InvoiceIdWithName[]>(this.invoiceOnlyIdsUrl)
-            .subscribe({
-              next: (response) => {
-                observer.next(response);
-              },
-              error: (err) => {
-                console.error('Hiba:', err);
-                observer.error(err);
-              },
-              complete: () => {
-                observer.complete();
-              }
-            });
-        },
-    )};
-
+    return this.http.get<InvoiceIdWithName[]>(this.invoiceOnlyIdsUrl);
+  }
   getFirstInvoiceSumCostAll(): Observable<InvoiceSumCost> {
     return this.http.get<InvoiceSumCost[]>(this.invoiceSumCostListAllUrl).pipe(
       map(data => data[0]) // csak az első elem
     );
   }
-  getSumInvoiceWithCostPaidNotPaid(): void {
-    console.error('hallo');
-    this.getInvoiceIdWithNameAll().subscribe({
-      next: (invoiceIdWithName) => {
+
+  getSumInvoiceWithCostPaidNotPaid(): Observable<InvoiceIdWithName[]> {
+    return this.getInvoiceIdWithNameAll().pipe(
+      map((invoiceIdWithName) => {
+        // Adatok feldolgozása, itt egyesítheted őket
         invoiceIdWithName.forEach((invoice, index) => {
           console.log(`Index: ${index}, ID: ${invoice.id}, Invoice Name: ${invoice.invoice_name}`);
         });
-      },
-      error: (err) => {
-        console.error('Hiba történt:', err);
-      }
-    });
+        return invoiceIdWithName;  // Az adatok visszaadása
+      })
+    );
   }
 
 }
