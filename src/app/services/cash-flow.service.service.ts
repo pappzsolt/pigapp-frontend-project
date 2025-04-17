@@ -20,16 +20,21 @@ export class CashFlowServiceService {
 
   private formattedDate = `${this.year}-${this.month}-${this.day}`;
 
+  private originalDate = `${this.year}-${this.month}-${this.day}`;
 
-  private cashFlowUrl ="http://192.168.1.37:8000/api/pigapp_app/list_cash_flow/"
-  // "http://192.168.1.37:8000/api/pigapp_app/list_cash_flow_filter_date/"+"2025-03-01";
+
+
+  private cashFlowUrlAll = "http://192.168.1.37:8000/api/pigapp_app/list_cash_flow/";
+
+  // private cashFlowActual = "http://192.168.1.37:8000/api/pigapp_app/list_cash_flow_filter_date/"+this.formattedDate;
+  private cashFlowActual = "http://192.168.1.37:8000/api/pigapp_app/list_cash_flow_last/";
 
   constructor() {
   }
 
-  getCashFlowList(): Observable<Cashflow[]> {
+  getCashFlowListAll(): Observable<Cashflow[]> {
     return new Observable<Cashflow[]>((observer) => {
-          this.http.get<Cashflow[]>(this.cashFlowUrl)
+          this.http.get<Cashflow[]>(this.cashFlowUrlAll)
             .subscribe({
               next: (response) => {
                 observer.next(response);  // Az adatok továbbítása a feliratkozott komponensnek
@@ -44,5 +49,22 @@ export class CashFlowServiceService {
             });
         },
     )};
+    getCashFlowListActual(): Observable<Cashflow[]> {
+      return new Observable<Cashflow[]>((observer) => {
+            this.http.get<Cashflow[]>(this.cashFlowActual)
+              .subscribe({
+                next: (response) => {
+                  observer.next(response);  // Az adatok továbbítása a feliratkozott komponensnek
+                },
+                error: (err) => {
+                  console.error('Hiba:', err);
+                  observer.error(err);  // Hiba esetén kiadjuk az error-t
+                },
+                complete: () => {
+                  observer.complete();  // Az Observable befejeződött
+                }
+              });
+          },
+      )};
 
 }

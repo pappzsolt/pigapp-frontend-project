@@ -24,12 +24,16 @@ export class CashFlowComponent implements OnInit{
   cashflowIndex!: number;
 
   cashflows$: Observable<Cashflow[]> = of([]);
+
+  cashflowsActual$: Observable<Cashflow[]> = of([]);
+
   private cashFlowService = inject(CashFlowServiceService);
 
   constructor(){}
 
 
   ngOnInit(): void {
-    this.cashflows$ = this.cashFlowService.getCashFlowList();
+    this.cashflows$ = this.cashFlowService.getCashFlowListAll();
+    this.cashflowsActual$ = this.cashFlowService.getCashFlowListActual();
   }
 }
