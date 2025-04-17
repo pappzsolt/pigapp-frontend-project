@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { CostComponent } from './cost/cost.component';
 import { CostRepeat } from '../model/costrepeat';
 import { CostRepeatComponent } from './cost-repeat/cost-repeat.component';
+import { InfoComponent } from './info/info.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: 'invoice', component: InvoiceComponent },
   { path: 'cashflow', component: CashFlowComponent },
   { path: 'cost', component: CostComponent },
+  { path: 'info', component: InfoComponent },
   { path: 'costrepeat', component: CostRepeatComponent}
 ];

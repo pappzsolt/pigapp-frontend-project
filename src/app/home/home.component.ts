@@ -23,9 +23,6 @@ import { InvoicesService } from '../services/invoices.service';
 })
 export class HomeComponent implements OnInit{
 
-  private http = inject(HttpClient);
-  private authService = inject(AuthService);
-
   invoices$: Observable<Invoice[]> = of([]);
 
 

@@ -1,0 +1,5 @@
+<div *ngIf="invoiceSumCost$ | async as invoiceSumCost">
+  getFirstInvoiceSumCostAll:
+  <p>Számla ID: {{ invoiceSumCost.invoice }}</p>
+  <p>Összeg: {{ invoiceSumCost.amount }} Ft</p>
+</div>

@@ -17,7 +17,7 @@ import { APP_CONFIG, AppConfig, CONFIG_TOKEN } from '../config';
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [HighlightedDirective,CommonModule, CommonModule,GroupByThreePipe,GroupByPipe],
+  imports: [HighlightedDirective,CommonModule,GroupByThreePipe,GroupByPipe],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.css'
 })

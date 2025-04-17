@@ -18,7 +18,7 @@ import { RouterOutlet,RouterLink } from '@angular/router';
 
 
 export class AppComponent implements OnInit{
-  dropdownOpen = false;
+
 
   constructor(){}
 

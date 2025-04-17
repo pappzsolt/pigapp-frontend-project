@@ -9,7 +9,7 @@ import { Invoice } from '../../model/invoice';
 export class InvoicesService {
 
   invoices$: Observable<Invoice[]> = of([]); // Kezdő érték, üres tömb
-  private token: string = '';
+
   private http = inject(HttpClient);
 
   private invoiceUrl = "http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/";
