@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { InvoiceSumCost } from '../../model/invoice_sum_cost.model';
-import { Observable } from 'rxjs';
+import { InvoiceIdWithName, InvoiceSumCost } from '../../model/invoice_sum_cost.model';
+import { Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { InfoService } from '../services/info.service';
 
@@ -13,7 +13,7 @@ import { InfoService } from '../services/info.service';
 })
 export class InfoComponent implements OnInit{
 
-
+  invoiceIdWithName$: Observable<InvoiceIdWithName[]> = of([]);
   invoiceSumCost$: Observable<InvoiceSumCost> | undefined;
 
   constructor(private infoService: InfoService){}
@@ -21,6 +21,8 @@ export class InfoComponent implements OnInit{
   ngOnInit(): void {
 
     this.invoiceSumCost$ = this.infoService.getFirstInvoiceSumCostAll();
+
+    this.invoiceIdWithName$ = this.infoService.getInvoiceIdWithNameAll();
 
   }
 }
