@@ -44,3 +44,13 @@ export interface CostGroupResponse {
     [groupId: string]: CostGroupItem[];
   };
 }
+export interface CostData {
+  id: number;
+  cost_name: string;
+  cost_note: string;
+  amount: number;
+  cost_date: string;
+  paid: number;
+  paid_date: string;
+  costgroup_id: number;
+}

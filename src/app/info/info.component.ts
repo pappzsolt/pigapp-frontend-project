@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CostSummary, InvoiceIdWithName, InvoiceSumCost, FilteredDates, CostGroupResponse} from '../../model/invoice_sum_cost.model';
+import { CostSummary, InvoiceIdWithName, InvoiceSumCost, FilteredDates, CostGroupResponse, CostData} from '../../model/invoice_sum_cost.model';
 import { Observable, of } from 'rxjs';
 import { CommonModule, KeyValue } from '@angular/common';
 import { InfoService } from '../services/info.service';
@@ -26,6 +26,7 @@ export class InfoComponent implements OnInit{
   totalPaid = 0;
   totalUnpaid = 0;
   selectedMonth: string = ''; // Dátum kiválasztás
+  costData: CostData[] = [];
 
   constructor(private infoService: InfoService,private costStatService: CostStatService){
 
@@ -36,6 +37,21 @@ export class InfoComponent implements OnInit{
     this.loadCostGroupData();
 
   }
+
+  loadCostData(): void {
+    this.costStatService.getCurrentMonthCostGroup5().subscribe(
+      (data) => {
+        this.costData = data;
+        this.loading = false;
+      },
+      (error) => {
+        console.error('Error loading cost data:', error);
+        this.error = 'Hiba történt az adatok betöltésekor';
+        this.loading = false;
+      }
+    );
+  }
+
   loadCostGroupData(): void {
     this.costStatService.getCostGroupData().subscribe(
       (data) => {
