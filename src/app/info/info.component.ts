@@ -35,10 +35,10 @@ export class InfoComponent implements OnInit{
   ngOnInit(): void {
     this.getMonthlySummary();
     this.loadCostGroupData();
-
+    this.loadCostDataCost5();
   }
 
-  loadCostData(): void {
+  loadCostDataCost5(): void {
     this.costStatService.getCurrentMonthCostGroup5().subscribe(
       (data) => {
         this.costData = data;
