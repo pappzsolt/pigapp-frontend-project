@@ -5,6 +5,7 @@ import { CostService } from '../services/cost.service';
 import { Cost } from '../../model/cost';
 import { FormBuilder, FormGroup ,ReactiveFormsModule,Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-cost',
   standalone: true,
@@ -22,7 +23,7 @@ export class CostComponent implements OnInit {
   selectedCost: Cost | null = null;
   currentPage: number = 1;
   totalPages: number = 1;
-  constructor(private costService: CostService, private fb: FormBuilder) {
+  constructor(private costService: CostService, private fb: FormBuilder,private authService: AuthService) {
     this.costForm = this.fb.group({
       cost_name: ['', Validators.required],
       cost_note: ['', Validators.required],
@@ -32,8 +33,8 @@ export class CostComponent implements OnInit {
       dev: ['', Validators.required],
       costrepeat: ['', Validators.required],
       costgroup: ['', Validators.required],
-      paid: ['', Validators.required],
-      paid_date: ['', Validators.required],
+      paid: [false],
+      paid_date: ['', Validators.required] 
     });
   }
 
@@ -66,6 +67,10 @@ export class CostComponent implements OnInit {
       }
     });
   }
+  changePage(page: number): void {
+    this.currentPage = page;
+    this.loadCosts();
+  }
 
   goToPage(page: number): void {
     if (page > 0 && page <= this.totalPages) {
@@ -77,6 +82,9 @@ export class CostComponent implements OnInit {
   addCost(): void {
     if (this.costForm.valid) {
       const newCost: Cost = this.costForm.value;
+      newCost.create_cost_date = new Date();
+      newCost.user = this.authService.getUserId();
+      newCost.paid = newCost.paid ? 1 : 0;
       this.costService.createCost(newCost).subscribe(
         (data) => {
           this.costs.push(data);

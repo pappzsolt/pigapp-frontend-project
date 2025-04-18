@@ -53,6 +53,20 @@ export class AuthService {
   getJwtDecode(token: string): any {
       return jwtDecode(token);
   }
+  getUserId(): number | number {
+    const token =  sessionStorage.getItem('jwt_token');
+    if (!token) return 0;
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      if (!decodedToken.user_id) return 0;
+
+      return decodedToken.user_id;
+    } catch (error) {
+      console.error('Hibás token:', error);
+      return 0;
+    }
+  }
 
   getTokenExpirationDate(): Date | null {
     const token =  sessionStorage.getItem('jwt_token');

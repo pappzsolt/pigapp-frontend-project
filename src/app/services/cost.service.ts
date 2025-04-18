@@ -12,6 +12,7 @@ export class CostService {
   private apCreateCostUrl = "http://192.168.1.37:8000/api/pigapp_app/create-cost/";
   private apiCostListUrl = "http://192.168.1.37:8000/api/pigapp_app/cost_list_natur/";
   private apiForeignKeyDataUrl = "http://192.168.1.37:8000/api/pigapp_app/foreignkey-data/";
+  private apiDeleteCostUrl = "http://192.168.1.37:8000/api/pigapp_app/cost-detail/";
   constructor(private http: HttpClient) {}
 
   // Költség hozzáadása
@@ -30,7 +31,7 @@ export class CostService {
   }
 
   deleteCost(id: number): Observable<any> {
-    return this.http.delete(`${this.apCreateCostUrl}${id}/`);
+    return this.http.delete(`${this.apiDeleteCostUrl}${id}/`);
   }
 
 // src/app/components/services/cost.service.ts

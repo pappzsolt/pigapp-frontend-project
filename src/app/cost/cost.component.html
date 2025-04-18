@@ -28,6 +28,25 @@
           </tbody>
         </table>
       </div>
+      <!--  -->
+      <div class="mt-4 h-12 flex justify-center items-center gap-4">
+        <button
+          class="w-24 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)">
+          Előző
+        </button>
+
+        <span class="text-gray-700">Oldal {{ currentPage }} / {{ totalPages }}</span>
+
+        <button
+          class="w-24 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
+          [disabled]="currentPage === totalPages"
+          (click)="changePage(currentPage + 1)">
+          Következő
+        </button>
+      </div>
+      <!--  -->
     </div>
 
     <!-- Új költség form -->
@@ -82,13 +101,27 @@
             <option *ngFor="let costGroup of costGroups" [value]="costGroup.id">{{ costGroup.cost_group_name }}</option>
           </select>
         </div>
+        <!-- Paid checkbox -->
+        <div class="flex items-center">
+          <input id="paid" type="checkbox" formControlName="paid" class="mr-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-blue-400">
+          <label for="paid" class="text-sm text-gray-700">Fizetve</label>
+        </div>
+
+        <div class="flex flex-col">
+          <label for="paid_date" class="text-sm text-gray-700 mb-1">Fizetés dátuma</label>
+          <input id="paid_date" formControlName="paid_date" type="date" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400" [disabled]="!costForm.controls['paid'].value">
+        </div>
+
 
         <button type="submit" class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
           Hozzáadás
         </button>
       </form>
+
+
     </div>
 
   </div>
 </div>
+
 
