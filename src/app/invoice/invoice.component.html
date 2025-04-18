@@ -10,31 +10,52 @@
 
 
 <!-- ezt a home ba hivjuk meg -->
-<ul class="w-60 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-  <li class="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-    {{ invoiceIndex + '.' + invoice.invoice_name }}
-    <ng-content select="h3"></ng-content><h3></h3>
-    id:{{ invoice.id }}
-  </li>
-  <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-    felh:{{ invoice.user }}
-  </li>
-  <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-    leírás:
-    <input #invoiceNote [value]="invoice.invoice_note" type="text" id="invoice_note" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="invoice_note" required />
-  </li>
-  <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-    <span class="text-lg font-semibold text-green-600">összeg: {{ invoice.amount }} Ft</span>
-  </li>
-  <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-    élő:{{ invoice.enable_invoice }}
-  </li>
-  <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-    dátum: {{ invoice.create_invoice_date }}
-  </li>
-  <li class="w-full px-4 py-2 rounded-b-lg">
-    <button (click)="onSaveClicked(invoiceNote.value)" class="tailwind-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none">
-      Save invoice
-    </button>
-  </li>
-</ul>
+<div class="flex justify-center items-center w-full py-6">
+  <div class="bg-white border border-blue-300 p-6 rounded-2xl shadow-md text-sm text-gray-800 w-full max-w-3xl">
+    <div class="mb-4">
+      <h3 class="text-lg font-semibold text-blue-600">
+        {{ invoiceIndex + '.' + invoice.invoice_name }}
+      </h3>
+      <p class="text-gray-500">ID: {{ invoice.id }}</p>
+    </div>
+
+    <div class="mb-2">
+      <span class="font-medium text-blue-700">Felhasználó:</span> {{ invoice.user }}
+    </div>
+
+    <div class="mb-4">
+      <label for="invoice_note" class="block text-blue-700 font-medium mb-1">Leírás</label>
+      <input
+        #invoiceNote
+        [value]="invoice.invoice_note"
+        type="text"
+        id="invoice_note"
+        class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Számla leírása"
+        required />
+    </div>
+
+    <div class="mb-2">
+      <span class="text-green-700 font-semibold text-base">Összeg: {{ invoice.amount }} Ft</span>
+    </div>
+
+    <div class="mb-2">
+      <span class="font-medium text-blue-700">Státusz:</span>
+      <span [ngClass]="{ 'text-green-600': invoice.enable_invoice, 'text-red-600': !invoice.enable_invoice }">
+        {{ invoice.enable_invoice ? 'Aktív számla' : 'Inaktív számla' }}
+      </span>
+    </div>
+
+    <div class="mb-4">
+      <span class="font-medium text-blue-700">Létrehozva:</span> {{ invoice.create_invoice_date }}
+    </div>
+
+    <div class="text-right">
+      <button
+        (click)="onSaveClicked(invoiceNote.value)"
+        class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-150">
+        Mentés
+      </button>
+    </div>
+  </div>
+</div>

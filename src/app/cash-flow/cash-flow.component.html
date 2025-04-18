@@ -1,97 +1,63 @@
-<!-- <div [appHighlighted]="false" class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4 rounded">
-  <ng-content select="h3"></ng-content><h3>{{ cashflow.cash_flow_name }}</h3>
-  <p class="font-semibold"></p>
-  <div class="container mx-auto p-4">
-    <table class="min-w-full table-auto">
-      <thead>
-        <tr>
-          <th class="px-4 py-2 text-left border-b">Típus</th>
-          <th class="px-4 py-2 text-left border-b">Felhasználó</th>
-          <th class="px-4 py-2 text-left border-b">Számla</th>
-          <th class="px-4 py-2 text-left border-b">Leírás</th>
-          <th class="px-4 py-2 text-left border-b">Összeg</th>
-          <th class="px-4 py-2 text-left border-b">Dátum</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="px-4 py-2 border-b">{{cashflow.cashflowgroup}}</td>
-          <td class="px-4 py-2 border-b">{{cashflow.user}}</td>
-          <td class="px-4 py-2 border-b">{{cashflow.invoice}}</td>
-          <td class="px-4 py-2 border-b">{{cashflow.cash_flow_note}}</td>
-          <td class="px-4 py-2 border-b">{{cashflow.amount}} Ft</td>
-          <td class="px-4 py-2 border-b">{{cashflow.cash_flow_date}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div> -->
+<!-- Aktuális havi fizetés -->
+<div class="container mx-auto px-4 relative">
+  <div class="bg-blue-100 p-6 rounded-2xl shadow-md">
+    <h2 class="text-2xl font-semibold text-blue-800 mb-4">Aktuális havi fizetés</h2>
 
-
-<!-- <div class="container mx-auto p-4">
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" *ngFor="let group of cashflows$ | async">
-      <app-cash-flow></app-cash-flow>
-  </div>
-</div>  -->
-
-
-
-<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4 rounded">
-  <p class="font-semibold">Aktuális havi fizetés</p>
-  <div class="container mx-auto p-4">
-    <table class="min-w-full table-auto" *ngIf="cashflowActual$ | async as cashflow_last">
-      <thead>
-        <tr>
-          <th class="px-4 py-2 text-left border-b">Típus</th>
-          <th class="px-4 py-2 text-left border-b">Felhasználó</th>
-          <th class="px-4 py-2 text-left border-b">Számla</th>
-          <th class="px-4 py-2 text-left border-b">Leírás</th>
-          <th class="px-4 py-2 text-left border-b">Összeg</th>
-          <th class="px-4 py-2 text-left border-b">Dátum</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="px-4 py-2 border-b">{{ cashflow_last.cashflowgroup }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow_last.user }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow_last.invoice }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow_last.cash_flow_note }}</td>
-          <td class="px-4 py-2 border-b text-green-700">{{ cashflow_last.amount }} Ft</td>
-          <td class="px-4 py-2 border-b">{{ cashflow_last.cash_flow_date }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="cashflowActual$ | async as cashflow_last" class="overflow-x-auto">
+      <table class="min-w-full table-auto">
+        <thead>
+          <tr class="bg-blue-200">
+            <th class="px-4 py-2 text-left border-b">Típus</th>
+            <th class="px-4 py-2 text-left border-b">Felhasználó</th>
+            <th class="px-4 py-2 text-left border-b">Számla</th>
+            <th class="px-4 py-2 text-left border-b">Leírás</th>
+            <th class="px-4 py-2 text-left border-b">Összeg</th>
+            <th class="px-4 py-2 text-left border-b">Dátum</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white">
+            <td class="px-4 py-2 border-b">{{ cashflow_last.cashflowgroup }}</td>
+            <td class="px-4 py-2 border-b">{{ cashflow_last.user }}</td>
+            <td class="px-4 py-2 border-b">{{ cashflow_last.invoice }}</td>
+            <td class="px-4 py-2 border-b">{{ cashflow_last.cash_flow_note }}</td>
+            <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cashflow_last.amount }} Ft</td>
+            <td class="px-4 py-2 border-b">{{ cashflow_last.cash_flow_date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
+<!-- Utolsó 10 hónap -->
+<div class="container mx-auto px-4 relative mt-8">
+  <div class="bg-blue-100 p-6 rounded-2xl shadow-md">
+    <h2 class="text-2xl font-semibold text-blue-800 mb-4">Utolsó 10 hónap</h2>
 
-
-
-<div  class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4 rounded">
-  <p class="font-semibold">Utolsó 10 hónap</p>
-  <div class="container mx-auto p-4">
-    <table class="min-w-full table-auto">
-      <thead>
-        <tr>
-          <th class="px-4 py-2 text-left border-b">Típus</th>
-          <th class="px-4 py-2 text-left border-b">Felhasználó</th>
-          <th class="px-4 py-2 text-left border-b">Számla</th>
-          <th class="px-4 py-2 text-left border-b">Leírás</th>
-          <th class="px-4 py-2 text-left border-b">Összeg</th>
-          <th class="px-4 py-2 text-left border-b">Dátum</th>
-        </tr>
-      </thead>
-      <tbody>
-      <!--  -->
-        <tr *ngFor="let cashflow of cashflows$ | async">
-          <td class="px-4 py-2 border-b">{{ cashflow.cashflowgroup }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.user }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.invoice }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.cash_flow_note }}</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.amount }} Ft</td>
-          <td class="px-4 py-2 border-b">{{ cashflow.cash_flow_date }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="min-w-full table-auto">
+        <thead>
+          <tr class="bg-blue-200">
+            <th class="px-4 py-2 text-left border-b">Típus</th>
+            <th class="px-4 py-2 text-left border-b">Felhasználó</th>
+            <th class="px-4 py-2 text-left border-b">Számla</th>
+            <th class="px-4 py-2 text-left border-b">Leírás</th>
+            <th class="px-4 py-2 text-left border-b">Összeg</th>
+            <th class="px-4 py-2 text-left border-b">Dátum</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cashflow of cashflows$ | async" class="bg-white">
+            <td class="px-4 py-2 border-b">{{ cashflow.cashflowgroup }}</td>
+            <td class="px-4 py-2 border-b">{{ cashflow.user }}</td>
+            <td class="px-4 py-2 border-b">{{ cashflow.invoice }}</td>
+            <td class="px-4 py-2 border-b">{{ cashflow.cash_flow_note }}</td>
+            <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cashflow.amount }} Ft</td>
+            <td class="px-4 py-2 border-b">{{ cashflow.cash_flow_date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
