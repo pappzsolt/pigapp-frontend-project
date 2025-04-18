@@ -2,19 +2,19 @@ export class Cost {
 
   constructor(
 
-      public id:BigInteger,
+      public id:number,
       public cost_name:string,
       public cost_note:string,
-      public amount:BigInteger,
+      public amount:number,
       public cost_date:Date,
-      public invoice:BigInteger,
-      public dev:BigInteger,
-      public costrepeat:BigInteger,
-      public costgroup:BigInteger,
-      public paid: BigInteger,
+      public invoice:number,
+      public dev:number,
+      public costrepeat:number,
+      public costgroup:number,
+      public paid: number,
       public paid_date:Date,
       public create_cost_date:Date,
-      public user:BigInteger ) {  }
+      public user:number ) {  }
 
 }
 
