@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Invoice } from '../../model/invoice';
 import { map } from 'rxjs/operators';
 import { CostSummary, InvoiceIdWithName, InvoiceSumCost } from '../../model/invoice_sum_cost.model';
-
+import { FormsModule } from '@angular/forms'; 
 @Injectable({
   providedIn: 'root'
 })

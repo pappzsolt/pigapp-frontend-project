@@ -1,16 +1,42 @@
-<div *ngIf="loading">Betöltés...</div>
-<div *ngIf="error">{{ error }}</div>
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4 rounded">
+  <p class="font-semibold text-lg mb-2">Aktuális havi költség összesítés</p>
 
-<div *ngIf="!loading && summaries.length === 0">
-  Nincs adat az adott hónapra.
-</div>
 
-<div *ngIf="!loading && summaries.length > 0">
-  <div *ngFor="let summary of summaries" class="card mb-3 p-3 border rounded shadow-sm">
-    <h5>számla neve :{{ summary.invoice.invoice_name }}</h5>
-    <p>note: {{ summary.invoice.invoice_note }}</p>
-    <p><strong>számla létrehozás dátum:</strong> {{ summary.invoice.create_invoice_date | date }}</p>
-    <p><strong>Fizetett:</strong> {{ summary.total_paid | number:'1.0-2' }} Ft</p>
-    <p><strong>Nem fizetett:</strong> {{ summary.total_unpaid | number:'1.0-2' }} Ft</p>
+  <div class="container mx-auto">
+    <table class="min-w-full table-auto" *ngIf="summaries.length > 0">
+      <thead>
+        <tr class="bg-blue-200">
+          <th class="px-4 py-2 text-left border-b">Számla neve</th>
+          <th class="px-4 py-2 text-left border-b">Leírás</th>
+          <th class="px-4 py-2 text-left border-b">Létrehozva</th>
+          <th class="px-4 py-2 text-left border-b">Számla összeg</th>
+          <th class="px-4 py-2 text-left border-b text-green-800">Fizetett</th>
+          <th class="px-4 py-2 text-left border-b text-red-800">Nem fizetett</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let summary of summaries">
+          <td class="px-4 py-2 border-b">{{ summary.invoice.invoice_name }}</td>
+          <td class="px-4 py-2 border-b">{{ summary.invoice.invoice_note }}</td>
+          <td class="px-4 py-2 border-b">{{ summary.invoice.create_invoice_date | date:'yyyy-MM-dd' }}</td>
+          <td class="px-4 py-2 border-b">{{ summary.invoice.amount | number:'1.0-0' }} Ft</td>
+          <td class="px-4 py-2 border-b text-green-700">{{ summary.total_paid | number:'1.0-0' }} Ft</td>
+          <td class="px-4 py-2 border-b text-red-700">{{ summary.total_unpaid | number:'1.0-0' }} Ft</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!loading && summaries.length === 0" class="text-gray-600 mt-4">
+      Nincs adat az aktuális hónapra.
+    </div>
+    <div *ngIf="loading" class="text-blue-600 mt-4">Betöltés...</div>
+    <div *ngIf="error" class="text-red-600 mt-4">{{ error }}</div>
+
+    <!-- Összesítés -->
+    <div *ngIf="!loading && summaries.length > 0" class="mt-6 p-4 bg-gray-100 rounded">
+      <p class="font-semibold">Összesítés</p>
+      <p><strong>Összes fizetett:</strong> {{ totalPaid | number:'1.0-0' }} Ft</p>
+      <p><strong>Összes nem fizetett:</strong> {{ totalUnpaid | number:'1.0-0' }} Ft</p>
+    </div>
   </div>
 </div>
