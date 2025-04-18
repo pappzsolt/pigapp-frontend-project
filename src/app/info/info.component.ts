@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CostSummary, InvoiceIdWithName, InvoiceSumCost } from '../../model/invoice_sum_cost.model';
+import { CostSummary, InvoiceIdWithName, InvoiceSumCost, FilteredDates, CostGroupResponse} from '../../model/invoice_sum_cost.model';
 import { Observable, of } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { CommonModule, KeyValue } from '@angular/common';
 import { InfoService } from '../services/info.service';
 import { FormsModule } from '@angular/forms';
+import { CostStatService } from '../services/coststat.service';
 
 @Component({
   selector: 'app-info',
@@ -14,6 +15,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class InfoComponent implements OnInit{
 
+
+
+
+  costGroupResponse!: CostGroupResponse;
+
   summaries: CostSummary[] = [];
   loading = true;
   error = '';
@@ -21,13 +27,28 @@ export class InfoComponent implements OnInit{
   totalUnpaid = 0;
   selectedMonth: string = ''; // Dátum kiválasztás
 
-  constructor(private infoService: InfoService){
+  constructor(private infoService: InfoService,private costStatService: CostStatService){
 
   }
 
   ngOnInit(): void {
     this.getMonthlySummary();
+    this.loadCostGroupData();
 
+  }
+  loadCostGroupData(): void {
+    this.costStatService.getCostGroupData().subscribe(
+      (data) => {
+        this.costGroupResponse = data;
+      },
+      (error) => {
+        console.error('Error loading cost group data', error);
+      }
+    );
+  }
+
+  objectKeys(obj: any): string[] {
+    return Object.keys(obj);
   }
 
   getMonthlySummary(): void {

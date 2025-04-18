@@ -26,3 +26,21 @@ export interface CostSummary {
   total_paid: string;   // vagy number, ha parse-olod
   total_unpaid: string; // vagy number, ha parse-olod
 }
+export interface CostGroupItem {
+  costgroup_name: string;
+  total_amount: number;
+}
+
+export interface FilteredDates {
+  current_month_start: string;
+  current_month_end: string;
+  previous_month_start: string;
+  previous_month_end: string;
+}
+
+export interface CostGroupResponse {
+  filtered_dates: FilteredDates;
+  cost_groups: {
+    [groupId: string]: CostGroupItem[];
+  };
+}
