@@ -1,5 +1,16 @@
-<div *ngIf="invoiceSumCost$ | async as invoiceSumCost">
-  getFirstInvoiceSumCostAll:
-  <p>Számla ID: {{ invoiceSumCost.invoice }}</p>
-  <p>Összeg: {{ invoiceSumCost.amount }} Ft</p>
+<div *ngIf="loading">Betöltés...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<div *ngIf="!loading && summaries.length === 0">
+  Nincs adat az adott hónapra.
+</div>
+
+<div *ngIf="!loading && summaries.length > 0">
+  <div *ngFor="let summary of summaries" class="card mb-3 p-3 border rounded shadow-sm">
+    <h5>számla neve :{{ summary.invoice.invoice_name }}</h5>
+    <p>note: {{ summary.invoice.invoice_note }}</p>
+    <p><strong>számla létrehozás dátum:</strong> {{ summary.invoice.create_invoice_date | date }}</p>
+    <p><strong>Fizetett:</strong> {{ summary.total_paid | number:'1.0-2' }} Ft</p>
+    <p><strong>Nem fizetett:</strong> {{ summary.total_unpaid | number:'1.0-2' }} Ft</p>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InvoiceIdWithName, InvoiceSumCost } from '../../model/invoice_sum_cost.model';
+import { CostSummary, InvoiceIdWithName, InvoiceSumCost } from '../../model/invoice_sum_cost.model';
 import { Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { InfoService } from '../services/info.service';
@@ -13,15 +13,27 @@ import { InfoService } from '../services/info.service';
 })
 export class InfoComponent implements OnInit{
 
-  invoiceIdWithName$: Observable<InvoiceIdWithName[]> = of([]);
-  invoiceSumCost$: Observable<InvoiceSumCost> | undefined;
+  summaries: CostSummary[] = [];
+  loading = true;
+  error = '';
 
   constructor(private infoService: InfoService){
-    console.error('hallo');
+
   }
 
   ngOnInit(): void {
 
-    this.invoiceSumCost$ = this.infoService.getFirstInvoiceSumCostAll();
+    this.infoService.getMonthlySummary().subscribe({
+      next: (data) => {
+        this.summaries = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Hiba történt az adatok lekérésekor.';
+        this.loading = false;
+      }
+    });
+
+
   }
 }
