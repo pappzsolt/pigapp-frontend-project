@@ -19,6 +19,6 @@ export interface CashFlow2 {
   dev: number;
   cashflowgroup: number;
   cash_flow_date: string;
-  create_cash_flow_date?: string;
+  create_cash_flow_date: Date;
   user?: number;
 }

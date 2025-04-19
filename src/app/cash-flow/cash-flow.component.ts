@@ -7,6 +7,7 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-cash-flow',
   standalone: true,
@@ -22,6 +23,7 @@ export class CashFlowComponent implements OnInit{
   cashFlows2: CashFlow2[] = [];
   cashFlowForm!: FormGroup;
 
+
   @Input()
   cashflowIndex!: number;
 
@@ -31,7 +33,7 @@ export class CashFlowComponent implements OnInit{
 
   private cashFlowService = inject(CashFlowServiceService);
 
-  constructor(private fb: FormBuilder ){}
+  constructor(private fb: FormBuilder,private authService: AuthService  ){}
 
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class CashFlowComponent implements OnInit{
       amount: [0, Validators.required],
       invoice: [null, Validators.required],
       dev: [null, Validators.required],
-      cashf_low_groups: [null, Validators.required],
+      cashflowgroup: [null, Validators.required],
       cash_flow_date: ['', Validators.required],
     });
 
@@ -62,12 +64,24 @@ export class CashFlowComponent implements OnInit{
       }
     );
   }
-  onSubmit(): void {
-    if (this.cashFlowForm.valid) {
-      this.cashFlowService.create(this.cashFlowForm.value).subscribe(newItem => {
-        this.cashFlows2.push(newItem);
-        this.cashFlowForm.reset();
-      });
+
+    addCost(): void {
+      if (this.cashFlowForm.valid) {
+        const newCashflow: CashFlow2 = this.cashFlowForm.value;
+        newCashflow.create_cash_flow_date = new Date();
+        newCashflow.user = this.authService.getUserId();
+        this.cashFlowService.create(newCashflow).subscribe(
+          (data) => {
+            this.cashFlows2.push(data);
+            this.cashFlowForm.reset(); // űrlap törlése
+          },
+          (error) => {
+            console.error('Hiba a költség hozzáadásakor:', error);
+          }
+        );
+      }else{
+        console.log("hiba")
+        console.log(this.cashFlowForm.value)
+      }
     }
-  }
 }
