@@ -34,7 +34,7 @@ export class CostComponent implements OnInit {
       costrepeat: ['', Validators.required],
       costgroup: ['', Validators.required],
       paid: [false],
-      paid_date: ['', Validators.required] 
+      paid_date: ['', Validators.required]
     });
   }
 
@@ -98,21 +98,20 @@ export class CostComponent implements OnInit {
   }
 
   // Költség frissítése
-  updateCost(): void {
-    if (this.selectedCost) {
-      this.costService.updateCost(this.selectedCost.id, this.costForm.value).subscribe(
-        (data) => {
-          const index = this.costs.findIndex(cost => cost.id === this.selectedCost?.id);
-          this.costs[index] = data;
-          this.selectedCost = null;
-          this.costForm.reset();
-        },
-        (error) => {
-          console.error('Hiba a költség frissítésekor:', error);
-        }
-      );
-    }
+  markAsPaid(cost: Cost): void {
+    const updatedCost = { ...cost, paid: 1 }; // vagy true, ha boolean a backend szerint
+
+    this.costService.updateCost(cost.id, updatedCost).subscribe({
+      next: (res) => {
+        console.log('Fizetés sikeresen frissítve:', res);
+        this.loadCosts(); // vagy frissítsd csak azt az elemet a listában
+      },
+      error: (err) => {
+        console.error('Hiba fizetés frissítésénél:', err);
+      }
+    });
   }
+
 
   // Költség törlése
   deleteCost(id: number): void {

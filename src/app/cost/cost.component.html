@@ -1,33 +1,40 @@
 <div class="container mx-auto px-4 py-8">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-    <!-- Költség lista -->
-    <div class="bg-blue-100 p-6 rounded-2xl shadow-md border border-blue-200">
-      <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full table-auto">
-          <thead>
-            <tr class="bg-blue-200 text-blue-900">
-              <th class="px-4 py-2 text-left border-b">Költség neve</th>
-              <th class="px-4 py-2 text-left border-b">Összeg</th>
-              <th class="px-4 py-2 text-left border-b">Dátum</th>
-              <th class="px-4 py-2 text-left border-b">Akciók</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cost of costs" class="bg-white">
-              <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
-              <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
-              <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
-              <td class="px-4 py-2 border-b">
-                <button (click)="deleteCost(cost.id)" class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
-                  Törlés
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="bg-blue-100 p-6 rounded-2xl shadow-md border border-blue-200">
+        <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full table-auto">
+            <thead>
+              <tr class="bg-blue-200 text-blue-900">
+                <th class="px-4 py-2 text-left border-b">Költség neve</th>
+                <th class="px-4 py-2 text-left border-b">Összeg</th>
+                <th class="px-4 py-2 text-left border-b">Dátum</th>
+                <th class="px-4 py-2 text-left border-b">Akciók</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cost of costs" class="bg-white">
+                <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
+                <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
+                <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
+                <td class="px-4 py-2 border-b flex gap-2 items-center">
+                  <button (click)="deleteCost(cost.id)" class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
+                    Törlés
+                  </button>
+
+                  <!-- Fizetve gomb vagy jelzés -->
+                  <button *ngIf="!cost.paid"
+                          (click)="markAsPaid(cost)"
+                          class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
+                    Fizetni
+                  </button>
+                  <span *ngIf="cost.paid" class="text-green-700 font-medium">✔</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       <!--  -->
       <div class="mt-4 h-12 flex justify-center items-center gap-4">
         <button
