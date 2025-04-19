@@ -19,7 +19,7 @@ export class InvoiceTransformComponent implements OnInit {
   invoiceOption: InvoiceOption[] = [];
   form: FormGroup;
 
-
+  transferMessage: string | null = null;
 
 
   constructor(
@@ -60,21 +60,34 @@ export class InvoiceTransformComponent implements OnInit {
       if (this.form.valid) {
         const { szamla1, szamla2, osszeg } = this.form.value;
 
-        this.invoiceTransformService
-          .transferAmount(szamla1, szamla2, osszeg)
-          .subscribe({
-            next: (res: InvoiceTransferResponse) => {
-              console.log('Sikeres átvezetés:', res.message);
-              console.log('Új egyenleg Számla 1:', res.szamla1.amount);
-              console.log('Új egyenleg Számla 2:', res.szamla2.amount);
-            },
-            error: (err: HttpErrorResponse) => {
-              console.error('Hiba az átvezetés közben:', err.message);
-            }
-          });
-      } else {
-        console.warn('A form hibásan van kitöltve.');
-      }
+        this.invoiceTransformService.transferAmount(szamla1, szamla2, osszeg).subscribe({
+          next: (res) => {
+            this.transferMessage = `✅ ${res.message}
+                  Számla 1 új egyenlege: ${res.szamla1.amount}
+                  Számla 2 új egyenlege: ${res.szamla2.amount}`;
+            this.form.reset();
 
-}
+            // Üzenet eltüntetése 3 másodperc után
+            setTimeout(() => {
+              this.transferMessage = null;
+            }, 3000); // 3000ms = 3 másodperc
+          },
+          error: (err) => {
+            this.transferMessage = '❌ Hiba történt az átvezetés során.';
+            console.error('Hiba:', err);
+
+            // Üzenet eltüntetése 3 másodperc után
+            setTimeout(() => {
+              this.transferMessage = null;
+            }, 3000);
+          }
+        });
+      } else {
+        this.transferMessage = '⚠️ Kérlek, tölts ki minden mezőt!';
+        // Üzenet eltüntetése 3 másodperc után
+        setTimeout(() => {
+          this.transferMessage = null;
+        }, 3000);
+      }
+    }
 }
