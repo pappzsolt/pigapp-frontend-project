@@ -1,4 +1,4 @@
-import { InvoiceOption, InvoiceResponse } from '../../model/invoice';
+import { InvoiceOption, InvoiceResponse, InvoiceTransferResponse } from '../../model/invoice';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InvoiceTransformService } from '../services/invoice-transform.service';
@@ -76,4 +76,5 @@ export class InvoiceTransformComponent implements OnInit {
         console.warn('A form hibásan van kitöltve.');
       }
 
+}
 }
