@@ -27,19 +27,7 @@ export class InvoiceTransformComponent implements OnInit {
       osszeg: [null]
     });
   }
-/*   ngOnInit(): void {
-    this.invoiceTransformService.getInvoiceOptions().subscribe(
-      (data: InvoiceResponse) => {
-        console.log('Invoice options:', data);  // Ellenőrizheted a válasz struktúráját
-        if (data && data.results) {
-          this.invoiceOption = data.results;  // Most már a 'results' tulajdonságot is elérheted
-        }
-      },
-      error => {
-        console.error('Error fetching invoice options:', error);
-      }
-    );
-  } */
+
 
     ngOnInit(): void {
       this.invoiceTransformService.getInvoiceOptions().subscribe(
