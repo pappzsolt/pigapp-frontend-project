@@ -57,6 +57,7 @@ export class InvoiceTransformComponent implements OnInit {
       );
     }
     onSubmit(): void {
+      this.form.markAllAsTouched(); 
       if (this.form.valid) {
         const { szamla1, szamla2, osszeg } = this.form.value;
 
