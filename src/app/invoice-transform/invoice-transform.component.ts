@@ -5,15 +5,29 @@ import { InvoiceTransformService } from '../services/invoice-transform.service';
 import { AppConfig, CONFIG_TOKEN } from '../config';
 import { ReactiveFormsModule } from '@angular/forms';  // Importáld ezt!
 import { CommonModule } from '@angular/common';
-
+import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-invoice-transform',
   standalone: true,
+
   imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './invoice-transform.component.html',
-  styleUrls: ['./invoice-transform.component.css']
+  styleUrls: ['./invoice-transform.component.css'],
+  animations: [
+    // Animáció definíció
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),  // Kezdő állapot
+        animate('300ms 200ms', style({ opacity: 1 }))  // Animáció
+      ]),
+      transition(':leave', [
+        animate('300ms', style({ opacity: 0 }))  // Elhagyás animációja
+      ])
+    ])
+  ]
 })
+
 
 export class InvoiceTransformComponent implements OnInit {
   invoiceOption: InvoiceOption[] = [];
