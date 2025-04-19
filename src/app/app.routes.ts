@@ -6,6 +6,7 @@ import { CostComponent } from './cost/cost.component';
 import { CostRepeat } from '../model/costrepeat';
 import { CostRepeatComponent } from './cost-repeat/cost-repeat.component';
 import { InfoComponent } from './info/info.component';
+import { InvoiceTransformComponent } from './invoice-transform/invoice-transform.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,5 +15,6 @@ export const routes: Routes = [
   { path: 'cashflow', component: CashFlowComponent },
   { path: 'cost', component: CostComponent },
   { path: 'info', component: InfoComponent },
+  { path: 'invoicetransform', component: InvoiceTransformComponent },
   { path: 'costrepeat', component: CostRepeatComponent}
 ];

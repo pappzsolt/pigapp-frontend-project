@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {  HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Invoice } from '../../model/invoice';
+import { Invoice, InvoiceOption } from '../../model/invoice';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +15,7 @@ export class InvoicesService {
   private invoiceUrl = "http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/";
 
   private invoiceSaveUrl = "http://192.168.1.37:8000/api/pigapp_app/only_invoice_detail/";
+
 
   constructor() {}
 
