@@ -5,6 +5,8 @@ import { InvoiceTransformService } from '../services/invoice-transform.service';
 import { AppConfig, CONFIG_TOKEN } from '../config';
 import { ReactiveFormsModule } from '@angular/forms';  // Importáld ezt!
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-invoice-transform',
   standalone: true,
@@ -12,9 +14,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css']
 })
+
 export class InvoiceTransformComponent implements OnInit {
   invoiceOption: InvoiceOption[] = [];
   form: FormGroup;
+
+
+
 
   constructor(
     private invoiceTransformService: InvoiceTransformService,
@@ -50,13 +56,24 @@ export class InvoiceTransformComponent implements OnInit {
         }
       );
     }
+    onSubmit(): void {
+      if (this.form.valid) {
+        const { szamla1, szamla2, osszeg } = this.form.value;
 
-  onSubmit(): void {
-    if (this.form.valid) {
-      console.log(this.form.value);
-      // További műveletek a backend felé
-    } else {
-      console.log('Form invalid');
-    }
-  }
+        this.invoiceTransformService
+          .transferAmount(szamla1, szamla2, osszeg)
+          .subscribe({
+            next: (res: InvoiceTransferResponse) => {
+              console.log('Sikeres átvezetés:', res.message);
+              console.log('Új egyenleg Számla 1:', res.szamla1.amount);
+              console.log('Új egyenleg Számla 2:', res.szamla2.amount);
+            },
+            error: (err: HttpErrorResponse) => {
+              console.error('Hiba az átvezetés közben:', err.message);
+            }
+          });
+      } else {
+        console.warn('A form hibásan van kitöltve.');
+      }
+
 }

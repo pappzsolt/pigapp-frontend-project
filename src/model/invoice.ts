@@ -18,3 +18,20 @@ export interface InvoiceResponse {
   previous: string | null;
   results: InvoiceOption[];
 }
+/* export interface InvoiceTransferResponse {
+  message: string;
+  szamla1: {
+    id: number;
+    amount: number;
+  };
+  szamla2: {
+    id: number;
+    amount: number;
+  };
+} */
+
+export interface InvoiceTransferResponse {
+  message: string;
+  szamla1: { id: number; amount: number };
+  szamla2: { id: number; amount: number };
+}
