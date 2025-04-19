@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, // AuthInterceptor regisztrálása
     provideRouter(routes),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    // provideAnimations()
+    provideAnimations()
   ]
 };
 
