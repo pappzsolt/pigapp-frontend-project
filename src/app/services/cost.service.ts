@@ -16,6 +16,11 @@ export class CostService {
   constructor(private http: HttpClient) {}
 
   // Költség hozzáadása
+  /* ITT KELL a SZAMLABOL LEVONNI amit hozzadtam költséget
+  cashflow hozza adas itt az invoice hoz hozzakell adni
+
+
+  */
   createCost(cost: Cost): Observable<Cost> {
     return this.http.post<Cost>(this.apCreateCostUrl, cost);
   }
