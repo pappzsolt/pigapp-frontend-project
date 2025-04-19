@@ -19,7 +19,7 @@ export class InvoiceTransformService {
   }
   transferAmount(szamla1: number, szamla2: number, amount: number) {
     return this.http.patch<InvoiceTransferResponse>(
-      `this.apiInvoiceUpdateUrl/${szamla1}/${szamla2}/`,
+      `${this.apiInvoiceUpdateUrl}${szamla1}/${szamla2}/`,
       { amount }
     );
   }
