@@ -1,6 +1,6 @@
 import { InvoiceOption, InvoiceResponse, InvoiceTransferResponse } from '../../model/invoice';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvoiceTransformService } from '../services/invoice-transform.service';
 import { AppConfig, CONFIG_TOKEN } from '../config';
 import { ReactiveFormsModule } from '@angular/forms';  // Importáld ezt!
@@ -28,9 +28,9 @@ export class InvoiceTransformComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
-      szamla1: [null],
-      szamla2: [null],
-      osszeg: [null]
+      szamla1: [null, Validators.required],
+      szamla2: [null, Validators.required],
+      osszeg: [null, [Validators.required, Validators.min(1)]]
     });
   }
 
@@ -62,32 +62,27 @@ export class InvoiceTransformComponent implements OnInit {
 
         this.invoiceTransformService.transferAmount(szamla1, szamla2, osszeg).subscribe({
           next: (res) => {
-            this.transferMessage = `✅ ${res.message}
-                  Számla 1 új egyenlege: ${res.szamla1.amount}
-                  Számla 2 új egyenlege: ${res.szamla2.amount}`;
+            this.transferMessage = `✅ ${res.message}Számla 1 új egyenlege: ${res.szamla1.amount}Számla 2 új egyenlege: ${res.szamla2.amount}`;
             this.form.reset();
-
-            // Üzenet eltüntetése 3 másodperc után
+            // Üzenet eltüntetése
             setTimeout(() => {
               this.transferMessage = null;
-            }, 3000); // 3000ms = 3 másodperc
+            }, 9000);
           },
           error: (err) => {
             this.transferMessage = '❌ Hiba történt az átvezetés során.';
-            console.error('Hiba:', err);
-
-            // Üzenet eltüntetése 3 másodperc után
+            // Üzenet eltüntetése
             setTimeout(() => {
               this.transferMessage = null;
-            }, 3000);
+            }, 9000);
           }
         });
       } else {
         this.transferMessage = '⚠️ Kérlek, tölts ki minden mezőt!';
-        // Üzenet eltüntetése 3 másodperc után
+        // Üzenet eltüntetése
         setTimeout(() => {
           this.transferMessage = null;
-        }, 3000);
+        }, 9000);
       }
     }
 }
