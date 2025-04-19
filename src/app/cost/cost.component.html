@@ -29,7 +29,10 @@
                           class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
                     Fizetni
                   </button>
-                  <span *ngIf="cost.paid" class="text-green-700 font-medium">✔</span>
+                  <!-- <span *ngIf="cost.paid" class="text-green-700 font-medium">✔</span> -->
+                  <span *ngIf="cost.paid" class="text-green-700 font-medium">
+                    <img src="images/green-check.png" alt="Fizetve" class="inline w-5 h-5">
+                  </span>
                 </td>
               </tr>
             </tbody>
