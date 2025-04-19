@@ -10,7 +10,7 @@ export class InvoiceTransformService {
 
   private apiInvoiceComboUrl = 'http://192.168.1.37:8000/api/pigapp_app/api/invoices/combo/';
 
-  private apiInvoiceUpdateUrl = ' http://192.168.1.37:8000/api/pigapp_app/invoice/transfer/';
+  private apiInvoiceUpdateUrl = 'http://192.168.1.37:8000/api/pigapp_app/invoice/transfer/';
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class InvoiceTransformService {
   }
   transferAmount(szamla1: number, szamla2: number, amount: number) {
     return this.http.patch<InvoiceTransferResponse>(
-      `${this.apiInvoiceUpdateUrl}${szamla1}/${szamla2}/`,
+      `${this.apiInvoiceUpdateUrl}${szamla1}/${szamla2}`,
       { amount }
     );
   }
