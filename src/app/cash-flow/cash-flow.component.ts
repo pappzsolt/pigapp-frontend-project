@@ -18,7 +18,7 @@ export class CashFlowComponent implements OnInit{
 
   invoices: any[] = [];
   devs: any[] = [];
-  cashFlowGroup: any[] = [];
+  cashFlowGroups: any[] = [];
   cashFlows2: CashFlow2[] = [];
   cashFlowForm!: FormGroup;
 
@@ -44,7 +44,7 @@ export class CashFlowComponent implements OnInit{
       amount: [0, Validators.required],
       invoice: [null, Validators.required],
       dev: [null, Validators.required],
-      cashflowgroup: [null, Validators.required],
+      cashf_low_groups: [null, Validators.required],
       cash_flow_date: ['', Validators.required],
     });
 
@@ -55,7 +55,7 @@ export class CashFlowComponent implements OnInit{
       (data) => {
         this.invoices = data.invoices;
         this.devs = data.devs;
-        this.cashFlowGroup = data.cashflowgroup;
+        this.cashFlowGroups = data.cashflowgroup;
       },
       (error) => {
         console.error('Hiba a ForeignKey adatok betöltésekor:', error);
