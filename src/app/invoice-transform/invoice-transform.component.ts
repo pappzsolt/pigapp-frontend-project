@@ -5,7 +5,7 @@ import { InvoiceTransformService } from '../services/invoice-transform.service';
 import { AppConfig, CONFIG_TOKEN } from '../config';
 import { ReactiveFormsModule } from '@angular/forms';  // Importáld ezt!
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-invoice-transform',
@@ -57,22 +57,19 @@ export class InvoiceTransformComponent implements OnInit {
       );
     }
     onSubmit(): void {
-      this.form.markAllAsTouched(); 
+      this.form.markAllAsTouched(); // 💥 ez beállítja, hogy minden mező validációja azonnal fusson
       if (this.form.valid) {
         const { szamla1, szamla2, osszeg } = this.form.value;
-
         this.invoiceTransformService.transferAmount(szamla1, szamla2, osszeg).subscribe({
           next: (res) => {
-            this.transferMessage = `✅ ${res.message}Számla 1 új egyenlege: ${res.szamla1.amount}Számla 2 új egyenlege: ${res.szamla2.amount}`;
+            this.transferMessage = `✅ ${res.message} Számla 1 új egyenlege: ${res.szamla1.amount}, Számla 2 új egyenlege: ${res.szamla2.amount}`;
             this.form.reset();
-            // Üzenet eltüntetése
             setTimeout(() => {
               this.transferMessage = null;
             }, 9000);
           },
           error: (err) => {
             this.transferMessage = '❌ Hiba történt az átvezetés során.';
-            // Üzenet eltüntetése
             setTimeout(() => {
               this.transferMessage = null;
             }, 9000);
@@ -80,10 +77,10 @@ export class InvoiceTransformComponent implements OnInit {
         });
       } else {
         this.transferMessage = '⚠️ Kérlek, tölts ki minden mezőt!';
-        // Üzenet eltüntetése
         setTimeout(() => {
           this.transferMessage = null;
         }, 9000);
       }
     }
+
 }
