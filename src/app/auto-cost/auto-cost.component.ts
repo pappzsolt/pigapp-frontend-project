@@ -43,13 +43,14 @@
       cost.selected = !cost.selected;
     }
 
-    selectedCosts(): void {
+    selectedCosts(): number[] {
       const selectedCostIds = this.autoCosts
         .filter(cost => cost.selected) // Csak a kijelölt költségek
         .map(cost => cost.id); // Az id-kat gyűjtjük össze
 
-      console.log(selectedCostIds);
+      return selectedCostIds; // Visszaadjuk a kiválasztott költségek ID-jait
     }
+
     selectAllCosts(): void {
       this.autoCosts.forEach(cost => cost.selected = true);
       this.selectedCosts();  // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
@@ -58,5 +59,24 @@
     deselectAllCosts(): void {
       this.autoCosts.forEach(cost => cost.selected = false);
       this.selectedCosts();  // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
+    }
+    updateCostDates(): void {
+      const selectedCostIds = this.selectedCosts();
+      if (selectedCostIds.length > 0) {
+        this.autoCostService.updateCostDates(selectedCostIds).subscribe({
+          next: (response) => {
+            if (response.success) {
+              this.message = 'A költségek dátumai sikeresen frissítve lettek.';
+            } else {
+              this.error = response.message;
+            }
+          },
+          error: (err) => {
+            this.error = 'Hiba történt a dátumok frissítésekor.';
+          }
+        });
+      } else {
+        this.error = 'Nincs kiválasztott költség.';
+      }
     }
   }

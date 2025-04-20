@@ -36,6 +36,14 @@ class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
       </tbody>
     </table>
   </div>
+  <div class="mt-4">
+    <button
+      (click)="updateCostDates()"
+      class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+      [disabled]="!selectedCosts().length"> 
+      Költségek dátumainak frissítése
+    </button>
+  </div>
 </div>
 
 
