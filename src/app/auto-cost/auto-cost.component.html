@@ -1,1 +1,27 @@
-<p>auto-cost works!</p>
+<div class="bg-blue-100 p-6 rounded-2xl shadow-md border border-blue-200">
+  <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full table-auto">
+      <thead>
+        <tr class="bg-blue-200 text-blue-900">
+          <th class="px-4 py-2 text-left border-b">Választás</th> <!-- Checkbox oszlop -->
+          <th class="px-4 py-2 text-left border-b">Költség neve</th>
+          <th class="px-4 py-2 text-left border-b">Összeg</th>
+          <th class="px-4 py-2 text-left border-b">Dátum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cost of autoCosts" class="bg-white">
+          <td class="px-4 py-2 border-b">
+            <input type="checkbox" [(ngModel)]="cost.selected" class="form-checkbox">
+          </td>
+          <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
+          <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
+          <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

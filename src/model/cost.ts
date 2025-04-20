@@ -24,9 +24,15 @@ export interface AutoCost {
   cost_date: string; // ISO string (pl. '2025-04-05')
   amount: number;
   invoice_name: string;
+  paid: boolean; // A fizetett állapot
+  selected?: boolean; // A kiválasztás állapota
 }
+
 export interface MonthlyCostResponse {
   success: boolean;
   message: string;
   data: AutoCost[];
 }
+
+
+

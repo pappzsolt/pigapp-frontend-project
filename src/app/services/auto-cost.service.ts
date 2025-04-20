@@ -17,6 +17,4 @@ export class AutoCostService {
 getMonthlyCosts(): Observable<MonthlyCostResponse> {
     return this.http.get<MonthlyCostResponse>(this.apiMonthlyCostsUrl);
   }
-
-
 }
