@@ -10,7 +10,7 @@ export class AutoCostService {
 
 
   private apiMonthlyCostsUrl = "http://192.168.1.37:8000/api/pigapp_app/api/monthly-costs/";
-  private apiUpdateCostDatesUrl = "http://192.168.1.37:8000/api/pigapp_app/update-cost-dates";
+  private apiUpdateCostDatesUrl = "http://192.168.1.37:8000/api/pigapp_app/update-cost-dates/";
 
   constructor(private http: HttpClient) {}
 
