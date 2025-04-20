@@ -18,3 +18,15 @@ export class Cost {
 
 }
 
+export interface AutoCost {
+  id: number;
+  cost_name: string;
+  cost_date: string; // ISO string (pl. '2025-04-05')
+  amount: number;
+  invoice_name: string;
+}
+export interface MonthlyCostResponse {
+  success: boolean;
+  message: string;
+  data: AutoCost[];
+}
