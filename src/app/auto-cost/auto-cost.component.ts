@@ -43,11 +43,20 @@
       cost.selected = !cost.selected;
     }
 
-    // Kijelölt tételek törlése (példa)
     selectedCosts(): void {
-      const selectedCosts = this.autoCosts.filter(cost => cost.selected);
-      selectedCosts.forEach(cost => {
-        // Implementáld post logikát
-      });
+      const selectedCostIds = this.autoCosts
+        .filter(cost => cost.selected) // Csak a kijelölt költségek
+        .map(cost => cost.id); // Az id-kat gyűjtjük össze
+
+      console.log(selectedCostIds);
+    }
+    selectAllCosts(): void {
+      this.autoCosts.forEach(cost => cost.selected = true);
+      this.selectedCosts();  // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
+    }
+
+    deselectAllCosts(): void {
+      this.autoCosts.forEach(cost => cost.selected = false);
+      this.selectedCosts();  // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
     }
   }
