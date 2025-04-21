@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, EventEmitter, Output, inject } from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
 import { Cashflow, CashFlowResponse } from '../../model/cashflow';
-import { HighlightedDirective } from './../directives/highlighted.directive';
 import { Observable, of } from 'rxjs';
 import { CashFlowServiceService } from '../services/cash-flow.service.service';
-import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
