@@ -14,6 +14,8 @@
   })
   export class AutoCostComponent implements OnInit {
     autoCosts: AutoCost[] = [];
+    disabledCostIds: number[] = [];
+    insertedCosts: AutoCost[] = [];
     message: string = '';
     isLoading = true;
     error: string | null = null;
@@ -67,6 +69,9 @@
           next: (response) => {
             if (response.success) {
               this.message = 'A költségek dátumai sikeresen frissítve lettek.';
+              this.insertedCosts = response.data || [];
+              this.disabledCostIds = [...this.disabledCostIds, ...selectedCostIds];
+
             } else {
               this.error = response.message;
             }

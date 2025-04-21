@@ -2,14 +2,32 @@
   <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
   <button
   (click)="selectAllCosts()"
-  class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mb-4">
+  class="px-4 py-2 bg-blue-500 text-white rounded-md
+         hover:bg-blue-600
+         disabled:bg-gray-400
+         disabled:text-gray-200
+         disabled:hover:bg-gray-400
+         cursor-pointer
+         disabled:cursor-not-allowed
+         transition-colors duration-200
+         focus:outline-none focus:ring-2 focus:ring-blue-300 mb-4">
   Összes kiválasztása
 </button>
+
 <button
-(click)="deselectAllCosts()"
-class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
-Összes kiválasztás törlése
+  (click)="deselectAllCosts()"
+  class="px-4 py-2 bg-red-500 text-white rounded-md
+         hover:bg-red-600
+         disabled:bg-gray-400
+         disabled:text-gray-200
+         disabled:hover:bg-gray-400
+         cursor-pointer
+         disabled:cursor-not-allowed
+         transition-colors duration-200
+         focus:outline-none focus:ring-2 focus:ring-red-300">
+  Összes kiválasztás törlése
 </button>
+
   <div class="overflow-x-auto">
     <table class="min-w-full table-auto">
       <thead>
@@ -26,6 +44,7 @@ class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
             <input
               type="checkbox"
               [(ngModel)]="cost.selected"
+              [disabled]="disabledCostIds.includes(cost.id)"
               class="form-checkbox"
               (change)="selectedCosts()" />
           </td>
@@ -38,11 +57,20 @@ class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
   </div>
   <div class="mt-4">
     <button
-      (click)="updateCostDates()"
-      class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-      [disabled]="!selectedCosts().length"> 
-      Költségek dátumainak frissítése
-    </button>
+    (click)="updateCostDates()"
+    class="px-4 py-2 bg-blue-500 text-white rounded-md
+           hover:bg-blue-600
+           disabled:bg-gray-400
+           disabled:text-gray-200
+           disabled:hover:bg-gray-400
+           cursor-pointer
+           disabled:cursor-not-allowed
+           transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-blue-300"
+    [disabled]="!selectedCosts().length">
+    Költségek dátumainak frissítése
+  </button>
+
   </div>
 </div>
 
