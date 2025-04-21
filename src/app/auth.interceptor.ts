@@ -6,7 +6,7 @@ import {
   HttpEvent,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from './services/auth.service'; // Az AuthService-t az implementációdtól függően kell implementálni
 
 @Injectable()
@@ -55,7 +55,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse && err.status === 401) {
           console.log('401-es hiba - új token kérése');
           return this.authService.login().pipe(
-            switchMap((response) => {
+            switchMap(response => {
               // Tokenek mentése
               this.authService.saveJwtRefresh(response.refresh);
               this.authService.saveJwtToken(response.access);
@@ -75,14 +75,14 @@ export class AuthInterceptor implements HttpInterceptor {
               // Ismételt küldés az új tokennel
               return next.handle(newRequest);
             }),
-            catchError((error) => {
+            catchError(error => {
               console.error('Hiba új token kérés közben:', error);
               return throwError(error);
-            }),
+            })
           );
         }
         return throwError(err);
-      }),
+      })
     );
   }
 }

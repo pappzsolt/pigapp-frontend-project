@@ -1,19 +1,32 @@
-import pkg from '@typescript-eslint/eslint-plugin';
-const { ESLint: TS_ESLint } = pkg;
+// eslint.config.js
+import tsParser from '@typescript-eslint/parser';
+import prettierPlugin from 'eslint-plugin-prettier';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 
+/** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
-  'eslint:recommended', // Az alap ESLint ajánlások
-  '@typescript-eslint/recommended', // A TypeScript ajánlások
   {
-    files: ['src/**/*.ts'], // Csak a forrás fájlokat lintelje
-    ignores: ['dist/**/*', 'node_modules/**/*'], // Kizárva a buildelt fájlok
-    parserOptions: {
-      project: true, // A tsconfig.json fájl betöltése
-      tsconfigRootDir: process.cwd(),
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: './tsconfig.json',
+        tsconfigRootDir: process.cwd(),
+        sourceType: 'module',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptPlugin,
+      prettier: prettierPlugin,
     },
     rules: {
-      semi: ['error', 'always'], // Példa szabály: pontosvesszők kérése
-      quotes: ['error', 'single'], // Egysoros idézőjelek
+      ...typescriptPlugin.configs.recommended.rules,
+      'prettier/prettier': ['error'],
     },
+  },
+  {
+    files: ['**/*.html'],
+    // HTML fájlokhoz akkor használd a @angular-eslint/template plugint, ha működik flat config-gal,
+    // de jelenleg lehet, hogy még nem támogatott stabilan, ezért kihagyható vagy külön kell konfigurálni
   },
 ];

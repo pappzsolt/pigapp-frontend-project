@@ -26,7 +26,7 @@ export class CostComponent implements OnInit {
   constructor(
     private costService: CostService,
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.costForm = this.fb.group({
       cost_name: ['', Validators.required],
@@ -48,25 +48,25 @@ export class CostComponent implements OnInit {
   }
   loadForeignKeyData(): void {
     this.costService.getForeignKeyData().subscribe(
-      (data) => {
+      data => {
         this.invoices = data.invoices;
         this.devs = data.devs;
         this.costRepeats = data.costrepeats;
         this.costGroups = data.costgroups;
       },
-      (error) => {
+      error => {
         console.error('Hiba a ForeignKey adatok betöltésekor:', error);
-      },
+      }
     );
   }
   // Költségek betöltése
   loadCosts(): void {
     this.costService.getCosts(this.currentPage).subscribe({
-      next: (data) => {
+      next: data => {
         this.costs = data.results; // A 'results' mező tartalmazza az aktuális oldal elemeit
         this.totalPages = Math.ceil(data.count / 10); // A teljes oldalak száma
       },
-      error: (err) => {
+      error: err => {
         console.error('Hiba a költségek betöltésekor:', err);
       },
     });
@@ -90,13 +90,13 @@ export class CostComponent implements OnInit {
       newCost.user = this.authService.getUserId();
       newCost.paid = newCost.paid ? 1 : 0;
       this.costService.createCost(newCost).subscribe(
-        (data) => {
+        data => {
           this.costs.push(data);
           this.costForm.reset(); // űrlap törlése
         },
-        (error) => {
+        error => {
           console.error('Hiba a költség hozzáadásakor:', error);
-        },
+        }
       );
     }
   }
@@ -106,11 +106,11 @@ export class CostComponent implements OnInit {
     const updatedCost = { ...cost, paid: 1 }; // vagy true, ha boolean a backend szerint
 
     this.costService.updateCost(cost.id, updatedCost).subscribe({
-      next: (res) => {
+      next: res => {
         console.log('Fizetés sikeresen frissítve:', res);
         this.loadCosts(); // vagy frissítsd csak azt az elemet a listában
       },
-      error: (err) => {
+      error: err => {
         console.error('Hiba fizetés frissítésénél:', err);
       },
     });
@@ -120,11 +120,11 @@ export class CostComponent implements OnInit {
   deleteCost(id: number): void {
     this.costService.deleteCost(id).subscribe(
       () => {
-        this.costs = this.costs.filter((cost) => cost.id !== id);
+        this.costs = this.costs.filter(cost => cost.id !== id);
       },
-      (error) => {
+      error => {
         console.error('Hiba a költség törlésekor:', error);
-      },
+      }
     );
   }
 }

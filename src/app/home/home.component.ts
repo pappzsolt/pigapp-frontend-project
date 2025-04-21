@@ -1,15 +1,14 @@
 import { Invoice, InvoiceOption } from '../../model/invoice';
-import { HighlightedDirective } from './../directives/highlighted.directive';
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { GroupByThreePipe } from '../pipe/group-by-three.pipe';
 import { GroupByPipe } from '../pipe/group-by.pipe';
-import { APP_CONFIG, AppConfig, CONFIG_TOKEN } from '../config';
+import { AppConfig, CONFIG_TOKEN } from '../config';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { InvoicesService } from '../services/invoices.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private invoicesService: InvoicesService,
-    @Inject(CONFIG_TOKEN) private config: AppConfig,
+    @Inject(CONFIG_TOKEN) private config: AppConfig
   ) {}
 
   ngOnInit() {

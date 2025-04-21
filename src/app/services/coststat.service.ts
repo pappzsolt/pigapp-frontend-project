@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CostData, CostGroupResponse } from '../../model/invoice_sum_cost.model';
-import { KeyValue } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',

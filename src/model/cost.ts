@@ -12,7 +12,7 @@ export class Cost {
     public paid: number,
     public paid_date: Date,
     public create_cost_date: Date,
-    public user: number,
+    public user: number
   ) {}
 }
 

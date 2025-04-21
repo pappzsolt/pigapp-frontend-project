@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Cashflow, CashFlow2 } from '../../model/cashflow';
 
@@ -37,12 +36,12 @@ export class CashFlowServiceService {
   }
 
   getCashFlowListAll(): Observable<Cashflow[]> {
-    return new Observable<Cashflow[]>((observer) => {
+    return new Observable<Cashflow[]>(observer => {
       this.http.get<Cashflow[]>(this.cashFlowUrlAll).subscribe({
-        next: (response) => {
+        next: response => {
           observer.next(response); // Az adatok továbbítása a feliratkozott komponensnek
         },
-        error: (err) => {
+        error: err => {
           console.error('Hiba:', err);
           observer.error(err); // Hiba esetén kiadjuk az error-t
         },

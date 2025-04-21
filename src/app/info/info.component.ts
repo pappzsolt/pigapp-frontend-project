@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  CostSummary,
-  InvoiceIdWithName,
-  InvoiceSumCost,
-  FilteredDates,
-  CostGroupResponse,
-  CostData,
-} from '../../model/invoice_sum_cost.model';
-import { Observable, of } from 'rxjs';
-import { CommonModule, KeyValue } from '@angular/common';
+import { CostSummary, CostGroupResponse, CostData } from '../../model/invoice_sum_cost.model';
+import { CommonModule } from '@angular/common';
 import { InfoService } from '../services/info.service';
 import { FormsModule } from '@angular/forms';
 import { CostStatService } from '../services/coststat.service';
@@ -33,7 +25,7 @@ export class InfoComponent implements OnInit {
 
   constructor(
     private infoService: InfoService,
-    private costStatService: CostStatService,
+    private costStatService: CostStatService
   ) {}
 
   ngOnInit(): void {
@@ -44,26 +36,26 @@ export class InfoComponent implements OnInit {
 
   loadCostDataCost5(): void {
     this.costStatService.getCurrentMonthCostGroup5().subscribe(
-      (data) => {
+      data => {
         this.costData = data;
         this.loading = false;
       },
-      (error) => {
+      error => {
         console.error('Error loading cost data:', error);
         this.error = 'Hiba történt az adatok betöltésekor';
         this.loading = false;
-      },
+      }
     );
   }
 
   loadCostGroupData(): void {
     this.costStatService.getCostGroupData().subscribe(
-      (data) => {
+      data => {
         this.costGroupResponse = data;
       },
-      (error) => {
+      error => {
         console.error('Error loading cost group data', error);
-      },
+      }
     );
   }
 
@@ -73,12 +65,12 @@ export class InfoComponent implements OnInit {
 
   getMonthlySummary(): void {
     this.infoService.getMonthlySummary().subscribe({
-      next: (data) => {
+      next: data => {
         this.summaries = data;
         this.calculateTotals();
         this.loading = false;
       },
-      error: (err) => {
+      error: err => {
         this.error = 'Hiba történt az adatok lekérésekor.';
         this.loading = false;
       },

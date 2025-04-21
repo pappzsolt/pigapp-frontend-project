@@ -1,11 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Invoice } from '../../model/invoice';
-import { map } from 'rxjs/operators';
-import { CostSummary, InvoiceIdWithName, InvoiceSumCost } from '../../model/invoice_sum_cost.model';
-import { FormsModule } from '@angular/forms';
+import { CostSummary } from '../../model/invoice_sum_cost.model';
 @Injectable({
   providedIn: 'root',
 })

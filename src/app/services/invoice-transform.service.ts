@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { InvoiceOption, InvoiceResponse, InvoiceTransferResponse } from '../../model/invoice';
+import { InvoiceResponse, InvoiceTransferResponse } from '../../model/invoice';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class InvoiceTransformService {
   transferAmount(szamla1: number, szamla2: number, amount: number) {
     return this.http.patch<InvoiceTransferResponse>(
       `${this.apiInvoiceUpdateUrl}${szamla1}/${szamla2}`,
-      { amount },
+      { amount }
     );
   }
 }

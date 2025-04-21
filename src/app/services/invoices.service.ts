@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Invoice, InvoiceOption } from '../../model/invoice';
+import { Invoice } from '../../model/invoice';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,12 +18,12 @@ export class InvoicesService {
 
   // Invoice lista lekérése
   getInvoiceList(): Observable<Invoice[]> {
-    return new Observable<Invoice[]>((observer) => {
+    return new Observable<Invoice[]>(observer => {
       this.http.get<Invoice[]>(this.invoiceUrl).subscribe({
-        next: (response) => {
+        next: response => {
           observer.next(response); // Az adatok továbbítása a feliratkozott komponensnek
         },
-        error: (err) => {
+        error: err => {
           console.error('Hiba:', err);
           observer.error(err); // Hiba esetén kiadjuk az error-t
         },

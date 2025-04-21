@@ -33,7 +33,7 @@ export class CashFlowComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -53,14 +53,14 @@ export class CashFlowComponent implements OnInit {
 
   loadForeignKeyData(): void {
     this.cashFlowService.getForeignKeyData().subscribe(
-      (data) => {
+      data => {
         this.invoices = data.invoices;
         this.devs = data.devs;
         this.cashFlowGroups = data.cashflowgroup;
       },
-      (error) => {
+      error => {
         console.error('Hiba a ForeignKey adatok betöltésekor:', error);
-      },
+      }
     );
   }
 
@@ -70,13 +70,13 @@ export class CashFlowComponent implements OnInit {
       newCashflow.create_cash_flow_date = new Date();
       newCashflow.user = this.authService.getUserId();
       this.cashFlowService.create(newCashflow).subscribe(
-        (data) => {
+        data => {
           this.cashFlows2.push(data);
           this.cashFlowForm.reset(); // űrlap törlése
         },
-        (error) => {
+        error => {
           console.error('Hiba a költség hozzáadásakor:', error);
-        },
+        }
       );
     } else {
       console.log('hiba');
