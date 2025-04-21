@@ -8,9 +8,8 @@ describe('CashFlowGroupsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CashFlowGroupsComponent]
-    })
-    .compileComponents();
+      imports: [CashFlowGroupsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CashFlowGroupsComponent);
     component = fixture.componentInstance;

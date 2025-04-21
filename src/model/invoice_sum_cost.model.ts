@@ -3,14 +3,14 @@ export interface InvoiceSumCost {
   amount: number;
 }
 export interface InvoiceSumCost {
-  amount: number,
-  get_first_day: string,
-  get_last_day : string,
-  invoice: number
+  amount: number;
+  get_first_day: string;
+  get_last_day: string;
+  invoice: number;
 }
 export interface InvoiceIdWithName {
-  id: number,
-  invoice_name: string
+  id: number;
+  invoice_name: string;
 }
 export interface Invoice {
   id: number;
@@ -23,7 +23,7 @@ export interface Invoice {
 
 export interface CostSummary {
   invoice: Invoice;
-  total_paid: string;   // vagy number, ha parse-olod
+  total_paid: string; // vagy number, ha parse-olod
   total_unpaid: string; // vagy number, ha parse-olod
 }
 export interface CostGroupItem {

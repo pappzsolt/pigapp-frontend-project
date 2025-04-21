@@ -1,7 +1,7 @@
-import {  Input, EventEmitter, Output } from '@angular/core';
+import { Input, EventEmitter, Output } from '@angular/core';
 import { INVOICES } from './../../../db-data-invoice';
 import { Invoice } from '../../model/invoice';
-import { HighlightedDirective } from "./../directives/highlighted.directive";
+import { HighlightedDirective } from './../directives/highlighted.directive';
 import { CommonModule } from '@angular/common';
 import { Component, Inject, inject, InjectionToken, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -10,23 +10,20 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { CashFlowServiceService } from '../services/cash-flow.service.service';
 import { Cashflow } from './../../model/cashflow';
-import { CashFlowComponent } from "../cash-flow/cash-flow.component";
+import { CashFlowComponent } from '../cash-flow/cash-flow.component';
 import { GroupByThreePipe } from '../pipe/group-by-three.pipe';
 import { GroupByPipe } from '../pipe/group-by.pipe';
 import { APP_CONFIG, AppConfig, CONFIG_TOKEN } from '../config';
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [HighlightedDirective,CommonModule,GroupByThreePipe,GroupByPipe],
+  imports: [HighlightedDirective, CommonModule, GroupByThreePipe, GroupByPipe],
   templateUrl: './invoice.component.html',
-  styleUrl: './invoice.component.css'
+  styleUrl: './invoice.component.css',
 })
-export class InvoiceComponent implements OnInit{
-
-
-
+export class InvoiceComponent implements OnInit {
   @Input({
-    required: true
+    required: true,
   })
   invoice!: Invoice;
 
@@ -39,19 +36,18 @@ export class InvoiceComponent implements OnInit{
   @Output('invoiceChanged')
   invoiceEmitter = new EventEmitter<Invoice>();
 
-  constructor(){}
-
+  constructor() {}
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
   }
 
-  onInvoiceView(){
+  onInvoiceView() {
     // console.log("invoice click");
     this.invoiceSelected.emit(this.invoice);
   }
 
-  onSaveClicked(invoice_note:string){
-    this.invoiceEmitter.emit({...this.invoice,invoice_note});
+  onSaveClicked(invoice_note: string) {
+    this.invoiceEmitter.emit({ ...this.invoice, invoice_note });
   }
 }

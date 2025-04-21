@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'groupBy'
+  name: 'groupBy',
 })
 export class GroupByPipe implements PipeTransform {
-
   transform<T>(value: T[] | null, groupSize: number = 3): T[][] {
     if (!value || groupSize < 1) return [];
 
@@ -16,5 +15,4 @@ export class GroupByPipe implements PipeTransform {
 
     return result;
   }
-
 }

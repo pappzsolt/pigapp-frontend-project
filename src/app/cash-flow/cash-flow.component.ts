@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, inject } from '@angular/core';
-import { Cashflow ,CashFlow2} from '../../model/cashflow';
-import { HighlightedDirective } from "./../directives/highlighted.directive";
+import { Cashflow, CashFlow2 } from '../../model/cashflow';
+import { HighlightedDirective } from './../directives/highlighted.directive';
 import { Observable, of } from 'rxjs';
 import { CashFlowServiceService } from '../services/cash-flow.service.service';
 import { RouterOutlet } from '@angular/router';
@@ -11,18 +11,16 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-cash-flow',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './cash-flow.component.html',
-  styleUrl: './cash-flow.component.css'
+  styleUrl: './cash-flow.component.css',
 })
-export class CashFlowComponent implements OnInit{
-
+export class CashFlowComponent implements OnInit {
   invoices: any[] = [];
   devs: any[] = [];
   cashFlowGroups: any[] = [];
   cashFlows2: CashFlow2[] = [];
   cashFlowForm!: FormGroup;
-
 
   @Input()
   cashflowIndex!: number;
@@ -33,8 +31,10 @@ export class CashFlowComponent implements OnInit{
 
   private cashFlowService = inject(CashFlowServiceService);
 
-  constructor(private fb: FormBuilder,private authService: AuthService  ){}
-
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.cashflows$ = this.cashFlowService.getCashFlowListAll();
@@ -49,7 +49,6 @@ export class CashFlowComponent implements OnInit{
       cashflowgroup: [null, Validators.required],
       cash_flow_date: ['', Validators.required],
     });
-
   }
 
   loadForeignKeyData(): void {
@@ -61,27 +60,27 @@ export class CashFlowComponent implements OnInit{
       },
       (error) => {
         console.error('Hiba a ForeignKey adatok betöltésekor:', error);
-      }
+      },
     );
   }
 
-    addCost(): void {
-      if (this.cashFlowForm.valid) {
-        const newCashflow: CashFlow2 = this.cashFlowForm.value;
-        newCashflow.create_cash_flow_date = new Date();
-        newCashflow.user = this.authService.getUserId();
-        this.cashFlowService.create(newCashflow).subscribe(
-          (data) => {
-            this.cashFlows2.push(data);
-            this.cashFlowForm.reset(); // űrlap törlése
-          },
-          (error) => {
-            console.error('Hiba a költség hozzáadásakor:', error);
-          }
-        );
-      }else{
-        console.log("hiba")
-        console.log(this.cashFlowForm.value)
-      }
+  addCost(): void {
+    if (this.cashFlowForm.valid) {
+      const newCashflow: CashFlow2 = this.cashFlowForm.value;
+      newCashflow.create_cash_flow_date = new Date();
+      newCashflow.user = this.authService.getUserId();
+      this.cashFlowService.create(newCashflow).subscribe(
+        (data) => {
+          this.cashFlows2.push(data);
+          this.cashFlowForm.reset(); // űrlap törlése
+        },
+        (error) => {
+          console.error('Hiba a költség hozzáadásakor:', error);
+        },
+      );
+    } else {
+      console.log('hiba');
+      console.log(this.cashFlowForm.value);
     }
+  }
 }

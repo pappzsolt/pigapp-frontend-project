@@ -18,5 +18,5 @@ export const routes: Routes = [
   { path: 'info', component: InfoComponent },
   { path: 'invoicetransform', component: InvoiceTransformComponent },
   { path: 'autocost', component: AutoCostComponent },
-  { path: 'costrepeat', component: CostRepeatComponent}
+  { path: 'costrepeat', component: CostRepeatComponent },
 ];

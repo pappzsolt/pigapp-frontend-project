@@ -7,31 +7,26 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
-
-  private apiUrl = "http://192.168.1.37:8000/api/token/";
-
+  private apiUrl = 'http://192.168.1.37:8000/api/token/';
 
   jsonData = {
-    "email": "papp.zsolt.gabor@gmail.com",
-    "password": "2EdrufrU"
+    email: 'papp.zsolt.gabor@gmail.com',
+    password: '2EdrufrU',
   };
-
 
   constructor(private http: HttpClient) {}
 
-
   login(): Observable<any> {
-    return this.http.post<any>(this.apiUrl, this.jsonData)
+    return this.http.post<any>(this.apiUrl, this.jsonData);
   }
 
   isTokenExpired(): boolean {
     const expirationDate = this.getTokenExpirationDate();
-    console.log("expirationDate:"+expirationDate)
+    console.log('expirationDate:' + expirationDate);
     if (!expirationDate) return true; // Ha nincs token vagy nincs exp mező, akkor tekintsük lejártnak
 
     return expirationDate.getTime() < Date.now(); // Ha a dátum a jelenlegi idő előtt van, akkor lejárt
   }
-
 
   saveJwtToken(token: string): void {
     sessionStorage.removeItem('jwt_token');
@@ -51,10 +46,10 @@ export class AuthService {
   }
 
   getJwtDecode(token: string): any {
-      return jwtDecode(token);
+    return jwtDecode(token);
   }
   getUserId(): number | number {
-    const token =  sessionStorage.getItem('jwt_token');
+    const token = sessionStorage.getItem('jwt_token');
     if (!token) return 0;
 
     try {
@@ -69,7 +64,7 @@ export class AuthService {
   }
 
   getTokenExpirationDate(): Date | null {
-    const token =  sessionStorage.getItem('jwt_token');
+    const token = sessionStorage.getItem('jwt_token');
     if (!token) return null;
 
     try {
@@ -83,6 +78,3 @@ export class AuthService {
     }
   }
 }
-
-
-

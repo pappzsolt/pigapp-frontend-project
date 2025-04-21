@@ -5,14 +5,12 @@ import { Component, OnInit } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './cash-flow-groups.component.html',
-  styleUrl: './cash-flow-groups.component.css'
+  styleUrl: './cash-flow-groups.component.css',
 })
-export class CashFlowGroupsComponent implements OnInit{
-  constructor(){}
-
+export class CashFlowGroupsComponent implements OnInit {
+  constructor() {}
 
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
-
 }

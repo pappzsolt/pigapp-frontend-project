@@ -3,7 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CostService } from '../services/cost.service';
 import { Cost } from '../../model/cost';
-import { FormBuilder, FormGroup ,ReactiveFormsModule,Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 @Component({
@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './cost.component.html',
-  styleUrls: ['./cost.component.css']
+  styleUrls: ['./cost.component.css'],
 })
 export class CostComponent implements OnInit {
   costs: Cost[] = [];
@@ -23,7 +23,11 @@ export class CostComponent implements OnInit {
   selectedCost: Cost | null = null;
   currentPage: number = 1;
   totalPages: number = 1;
-  constructor(private costService: CostService, private fb: FormBuilder,private authService: AuthService) {
+  constructor(
+    private costService: CostService,
+    private fb: FormBuilder,
+    private authService: AuthService,
+  ) {
     this.costForm = this.fb.group({
       cost_name: ['', Validators.required],
       cost_note: ['', Validators.required],
@@ -34,7 +38,7 @@ export class CostComponent implements OnInit {
       costrepeat: ['', Validators.required],
       costgroup: ['', Validators.required],
       paid: [false],
-      paid_date: ['', Validators.required]
+      paid_date: ['', Validators.required],
     });
   }
 
@@ -52,19 +56,19 @@ export class CostComponent implements OnInit {
       },
       (error) => {
         console.error('Hiba a ForeignKey adatok betöltésekor:', error);
-      }
+      },
     );
   }
   // Költségek betöltése
   loadCosts(): void {
     this.costService.getCosts(this.currentPage).subscribe({
       next: (data) => {
-        this.costs = data.results;  // A 'results' mező tartalmazza az aktuális oldal elemeit
-        this.totalPages = Math.ceil(data.count / 10);  // A teljes oldalak száma
+        this.costs = data.results; // A 'results' mező tartalmazza az aktuális oldal elemeit
+        this.totalPages = Math.ceil(data.count / 10); // A teljes oldalak száma
       },
       error: (err) => {
         console.error('Hiba a költségek betöltésekor:', err);
-      }
+      },
     });
   }
   changePage(page: number): void {
@@ -92,7 +96,7 @@ export class CostComponent implements OnInit {
         },
         (error) => {
           console.error('Hiba a költség hozzáadásakor:', error);
-        }
+        },
       );
     }
   }
@@ -108,21 +112,19 @@ export class CostComponent implements OnInit {
       },
       error: (err) => {
         console.error('Hiba fizetés frissítésénél:', err);
-      }
+      },
     });
   }
-
 
   // Költség törlése
   deleteCost(id: number): void {
     this.costService.deleteCost(id).subscribe(
       () => {
-        this.costs = this.costs.filter(cost => cost.id !== id);
+        this.costs = this.costs.filter((cost) => cost.id !== id);
       },
       (error) => {
         console.error('Hiba a költség törlésekor:', error);
-      }
+      },
     );
   }
 }
-

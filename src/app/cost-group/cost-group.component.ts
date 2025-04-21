@@ -4,11 +4,10 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-cost-group',
   imports: [],
   templateUrl: './cost-group.component.html',
-  styleUrl: './cost-group.component.css'
+  styleUrl: './cost-group.component.css',
 })
-export class CostGroupComponent implements OnInit{
-  constructor(){}
-
+export class CostGroupComponent implements OnInit {
+  constructor() {}
 
   ngOnInit(): void {
     throw new Error('Method not implemented.');

@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpInterceptor, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpInterceptor,
+  HttpEvent,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
-import { AuthService } from './services/auth.service';  // Az AuthService-t az implementációdtól függően kell implementálni
+import { AuthService } from './services/auth.service'; // Az AuthService-t az implementációdtól függően kell implementálni
 
 @Injectable()
- /* export class AuthInterceptor implements HttpInterceptor {
+/* export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
 
@@ -29,7 +35,6 @@ import { AuthService } from './services/auth.service';  // Az AuthService-t az i
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
   constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -40,21 +45,21 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
     }
 
     return next.handle(request).pipe(
       catchError((err: any) => {
         if (err instanceof HttpErrorResponse && err.status === 401) {
-          console.log("401-es hiba - új token kérése");
+          console.log('401-es hiba - új token kérése');
           return this.authService.login().pipe(
-            switchMap(response => {
+            switchMap((response) => {
               // Tokenek mentése
               this.authService.saveJwtRefresh(response.refresh);
               this.authService.saveJwtToken(response.access);
-              console.log("Új token megszerezve:", response.access);
+              console.log('Új token megszerezve:', response.access);
 
               // Új token lekérése
               const newToken = this.authService.getJwtToken();
@@ -63,21 +68,21 @@ export class AuthInterceptor implements HttpInterceptor {
               const newRequest = request.clone({
                 setHeaders: {
                   'Content-Type': 'application/json',
-                  Authorization: `Bearer ${newToken}`
-                }
+                  Authorization: `Bearer ${newToken}`,
+                },
               });
 
               // Ismételt küldés az új tokennel
               return next.handle(newRequest);
             }),
-            catchError(error => {
-              console.error("Hiba új token kérés közben:", error);
+            catchError((error) => {
+              console.error('Hiba új token kérés közben:', error);
               return throwError(error);
-            })
+            }),
           );
         }
         return throwError(err);
-      })
+      }),
     );
   }
 }

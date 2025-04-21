@@ -8,9 +8,8 @@ describe('InvoiceTransformComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InvoiceTransformComponent]
-    })
-    .compileComponents();
+      imports: [InvoiceTransformComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InvoiceTransformComponent);
     component = fixture.componentInstance;

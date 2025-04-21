@@ -1,6 +1,5 @@
 <!-- Wrapper container -->
 <div class="container mx-auto px-4 space-y-8">
-
   <!-- Aktuális havi költség összesítés -->
   <div class="bg-blue-100 p-6 rounded-2xl shadow-md">
     <h2 class="text-2xl font-semibold text-blue-800 mb-6">Aktuális havi költség összesítés</h2>
@@ -21,24 +20,35 @@
           <tr *ngFor="let summary of summaries">
             <td class="px-4 py-2 border-b">{{ summary.invoice.invoice_name }}</td>
             <td class="px-4 py-2 border-b">{{ summary.invoice.invoice_note }}</td>
-            <td class="px-4 py-2 border-b">{{ summary.invoice.create_invoice_date | date:'yyyy-MM-dd' }}</td>
-            <td class="px-4 py-2 border-b">{{ summary.invoice.amount | number:'1.0-0' }} Ft</td>
-            <td class="px-4 py-2 border-b text-green-700">{{ summary.total_paid | number:'1.0-0' }} Ft</td>
-            <td class="px-4 py-2 border-b text-red-700">{{ summary.total_unpaid | number:'1.0-0' }} Ft</td>
+            <td class="px-4 py-2 border-b">
+              {{ summary.invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
+            </td>
+            <td class="px-4 py-2 border-b">{{ summary.invoice.amount | number: '1.0-0' }} Ft</td>
+            <td class="px-4 py-2 border-b text-green-700">
+              {{ summary.total_paid | number: '1.0-0' }} Ft
+            </td>
+            <td class="px-4 py-2 border-b text-red-700">
+              {{ summary.total_unpaid | number: '1.0-0' }} Ft
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div *ngIf="!loading && summaries.length === 0" class="text-gray-600 mt-4">Nincs adat az aktuális hónapra.</div>
+    <div *ngIf="!loading && summaries.length === 0" class="text-gray-600 mt-4">
+      Nincs adat az aktuális hónapra.
+    </div>
     <div *ngIf="loading" class="text-blue-600 mt-4">Betöltés...</div>
     <div *ngIf="error" class="text-red-600 mt-4">{{ error }}</div>
 
     <!-- Összesítés -->
-    <div *ngIf="!loading && summaries.length > 0" class="mt-6 p-4 bg-blue-200 rounded-xl text-blue-900 shadow-inner">
+    <div
+      *ngIf="!loading && summaries.length > 0"
+      class="mt-6 p-4 bg-blue-200 rounded-xl text-blue-900 shadow-inner"
+    >
       <p class="font-semibold">Összesítés</p>
-      <p><strong>Összes fizetett:</strong> {{ totalPaid | number:'1.0-0' }} Ft</p>
-      <p><strong>Összes nem fizetett:</strong> {{ totalUnpaid | number:'1.0-0' }} Ft</p>
+      <p><strong>Összes fizetett:</strong> {{ totalPaid | number: '1.0-0' }} Ft</p>
+      <p><strong>Összes nem fizetett:</strong> {{ totalUnpaid | number: '1.0-0' }} Ft</p>
     </div>
   </div>
 
@@ -52,12 +62,19 @@
     </p>
 
     <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      <div *ngFor="let groupId of objectKeys(costGroupResponse?.cost_groups)" class="bg-white shadow-md rounded-2xl p-6 border border-blue-300">
+      <div
+        *ngFor="let groupId of objectKeys(costGroupResponse?.cost_groups)"
+        class="bg-white shadow-md rounded-2xl p-6 border border-blue-300"
+      >
         <h3 class="text-xl font-semibold text-blue-600 mb-4">
-          Csoport: {{ costGroupResponse.cost_groups[groupId][0]?.costgroup_name || 'Ismeretlen Csoport' }}
+          Csoport:
+          {{ costGroupResponse.cost_groups[groupId][0]?.costgroup_name || 'Ismeretlen Csoport' }}
         </h3>
         <div class="space-y-2">
-          <div *ngFor="let item of costGroupResponse.cost_groups[groupId]" class="flex justify-between items-center bg-blue-50 px-4 py-2 rounded-lg">
+          <div
+            *ngFor="let item of costGroupResponse.cost_groups[groupId]"
+            class="flex justify-between items-center bg-blue-50 px-4 py-2 rounded-lg"
+          >
             <span class="text-blue-700 font-medium">Összeg</span>
             <span class="text-blue-900 font-semibold">{{ item.total_amount | number }} Ft</span>
           </div>
@@ -78,7 +95,10 @@
 
     <!-- Adatok megjelenítése -->
     <div *ngIf="!loading && !error">
-      <div *ngFor="let item of costData" class="bg-white shadow-md rounded-2xl p-6 border border-blue-300 mb-4">
+      <div
+        *ngFor="let item of costData"
+        class="bg-white shadow-md rounded-2xl p-6 border border-blue-300 mb-4"
+      >
         <h3 class="text-xl font-semibold text-blue-600 mb-4">
           {{ item.cost_name }} - {{ item.cost_note }}
         </h3>
@@ -89,11 +109,13 @@
           </div>
 
           <!-- Fizetés státusza -->
-          <div class="flex justify-between items-center px-4 py-2 rounded-lg"
-               [ngClass]="{
-                  'bg-green-50': item.paid === 1,
-                  'bg-red-50': item.paid === 0
-                }">
+          <div
+            class="flex justify-between items-center px-4 py-2 rounded-lg"
+            [ngClass]="{
+              'bg-green-50': item.paid === 1,
+              'bg-red-50': item.paid === 0,
+            }"
+          >
             <span class="text-blue-700 font-medium">Státusz</span>
             <span class="text-blue-900 font-semibold">
               {{ item.paid === 1 ? 'Fizetve' : 'Fizetésre vár' }}
@@ -110,8 +132,9 @@
 
     <!-- Bottom sáv -->
     <div class="mt-4 p-4 bg-blue-200 rounded-2xl shadow-inner text-center">
-      <span class="text-blue-900 font-semibold text-lg">Összes kölcsön: {{ costData.length }} db</span>
+      <span class="text-blue-900 font-semibold text-lg"
+        >Összes kölcsön: {{ costData.length }} db</span
+      >
     </div>
   </div>
-
 </div>

@@ -1,7 +1,7 @@
 import { Invoice, InvoiceOption } from '../../model/invoice';
-import { HighlightedDirective } from "./../directives/highlighted.directive";
+import { HighlightedDirective } from './../directives/highlighted.directive';
 import { CommonModule } from '@angular/common';
-import { Component, Inject,  OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { GroupByThreePipe } from '../pipe/group-by-three.pipe';
@@ -13,37 +13,36 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterOutlet, InvoiceComponent,CommonModule,GroupByThreePipe,GroupByPipe,ReactiveFormsModule],
+  imports: [
+    RouterOutlet,
+    InvoiceComponent,
+    CommonModule,
+    GroupByThreePipe,
+    GroupByPipe,
+    ReactiveFormsModule,
+  ],
   standalone: true,
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit{
-
+export class HomeComponent implements OnInit {
   invoices$: Observable<Invoice[]> = of([]);
   invoiceOption: InvoiceOption[] = [];
 
+  constructor(
+    private invoicesService: InvoicesService,
+    @Inject(CONFIG_TOKEN) private config: AppConfig,
+  ) {}
 
-  constructor(private invoicesService: InvoicesService, @Inject(CONFIG_TOKEN) private config: AppConfig ){
-
-  }
-
-
-
-  ngOnInit(){
+  ngOnInit() {
     this.invoices$ = this.invoicesService.getInvoiceList();
   }
 
-  onInvoiceSelected(invoice:Invoice){
-    console.log("App component click",invoice);
+  onInvoiceSelected(invoice: Invoice) {
+    console.log('App component click', invoice);
   }
 
-  onInvoiceSave(invoice:Invoice){
-    this.invoicesService.saveInvoice(invoice).subscribe(
-      () => console.log("invoice save")
-    );
+  onInvoiceSave(invoice: Invoice) {
+    this.invoicesService.saveInvoice(invoice).subscribe(() => console.log('invoice save'));
   }
 }
-
-
-

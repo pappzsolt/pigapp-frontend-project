@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "angular.ng-template", // Angular Language Service
+    "esbenp.prettier-vscode", // Prettier - Code formatter
+    "dbaeumer.vscode-eslint", // ESLint (ha használod)
+    "editorconfig.editorconfig", // EditorConfig (ha van configod)
+    "streetsidesoftware.code-spell-checker" // Spellchecker, ha szereted
+  ]
+}

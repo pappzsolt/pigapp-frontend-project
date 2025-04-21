@@ -1,32 +1,21 @@
 import { Component, Inject, inject, InjectionToken, OnInit, ViewChild } from '@angular/core';
-import { RouterOutlet,RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,RouterLink,ReactiveFormsModule],
+  imports: [RouterOutlet, RouterLink, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-/*   providers: [
+  /*   providers: [
     {
       provide: CONFIG_TOKEN,useFactory: () => APP_CONFIG,
 
     }
   ] */
 })
+export class AppComponent implements OnInit {
+  constructor() {}
 
-
-
-export class AppComponent implements OnInit{
-
-
-  constructor(){}
-
-  ngOnInit(){}
-
-
+  ngOnInit() {}
 }
-
-
-
-

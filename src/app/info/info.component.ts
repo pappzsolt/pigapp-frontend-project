@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CostSummary, InvoiceIdWithName, InvoiceSumCost, FilteredDates, CostGroupResponse, CostData} from '../../model/invoice_sum_cost.model';
+import {
+  CostSummary,
+  InvoiceIdWithName,
+  InvoiceSumCost,
+  FilteredDates,
+  CostGroupResponse,
+  CostData,
+} from '../../model/invoice_sum_cost.model';
 import { Observable, of } from 'rxjs';
 import { CommonModule, KeyValue } from '@angular/common';
 import { InfoService } from '../services/info.service';
@@ -9,15 +16,11 @@ import { CostStatService } from '../services/coststat.service';
 @Component({
   selector: 'app-info',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './info.component.html',
-  styleUrl: './info.component.css'
+  styleUrl: './info.component.css',
 })
-export class InfoComponent implements OnInit{
-
-
-
-
+export class InfoComponent implements OnInit {
   costGroupResponse!: CostGroupResponse;
 
   summaries: CostSummary[] = [];
@@ -28,9 +31,10 @@ export class InfoComponent implements OnInit{
   selectedMonth: string = ''; // Dátum kiválasztás
   costData: CostData[] = [];
 
-  constructor(private infoService: InfoService,private costStatService: CostStatService){
-
-  }
+  constructor(
+    private infoService: InfoService,
+    private costStatService: CostStatService,
+  ) {}
 
   ngOnInit(): void {
     this.getMonthlySummary();
@@ -48,7 +52,7 @@ export class InfoComponent implements OnInit{
         console.error('Error loading cost data:', error);
         this.error = 'Hiba történt az adatok betöltésekor';
         this.loading = false;
-      }
+      },
     );
   }
 
@@ -59,7 +63,7 @@ export class InfoComponent implements OnInit{
       },
       (error) => {
         console.error('Error loading cost group data', error);
-      }
+      },
     );
   }
 
@@ -77,7 +81,7 @@ export class InfoComponent implements OnInit{
       error: (err) => {
         this.error = 'Hiba történt az adatok lekérésekor.';
         this.loading = false;
-      }
+      },
     });
   }
 

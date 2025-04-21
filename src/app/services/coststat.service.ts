@@ -4,18 +4,16 @@ import { Observable } from 'rxjs';
 import { CostData, CostGroupResponse } from '../../model/invoice_sum_cost.model';
 import { KeyValue } from '@angular/common';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CostStatService {
-
   private apiCostGroupCostUrl = 'http://192.168.1.37:8000/api/pigapp_app/costgroup-cost/'; // Cseréld le a saját API URL-re!
 
-  private apiCurrentMonthCostGroupUrl = 'http://192.168.1.37:8000/api/pigapp_app/current-month-costgroup-5/';
+  private apiCurrentMonthCostGroupUrl =
+    'http://192.168.1.37:8000/api/pigapp_app/current-month-costgroup-5/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCostGroupData(): Observable<CostGroupResponse> {
     return this.http.get<CostGroupResponse>(this.apiCostGroupCostUrl);
@@ -24,4 +22,3 @@ export class CostStatService {
     return this.http.get<CostData[]>(this.apiCurrentMonthCostGroupUrl);
   }
 }
-

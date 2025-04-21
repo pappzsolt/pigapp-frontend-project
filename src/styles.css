@@ -1,5 +1,4 @@
-@import "tailwindcss";
-
+@import 'tailwindcss';
 
 app-invoice.is-first {
   border-top: 2px solid grey;
@@ -24,9 +23,11 @@ app-invoice.is-odd {
 }
 
 .appHighlighted {
-  box-shadow: 0 2px 16px 0 #de1e19, 0 3px 8px 0 rgba(226, 21, 19, 0.47), 0 6px 8px -1px #b41c18;
+  box-shadow:
+    0 2px 16px 0 #de1e19,
+    0 3px 8px 0 rgba(226, 21, 19, 0.47),
+    0 6px 8px -1px #b41c18;
 }
-.card{
-  margin-bottom:50px
+.card {
+  margin-bottom: 50px;
 }
-

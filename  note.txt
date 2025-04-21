@@ -1,44 +1,4 @@
 https://github.com/oktadev/angular-jwt-authentication-example/blob/main/jwt-client/src/app/auth.service.ts
 npm install jwt-decode
 
-
-<!--    <!-- Comboboxok + Összeg input + Gomb -->
-   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col sm:flex-row gap-4 mb-6 items-end">
-    <!-- Számla 1 -->
-    <div class="flex-1">
-      <label for="szamla1" class="block text-blue-800 font-medium mb-1">Számla 1</label>
-      <select id="szamla1" formControlName="szamla1" class="w-full p-2 border border-blue-300 rounded-xl shadow-sm">
-        <option value="">Válassz számlát</option>
-        <option *ngFor="let invoice of invoiceOption" [value]="invoice.id">
-          {{ invoice.invoice_name }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Összeg -->
-    <div class="w-32">
-      <label for="osszeg" class="block text-blue-800 font-medium mb-1">Összeg</label>
-      <input type="number" id="osszeg" formControlName="osszeg" class="w-full p-2 border border-blue-300 rounded-xl shadow-sm" placeholder="Pl. 10000">
-    </div>
-
-    <!-- Számla 2 -->
-    <div class="flex-1">
-      <label for="szamla2" class="block text-blue-800 font-medium mb-1">Számla 2</label>
-      <select id="szamla2" formControlName="szamla2" class="w-full p-2 border border-blue-300 rounded-xl shadow-sm">
-        <option value="">Válassz számlát</option>
-        <option *ngFor="let invoice of invoiceOption" [value]="invoice.id">
-          {{ invoice.invoice_name }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Küldés gomb -->
-    <div>
-      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl shadow flex items-center gap-2">
-        Küldés
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
-  </form> -->
+npx prettier --write .
