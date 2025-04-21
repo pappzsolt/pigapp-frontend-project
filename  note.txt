@@ -3,3 +3,4 @@ npm install jwt-decode
 
 npx prettier --write .
 npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier
+npm run lint
