@@ -78,7 +78,7 @@ export class InvoiceTransformComponent implements OnInit {
             this.transferMessage = null;
           }, 9000);
         },
-        error: err => {
+        error: () => {
           this.transferMessage = '❌ Hiba történt az átvezetés során.';
           setTimeout(() => {
             this.transferMessage = null;

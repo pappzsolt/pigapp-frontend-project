@@ -10,7 +10,8 @@ export class Cashflow {
   cash_flow_date: Date = new Date();
   create_cash_flow_date: Date = new Date();
 }
-export interface CashFlow2 {
+
+export interface CashFlowResponse {
   id?: number;
   cash_flow_name: string;
   cash_flow_note: string;

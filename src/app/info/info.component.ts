@@ -70,7 +70,7 @@ export class InfoComponent implements OnInit {
         this.calculateTotals();
         this.loading = false;
       },
-      error: err => {
+      error: () => {
         this.error = 'Hiba történt az adatok lekérésekor.';
         this.loading = false;
       },

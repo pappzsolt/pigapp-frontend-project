@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cost } from '../../model/cost';
-
+import { ForeignKeyData } from '../../model/foreignkeydata';
 @Injectable({
   providedIn: 'root',
 })
@@ -29,8 +29,8 @@ export class CostService {
   getCost(id: number): Observable<Cost> {
     return this.http.get<Cost>(`${this.apiCreateCostUrl}${id}/`);
   }
-  getForeignKeyData(): Observable<any> {
-    return this.http.get<any>(this.apiForeignKeyDataUrl);
+  getForeignKeyData(): Observable<ForeignKeyData> {
+    return this.http.get<ForeignKeyData>(this.apiForeignKeyDataUrl);
   }
   updateCost(id: number, cost: Cost): Observable<Cost> {
     return this.http.put<Cost>(`${this.apiDetailCostUrl}${id}/`, cost);

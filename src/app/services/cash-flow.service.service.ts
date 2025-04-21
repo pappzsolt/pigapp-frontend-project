@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Cashflow, CashFlow2 } from '../../model/cashflow';
+import { Cashflow, CashFlowResponse } from '../../model/cashflow';
 
 @Injectable({
   providedIn: 'root',
@@ -55,16 +55,16 @@ export class CashFlowServiceService {
   getCashFlowLast(): Observable<Cashflow> {
     return this.http.get<Cashflow>(this.cashFlowActual);
   }
-  getById(id: number): Observable<CashFlow2> {
-    return this.http.get<CashFlow2>(`${this.cashFlowGetById}${id}/`);
+  getById(id: number): Observable<CashFlowResponse> {
+    return this.http.get<CashFlowResponse>(`${this.cashFlowGetById}${id}/`);
   }
 
-  create(cashFlow: CashFlow2): Observable<CashFlow2> {
-    return this.http.post<CashFlow2>(this.cashFlowNew, cashFlow);
+  create(cashFlow: CashFlowResponse): Observable<CashFlowResponse> {
+    return this.http.post<CashFlowResponse>(this.cashFlowNew, cashFlow);
   }
 
-  update(id: number, cashFlow: CashFlow2): Observable<CashFlow2> {
-    return this.http.put<CashFlow2>(`${this.cashFlowGetById}${id}/`, cashFlow);
+  update(id: number, cashFlow: CashFlowResponse): Observable<CashFlowResponse> {
+    return this.http.put<CashFlowResponse>(`${this.cashFlowGetById}${id}/`, cashFlow);
   }
 
   delete(id: number): Observable<any> {

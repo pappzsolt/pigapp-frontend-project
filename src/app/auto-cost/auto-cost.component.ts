@@ -33,7 +33,7 @@ export class AutoCostComponent implements OnInit {
         }
         this.isLoading = false;
       },
-      error: err => {
+      error: () => {
         this.error = 'Hiba történt az adatok betöltésekor.';
         this.isLoading = false;
       },
@@ -76,7 +76,7 @@ export class AutoCostComponent implements OnInit {
             this.error = response.message;
           }
         },
-        error: err => {
+        error: () => {
           this.error = 'Hiba történt a dátumok frissítésekor.';
         },
       });

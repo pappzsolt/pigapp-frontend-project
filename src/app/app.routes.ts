@@ -3,7 +3,6 @@ import { InvoiceComponent } from './invoice/invoice.component';
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
 import { HomeComponent } from './home/home.component';
 import { CostComponent } from './cost/cost.component';
-import { CostRepeat } from '../model/costrepeat';
 import { CostRepeatComponent } from './cost-repeat/cost-repeat.component';
 import { InfoComponent } from './info/info.component';
 import { InvoiceTransformComponent } from './invoice-transform/invoice-transform.component';

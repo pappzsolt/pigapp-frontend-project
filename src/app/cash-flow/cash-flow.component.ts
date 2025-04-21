@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, inject } from '@angular/core';
-import { Cashflow, CashFlow2 } from '../../model/cashflow';
+import { Cashflow, CashFlowResponse } from '../../model/cashflow';
 import { HighlightedDirective } from './../directives/highlighted.directive';
 import { Observable, of } from 'rxjs';
 import { CashFlowServiceService } from '../services/cash-flow.service.service';
@@ -19,7 +19,7 @@ export class CashFlowComponent implements OnInit {
   invoices: any[] = [];
   devs: any[] = [];
   cashFlowGroups: any[] = [];
-  cashFlows2: CashFlow2[] = [];
+  cashFlowResponse: CashFlowResponse[] = [];
   cashFlowForm!: FormGroup;
 
   @Input()
@@ -66,12 +66,12 @@ export class CashFlowComponent implements OnInit {
 
   addCost(): void {
     if (this.cashFlowForm.valid) {
-      const newCashflow: CashFlow2 = this.cashFlowForm.value;
+      const newCashflow: CashFlowResponse = this.cashFlowForm.value;
       newCashflow.create_cash_flow_date = new Date();
       newCashflow.user = this.authService.getUserId();
       this.cashFlowService.create(newCashflow).subscribe(
         data => {
-          this.cashFlows2.push(data);
+          this.cashFlowResponse.push(data);
           this.cashFlowForm.reset(); // űrlap törlése
         },
         error => {
