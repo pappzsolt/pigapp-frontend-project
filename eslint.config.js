@@ -24,9 +24,4 @@ export default [
       'prettier/prettier': ['error'],
     },
   },
-  {
-    files: ['**/*.html'],
-    // HTML fájlokhoz akkor használd a @angular-eslint/template plugint, ha működik flat config-gal,
-    // de jelenleg lehet, hogy még nem támogatott stabilan, ezért kihagyható vagy külön kell konfigurálni
-  },
 ];
