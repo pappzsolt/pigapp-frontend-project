@@ -1,3 +1,16 @@
+<!-- Sikeres vagy hibás üzenet doboz -->
+<div *ngIf="message || error" 
+     class="p-4 rounded-xl shadow-md mb-4 transition-opacity duration-300"
+     [ngClass]="{
+       'bg-green-100 text-green-800': message,
+       'bg-red-100 text-red-800': error
+     }">
+  <strong class="font-semibold">
+    {{ message ? '✅ Siker:' : '❌ Hiba:' }}
+  </strong>
+  <p>{{ message || error }}</p>
+</div>
+
 <div class="bg-blue-100 p-6 rounded-2xl shadow-md border border-blue-200">
   <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
   <button

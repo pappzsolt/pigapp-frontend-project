@@ -27,7 +27,7 @@
         next: (response: MonthlyCostResponse) => {
           if (response.success) {
             this.autoCosts = response.data;
-            this.message = response.message;
+            // this.message = response.message;
           } else {
             this.error = response.message;
           }
@@ -64,11 +64,12 @@
     }
     updateCostDates(): void {
       const selectedCostIds = this.selectedCosts();
+
       if (selectedCostIds.length > 0) {
         this.autoCostService.updateCostDates(selectedCostIds).subscribe({
           next: (response) => {
             if (response.success) {
-              this.message = 'A költségek dátumai sikeresen frissítve lettek.';
+              this.message = response.message;
               this.insertedCosts = response.data || [];
               this.disabledCostIds = [...this.disabledCostIds, ...selectedCostIds];
 
@@ -84,4 +85,5 @@
         this.error = 'Nincs kiválasztott költség.';
       }
     }
+  
   }
