@@ -33,7 +33,7 @@ export class AutoCostComponent implements OnInit {
         }
         this.isLoading = false;
       },
-      error: (err) => {
+      error: err => {
         this.error = 'Hiba történt az adatok betöltésekor.';
         this.isLoading = false;
       },
@@ -47,19 +47,19 @@ export class AutoCostComponent implements OnInit {
 
   selectedCosts(): number[] {
     const selectedCostIds = this.autoCosts
-      .filter((cost) => cost.selected) // Csak a kijelölt költségek
-      .map((cost) => cost.id); // Az id-kat gyűjtjük össze
+      .filter(cost => cost.selected) // Csak a kijelölt költségek
+      .map(cost => cost.id); // Az id-kat gyűjtjük össze
 
     return selectedCostIds; // Visszaadjuk a kiválasztott költségek ID-jait
   }
 
   selectAllCosts(): void {
-    this.autoCosts.forEach((cost) => (cost.selected = true));
+    this.autoCosts.forEach(cost => (cost.selected = true));
     this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
   }
 
   deselectAllCosts(): void {
-    this.autoCosts.forEach((cost) => (cost.selected = false));
+    this.autoCosts.forEach(cost => (cost.selected = false));
     this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
   }
   updateCostDates(): void {
@@ -67,7 +67,7 @@ export class AutoCostComponent implements OnInit {
 
     if (selectedCostIds.length > 0) {
       this.autoCostService.updateCostDates(selectedCostIds).subscribe({
-        next: (response) => {
+        next: response => {
           if (response.success) {
             this.message = response.message;
             this.insertedCosts = response.data || [];
@@ -76,7 +76,7 @@ export class AutoCostComponent implements OnInit {
             this.error = response.message;
           }
         },
-        error: (err) => {
+        error: err => {
           this.error = 'Hiba történt a dátumok frissítésekor.';
         },
       });
