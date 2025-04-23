@@ -10,11 +10,11 @@ build:
   services:
   - docker:dind
   script:
-  - docker build -t my-angular-app .
-  - docker save my-angular-app | gzip > my-angular-app.tar.gz
+  - docker build -t pigapp-frontend-project .
+  - docker save my-angular-app | gzip > pigapp-frontend-project.gz
   artifacts:
     paths:
-    - my-angular-app.tar.gz
+    - pigapp-frontend-project.gz
 
 deploy:
   stage: deploy
@@ -23,4 +23,3 @@ deploy:
   image: python:3.10
   script:
   - pip install ansible
-  - ansible-playbook -i inventory.yml deploy.yml
