@@ -1,0 +1,19 @@
+- name: Deploy Angular Docker container
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Másold fel a Docker image fájlt
+      copy:
+        src: my-angular-app.tar.gz
+        dest: /tmp/my-angular-app.tar.gz
+
+    - name: Tömörített Docker image betöltése
+      command: docker load -i /tmp/my-angular-app.tar.gz
+
+    - name: Állítsd le az előző konténert (ha van)
+      command: docker rm -f angular_app
+      ignore_errors: yes
+
+    - name: Indítsd újra a konténert
+      command: docker run -d --name angular_app -p 80:80 my-angular-app

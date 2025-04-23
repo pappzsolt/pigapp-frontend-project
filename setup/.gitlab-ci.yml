@@ -1,0 +1,23 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t my-angular-app .
+    - docker save my-angular-app | gzip > my-angular-app.tar.gz
+  artifacts:
+    paths:
+      - my-angular-app.tar.gz
+
+deploy:
+  stage: deploy
+  image: python:3.10
+  before_script:
+    - pip install ansible
+  script:
+    - ansible-playbook -i inventory.yml deploy.yml
