@@ -1,25 +1,26 @@
 stages:
-  - copy
-  - start
+- build
+- deploy
 
-copy:
-  stage: copy
-  before_script:
-    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ssh $SSH_USER@$REMOTE_SERVER rm -Rf /works/pigapp_frontend
+build:
+  stage: build
+  tags:
+  - docker
+  image: docker:latest
+  services:
+  - docker:dind
   script:
-    - ssh $SSH_USER@$REMOTE_SERVER echo "hello"
-    - pwd
-    - ls -al
-    - scp -i ./id_rsa.pub -r ../pigapp_frontend  $SSH_USER@$REMOTE_SERVER:/works/
-  when: manual
+  - docker build -t my-angular-app .
+  - docker save my-angular-app | gzip > my-angular-app.tar.gz
+  artifacts:
+    paths:
+    - my-angular-app.tar.gz
 
-start:
-  stage: start
+deploy:
+  stage: deploy
+  tags:
+  - docker
+  image: python:3.10
   script:
-    - echo "start"
-  when: manual
+  - pip install ansible
+  - ansible-playbook -i inventory.yml deploy.yml
