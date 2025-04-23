@@ -52,7 +52,7 @@ deploy-to-server:
   - chmod 600 id_rsa
   - cat id_rsa
   - |
-    ssh -o StrictHostKeyChecking=no -i id_rsa $DEPLOY_USER@$DEPLOY_HOST
+    ssh -o StrictHostKeyChecking=no -i id_rsa $DEPLOY_USER@$DEPLOY_HOST "
       docker login -u $NEXUS_USERNAME -p $NEXUS_PASSWORD http://192.168.1.37:8083 &&
       docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx &&
       docker stop my-app || true &&
