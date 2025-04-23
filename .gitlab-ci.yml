@@ -1,6 +1,8 @@
 stages:
 - build
+- docker
 
+# Az Angular build
 build:
   stage: build
   image: node:18
@@ -8,6 +10,23 @@ build:
   - npm install -g @angular/cli
   - npm ci
   - ng build --configuration production
+  artifacts:
+    paths:
+    - dist/
+
+# Docker image építése és deploy
+dockerize:
+  stage: docker
+  image: docker:24.0.7
+  services:
+  - name: docker:24.0.7-dind
+    alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+  - docker build -t pigapp-frontend-project .
+  - docker images
   artifacts:
     paths:
     - dist/
