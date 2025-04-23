@@ -48,12 +48,13 @@ deploy-to-server:
   before_script:
     - apk add --no-cache openssh
   script:
-    - echo "$SSH_PRIVATE_KEY" > id_rsa && chmod 600 id_rsa
-    - |
-      ssh -o StrictHostKeyChecking=no -i id_rsa $DEPLOY_USER@$DEPLOY_HOST << 'EOF'
-        docker login http://192.168.1.37:8083 -u $NEXUS_USERNAME -p $NEXUS_PASSWORD
-        docker stop angular-app || true
-        docker rm angular-app || true
-        docker pull 192.168.1.37:8083/my-angular-app-nginx:latest
-        docker run -d --name angular-app -p 75:80 192.168.1.37:8083/my-angular-app-nginx:latest
-      EOF
+      - echo "$SSH_PRIVATE_KEY" > id_rsa
+      - chmod 600 id_rsa
+      - |
+        ssh -o StrictHostKeyChecking=no -i id_rsa $DEPLOY_USER@$DEPLOY_HOST "
+          docker login -u $NEXUS_USERNAME -p $NEXUS_PASSWORD http://192.168.1.37:8083 &&
+          docker pull http://192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx &&
+          docker stop my-app || true &&
+          docker rm my-app || true &&
+          docker run -d --name my-app -p 80:80 http://192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+        "
