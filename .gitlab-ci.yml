@@ -58,3 +58,4 @@ deploy-to-server:
     docker rm my-app || true
     docker run -d --name my-app -p 80:80 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
     EOF
+
