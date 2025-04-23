@@ -29,13 +29,13 @@ dockerize:
     - echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin 192.168.1.37:8082
 
     # Docker image építése
-    - docker build -t 192.168.1.37:8082/repository/docker-hosted/my-angular-app-nginx .
+    - docker build -t http://192.168.1.37:8081/repository/docker-hosted/my-angular-app-nginx .
 
     # Docker képek listázása (ellenőrzés)
     - docker images
 
     # Docker kép pusholása a Nexus-ra
-    - docker push 192.168.1.37:8082/repository/docker-hosted/my-angular-app-nginx
+    - docker push 192.168.1.37:8081/repository/docker-hosted/my-angular-app-nginx
   artifacts:
     paths:
       - dist/
