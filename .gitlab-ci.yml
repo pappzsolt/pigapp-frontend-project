@@ -8,7 +8,7 @@ build:
   - docker
   image: docker:latest
   services:
-    - docker:20.10.24-dind
+    - docker:latest
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
