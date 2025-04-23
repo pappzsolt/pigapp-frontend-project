@@ -1,13 +1,15 @@
-# Stage 1 - Build
-FROM node:20 AS build
-
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build --prod
-
-# Stage 2 - Serve with Nginx
+# Használj hivatalos Nginx image-t
 FROM nginx:alpine
-COPY --from=build /app/dist/<angular-project-neve> /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
+
+# Másold be az Angular buildelt fájlokat a Nginx default könyvtárába
+COPY ./dist/ /usr/share/nginx/html
+
+# Másold be az egyedi Nginx konfigurációt, ha van
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# Állítsd be a megfelelő portot, amin a konténer futni fog
+EXPOSE 80
+
+# Indítsd el az Nginx-et
+CMD ["nginx", "-g", "daemon off;"]
+

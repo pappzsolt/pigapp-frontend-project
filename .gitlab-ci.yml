@@ -1,16 +1,13 @@
 stages:
-  - build
+- build
 
 build:
   stage: build
   image: node:18
   script:
-    - npm install -g @angular/cli
-    - npm ci
-    - ng build --configuration production
+  - npm install -g @angular/cli
+  - npm ci
+  - ng build --configuration production
   artifacts:
     paths:
-      - dist/
-
-
-
+    - dist/
