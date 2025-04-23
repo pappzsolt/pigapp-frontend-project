@@ -54,8 +54,5 @@ deploy-to-server:
   - ssh -t -o StrictHostKeyChecking=no -i id_rsa $DEPLOY_USER@$DEPLOY_HOST << 'EOF'
     docker login -u $NEXUS_USERNAME -p $NEXUS_PASSWORD http://192.168.1.37:8083
     docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
-    docker stop my-app || true
-    docker rm my-app || true
-    docker run -d --name my-app -p 80:80 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
-    EOF
-
+    docker stop my-app || true docker rm my-app || true
+    docker run -d --name my-app -p 80:80 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx EOF
