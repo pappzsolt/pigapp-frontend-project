@@ -1,41 +1,41 @@
 stages:
-  - build
-  - docker
+- build
+- docker
 
 # Az Angular build
 build:
   stage: build
   image: node:18
   script:
-    - npm install -g @angular/cli
-    - npm ci
-    - ng build --configuration production
+  - npm install -g @angular/cli
+  - npm ci
+  - ng build --configuration production
   artifacts:
     paths:
-      - dist/
+    - dist/
 
 # Docker image építése és deploy
 dockerize:
   stage: docker
   image: docker:24.0.7
   services:
-    - name: docker:24.0.7-dind
-      alias: docker
+  - name: docker:24.0.7-dind
+    alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   script:
-    # Bejelentkezés a Nexus Docker registry-be
-    - echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin 192.168.1.37:8082
+  # Bejelentkezés a Nexus Docker registry-be
+  - echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin 192.168.1.37:8082
 
-    # Docker image építése
-    - docker build -t http://192.168.1.37:8081/repository/docker-hosted/my-angular-app-nginx .
+  # Docker image építése
+  - docker build -t http://192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx .
 
-    # Docker képek listázása (ellenőrzés)
-    - docker images
+  # Docker képek listázása (ellenőrzés)
+  - docker images
 
-    # Docker kép pusholása a Nexus-ra
-    - docker push 192.168.1.37:8081/repository/docker-hosted/my-angular-app-nginx
+  # Docker kép pusholása a Nexus-ra
+  - docker push 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
   artifacts:
     paths:
-      - dist/
+    - dist/
