@@ -3,15 +3,14 @@ stages:
 
 build:
   stage: build
-  image: docker:24.0.7
-  services:
-    - name: docker:24.0.7-dind
-      alias: docker
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
+  image: node:18
   script:
-    - docker info
-    - docker build -t pigapp-frontend-project .
+    - npm install -g @angular/cli
+    - npm ci
+    - ng build --configuration production
+  artifacts:
+    paths:
+      - dist/
+
 
 
