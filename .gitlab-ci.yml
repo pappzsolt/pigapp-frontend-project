@@ -25,7 +25,7 @@ dockerize:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   script:
-  - cd pigapp-frontend-project/setup/
+  - cd setup/
   - docker build -t .
   - docker images
   artifacts:
