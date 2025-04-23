@@ -50,9 +50,9 @@ deploy-to-server:
     - ssh-keyscan -H "$DEPLOY_SERVER_IP" >> ~/.ssh/known_hosts
     - |
       ssh -i id_rsa $DEPLOY_USER@$DEPLOY_SERVER_IP << 'EOF'
-        docker login -u "$NEXUS_USERNAME" -p "$NEXUS_PASSWORD" http://192.168.1.37:8083
-        docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
-        docker stop my-angular-app || true
-        docker rm my-angular-app || true
-        docker run -d --name my-angular-app -p 80:80 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+      echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083
+      docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+      docker stop my-angular-app || true
+      docker rm my-angular-app || true
+      docker run -d --name my-angular-app -p 80:80 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
       EOF
