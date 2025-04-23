@@ -1,28 +1,16 @@
 stages:
-- build
-- deploy
+  - build
 
-build:
+build-angular:
   stage: build
-  tags:
-  - docker
-  image: docker:latest
+  image: docker:24.0.7
   services:
-    - docker:latest
+    - docker:24.0.7-dind
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - docker info
   script:
-  - docker build -t pigapp-frontend-project .
-  - docker save my-angular-app | gzip > pigapp-frontend-project.gz
-  artifacts:
-    paths:
-    - pigapp-frontend-project.gz
+    - docker build -t pigapp-frontend-project .
 
-deploy:
-  stage: deploy
-  tags:
-  - docker
-  image: python:3.10
-  script:
-  - pip install ansible
