@@ -1,6 +1,7 @@
 stages:
 - build
 - docker
+- deploy
 
 # Az Angular build
 build:
