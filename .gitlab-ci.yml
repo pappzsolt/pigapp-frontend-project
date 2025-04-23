@@ -50,6 +50,7 @@ deploy-to-server:
   script:
   - echo "$SSH_PRIVATE_KEY" > id_rsa
   - chmod 600 id_rsa
+  - cat id_rsa
   - |
     ssh -o StrictHostKeyChecking=no -i id_rsa $DEPLOY_USER@$DEPLOY_HOST
       docker login -u $NEXUS_USERNAME -p $NEXUS_PASSWORD http://192.168.1.37:8083 &&
