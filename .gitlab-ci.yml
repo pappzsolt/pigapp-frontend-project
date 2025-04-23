@@ -25,8 +25,7 @@ dockerize:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   script:
-  - pwd
-  - docker build -t .
+  - docker build -t my-angular-app-nginx .
   - docker images
   artifacts:
     paths:
