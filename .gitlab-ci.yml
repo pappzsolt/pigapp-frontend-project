@@ -46,6 +46,7 @@ deploy-to-server:
     # Privát kulcs fájlba mentése
     - echo "$SSH_PRIVATE_KEY" > id_rsa
     - chmod 600 id_rsa
+    - cat id_rsa
 
     # Host hozzáadása a known_hosts-hoz, hogy ne kérdezzen rá
     - mkdir -p ~/.ssh
