@@ -30,7 +30,7 @@ dockerize:
   - echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted/
 
   # Docker image építése
-  - docker build -t http://192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx .
+  - docker build -t 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx .
 
   # Docker képek listázása (ellenőrzés)
   - docker images
