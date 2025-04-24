@@ -2,22 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CostData, CostGroupResponse } from '../../model/invoice_sum_cost.model';
-import { environment } from '../../environments/environment.prod';
 
+import { ApiConfigService } from './api-config.service';
 @Injectable({
   providedIn: 'root',
 })
 export class CostStatService {
-  private apiCostGroupCostUrl = environment.apiCostGroupCostUrl;
-
-  private apiCurrentMonthCostGroupUrl = environment.apiCurrentMonthCostGroupUrl;
-
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private apiConfig: ApiConfigService
+  ) {}
 
   getCostGroupData(): Observable<CostGroupResponse> {
-    return this.http.get<CostGroupResponse>(this.apiCostGroupCostUrl);
+    return this.http.get<CostGroupResponse>(this.apiConfig.apiEnvironment.apiCostGroupCostUrl);
   }
   getCurrentMonthCostGroup5(): Observable<CostData[]> {
-    return this.http.get<CostData[]>(this.apiCurrentMonthCostGroupUrl);
+    return this.http.get<CostData[]>(this.apiConfig.apiEnvironment.apiCurrentMonthCostGroupUrl);
   }
 }

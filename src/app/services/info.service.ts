@@ -2,18 +2,16 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CostSummary } from '../../model/invoice_sum_cost.model';
-import { environment } from '../../environments/environment.prod';
+import { ApiConfigService } from './api-config.service';
 @Injectable({
   providedIn: 'root',
 })
 export class InfoService {
   private http = inject(HttpClient);
 
-  private apiUrl = environment.apiInfoUrl;
-
-  constructor() {}
+  constructor(private apiConfig: ApiConfigService) {}
 
   getMonthlySummary(): Observable<CostSummary[]> {
-    return this.http.get<CostSummary[]>(this.apiUrl);
+    return this.http.get<CostSummary[]>(this.apiConfig.apiEnvironment.apiInfoUrl);
   }
 }

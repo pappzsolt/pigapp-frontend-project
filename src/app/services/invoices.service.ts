@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Invoice } from '../../model/invoice';
-import { environment } from '../../environments/environment.prod';
+import { ApiConfigService } from './api-config.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,16 +11,12 @@ export class InvoicesService {
 
   private http = inject(HttpClient);
 
-  private invoiceUrl = environment.invoiceUrl;
-
-  private invoiceSaveUrl = environment.invoiceSaveUrl;
-
-  constructor() {}
+  constructor(private apiConfig: ApiConfigService) {}
 
   // Invoice lista lekérése
   getInvoiceList(): Observable<Invoice[]> {
     return new Observable<Invoice[]>(observer => {
-      this.http.get<Invoice[]>(this.invoiceUrl).subscribe({
+      this.http.get<Invoice[]>(this.apiConfig.apiEnvironment.invoiceUrl).subscribe({
         next: response => {
           observer.next(response); // Az adatok továbbítása a feliratkozott komponensnek
         },
@@ -36,6 +32,6 @@ export class InvoicesService {
   }
 
   saveInvoice(invoice: Invoice) {
-    return this.http.put(this.invoiceSaveUrl + invoice.id, invoice);
+    return this.http.put(this.apiConfig.apiEnvironment.invoiceSaveUrl + invoice.id, invoice);
   }
 }

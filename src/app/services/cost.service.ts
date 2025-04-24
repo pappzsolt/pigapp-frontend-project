@@ -5,43 +5,40 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cost } from '../../model/cost';
 import { ForeignKeyData } from '../../model/foreignkeydata';
-import { environment } from '../../environments/environment.prod';
+import { ApiConfigService } from './api-config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CostService {
-  private apiCreateCostUrl = environment.apiCreateCostUrl;
-  private apiCostListUrl = environment.apiCostListUrl;
-  private apiForeignKeyDataUrl = environment.apiForeignKeyDataUrl;
-  private apiDetailCostUrl = environment.apiDetailCostUrl;
-  private filterCostUrl = environment.filterCostUrl;
-
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private apiConfig: ApiConfigService
+  ) {}
 
   createCost(cost: Cost): Observable<Cost> {
-    return this.http.post<Cost>(this.apiCreateCostUrl, cost);
+    return this.http.post<Cost>(this.apiConfig.apiEnvironment.apiCreateCostUrl, cost);
   }
 
   getCost(id: number): Observable<Cost> {
-    return this.http.get<Cost>(`${this.apiCreateCostUrl}${id}/`);
+    return this.http.get<Cost>(`${this.apiConfig.apiEnvironment.apiCreateCostUrl}${id}/`);
   }
   getForeignKeyData(): Observable<ForeignKeyData> {
-    return this.http.get<ForeignKeyData>(this.apiForeignKeyDataUrl);
+    return this.http.get<ForeignKeyData>(this.apiConfig.apiEnvironment.apiForeignKeyDataUrl);
   }
   updateCost(id: number, cost: Cost): Observable<Cost> {
-    return this.http.put<Cost>(`${this.apiDetailCostUrl}${id}/`, cost);
+    return this.http.put<Cost>(`${this.apiConfig.apiEnvironment.apiDetailCostUrl}${id}/`, cost);
   }
 
   deleteCost(id: number): Observable<any> {
-    return this.http.delete(`${this.apiDetailCostUrl}${id}/`);
+    return this.http.delete(`${this.apiConfig.apiEnvironment.apiDetailCostUrl}${id}/`);
   }
 
   // src/app/components/services/cost.service.ts
   getCosts(page: number): Observable<any> {
-    return this.http.get<any>(`${this.apiCostListUrl}?page=${page}`);
+    return this.http.get<any>(`${this.apiConfig.apiEnvironment.apiCostListUrl}?page=${page}`);
   }
   filterCosts(searchDate: string): Observable<Cost[]> {
-    return this.http.get<Cost[]>(`${this.filterCostUrl}${searchDate}`);
+    return this.http.get<Cost[]>(`${this.apiConfig.apiEnvironment.filterCostUrl}${searchDate}`);
   }
 }
