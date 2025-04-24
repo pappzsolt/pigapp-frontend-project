@@ -54,5 +54,5 @@ deploy-to-server:
       docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
       docker stop my-angular-app-nginx || true
       docker rm my-angular-app-nginx || true
-      docker run -d --name my-angular-app -p 80:80 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+      docker run -d --name my-angular-app -p 8086:80 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
       EOF
