@@ -6,15 +6,18 @@ import { Cost } from '../../model/cost';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-cost',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './cost.component.html',
   styleUrls: ['./cost.component.css'],
 })
 export class CostComponent implements OnInit {
   costs: Cost[] = [];
+  costsSearchResults: Cost[] = [];
+
   invoices: any[] = [];
   devs: any[] = [];
   costRepeats: any[] = [];
@@ -23,6 +26,8 @@ export class CostComponent implements OnInit {
   selectedCost: Cost | null = null;
   currentPage: number = 1;
   totalPages: number = 1;
+  searchDate: string = '';
+
   constructor(
     private costService: CostService,
     private fb: FormBuilder,
@@ -46,6 +51,7 @@ export class CostComponent implements OnInit {
     this.loadCosts();
     this.loadForeignKeyData();
   }
+
   loadForeignKeyData(): void {
     this.costService.getForeignKeyData().subscribe(
       data => {
@@ -124,6 +130,16 @@ export class CostComponent implements OnInit {
       },
       error => {
         console.error('Hiba a költség törlésekor:', error);
+      }
+    );
+  }
+  filterCosts() {
+    this.costService.filterCosts(this.searchDate).subscribe(
+      data => {
+        this.costsSearchResults = data;
+      },
+      error => {
+        console.error('Hiba történt a költségek lekérésekor', error);
       }
     );
   }
