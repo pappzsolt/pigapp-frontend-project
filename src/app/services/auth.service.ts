@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from '../../environments/environment.prod';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://192.168.1.37:8000/api/token/';
+  
+  private apiTokenUrl = environment.apiTokenUrl;
 
   jsonData = {
     email: 'papp.zsolt.gabor@gmail.com',
@@ -16,7 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(): Observable<any> {
-    return this.http.post<any>(this.apiUrl, this.jsonData);
+    return this.http.post<any>(this.apiTokenUrl, this.jsonData);
   }
 
   isTokenExpired(): boolean {

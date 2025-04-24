@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InvoiceResponse, InvoiceTransferResponse } from '../../model/invoice';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InvoiceTransformService {
-  private apiInvoiceComboUrl = 'http://192.168.1.37:8000/api/pigapp_app/api/invoices/combo/';
+  private apiInvoiceComboUrl = environment.apiInvoiceComboUrl;
 
-  private apiInvoiceUpdateUrl = 'http://192.168.1.37:8000/api/pigapp_app/invoice/transfer/';
+  private apiInvoiceUpdateUrl = environment.apiInvoiceUpdateUrl;
 
   constructor(private http: HttpClient) {}
 

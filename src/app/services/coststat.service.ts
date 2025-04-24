@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CostData, CostGroupResponse } from '../../model/invoice_sum_cost.model';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CostStatService {
-  private apiCostGroupCostUrl = 'http://192.168.1.37:8000/api/pigapp_app/costgroup-cost/'; // Cseréld le a saját API URL-re!
+  private apiCostGroupCostUrl = environment.apiCostGroupCostUrl;
 
-  private apiCurrentMonthCostGroupUrl =
-    'http://192.168.1.37:8000/api/pigapp_app/current-month-costgroup-5/';
+  private apiCurrentMonthCostGroupUrl = environment.apiCurrentMonthCostGroupUrl;
 
   constructor(private http: HttpClient) {}
 

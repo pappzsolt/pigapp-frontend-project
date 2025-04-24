@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MonthlyCostResponse } from '../../model/cost';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AutoCostService {
-  private apiMonthlyCostsUrl = 'http://192.168.1.37:8000/api/pigapp_app/api/monthly-costs/';
-  private apiUpdateCostDatesUrl = 'http://192.168.1.37:8000/api/pigapp_app/update-cost-dates/';
+  private apiMonthlyCostsUrl = environment.apiMonthlyCostsUrl;
+  private apiUpdateCostDatesUrl = environment.apiUpdateCostDatesUrl;
 
   constructor(private http: HttpClient) {}
 

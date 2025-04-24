@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Invoice } from '../../model/invoice';
+import { environment } from '../../environments/environment.prod';
 @Injectable({
   providedIn: 'root',
 })
@@ -10,9 +11,9 @@ export class InvoicesService {
 
   private http = inject(HttpClient);
 
-  private invoiceUrl = 'http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/';
+  private invoiceUrl = environment.invoiceUrl;
 
-  private invoiceSaveUrl = 'http://192.168.1.37:8000/api/pigapp_app/only_invoice_detail/';
+  private invoiceSaveUrl = environment.invoiceSaveUrl;
 
   constructor() {}
 

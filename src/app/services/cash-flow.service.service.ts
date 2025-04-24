@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Cashflow, CashFlowResponse } from '../../model/cashflow';
-
+import { environment } from '../../environments/environment.prod';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,15 +20,15 @@ export class CashFlowServiceService {
 
   private originalDate = `${this.year}-${this.month}-${this.day}`;
 
-  private cashFlowUrlAll = 'http://192.168.1.37:8000/api/pigapp_app/list_cash_flow/';
+  private cashFlowUrlAll = environment.cashFlowUrlAll;
 
-  private cashFlowActual = 'http://192.168.1.37:8000/api/pigapp_app/list_cash_flow_last/';
+  private cashFlowActual = environment.cashFlowActual;
 
-  private cashFlowNew = 'http://192.168.1.37:8000/api/pigapp_app/api/cashflows/';
+  private cashFlowNew = environment.cashFlowNew;
 
-  private cashFlowGetById = 'http://192.168.1.37:8000/api/pigapp_app/api/cashflows/';
+  private cashFlowGetById = environment.cashFlowGetById;
 
-  private apiForeignKeyDataUrl = 'http://192.168.1.37:8000/api/pigapp_app/foreignkey-data/';
+  private apiForeignKeyDataUrl = environment.apiForeignKeyDataUrl;
 
   constructor() {}
   getForeignKeyData(): Observable<any> {

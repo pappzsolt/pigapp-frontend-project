@@ -5,17 +5,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cost } from '../../model/cost';
 import { ForeignKeyData } from '../../model/foreignkeydata';
+import { environment } from '../../environments/environment.prod';
+
 @Injectable({
   providedIn: 'root',
 })
 export class CostService {
-  private apiCreateCostUrl = 'http://192.168.1.37:8000/api/pigapp_app/create-cost/';
-  private apiCostListUrl = 'http://192.168.1.37:8000/api/pigapp_app/cost_list_natur/';
-  private apiForeignKeyDataUrl = 'http://192.168.1.37:8000/api/pigapp_app/foreignkey-data/';
-  private apiDetailCostUrl = 'http://192.168.1.37:8000/api/pigapp_app/cost-detail/';
-  private filterCostUrl = "http://192.168.1.37:8000/api/pigapp_app/actual_day_cost_filter/";
-
-
+  private apiCreateCostUrl = environment.apiCreateCostUrl;
+  private apiCostListUrl = environment.apiCostListUrl;
+  private apiForeignKeyDataUrl = environment.apiForeignKeyDataUrl;
+  private apiDetailCostUrl = environment.apiDetailCostUrl;
+  private filterCostUrl = environment.filterCostUrl;
 
   constructor(private http: HttpClient) {}
 
