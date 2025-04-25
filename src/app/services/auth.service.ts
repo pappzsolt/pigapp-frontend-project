@@ -7,13 +7,15 @@ import { ApiConfigService } from './api-config.service';
   providedIn: 'root',
 })
 export class AuthService {
-
   jsonData = {
     email: 'papp.zsolt.gabor@gmail.com',
     password: '2EdrufrU',
   };
 
-  constructor(private http: HttpClient,private apiConfig: ApiConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private apiConfig: ApiConfigService
+  ) {}
 
   login(): Observable<any> {
     return this.http.post<any>(this.apiConfig.apiEnvironment.apiTokenUrl, this.jsonData);

@@ -8,8 +8,6 @@ import { ApiConfigService } from './api-config.service';
   providedIn: 'root',
 })
 export class AutoCostService {
-
-
   constructor(
     private http: HttpClient,
     private apiConfig: ApiConfigService

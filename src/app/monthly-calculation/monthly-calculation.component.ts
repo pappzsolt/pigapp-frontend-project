@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-monthly-calculation',
   imports: [],
   templateUrl: './monthly-calculation.component.html',
-  styleUrl: './monthly-calculation.component.css'
+  styleUrl: './monthly-calculation.component.css',
 })
-export class MonthlyCalculationComponent {
-
-}
+export class MonthlyCalculationComponent {}
