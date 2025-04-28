@@ -41,3 +41,36 @@
     </li>
   </ul>
 </div>
+<!--itt van -->
+
+<div *ngIf="invoiceWithCosts && invoiceWithCosts.length > 0">
+  kkkkk
+  <div *ngFor="let invoiceWithCost of invoiceWithCosts" class="bg-white rounded-xl shadow-lg p-6 mb-6">
+    <h3 class="text-3xl font-semibold text-gray-800 mb-4">{{ invoiceWithCost.invoice_name }} - {{ invoiceWithCost.invoice_note }}</h3>
+
+    <div class="text-gray-600">
+      <p><span class="font-medium">Felhasználó:</span> {{ invoiceWithCost.user }}</p>
+      <p><span class="font-medium">Számla létrehozása:</span> {{ invoiceWithCost.create_invoice_date | date:'mediumDate' }}</p>
+      <p><span class="font-medium">Összeg:</span> {{ invoiceWithCost.amount | number }} Ft</p>
+      <p><span class="font-medium">Engedélyezett számla:</span> {{ invoiceWithCost.enable_invoice === 1 ? 'Igen' : 'Nem' }}</p>
+    </div>
+
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Költségek</h2>
+
+    <div *ngFor="let costInvoice of invoiceWithCost.cost_invoice" class="bg-white rounded-xl shadow-lg p-6 mb-6">
+      <h4 class="text-xl font-semibold text-gray-800 mb-4">{{ costInvoice.cost_name }}</h4>
+      <div class="text-gray-600 mb-4">
+        <p><span class="font-medium">Számla:</span> {{ costInvoice.invoice }}</p>
+        <p><span class="font-medium">Felhasználó:</span> {{ costInvoice.user }}</p>
+        <p><span class="font-medium">Deviza:</span> {{ costInvoice.dev }}</p>
+        <p><span class="font-medium">Költségcsoport:</span> {{ costInvoice.costgroup }}</p>
+        <p><span class="font-medium">Megjegyzés:</span> {{ costInvoice.cost_note || 'Nincs megjegyzés' }}</p>
+        <p><span class="font-medium">Összeg:</span> {{ costInvoice.amount | number }} Ft</p>
+        <p><span class="font-medium">Kifizetve:</span> {{ costInvoice.paid === 1 ? 'Igen' : 'Nem' }}</p>
+        <p><span class="font-medium">Kifizetés dátuma:</span> {{ costInvoice.paid_date | date:'mediumDate' }}</p>
+        <p><span class="font-medium">Létrehozás dátuma:</span> {{ costInvoice.create_cost_date | date:'mediumDate' }}</p>
+        <p><span class="font-medium">Költség dátuma:</span> {{ costInvoice.cost_date | date:'mediumDate' }}</p>
+      </div>
+    </div>
+  </div>
+</div>

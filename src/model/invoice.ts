@@ -40,20 +40,33 @@ export interface InvoiceSummary {
   total_paid: string;
   total_unpaid: string;
 }
-export interface InvoiceWithCost {
+export interface CostInvoice {
   id: number;
   invoice: string;
   user: string;
   dev: string;
-  costrepeat: string | null;
+  costrepeat: string;
   costgroup: string;
   cost_name: string;
   cost_note: string;
   amount: number;
-  cost_date: string; // vagy Date, ha átalakítod
+  cost_date: string; // vagy Date, ha szükséges
   paid: number;
   paid_date: string; // vagy Date
   create_cost_date: string; // vagy Date
 }
+
+export interface InvoiceWithCostDetail {
+  id: number;
+  len_name: number;
+  cost_invoice: CostInvoice[];
+  user: string;
+  invoice_name: string;
+  invoice_note: string;
+  create_invoice_date: string; // vagy Date
+  enable_invoice: number;
+  amount: number;
+}
+
 
 

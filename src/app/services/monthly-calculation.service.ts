@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Invoice, InvoiceSummary, InvoiceWithCost, TotalAmountInvoice } from '../../model/invoice';
+import { Invoice, InvoiceSummary, InvoiceWithCostDetail, TotalAmountInvoice } from '../../model/invoice';
 import { ApiConfigService } from './api-config.service';
 
 @Injectable({
@@ -28,8 +28,8 @@ export class MonthlyCalculationService {
       this.apiConfig.apiEnvironment.apiCostSummaryWithInvoiceUrl
     );
   }
-  getInvoiceWithCostDetail(): Observable<InvoiceWithCost[]> {
-    return this.http.get<InvoiceWithCost[]>(this.apiConfig.apiEnvironment.apiInvoiceDetail);
+  getInvoiceWithCostDetail(): Observable<InvoiceWithCostDetail[]> {
+    return this.http.get<InvoiceWithCostDetail[]>(this.apiConfig.apiEnvironment.apiInvoiceDetail);
   }
-  
+
 }
