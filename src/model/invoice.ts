@@ -24,3 +24,20 @@ export interface InvoiceTransferResponse {
   szamla1: { id: number; amount: number };
   szamla2: { id: number; amount: number };
 }
+export interface TotalAmountInvoice {
+  totalAmountInvoice: number;
+}
+
+export interface InvoiceSummary {
+  invoice: {
+    id: number;
+    invoice_name: string;
+    invoice_note: string;
+    create_invoice_date: string; // vagy Date, ha konvertálod
+    enable_invoice: number;
+    amount: number;
+  };
+  total_paid: string;
+  total_unpaid: string;
+}
+

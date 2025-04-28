@@ -21,4 +21,8 @@ export const environment = {
   apiInvoiceUpdateUrl: 'http://192.168.1.37:8000/api/pigapp_app/invoice/transfer/',
   apiCostRepeatCreateUrl: 'http://192.168.1.37:8000/api/pigapp_app/new_cost_repeat/',
   apiCostRepeatGetAllUrl: 'http://192.168.1.37:8000/api/pigapp_app/costrepeat_list/',
+  /*MonthlyCalculationComponent url  */
+  apiAllInvoiceSumAmountUrl: 'http://192.168.1.37:8000/api/pigapp_app/all_invoice_sum_amount/',
+  apiOnlyInvoiceListUrl: 'http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/',
+  apiCostSummaryWithInvoiceUrl: 'http://192.168.1.37:8000/api/pigapp_app/api/cost-summary/',
 };
