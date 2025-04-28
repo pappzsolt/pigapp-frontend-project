@@ -43,34 +43,131 @@
 </div>
 <!--itt van -->
 
-<div *ngIf="invoiceWithCosts && invoiceWithCosts.length > 0">
-  kkkkk
-  <div *ngFor="let invoiceWithCost of invoiceWithCosts" class="bg-white rounded-xl shadow-lg p-6 mb-6">
-    <h3 class="text-3xl font-semibold text-gray-800 mb-4">{{ invoiceWithCost.invoice_name }} - {{ invoiceWithCost.invoice_note }}</h3>
+<div *ngIf="invoiceWithCosts && invoiceWithCosts.length > 0" class="p-6 max-w-4xl mx-auto">
+  <div
+    *ngFor="let invoiceWithCost of invoiceWithCosts"
+    class="bg-white rounded-2xl shadow-md p-6 mb-8"
+  >
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">
+      {{ invoiceWithCost.invoice_name }} -
+      <span class="text-gray-500">{{ invoiceWithCost.invoice_note }}</span>
+    </h2>
 
-    <div class="text-gray-600">
-      <p><span class="font-medium">Felhasználó:</span> {{ invoiceWithCost.user }}</p>
-      <p><span class="font-medium">Számla létrehozása:</span> {{ invoiceWithCost.create_invoice_date | date:'mediumDate' }}</p>
-      <p><span class="font-medium">Összeg:</span> {{ invoiceWithCost.amount | number }} Ft</p>
-      <p><span class="font-medium">Engedélyezett számla:</span> {{ invoiceWithCost.enable_invoice === 1 ? 'Igen' : 'Nem' }}</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 mb-8">
+      <p><span class="font-semibold">Felhasználó:</span> {{ invoiceWithCost.user }}</p>
+      <p>
+        <span class="font-semibold">Létrehozás dátuma:</span>
+        {{ invoiceWithCost.create_invoice_date | date: 'mediumDate' }}
+      </p>
+      <p><span class="font-semibold">Összeg:</span> {{ invoiceWithCost.amount | number }} Ft</p>
+      <p>
+        <span class="font-semibold">Engedélyezett számla:</span>
+        <span
+          [ngClass]="{
+            'text-green-600': invoiceWithCost.enable_invoice === 1,
+            'text-red-600': invoiceWithCost.enable_invoice !== 1,
+          }"
+        >
+          {{ invoiceWithCost.enable_invoice === 1 ? 'Igen' : 'Nem' }}
+        </span>
+      </p>
     </div>
 
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Költségek</h2>
+    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Költségek</h3>
 
-    <div *ngFor="let costInvoice of invoiceWithCost.cost_invoice" class="bg-white rounded-xl shadow-lg p-6 mb-6">
-      <h4 class="text-xl font-semibold text-gray-800 mb-4">{{ costInvoice.cost_name }}</h4>
-      <div class="text-gray-600 mb-4">
-        <p><span class="font-medium">Számla:</span> {{ costInvoice.invoice }}</p>
-        <p><span class="font-medium">Felhasználó:</span> {{ costInvoice.user }}</p>
-        <p><span class="font-medium">Deviza:</span> {{ costInvoice.dev }}</p>
-        <p><span class="font-medium">Költségcsoport:</span> {{ costInvoice.costgroup }}</p>
-        <p><span class="font-medium">Megjegyzés:</span> {{ costInvoice.cost_note || 'Nincs megjegyzés' }}</p>
-        <p><span class="font-medium">Összeg:</span> {{ costInvoice.amount | number }} Ft</p>
-        <p><span class="font-medium">Kifizetve:</span> {{ costInvoice.paid === 1 ? 'Igen' : 'Nem' }}</p>
-        <p><span class="font-medium">Kifizetés dátuma:</span> {{ costInvoice.paid_date | date:'mediumDate' }}</p>
-        <p><span class="font-medium">Létrehozás dátuma:</span> {{ costInvoice.create_cost_date | date:'mediumDate' }}</p>
-        <p><span class="font-medium">Költség dátuma:</span> {{ costInvoice.cost_date | date:'mediumDate' }}</p>
+    <div *ngIf="invoiceWithCost.cost_invoice.length > 0; else noCosts">
+      <div
+        *ngFor="let costInvoice of getPaginatedCosts(invoiceWithCost.id, invoiceWithCost.cost_invoice)"
+        class="bg-gray-50 rounded-xl p-4 mb-6 shadow-sm"
+      >
+        <h4 class="text-xl font-bold text-indigo-700 mb-2">{{ costInvoice.cost_name }}</h4>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
+          <p><span class="font-medium">Számla:</span> {{ costInvoice.invoice }}</p>
+          <p><span class="font-medium">Felhasználó:</span> {{ costInvoice.user }}</p>
+          <p><span class="font-medium">Deviza:</span> {{ costInvoice.dev }}</p>
+          <p><span class="font-medium">Költségcsoport:</span> {{ costInvoice.costgroup }}</p>
+          <p>
+            <span class="font-medium">Megjegyzés:</span>
+            {{ costInvoice.cost_note || 'Nincs megjegyzés' }}
+          </p>
+          <p><span class="font-medium">Összeg:</span> {{ costInvoice.amount | number }} Ft</p>
+          <p>
+            <span class="font-medium">Kifizetve:</span>
+            <span
+              [ngClass]="{
+                'text-green-600': costInvoice.paid === 1,
+                'text-red-600': costInvoice.paid !== 1,
+              }"
+            >
+              {{ costInvoice.paid === 1 ? 'Igen' : 'Nem' }}
+            </span>
+          </p>
+          <p>
+            <span class="font-medium">Kifizetés dátuma:</span>
+            {{ costInvoice.paid_date | date: 'mediumDate' }}
+          </p>
+          <p>
+            <span class="font-medium">Létrehozás dátuma:</span>
+            {{ costInvoice.create_cost_date | date: 'mediumDate' }}
+          </p>
+          <p>
+            <span class="font-medium">Költség dátuma:</span>
+            {{ costInvoice.cost_date | date: 'mediumDate' }}
+          </p>
+        </div>
       </div>
     </div>
+
+    <ng-template #noCosts>
+      <p class="text-gray-500 italic">Nincsenek költségek ehhez a számlához.</p>
+    </ng-template>
+
+    <!-- Költségek lapozó gombjai -->
+    <div class="flex justify-center mt-4 space-x-4">
+      <button
+        (click)="prevCostPage(invoiceWithCost.id)"
+        [disabled]="(costCurrentPage[invoiceWithCost.id] || 1) === 1"
+        class="px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 disabled:opacity-50"
+      >
+        Előző
+      </button>
+
+      <span class="flex items-center text-gray-700 font-semibold">
+        Oldal {{ costCurrentPage[invoiceWithCost.id] || 1 }} /
+        {{ Math.ceil(invoiceWithCost.cost_invoice.length / pageSize) }}
+      </span>
+
+      <button
+        (click)="nextCostPage(invoiceWithCost.id, invoiceWithCost.cost_invoice)"
+        [disabled]="(costCurrentPage[invoiceWithCost.id] || 1) >= Math.ceil(invoiceWithCost.cost_invoice.length / pageSize)"
+        class="px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 disabled:opacity-50"
+      >
+        Következő
+      </button>
+    </div>
+  </div>
+
+  <!-- Számlák lapozó gombjai -->
+  <div class="flex justify-center mt-8 space-x-4">
+    <button
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+      class="px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 disabled:opacity-50"
+    >
+      Előző
+    </button>
+
+    <span class="flex items-center text-gray-700 font-semibold">
+      Oldal {{ currentPage }} / {{ Math.ceil(invoiceWithCosts.length / pageSize) }}
+    </span>
+
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage * pageSize >= invoiceWithCosts.length"
+      class="px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 disabled:opacity-50"
+    >
+      Következő
+    </button>
   </div>
 </div>
