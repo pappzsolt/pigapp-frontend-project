@@ -1,8 +1,13 @@
-import { Invoice, InvoiceSummary, InvoiceWithCostDetail, TotalAmountInvoice } from '../../model/invoice';
+import {
+  Invoice,
+  InvoiceSummary,
+  InvoiceWithCostDetail,
+  TotalAmountInvoice,
+} from '../../model/invoice';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MonthlyCalculationService } from '../services/monthly-calculation.service';
-
+import { ForeignKeyData } from '../../model/foreignkeydata';
 @Component({
   selector: 'app-monthly-calculation',
   standalone: true,
@@ -21,10 +26,33 @@ export class MonthlyCalculationComponent implements OnInit {
   costCurrentPage: { [invoiceId: number]: number } = {};
   pageSize = 5;
   Math = Math;
+  invoicesCombo: any[] = [];
+  selectedInvoiceId: number | null = null;
 
   constructor(private monthlyCalculationService: MonthlyCalculationService) {}
+
   ngOnInit(): void {
-    this.loadData();
+    this.loadForeignKeyData();
+    // Alapértelmezett kiválasztott számla, ha nincs adat
+    if (this.invoicesCombo.length === 0) {
+      this.invoicesCombo.push({ id: 0, invoice_name: 'Nincs kiválasztott számla' });
+    }
+    // Ha nincs kiválasztott számla, akkor alapértelmezett ID-t használunk
+    if (this.selectedInvoiceId) {
+      this.loadData(this.selectedInvoiceId);
+    } else {
+      this.loadData(1);
+    }
+  }
+
+  onInvoiceChange(event: any): void {
+    const invoiceId = Number(event.target.value); // Konvertáljuk a kiválasztott értéket számra
+
+    // Ha érvényes számot kaptunk, frissítsük az ID-t és töltsük le az adatokat
+    if (!isNaN(invoiceId)) {
+      this.selectedInvoiceId = invoiceId;
+      this.loadData(this.selectedInvoiceId); // Meghívjuk a loadData-t az új invoiceId-val
+    }
   }
 
   getPaginatedCosts(invoiceId: number, costs: any[]): any[] {
@@ -61,8 +89,17 @@ export class MonthlyCalculationComponent implements OnInit {
       this.currentPage++;
     }
   }
-
-  loadData(): void {
+  loadForeignKeyData(): void {
+    this.monthlyCalculationService.getForeignKeyData().subscribe(
+      data => {
+        this.invoicesCombo = data.invoices;
+      },
+      error => {
+        console.error('Hiba a ForeignKey adatok betöltésekor:', error);
+      }
+    );
+  }
+  loadData(invoiceId: number): void {
     this.isLoading = true;
     this.errorMessage = '';
 
@@ -82,7 +119,7 @@ export class MonthlyCalculationComponent implements OnInit {
       complete: () => (this.isLoading = false),
     });
 
-    this.monthlyCalculationService.getInvoiceWithCostDetail().subscribe({
+    this.monthlyCalculationService.getInvoiceWithCostDetail(invoiceId).subscribe({
       next: data => {
         if (Array.isArray(data)) {
           this.invoiceWithCosts = data;
@@ -94,9 +131,8 @@ export class MonthlyCalculationComponent implements OnInit {
       error: err => this.handleError(err),
       complete: () => (this.isLoading = false),
     });
-
-
   }
+
   private handleError(error: any): void {
     console.error(error);
     this.errorMessage = 'Hiba történt az adatok betöltésekor.';

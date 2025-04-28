@@ -1,8 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Invoice, InvoiceSummary, InvoiceWithCostDetail, TotalAmountInvoice } from '../../model/invoice';
+import {
+  Invoice,
+  InvoiceSummary,
+  InvoiceWithCostDetail,
+  TotalAmountInvoice,
+} from '../../model/invoice';
 import { ApiConfigService } from './api-config.service';
+import { ForeignKeyData } from '../../model/foreignkeydata';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +34,12 @@ export class MonthlyCalculationService {
       this.apiConfig.apiEnvironment.apiCostSummaryWithInvoiceUrl
     );
   }
-  getInvoiceWithCostDetail(): Observable<InvoiceWithCostDetail[]> {
-    return this.http.get<InvoiceWithCostDetail[]>(this.apiConfig.apiEnvironment.apiInvoiceDetail);
+  getInvoiceWithCostDetail(invoiceId: number): Observable<InvoiceWithCostDetail[]> {
+    return this.http.get<InvoiceWithCostDetail[]>(
+      `${this.apiConfig.apiEnvironment.apiInvoiceDetail}/${invoiceId}`
+    );
   }
-
+  getForeignKeyData(): Observable<ForeignKeyData> {
+    return this.http.get<ForeignKeyData>(this.apiConfig.apiEnvironment.apiForeignKeyDataUrl);
+  }
 }
