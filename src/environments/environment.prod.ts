@@ -25,4 +25,5 @@ export const environment = {
   apiAllInvoiceSumAmountUrl: 'http://192.168.1.37:8000/api/pigapp_app/all_invoice_sum_amount/',
   apiOnlyInvoiceListUrl: 'http://192.168.1.37:8000/api/pigapp_app/only_invoice_list/',
   apiCostSummaryWithInvoiceUrl: 'http://192.168.1.37:8000/api/pigapp_app/api/cost-summary/',
+  apiInvoiceDetail: "http://192.168.1.37:8000/api/pigapp_app/invoice_detail/"//invoice id parameterben kell
 };

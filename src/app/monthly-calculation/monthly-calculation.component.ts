@@ -1,5 +1,5 @@
 import { Input, EventEmitter, Output } from '@angular/core';
-import { Invoice, InvoiceSummary, TotalAmountInvoice } from '../../model/invoice';
+import { Invoice, InvoiceSummary, InvoiceWithCost, TotalAmountInvoice } from '../../model/invoice';
 import { HighlightedDirective } from './../directives/highlighted.directive';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +18,7 @@ export class MonthlyCalculationComponent implements OnInit {
   totalAmountInvoice?: TotalAmountInvoice;
   invoices: Invoice[] = [];
   invoiceSummaries: InvoiceSummary[] = [];
+  invoiceWithCosts: InvoiceWithCost[] = [];
   isLoading = false;
   errorMessage = '';
 
@@ -41,6 +42,12 @@ export class MonthlyCalculationComponent implements OnInit {
 
     this.monthlyCalculationService.getInvoicesCostSummary().subscribe({
       next: data => (this.invoiceSummaries = data),
+      error: err => this.handleError(err),
+      complete: () => (this.isLoading = false),
+    });
+
+    this.monthlyCalculationService.getInvoiceWithCostDetail().subscribe({
+      next: data => (this.invoiceWithCosts = data),
       error: err => this.handleError(err),
       complete: () => (this.isLoading = false),
     });
