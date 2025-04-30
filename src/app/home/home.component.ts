@@ -8,7 +8,9 @@ import { GroupByPipe } from '../pipe/group-by.pipe';
 import { AppConfig, CONFIG_TOKEN } from '../config';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { InvoicesService } from '../services/invoices.service';
+import { InvoiceCostSummaryService } from '../services/invoice-cost-summary.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InvoiceCostSummary } from '../../model/invoice-cost-summary.model';
 
 @Component({
   selector: 'app-home',
@@ -27,14 +29,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class HomeComponent implements OnInit {
   invoices$: Observable<Invoice[]> = of([]);
   invoiceOption: InvoiceOption[] = [];
+  summaries: InvoiceCostSummary[] = [];
 
   constructor(
     private invoicesService: InvoicesService,
-    @Inject(CONFIG_TOKEN) private config: AppConfig
+    @Inject(CONFIG_TOKEN) private config: AppConfig, private invoiceCostSummaryService:InvoiceCostSummaryService
   ) {}
 
   ngOnInit() {
     this.invoices$ = this.invoicesService.getInvoiceList();
+    this.getInvoiceCostSummaryService()
   }
 
   onInvoiceSelected(invoice: Invoice) {
@@ -44,4 +48,14 @@ export class HomeComponent implements OnInit {
   onInvoiceSave(invoice: Invoice) {
     this.invoicesService.saveInvoice(invoice).subscribe(() => console.log('invoice save'));
   }
+  getInvoiceCostSummaryService() {
+    this.invoiceCostSummaryService.getInvoiceCostSummary().subscribe({
+      next: (data) => {
+        this.summaries = data;
+      },
+      error: (err) => {
+        console.error('Hiba a lekérdezés során:', err);
+      }
+    });
+}
 }
