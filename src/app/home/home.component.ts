@@ -33,12 +33,13 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private invoicesService: InvoicesService,
-    @Inject(CONFIG_TOKEN) private config: AppConfig, private invoiceCostSummaryService:InvoiceCostSummaryService
+    @Inject(CONFIG_TOKEN) private config: AppConfig,
+    private invoiceCostSummaryService: InvoiceCostSummaryService
   ) {}
 
   ngOnInit() {
     this.invoices$ = this.invoicesService.getInvoiceList();
-    this.getInvoiceCostSummaryService()
+    this.getInvoiceCostSummaryService();
   }
 
   onInvoiceSelected(invoice: Invoice) {
@@ -50,12 +51,12 @@ export class HomeComponent implements OnInit {
   }
   getInvoiceCostSummaryService() {
     this.invoiceCostSummaryService.getInvoiceCostSummary().subscribe({
-      next: (data) => {
+      next: data => {
         this.summaries = data;
       },
-      error: (err) => {
+      error: err => {
         console.error('Hiba a lekérdezés során:', err);
-      }
+      },
     });
-}
+  }
 }

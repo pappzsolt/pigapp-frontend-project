@@ -67,6 +67,3 @@ export interface InvoiceWithCostDetail {
   enable_invoice: number;
   amount: number;
 }
-
-
-
