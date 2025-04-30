@@ -5,7 +5,7 @@ export const environment = {
   apiUpdateCostDatesUrl: 'http://192.168.1.37:8000/api/pigapp_app/update-cost-dates/',
   cashFlowUrlAll: 'http://192.168.1.37:8000/api/pigapp_app/list_cash_flow/',
   cashFlowActual: 'http://192.168.1.37:8000/api/pigapp_app/list_cash_flow_last/',
-  cashFlowNew: 'http://192.168.1.37:8000/api/pigapp_app/api/cashflows/',
+  cashFlowNew: 'http://192.168.1.37:8000/api/pigapp_app/new_cash_flow/',
   cashFlowGetById: 'http://192.168.1.37:8000/api/pigapp_app/api/cashflows/',
   apiForeignKeyDataUrl: 'http://192.168.1.37:8000/api/pigapp_app/foreignkey-data/',
   apiCreateCostUrl: 'http://192.168.1.37:8000/api/pigapp_app/create-cost/',
