@@ -31,3 +31,17 @@ export interface MonthlyCostResponse {
   message: string;
   data: AutoCost[];
 }
+export interface UpcomingCost {
+  id: number;
+  cost_name: string;
+  cost_note: string;
+  amount: number;
+  cost_date: string;
+  invoice: number;
+  dev: number;
+  costgroup: number;
+  paid: number;
+  paid_date: string;
+  create_cost_date: string;
+  user: number;
+}

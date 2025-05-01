@@ -1,12 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import {
   Invoice,
   InvoiceSummary,
   InvoiceWithCostDetail,
   TotalAmountInvoice,
 } from '../../model/invoice';
+
+import {
+  UpcomingCost
+} from '../../model/cost';
+
 import { ApiConfigService } from './api-config.service';
 import { ForeignKeyData } from '../../model/foreignkeydata';
 
@@ -42,4 +47,13 @@ export class MonthlyCalculationService {
   getForeignKeyData(): Observable<ForeignKeyData> {
     return this.http.get<ForeignKeyData>(this.apiConfig.apiEnvironment.apiForeignKeyDataUrl);
   }
+  getUpcomingCosts(): Observable<UpcomingCost[]> {
+    return this.http.get<UpcomingCost[]>(this.apiConfig.apiEnvironment.apiUpComingUnpaidCostsUrl).pipe(
+      catchError((error) => {
+        console.error('Hiba a közelgő költségek lekérésekor:', error);
+        return throwError(() => new Error('Nem sikerült betölteni az adatokat.'));
+      })
+    );
+  }
 }
+

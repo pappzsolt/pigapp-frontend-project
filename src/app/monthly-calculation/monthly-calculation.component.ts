@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MonthlyCalculationService } from '../services/monthly-calculation.service';
 import { ForeignKeyData } from '../../model/foreignkeydata';
+import { UpcomingCost } from '../../model/cost';
+
 @Component({
   selector: 'app-monthly-calculation',
   standalone: true,
@@ -28,6 +30,7 @@ export class MonthlyCalculationComponent implements OnInit {
   Math = Math;
   invoicesCombo: any[] = [];
   selectedInvoiceId: number | null = null;
+  upcomingCosts: UpcomingCost[] = [];
 
   constructor(private monthlyCalculationService: MonthlyCalculationService) {}
 
@@ -43,6 +46,10 @@ export class MonthlyCalculationComponent implements OnInit {
     } else {
       this.loadData(1);
     }
+    this.monthlyCalculationService.getUpcomingCosts().subscribe({
+      next: (data) => (this.upcomingCosts = data),
+      error: (err) => console.error(err),
+    });
   }
 
   onInvoiceChange(event: any): void {

@@ -27,6 +27,8 @@ export class CashFlowComponent implements OnInit {
 
   cashflowActual$: Observable<Cashflow> = of();
 
+  selectedTab: 'add' | 'actual' | 'archive' = 'add';
+
   private cashFlowService = inject(CashFlowServiceService);
 
   constructor(
@@ -49,6 +51,9 @@ export class CashFlowComponent implements OnInit {
     });
   }
 
+  selectTab(tab: 'add' | 'actual' | 'archive') {
+    this.selectedTab = tab;
+  }
   loadForeignKeyData(): void {
     this.cashFlowService.getForeignKeyData().subscribe(
       data => {

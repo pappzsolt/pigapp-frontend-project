@@ -28,4 +28,6 @@ export const environment = {
   apiInvoiceDetail: 'http://192.168.1.37:8000/api/pigapp_app/invoice_detail/', //invoice id parameterben kell
   /* CostRepeatInvoiceSummary */
   apiCostRepeatInvoiceSummary: 'http://192.168.1.37:8000/api/pigapp_app/api/cost-repeat-summary/', //invoice id parameterben kell
+
+  apiUpComingUnpaidCostsUrl: "http://192.168.1.37:8000/api/pigapp_app/api/upcoming-unpaid-costs/"
 };
