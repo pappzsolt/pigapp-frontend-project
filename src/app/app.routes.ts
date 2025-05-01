@@ -10,14 +10,15 @@ import { AutoCostComponent } from './auto-cost/auto-cost.component';
 import { MonthlyCalculationComponent } from './monthly-calculation/monthly-calculation.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'invoice', component: InvoiceComponent },
-  { path: 'cashflow', component: CashFlowComponent },
-  { path: 'cost', component: CostComponent },
-  { path: 'info', component: InfoComponent },
-  { path: 'invoicetransform', component: InvoiceTransformComponent },
-  { path: 'autocost', component: AutoCostComponent },
-  { path: 'costrepeat', component: CostRepeatComponent },
-  { path: 'monthlycalc', component: MonthlyCalculationComponent },
+  { path: 'home', component: HomeComponent, data: { label: 'Home' } },
+
+  { path: 'cashflow', component: CashFlowComponent, data: { label: 'Cashflow' } },
+  { path: 'cost', component: CostComponent, data: { label: 'Cost' } },
+  { path: 'info', component: InfoComponent, data: { label: 'Info' } },
+  { path: 'invoicetransform', component: InvoiceTransformComponent, data: { label: 'Invoice transform' } },
+  { path: 'autocost', component: AutoCostComponent, data: { label: 'Auto cost' } },
+  { path: 'costrepeat', component: CostRepeatComponent, data: { label: 'Costrepeat' } },
+  { path: 'monthlycalc', component: MonthlyCalculationComponent, data: { label: 'Havi kalkuláció' } },
 ];
+
+
