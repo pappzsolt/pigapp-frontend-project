@@ -12,7 +12,7 @@ import { MonthlyCalculationComponent } from './monthly-calculation/monthly-calcu
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, data: { label: 'Home' } },
 
-  { path: 'cashflow', component: CashFlowComponent, data: { label: 'Cashflow' } },
+  { path: 'cashflow', component: CashFlowComponent, data: { label: 'Fizetés/bevételek' } },
   { path: 'cost', component: CostComponent, data: { label: 'Cost' } },
   { path: 'info', component: InfoComponent, data: { label: 'Info' } },
   { path: 'invoicetransform', component: InvoiceTransformComponent, data: { label: 'Invoice transform' } },
