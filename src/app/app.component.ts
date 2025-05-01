@@ -16,21 +16,26 @@ import { CommonModule } from '@angular/common';
     }
   ] */
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   menuItems: { path: string; label: string }[] = [];
+  isMenuOpen: boolean = false;
 
   constructor(public router: Router) {
     this.menuItems = routes
-      .filter((route: Route) => route.data && route.data['label'])
-      .map((route: Route) => ({
+      .filter((route) => route.data && route.data['label'])
+      .map((route) => ({
         path: '/' + route.path,
-        label: route.data!['label'], // <-- Itt is []-es elérés kell
+        label: route.data!['label'],
       }));
   }
 
+  // Aktív menüpont ellenőrzése
   isActive(path: string): boolean {
     return this.router.url === path || this.router.url.startsWith(path + '/');
   }
 
-  ngOnInit() {}
+  // Hamburger menü megnyitása/zárása
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }
