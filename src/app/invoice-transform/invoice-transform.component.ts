@@ -135,10 +135,10 @@ export class InvoiceTransformComponent implements OnInit {
     this.autoCosts.forEach(cost => (cost.selected = false));
     this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
   }
-
+  /* itt kell fejleszteni */
   calculateCost(): void {
     const selectedCostIds = this.selectedCosts();
-
+    console.log("selected costs:"+selectedCostIds)
     if (selectedCostIds.length > 0) {
       this.invoiceTransformService.calculateCash(selectedCostIds).subscribe({
         next: response => {
@@ -151,7 +151,7 @@ export class InvoiceTransformComponent implements OnInit {
           }
         },
         error: () => {
-          this.error = 'Hiba történt a dátumok frissítésekor.';
+          this.error = 'Hiba történt.';
         },
       });
     } else {
