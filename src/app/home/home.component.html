@@ -1,58 +1,64 @@
 <div class="p-6">
-  <h2 class="text-2xl font-bold mb-4">Számlák költségösszesítője</h2>
+  <div class="flex flex-col lg:flex-row gap-6">
+    <!-- Bal oldali oszlop: Összesítő -->
+    <div class="w-full lg:w-1/2">
+      <h2 class="text-3xl font-extrabold mb-6 text-gray-800 dark:text-gray-100">Számlák költségösszesítője</h2>
 
-  <div *ngFor="let summary of summaries" class="mb-8 shadow rounded-2xl border border-gray-200">
-    <div class="bg-gray-100 px-4 py-3 rounded-t-2xl">
-      <div class="flex justify-between items-center">
-        <div>
-          <span class="text-lg font-semibold">Számla neve:</span>
-          <span class="ml-2 text-gray-700">{{ summary.invoice_name }}</span>
+      <div *ngFor="let summary of summaries" class="mb-10 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+        <div class="bg-gradient-to-r from-blue-100 to-teal-100 dark:from-blue-900 dark:to-teal-900 px-6 py-4">
+          <div class="flex flex-col md:flex-row justify-between md:items-center gap-2">
+            <div>
+              <span class="text-lg font-semibold text-gray-700 dark:text-gray-200">Számla neve:</span>
+              <span class="ml-2 text-gray-900 dark:text-white">{{ summary.invoice_name }}</span>
+            </div>
+            <div>
+              <span class="text-lg font-semibold text-gray-700 dark:text-gray-200">Összeg:</span>
+              <span class="ml-2 text-green-600 dark:text-green-400 font-bold text-xl">
+                {{ summary.total_invoice_amount | number }} Ft
+              </span>
+            </div>
+          </div>
         </div>
-        <div>
-          <span class="text-lg font-semibold">Összeg:</span>
-          <span class="ml-2 text-green-600 font-bold">{{ summary.total_invoice_amount | number }} Ft</span>
+
+        <div class="overflow-x-auto bg-white dark:bg-gray-800">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">#</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Ismétlődő költség neve</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Összeg</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+              <tr *ngFor="let detail of summary.details; let i = index">
+                <td class="px-6 py-3 text-sm text-gray-700 dark:text-gray-300">{{ i + 1 }}</td>
+                <td class="px-6 py-3 text-sm text-gray-900 dark:text-white">{{ detail.costrepeat_name }}</td>
+                <td class="px-6 py-3 text-sm text-green-700 dark:text-green-400 font-medium">
+                  {{ detail.total_amount | number }} Ft
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
-    <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-white">
-          <tr>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">#</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Ismétlődő költség neve</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Összeg</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-100">
-          <tr *ngFor="let detail of summary.details; let i = index">
-            <td class="px-4 py-2 text-sm text-gray-600">{{ i + 1 }}</td>
-            <td class="px-4 py-2 text-sm text-gray-800">{{ detail.costrepeat_name }}</td>
-            <td class="px-4 py-2 text-sm text-green-700 font-medium">{{ detail.total_amount | number }} Ft</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<!--  -->
-
-<div class="flex flex-col gap-4">
-  <div class="container mx-auto px-4">
-    <div class="bg-blue-100 p-6 rounded-2xl shadow-md">
-      <h2 class="text-2xl font-semibold text-blue-800 mb-4">Számlák</h2>
-      <!-- Számlák listája -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-        <div *ngFor="let group of invoices$ | async | groupBy: 2">
-          <div *ngFor="let invoice of group; index as i">
-            <div class="bg-white border border-blue-300 p-4 rounded-2xl shadow">
-              <app-invoice
-                (invoiceSelected)="onInvoiceSelected($event)"
-                (invoiceChanged)="onInvoiceSave($event)"
-                [invoice]="invoice"
-                [invoiceIndex]="i + 1"
-              >
-              </app-invoice>
+    <!-- Jobb oldali oszlop: Számlák -->
+    <div class="w-full lg:w-1/2">
+      <div class="bg-blue-100 dark:bg-gray-900 p-6 rounded-2xl shadow-md">
+        <h2 class="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-4">Számlák</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div *ngFor="let group of invoices$ | async | groupBy: 2">
+            <div *ngFor="let invoice of group; index as i">
+              <div class="bg-white dark:bg-gray-800 border border-blue-300 dark:border-blue-600 p-4 rounded-2xl shadow">
+                <app-invoice
+                  (invoiceSelected)="onInvoiceSelected($event)"
+                  (invoiceChanged)="onInvoiceSave($event)"
+                  [invoice]="invoice"
+                  [invoiceIndex]="i + 1"
+                >
+                </app-invoice>
+              </div>
             </div>
           </div>
         </div>
