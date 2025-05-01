@@ -26,4 +26,9 @@ export class InvoiceTransformService {
   getMonthlyCosts(): Observable<MonthlyCostResponse> {
     return this.http.get<MonthlyCostResponse>(this.apiConfig.apiEnvironment.apiMonthlyCostsUrl);
   }
+  calculateCash(costIds: number[]): Observable<any> {
+    return this.http.post<any>(this.apiConfig.apiEnvironment.apiCalculateCashUrl, {
+      cost_ids: costIds,
+    });
+  }
 }

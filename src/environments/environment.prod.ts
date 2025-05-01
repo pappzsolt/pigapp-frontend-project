@@ -28,6 +28,7 @@ export const environment = {
   apiInvoiceDetail: 'http://192.168.1.37:8000/api/pigapp_app/invoice_detail/', //invoice id parameterben kell
   /* CostRepeatInvoiceSummary */
   apiCostRepeatInvoiceSummary: 'http://192.168.1.37:8000/api/pigapp_app/api/cost-repeat-summary/', //invoice id parameterben kell
-
-  apiUpComingUnpaidCostsUrl: "http://192.168.1.37:8000/api/pigapp_app/api/upcoming-unpaid-costs/"
+  apiUpComingUnpaidCostsUrl: "http://192.168.1.37:8000/api/pigapp_app/api/upcoming-unpaid-costs/",
+  /* ezt meg me csnalni, az elküldött cost id at összegezni kell és ki kell vonni a szamlan lévő összegből, annyi maradt a hónapban */
+  apiCalculateCashUrl: "http://192.168.1.37:8000/api/pigapp_app/api/*******"
 };

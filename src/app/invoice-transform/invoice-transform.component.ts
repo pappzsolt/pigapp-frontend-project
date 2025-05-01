@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-invoice-transform',
   standalone: true,
 
-  imports: [CommonModule,FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
   animations: [
@@ -34,7 +34,7 @@ export class InvoiceTransformComponent implements OnInit {
   form: FormGroup;
   autoCosts: AutoCost[] = [];
   disabledCostIds: number[] = [];
-  insertedCosts: AutoCost[] = [];
+  calculateCosts: AutoCost[] = [];
   message: string = '';
   isLoading = true;
   error: string | null = null;
@@ -134,5 +134,28 @@ export class InvoiceTransformComponent implements OnInit {
   deselectAllCosts(): void {
     this.autoCosts.forEach(cost => (cost.selected = false));
     this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
+  }
+
+  calculateCost(): void {
+    const selectedCostIds = this.selectedCosts();
+
+    if (selectedCostIds.length > 0) {
+      this.invoiceTransformService.calculateCash(selectedCostIds).subscribe({
+        next: response => {
+          if (response.success) {
+            this.message = response.message;
+            this.calculateCosts = response.data || [];
+            this.disabledCostIds = [...this.disabledCostIds, ...selectedCostIds];
+          } else {
+            this.error = response.message;
+          }
+        },
+        error: () => {
+          this.error = 'Hiba történt a dátumok frissítésekor.';
+        },
+      });
+    } else {
+      this.error = 'Nincs kiválasztott költség.';
+    }
   }
 }
