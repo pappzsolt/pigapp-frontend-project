@@ -6,12 +6,14 @@ import { AppConfig, CONFIG_TOKEN } from '../config';
 import { ReactiveFormsModule } from '@angular/forms'; // Importáld ezt!
 import { CommonModule } from '@angular/common';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { AutoCost, MonthlyCostResponse } from '../../model/cost';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-invoice-transform',
   standalone: true,
 
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule,FormsModule, ReactiveFormsModule],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
   animations: [
@@ -30,7 +32,12 @@ import { trigger, transition, animate, style } from '@angular/animations';
 export class InvoiceTransformComponent implements OnInit {
   invoiceOption: InvoiceOption[] = [];
   form: FormGroup;
-
+  autoCosts: AutoCost[] = [];
+  disabledCostIds: number[] = [];
+  insertedCosts: AutoCost[] = [];
+  message: string = '';
+  isLoading = true;
+  error: string | null = null;
   transferMessage: string | null = null;
 
   constructor(
@@ -65,6 +72,21 @@ export class InvoiceTransformComponent implements OnInit {
         console.error('Error fetching invoice options:', error);
       }
     );
+    this.invoiceTransformService.getMonthlyCosts().subscribe({
+      next: (response: MonthlyCostResponse) => {
+        if (response.success) {
+          this.autoCosts = response.data;
+          // this.message = response.message;
+        } else {
+          this.error = response.message;
+        }
+        this.isLoading = false;
+      },
+      error: () => {
+        this.error = 'Hiba történt az adatok betöltésekor.';
+        this.isLoading = false;
+      },
+    });
   }
   onSubmit(): void {
     this.form.markAllAsTouched(); // 💥 ez beállítja, hogy minden mező validációja azonnal fusson
@@ -91,5 +113,26 @@ export class InvoiceTransformComponent implements OnInit {
         this.transferMessage = null;
       }, 9000);
     }
+  }
+  toggleSelection(cost: AutoCost): void {
+    cost.selected = !cost.selected;
+  }
+
+  selectedCosts(): number[] {
+    const selectedCostIds = this.autoCosts
+      .filter(cost => cost.selected) // Csak a kijelölt költségek
+      .map(cost => cost.id); // Az id-kat gyűjtjük össze
+
+    return selectedCostIds; // Visszaadjuk a kiválasztott költségek ID-jait
+  }
+
+  selectAllCosts(): void {
+    this.autoCosts.forEach(cost => (cost.selected = true));
+    this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
+  }
+
+  deselectAllCosts(): void {
+    this.autoCosts.forEach(cost => (cost.selected = false));
+    this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
   }
 }

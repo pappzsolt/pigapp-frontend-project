@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InvoiceResponse, InvoiceTransferResponse } from '../../model/invoice';
 import { ApiConfigService } from './api-config.service';
+import { MonthlyCostResponse } from '../../model/cost';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,8 @@ export class InvoiceTransformService {
       `${this.apiConfig.apiEnvironment.apiInvoiceUpdateUrl}${szamla1}/${szamla2}`,
       { amount }
     );
+  }
+  getMonthlyCosts(): Observable<MonthlyCostResponse> {
+    return this.http.get<MonthlyCostResponse>(this.apiConfig.apiEnvironment.apiMonthlyCostsUrl);
   }
 }
