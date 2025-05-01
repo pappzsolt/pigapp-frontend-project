@@ -13,12 +13,22 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, data: { label: 'Home' } },
 
   { path: 'cashflow', component: CashFlowComponent, data: { label: 'Fizetés/bevételek' } },
-  { path: 'cost', component: CostComponent, data: { label: 'Cost' } },
+  { path: 'cost', component: CostComponent, data: { label: 'Kiadások' } },
   { path: 'info', component: InfoComponent, data: { label: 'Info' } },
-  { path: 'invoicetransform', component: InvoiceTransformComponent, data: { label: 'Invoice transform' } },
-  { path: 'autocost', component: AutoCostComponent, data: { label: 'Auto cost' } },
-  { path: 'costrepeat', component: CostRepeatComponent, data: { label: 'Costrepeat' } },
-  { path: 'monthlycalc', component: MonthlyCalculationComponent, data: { label: 'Havi kalkuláció' } },
+  {
+    path: 'invoicetransform',
+    component: InvoiceTransformComponent,
+    data: { label: 'Számlák közötti átvitel/Kalkuláció' },
+  },
+  {
+    path: 'autocost',
+    component: AutoCostComponent,
+    data: { label: 'Kiadások felvitele köv hónapra' },
+  },
+  { path: 'costrepeat', component: CostRepeatComponent, data: { label: 'Állandó kiadások' } },
+  {
+    path: 'monthlycalc',
+    component: MonthlyCalculationComponent,
+    data: { label: 'Havi kalkuláció' },
+  },
 ];
-
-

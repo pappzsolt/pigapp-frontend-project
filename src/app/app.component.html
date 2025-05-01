@@ -15,7 +15,7 @@
     </button>
 
     <!-- Menü -->
-    <ul [class.hidden]="isMenuOpen" class="md:flex gap-6 font-medium">
+<!--     <ul [class.hidden]="isMenuOpen" class="md:flex gap-6 font-medium">
       <li *ngFor="let item of menuItems">
         <a
           [routerLink]="item.path"
@@ -29,7 +29,27 @@
           {{ item.label }}
         </a>
       </li>
+    </ul> -->
+    <ul [class.hidden]="isMenuOpen" class="md:flex font-medium items-center gap-6">
+      <li
+        *ngFor="let item of menuItems; let i = index"
+        class="flex items-center"
+        [ngClass]="{ 'border-l border-white/30 pl-4': i > 0 }"
+      >
+        <a
+          [routerLink]="item.path"
+          [ngClass]="{
+            'text-blue-100 bg-white/10 rounded px-3 py-1 shadow-inner': isActive(item.path),
+            'text-white hover:bg-white/10 hover:rounded hover:px-3 hover:py-1 transition-all duration-200':
+              !isActive(item.path)
+          }"
+          class="block"
+        >
+          {{ item.label }}
+        </a>
+      </li>
     </ul>
+
   </div>
 
   <!-- Mobil menü (hamburger) -->
@@ -69,3 +89,4 @@
     </div>
   </div>
 </footer>
+
