@@ -30,12 +30,18 @@ export class HomeComponent implements OnInit {
   invoices$: Observable<Invoice[]> = of([]);
   invoiceOption: InvoiceOption[] = [];
   summaries: InvoiceCostSummary[] = [];
+  startOfMonth: Date;
+  endOfMonth: Date;
 
   constructor(
     private invoicesService: InvoicesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
     private invoiceCostSummaryService: InvoiceCostSummaryService
-  ) {}
+  ) {
+    const today = new Date();
+    this.startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    this.endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  }
 
   ngOnInit() {
     this.invoices$ = this.invoicesService.getInvoiceList();
