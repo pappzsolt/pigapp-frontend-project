@@ -6,7 +6,12 @@ import { AppConfig, CONFIG_TOKEN } from '../config';
 import { ReactiveFormsModule } from '@angular/forms'; // Importáld ezt!
 import { CommonModule } from '@angular/common';
 import { trigger, transition, animate, style } from '@angular/animations';
-import { AutoCost, CalculateCashData, CalculateCashResponse, MonthlyCostResponse } from '../../model/cost';
+import {
+  AutoCost,
+  CalculateCashData,
+  CalculateCashResponse,
+  MonthlyCostResponse,
+} from '../../model/cost';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -57,15 +62,6 @@ export class InvoiceTransformComponent implements OnInit {
       (data: InvoiceResponse) => {
         if (data && data.results) {
           this.invoiceOption = data.results;
-
-          // Alapértelmezett számla beállítása (például az első számla)
-          /*             if (this.invoiceOption.length > 0) {
-              // Az első számlát válasszuk ki alapértelmezetten
-              this.form.patchValue({
-                szamla1: this.invoiceOption[0].id,  // Számla 1 alapértelmezett beállítása
-                szamla2: this.invoiceOption[0].id   // Számla 2 alapértelmezett beállítása (ha szükséges)
-              });
-            }*/
         }
       },
       error => {
@@ -141,11 +137,11 @@ export class InvoiceTransformComponent implements OnInit {
 
     if (selectedCostIds.length > 0) {
       this.invoiceTransformService.calculateCash(selectedCostIds).subscribe({
-        next: (response) => {
+        next: response => {
           if (response.success) {
             this.message = response.message;
             this.calculateCosts = response.data; // már típusos objektum
-            this.disabledCostIds = [...this.disabledCostIds, ...selectedCostIds];
+            // this.disabledCostIds = [...this.disabledCostIds, ...selectedCostIds];
           } else {
             this.error = response.message;
           }

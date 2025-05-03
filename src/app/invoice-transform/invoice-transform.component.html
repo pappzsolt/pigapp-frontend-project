@@ -79,6 +79,58 @@
         </div>
       </form>
     </div>
+    <!--  -->
+    <div *ngIf="calculateCosts" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+      <!-- Költségek -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow hover:shadow-lg transition duration-300">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">📦</span>
+          <div>
+            <h4 class="text-sm text-gray-500">Összes költség</h4>
+            <p class="text-xl font-semibold text-gray-800">{{ calculateCosts.total_amount | number }} Ft</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legutóbbi cashflow -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow hover:shadow-lg transition duration-300">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">💼</span>
+          <div>
+            <h4 class="text-sm text-gray-500">Utolsó fizetés</h4>
+            <p class="text-xl font-semibold text-gray-800">{{ calculateCosts.latest_cashflow_amount | number }} Ft</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">💸</span>
+          <div>
+            <h4 class="text-sm text-gray-500">Fizetésből maradék</h4>
+            <p class="text-xl font-semibold text-gray-800">{{ calculateCosts.cashflow_minus_total | number }} Ft</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Számlák - költségek -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow hover:shadow-lg transition duration-300">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🏦</span>
+          <div>
+            <h4 class="text-sm text-gray-500">Számlákon lévő maradék</h4>
+            <p class="text-xl font-semibold text-gray-800">{{ calculateCosts.invoice_minus_total	 | number }} Ft</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">📑</span>
+          <div>
+            <h4 class="text-sm text-gray-500">Számlákon lévő összeg</h4>
+            <p class="text-xl font-semibold text-gray-800">{{ calculateCosts.total_enabled_invoice_amount | number }} Ft</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 
     <!-- Költségek listája -->
     <div class="bg-blue-100 p-6 rounded-2xl shadow-md border border-blue-200 flex-1">
