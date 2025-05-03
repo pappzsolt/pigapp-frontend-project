@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InvoiceResponse, InvoiceTransferResponse } from '../../model/invoice';
 import { ApiConfigService } from './api-config.service';
-import { MonthlyCostResponse } from '../../model/cost';
+import { CalculateCashResponse, MonthlyCostResponse } from '../../model/cost';
 
 @Injectable({
   providedIn: 'root',
@@ -26,10 +26,11 @@ export class InvoiceTransformService {
   getMonthlyCosts(): Observable<MonthlyCostResponse> {
     return this.http.get<MonthlyCostResponse>(this.apiConfig.apiEnvironment.apiMonthlyCostsUrl);
   }
-/* itt kell fejleszteni backend oldalon*/
-  calculateCash(costIds: number[]): Observable<any> {
-    return this.http.post<any>(this.apiConfig.apiEnvironment.apiCalculateCashUrl, {
-      cost_ids: costIds,
-    });
+  
+  calculateCash(costIds: number[]): Observable<CalculateCashResponse> {
+    return this.http.post<CalculateCashResponse>(
+      this.apiConfig.apiEnvironment.apiCalculateCashUrl,
+      { cost_ids: costIds }
+    );
   }
 }

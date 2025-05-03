@@ -45,3 +45,16 @@ export interface UpcomingCost {
   create_cost_date: string;
   user: number;
 }
+export interface CalculateCashResponse {
+  success: boolean;
+  message: string;
+  data: CalculateCashData;
+}
+
+export interface CalculateCashData {
+  total_amount: number;
+  latest_cashflow_amount: number;
+  cashflow_minus_total: number;
+  total_enabled_invoice_amount: number;
+  invoice_minus_total: number;
+}

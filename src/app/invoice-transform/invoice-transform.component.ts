@@ -6,7 +6,7 @@ import { AppConfig, CONFIG_TOKEN } from '../config';
 import { ReactiveFormsModule } from '@angular/forms'; // Importáld ezt!
 import { CommonModule } from '@angular/common';
 import { trigger, transition, animate, style } from '@angular/animations';
-import { AutoCost, MonthlyCostResponse } from '../../model/cost';
+import { AutoCost, CalculateCashData, CalculateCashResponse, MonthlyCostResponse } from '../../model/cost';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -34,7 +34,7 @@ export class InvoiceTransformComponent implements OnInit {
   form: FormGroup;
   autoCosts: AutoCost[] = [];
   disabledCostIds: number[] = [];
-  calculateCosts: AutoCost[] = [];
+  calculateCosts: CalculateCashData | null = null;
   message: string = '';
   isLoading = true;
   error: string | null = null;
@@ -135,16 +135,16 @@ export class InvoiceTransformComponent implements OnInit {
     this.autoCosts.forEach(cost => (cost.selected = false));
     this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
   }
-  /* itt kell fejleszteni */
+
   calculateCost(): void {
     const selectedCostIds = this.selectedCosts();
-    console.log("selected costs:"+selectedCostIds)
+
     if (selectedCostIds.length > 0) {
       this.invoiceTransformService.calculateCash(selectedCostIds).subscribe({
-        next: response => {
+        next: (response) => {
           if (response.success) {
             this.message = response.message;
-            this.calculateCosts = response.data || [];
+            this.calculateCosts = response.data; // már típusos objektum
             this.disabledCostIds = [...this.disabledCostIds, ...selectedCostIds];
           } else {
             this.error = response.message;
