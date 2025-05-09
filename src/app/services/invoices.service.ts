@@ -32,6 +32,7 @@ export class InvoicesService {
   }
 
   saveInvoice(invoice: Invoice) {
+    console.log("InvoicesService")
     return this.http.put(this.apiConfig.apiEnvironment.invoiceSaveUrl + invoice.id, invoice);
   }
 }

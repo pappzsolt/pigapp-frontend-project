@@ -52,9 +52,19 @@ export class HomeComponent implements OnInit {
     console.log('App component click', invoice);
   }
 
-  onInvoiceSave(invoice: Invoice) {
+  /*   onInvoiceSave(invoice: Invoice) {
     this.invoicesService.saveInvoice(invoice).subscribe(() => console.log('invoice save'));
+  } */
+  onInvoiceSave(invoice: Invoice) {
+    const invoiceToSave = {
+      ...invoice,
+      enable_invoice: invoice.enable_invoice ? 1 : 0,
+    };
+    this.invoicesService
+      .saveInvoice(invoiceToSave)
+      .subscribe(() => console.log('invoice save____'));
   }
+
   getInvoiceCostSummaryService() {
     this.invoiceCostSummaryService.getInvoiceCostSummary().subscribe({
       next: data => {

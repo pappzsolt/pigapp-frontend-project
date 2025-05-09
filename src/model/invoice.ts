@@ -4,7 +4,7 @@ export class Invoice {
   invoice_name: string = '';
   invoice_note: string = '';
   create_invoice_date: Date = new Date();
-  enable_invoice: boolean = false;
+  enable_invoice: number = 1;
   amount: number = 0;
 }
 
