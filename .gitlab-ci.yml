@@ -28,10 +28,10 @@ dockerize:
     DOCKER_TLS_CERTDIR: ""
   script:
 
-    - echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted/
-    - docker build -t 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx .
-    - docker images
-    - docker push 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+  - echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted/
+  - docker build -t 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx .
+  - docker images
+  - docker push 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
 
   artifacts:
     paths:
@@ -41,18 +41,18 @@ deploy-to-server:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache openssh
+  - apk add --no-cache openssh
   script:
-    - echo "$SSH_PRIVATE_KEY" > id_rsa
-    - chmod 600 id_rsa
-    - cat id_rsa
-    - mkdir -p ~/.ssh
-    - ssh-keyscan -H "$DEPLOY_SERVER_IP" >> ~/.ssh/known_hosts
-    - |
-      ssh -i id_rsa $DEPLOY_USER@$DEPLOY_SERVER_IP << 'EOF'
-      echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted
-      docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
-      docker stop my-angular-app  || { echo "Docker stop failed"; exit 1; }
-      docker rm my-angular-app  || { echo "Docker rm failed"; exit 1; }
-      docker run -d --name my-angular-app -p 8086:80 -p 8443:443 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
-      EOF
+  - echo "$SSH_PRIVATE_KEY" > id_rsa
+  - chmod 600 id_rsa
+  - cat id_rsa
+  - mkdir -p ~/.ssh
+  - ssh-keyscan -H "$DEPLOY_SERVER_IP" >> ~/.ssh/known_hosts
+  - |
+    ssh -i id_rsa $DEPLOY_USER@$DEPLOY_SERVER_IP << 'EOF'
+    echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted
+    docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+    docker stop my-angular-app  || { echo "Docker stop failed"; exit 1; }
+    docker rm my-angular-app  || { echo "Docker rm failed"; exit 1; }
+    docker run -d --name my-angular-app -p 8086:80 -p 8443:443 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+    EOF
