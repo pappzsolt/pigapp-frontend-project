@@ -13,10 +13,6 @@
               d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
     </button>
- <ul>
-
-    <li><button (click)="logout()">Logout</button></li>
-  </ul>
     <!-- Menü -->
     <ul [class.hidden]="isMenuOpen" class="md:flex font-medium items-center gap-6">
       <li
@@ -36,6 +32,9 @@
           {{ item.label }}
         </a>
       </li>
+     <a class="text-blue-100 bg-white/10 rounded px-3 py-1 shadow-inner text-white hover:bg-white/20 hover:rounded hover:px-3 hover:py-1 transition-all duration-200 cursor-pointer" (click)="logout()">
+      Logout
+    </a>
     </ul>
 
   </div>
