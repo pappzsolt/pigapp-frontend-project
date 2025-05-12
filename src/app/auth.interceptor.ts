@@ -7,7 +7,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { AuthService } from './services/auth.service'; // Az AuthService-t az implementációdtól függően kell implementálni
+import { AuthService } from './services/auth.service';
 
 @Injectable()
 /* export class AuthInterceptor implements HttpInterceptor {
@@ -54,32 +54,34 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((err: any) => {
         if (err instanceof HttpErrorResponse && err.status === 401) {
           console.log('401-es hiba - új token kérése');
-          return this.authService.login().pipe(
-            switchMap(response => {
-              // Tokenek mentése
-              this.authService.saveJwtRefresh(response.refresh);
-              this.authService.saveJwtToken(response.access);
-              console.log('Új token megszerezve:', response.access);
+          return this.authService
+            .login({ email: 'papp.zsolt.gabor@gmail.com', password: '2EdrufrU' })
+            .pipe(
+              switchMap(response => {
+                // Tokenek mentése
+                this.authService.saveJwtRefresh(response.refresh);
+                this.authService.saveJwtToken(response.access);
+                console.log('Új token megszerezve:', response.access);
 
-              // Új token lekérése
-              const newToken = this.authService.getJwtToken();
+                // Új token lekérése
+                const newToken = this.authService.getJwtToken();
 
-              // Új request létrehozása az új tokennel
-              const newRequest = request.clone({
-                setHeaders: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${newToken}`,
-                },
-              });
+                // Új request létrehozása az új tokennel
+                const newRequest = request.clone({
+                  setHeaders: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${newToken}`,
+                  },
+                });
 
-              // Ismételt küldés az új tokennel
-              return next.handle(newRequest);
-            }),
-            catchError(error => {
-              console.error('Hiba új token kérés közben:', error);
-              return throwError(error);
-            })
-          );
+                // Ismételt küldés az új tokennel
+                return next.handle(newRequest);
+              }),
+              catchError(error => {
+                console.error('Hiba új token kérés közben:', error);
+                return throwError(error);
+              })
+            );
         }
         return throwError(err);
       })

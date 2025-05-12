@@ -3,22 +3,26 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { ApiConfigService } from './api-config.service';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  jsonData = {
+
+/*   credentials = {
     email: 'papp.zsolt.gabor@gmail.com',
     password: '2EdrufrU',
-  };
+  }; */
 
   constructor(
     private http: HttpClient,
-    private apiConfig: ApiConfigService
+    private apiConfig: ApiConfigService,
+    private router: Router
   ) {}
 
-  login(): Observable<any> {
-    return this.http.post<any>(this.apiConfig.apiEnvironment.apiTokenUrl, this.jsonData);
+  login(credentials: { email: string; password: string }): Observable<any> {
+    console.log(credentials)
+    return this.http.post<any>(this.apiConfig.apiEnvironment.apiTokenUrl, credentials);
   }
 
   isTokenExpired(): boolean {
@@ -44,6 +48,16 @@ export class AuthService {
 
   getJwtRefresh(): string | null {
     return sessionStorage.getItem('jwt_refresh');
+  }
+
+  logout() {
+    sessionStorage.removeItem('jwt_refresh');
+    sessionStorage.removeItem('jwt_token');
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return !!sessionStorage.getItem('jwt_token');
   }
 
   getJwtDecode(token: string): any {

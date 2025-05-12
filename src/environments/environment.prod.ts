@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   apiTokenUrl: 'https://192.168.1.37/api/token/',
+  apiRefreshToken: 'https://192.168.1.37/api/token/refresh/',
   apiMonthlyCostsUrl: 'https://192.168.1.37/api/pigapp_app/api/monthly-costs/',
   apiUpdateCostDatesUrl: 'https://192.168.1.37/api/pigapp_app/update-cost-dates/',
   cashFlowUrlAll: 'https://192.168.1.37/api/pigapp_app/list_cash_flow/',
