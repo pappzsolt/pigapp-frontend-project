@@ -13,7 +13,9 @@ import { AuthService } from './services/auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
+  private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(
+    null
+  );
 
   constructor(private authService: AuthService) {}
 

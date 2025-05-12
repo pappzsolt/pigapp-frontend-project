@@ -10,6 +10,7 @@ import { AutoCostComponent } from './auto-cost/auto-cost.component';
 import { MonthlyCalculationComponent } from './monthly-calculation/monthly-calculation.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

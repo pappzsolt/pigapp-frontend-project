@@ -22,19 +22,18 @@ export class LoginComponent {
     private router: Router
   ) {}
 
+
   onSubmit() {
-    this.authService
-      .login({ email: this.email, password: this.password })
-      .subscribe({
-        next: response => {
-          this.authService.saveJwtRefresh(response.refresh);
-          this.authService.saveJwtToken(response.access);
-          this.error = '';
-          this.router.navigate(['/home']);
-        },
-        error: err => {
-          this.error = 'Hibás e-mail vagy jelszó';
-        },
-      });
+    this.authService.login({ email: this.email, password: this.password }).subscribe({
+      next: response => {
+        this.authService.saveJwtRefresh(response.refresh);
+        this.authService.saveJwtToken(response.access);
+        this.error = '';
+        this.router.navigate(['/home']);
+      },
+      error: err => {
+        this.error = 'Hibás e-mail vagy jelszó';
+      },
+    });
   }
 }
