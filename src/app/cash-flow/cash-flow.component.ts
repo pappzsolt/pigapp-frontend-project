@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { CashflowTableComponent } from '../cash-flow/cashflow-table/cashflow-table.component';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cash-flow',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CashflowTableComponent],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.css',
 })
@@ -19,15 +21,15 @@ export class CashFlowComponent implements OnInit {
   devs: any[] = [];
   cashFlowGroups: any[] = [];
   cashFlowResponse: CashFlowResponse[] = [];
+  cashFlowForm!: FormGroup;
+
   @Input()
   cashflowIndex!: number;
-  @Input()
-  cashFlowForm!: FormGroup;
 
   cashflows$: Observable<Cashflow[]> = of([]);
 
-  cashflowActual$: Observable<Cashflow> = of();
-
+  // cashflowActual$: Observable<Cashflow> = of();
+  cashflowActual$: Observable<Cashflow[]>;
   selectedTab: 'add' | 'actual' | 'archive' = 'add';
 
   private cashFlowService = inject(CashFlowServiceService);
@@ -35,11 +37,16 @@ export class CashFlowComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService
-  ) {}
+  ) {
+     this.cashflowActual$ = of([]);
+  }
 
   ngOnInit(): void {
     this.cashflows$ = this.cashFlowService.getCashFlowListAll();
-    this.cashflowActual$ = this.cashFlowService.getCashFlowLast();
+    // this.cashflowActual$ = this.cashFlowService.getCashFlowLast();
+    this.cashflowActual$ = this.cashFlowService.getCashFlowLast().pipe(
+      map(cashflow => cashflow ? [cashflow] : [])
+    );
     this.loadForeignKeyData();
     this.cashFlowForm = this.fb.group({
       cash_flow_name: ['', Validators.required],

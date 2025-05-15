@@ -1,0 +1,56 @@
+<form [formGroup]="cashFlowForm" (ngSubmit)="submitForm()" class="space-y-4">
+  <div class="flex flex-col">
+    <label class="text-sm text-gray-700 mb-1">Költség neve</label>
+    <input type="text" formControlName="cash_flow_name"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400" />
+  </div>
+
+  <div class="flex flex-col">
+    <label class="text-sm text-gray-700 mb-1">Megjegyzés</label>
+    <input type="text" formControlName="cash_flow_note"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400" />
+  </div>
+
+  <div class="flex flex-col">
+    <label class="text-sm text-gray-700 mb-1">Összeg</label>
+    <input type="number" formControlName="amount"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400" />
+  </div>
+
+  <div class="flex flex-col">
+    <label class="text-sm text-gray-700 mb-1">Dátum</label>
+    <input type="date" formControlName="cash_flow_date"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400" />
+  </div>
+
+  <div class="flex flex-col">
+    <label class="text-sm text-gray-700 mb-1">Pénznem</label>
+    <select formControlName="dev"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400">
+      <option *ngFor="let dev of devs" [value]="dev.id">{{ dev.dev_name }}</option>
+    </select>
+  </div>
+
+  <div class="flex flex-col">
+    <label class="text-sm text-gray-700 mb-1">Számla</label>
+    <select formControlName="invoice"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400">
+      <option *ngFor="let invoice of invoices" [value]="invoice.id">{{ invoice.invoice_name }}</option>
+    </select>
+  </div>
+
+  <div class="flex flex-col">
+    <label class="text-sm text-gray-700 mb-1">Költség csoport</label>
+    <select formControlName="cashflowgroup"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400">
+      <option *ngFor="let group of cashFlowGroups" [value]="group.id">
+        {{ group.cash_flow_group_name }}
+      </option>
+    </select>
+  </div>
+
+  <button type="submit"
+    class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
+    Hozzáadás
+  </button>
+</form>

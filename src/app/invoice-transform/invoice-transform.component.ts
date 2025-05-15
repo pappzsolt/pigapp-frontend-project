@@ -20,7 +20,13 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-invoice-transform',
   standalone: true,
 
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SummaryCardComponent,TransferMessageComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SummaryCardComponent,
+    TransferMessageComponent,
+  ],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
   animations: [
@@ -189,8 +195,7 @@ export class InvoiceTransformComponent implements OnInit {
       this.error = 'Nincs kiválasztott költség.';
     }
   }
-isCostDisabled(costId: number): boolean {
-  return this.disabledCostIds.includes(costId);
-}
-
+  isCostDisabled(costId: number): boolean {
+    return this.disabledCostIds.includes(costId);
+  }
 }
