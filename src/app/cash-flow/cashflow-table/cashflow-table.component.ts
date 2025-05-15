@@ -11,4 +11,5 @@ import { Cashflow } from '../../../model/cashflow'; // Ellenőrizd az útvonalat
 })
 export class CashflowTableComponent {
   @Input() cashflows$!: Observable<Cashflow[]>;
+  @Input() title!: string;
 }

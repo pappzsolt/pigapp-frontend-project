@@ -99,10 +99,9 @@
   </div>
  <!-- Aktuális havi fizetés -->
   <div class="bg-blue-100 p-6 rounded-2xl shadow-md flex-1">
-    <h2 class="text-2xl font-semibold text-blue-800 mb-4">Aktuális havi fizetés</h2>
-      <app-cashflow-table [cashflows$]="cashflowActual$"></app-cashflow-table>
+      <app-cashflow-table [title]="'aktuális havi fizetés'" [cashflows$]="cashflowActual$"></app-cashflow-table>
   </div>
 </div>
 <!-- Utolsó 10 hónap -->
-<app-cashflow-table [cashflows$]="cashflows$"></app-cashflow-table>
+<app-cashflow-table [title]="'utolsó 10 hónap'"  [cashflows$]="cashflows$"></app-cashflow-table>
 

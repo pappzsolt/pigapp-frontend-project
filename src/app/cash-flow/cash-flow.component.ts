@@ -38,15 +38,15 @@ export class CashFlowComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService
   ) {
-     this.cashflowActual$ = of([]);
+    this.cashflowActual$ = of([]);
   }
 
   ngOnInit(): void {
     this.cashflows$ = this.cashFlowService.getCashFlowListAll();
     // this.cashflowActual$ = this.cashFlowService.getCashFlowLast();
-    this.cashflowActual$ = this.cashFlowService.getCashFlowLast().pipe(
-      map(cashflow => cashflow ? [cashflow] : [])
-    );
+    this.cashflowActual$ = this.cashFlowService
+      .getCashFlowLast()
+      .pipe(map(cashflow => (cashflow ? [cashflow] : [])));
     this.loadForeignKeyData();
     this.cashFlowForm = this.fb.group({
       cash_flow_name: ['', Validators.required],
