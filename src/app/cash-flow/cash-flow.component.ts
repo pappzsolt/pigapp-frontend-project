@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+
 @Component({
   selector: 'app-cash-flow',
   standalone: true,
@@ -18,10 +19,10 @@ export class CashFlowComponent implements OnInit {
   devs: any[] = [];
   cashFlowGroups: any[] = [];
   cashFlowResponse: CashFlowResponse[] = [];
-  cashFlowForm!: FormGroup;
-
   @Input()
   cashflowIndex!: number;
+  @Input()
+  cashFlowForm!: FormGroup;
 
   cashflows$: Observable<Cashflow[]> = of([]);
 
