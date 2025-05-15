@@ -14,47 +14,17 @@
   </div>
 
 <!-- itt van a kalkuláció -->
-<div class="flex flex-wrap justify-center gap-4 py-12">
+<div class="flex flex-wrap justify-center gap-4 py-12" *ngIf="calculateCosts">
+  <ng-container *ngFor="let card of summaryCards">
     <app-summary-card
-      *ngIf="calculateCosts"
-      icon="💰"
-      title="Összes költség"
-      [value]="calculateCosts.total_amount"
-      colorClass="text-green-700">
-    </app-summary-card>
-
-    <app-summary-card
-      *ngIf="calculateCosts"
-      icon="🟢"
-      title="Utolsó fizetés"
-      [value]="calculateCosts.latest_cashflow_amount"
-      colorClass="text-blue-600">
-    </app-summary-card>
-
-    <app-summary-card
-      *ngIf="calculateCosts"
-      icon="🔴"
-      title="Fizetésből maradék"
-      [value]="calculateCosts.cashflow_minus_total"
-      colorClass="text-red-600">
-    </app-summary-card>
-
-    <app-summary-card
-      *ngIf="calculateCosts"
-      icon="🔴"
-      title="Számlákon lévő maradék"
-      [value]="calculateCosts.invoice_minus_total"
-      colorClass="text-red-600">
-    </app-summary-card>
-
-    <app-summary-card
-      *ngIf="calculateCosts"
-      icon="🔴"
-      title="Számlákon lévő összeg"
-      [value]="calculateCosts.total_enabled_invoice_amount"
-      colorClass="text-red-600">
-    </app-summary-card>
+      [icon]="card.icon"
+      [title]="card.title"
+      [value]="calculateCosts[card.valueKey]"
+      [colorClass]="card.colorClass"
+    ></app-summary-card>
+  </ng-container>
 </div>
+
 <!-- itt van a kalkuláció vége -->
 
 

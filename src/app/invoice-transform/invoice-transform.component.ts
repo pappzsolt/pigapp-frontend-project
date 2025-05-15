@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-invoice-transform',
   standalone: true,
 
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,SummaryCardComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SummaryCardComponent],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
   animations: [
@@ -45,6 +45,39 @@ export class InvoiceTransformComponent implements OnInit {
   isLoading = true;
   error: string | null = null;
   transferMessage: string | null = null;
+
+  summaryCards: {
+    icon: string;
+    title: string;
+    valueKey: keyof CalculateCashData;
+    colorClass: string;
+  }[] = [
+    { icon: '💰', title: 'Összes költség', valueKey: 'total_amount', colorClass: 'text-green-700' },
+    {
+      icon: '🟢',
+      title: 'Utolsó fizetés',
+      valueKey: 'latest_cashflow_amount',
+      colorClass: 'text-blue-600',
+    },
+    {
+      icon: '🔴',
+      title: 'Fizetésből maradék',
+      valueKey: 'cashflow_minus_total',
+      colorClass: 'text-red-600',
+    },
+    {
+      icon: '🔴',
+      title: 'Számlákon lévő maradék',
+      valueKey: 'invoice_minus_total',
+      colorClass: 'text-red-600',
+    },
+    {
+      icon: '🔴',
+      title: 'Számlákon lévő összeg',
+      valueKey: 'total_enabled_invoice_amount',
+      colorClass: 'text-red-600',
+    },
+  ];
 
   constructor(
     private invoiceTransformService: InvoiceTransformService,
