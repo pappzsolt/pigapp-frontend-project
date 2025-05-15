@@ -6,6 +6,7 @@ import { AppConfig, CONFIG_TOKEN } from '../config';
 import { ReactiveFormsModule } from '@angular/forms'; // Importáld ezt!
 import { CommonModule } from '@angular/common';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { SummaryCardComponent } from '../shared/summary-card/summary-card.component';
 import {
   AutoCost,
   CalculateCashData,
@@ -18,7 +19,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-invoice-transform',
   standalone: true,
 
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,SummaryCardComponent],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
   animations: [
