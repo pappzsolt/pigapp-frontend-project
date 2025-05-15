@@ -8,9 +8,7 @@ import {
   TotalAmountInvoice,
 } from '../../model/invoice';
 
-import {
-  UpcomingCost
-} from '../../model/cost';
+import { UpcomingCost } from '../../model/cost';
 
 import { ApiConfigService } from './api-config.service';
 import { ForeignKeyData } from '../../model/foreignkeydata';
@@ -48,12 +46,13 @@ export class MonthlyCalculationService {
     return this.http.get<ForeignKeyData>(this.apiConfig.apiEnvironment.apiForeignKeyDataUrl);
   }
   getUpcomingCosts(): Observable<UpcomingCost[]> {
-    return this.http.get<UpcomingCost[]>(this.apiConfig.apiEnvironment.apiUpComingUnpaidCostsUrl).pipe(
-      catchError((error) => {
-        console.error('Hiba a közelgő költségek lekérésekor:', error);
-        return throwError(() => new Error('Nem sikerült betölteni az adatokat.'));
-      })
-    );
+    return this.http
+      .get<UpcomingCost[]>(this.apiConfig.apiEnvironment.apiUpComingUnpaidCostsUrl)
+      .pipe(
+        catchError(error => {
+          console.error('Hiba a közelgő költségek lekérésekor:', error);
+          return throwError(() => new Error('Nem sikerült betölteni az adatokat.'));
+        })
+      );
   }
 }
-

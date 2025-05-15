@@ -47,8 +47,8 @@ export class MonthlyCalculationComponent implements OnInit {
       this.loadData(1);
     }
     this.monthlyCalculationService.getUpcomingCosts().subscribe({
-      next: (data) => (this.upcomingCosts = data),
-      error: (err) => console.error(err),
+      next: data => (this.upcomingCosts = data),
+      error: err => console.error(err),
     });
   }
 

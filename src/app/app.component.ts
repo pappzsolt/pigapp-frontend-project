@@ -39,9 +39,9 @@ export class AppComponent {
   }
 
   logout(): void {
-      console.log("logout")
-      this.authService.logout();
-      this.router.navigate(['/login']);
+    console.log('logout');
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   // Hamburger menü megnyitása/zárása

@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [HighlightedDirective, CommonModule, GroupByThreePipe, GroupByPipe,FormsModule],
+  imports: [HighlightedDirective, CommonModule, GroupByThreePipe, GroupByPipe, FormsModule],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.css',
 })
@@ -42,7 +42,4 @@ export class InvoiceComponent implements OnInit {
   onSaveClicked() {
     this.invoiceEmitter.emit({ ...this.invoice });
   }
-
-
-
 }
