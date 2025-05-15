@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importáld ezt!
 import { CommonModule } from '@angular/common';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { SummaryCardComponent } from '../shared/summary-card/summary-card.component';
+import { TransferMessageComponent } from '../transfer-message/transfer-message.component';
 import {
   AutoCost,
   CalculateCashData,
@@ -19,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-invoice-transform',
   standalone: true,
 
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SummaryCardComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SummaryCardComponent,TransferMessageComponent],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
   animations: [
@@ -188,4 +189,8 @@ export class InvoiceTransformComponent implements OnInit {
       this.error = 'Nincs kiválasztott költség.';
     }
   }
+isCostDisabled(costId: number): boolean {
+  return this.disabledCostIds.includes(costId);
+}
+
 }

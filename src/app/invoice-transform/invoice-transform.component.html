@@ -1,60 +1,43 @@
-<div class="container mx-auto px-4">
-  <!-- Üzenet doboz -->
-  <div
-    *ngIf="transferMessage"
-    class="p-4 rounded-xl shadow-md mb-4"
-    [ngClass]="{
-      'bg-green-100 text-green-800': transferMessage.startsWith('✅'),
-      'bg-red-100 text-red-800': transferMessage.startsWith('❌'),
-      'bg-yellow-100 text-yellow-800': transferMessage.startsWith('⚠️'),
-    }"
-    [@fadeInOut]
-  >
-    {{ transferMessage }}
+<div class="container mx-auto px-4 py-6">
+  <app-transfer-message [message]="transferMessage"></app-transfer-message>
+
+  <div class="flex flex-wrap justify-center gap-4 py-12" *ngIf="calculateCosts">
+    <ng-container *ngFor="let card of summaryCards">
+      <app-summary-card
+        [icon]="card.icon"
+        [title]="card.title"
+        [value]="calculateCosts[card.valueKey]"
+        [colorClass]="card.colorClass"
+      ></app-summary-card>
+    </ng-container>
   </div>
 
-<!-- itt van a kalkuláció -->
-<div class="flex flex-wrap justify-center gap-4 py-12" *ngIf="calculateCosts">
-  <ng-container *ngFor="let card of summaryCards">
-    <app-summary-card
-      [icon]="card.icon"
-      [title]="card.title"
-      [value]="calculateCosts[card.valueKey]"
-      [colorClass]="card.colorClass"
-    ></app-summary-card>
-  </ng-container>
-</div>
-
-<!-- itt van a kalkuláció vége -->
-
-
-
-  <!-- Két szekció egymás mellett (Számla átalakítása és Költségek listája) -->
   <div class="flex gap-6">
-    <!-- Számla átalakítása -->
     <div class="bg-blue-100 p-6 rounded-2xl shadow-md flex-1">
-      <h2 class="text-2xl font-semibold text-blue-800 mb-4">Számla átalakítása</h2>
+      <h2 class="text-2xl font-semibold text-blue-800 mb-4">Számla összeg átvitel</h2>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 mb-6">
-        <!-- Számla 1 -->
-        <div class="flex-1 min-w-[250px]">
-          <label for="szamla1" class="block text-blue-800 font-medium mb-1">Számla 1</label>
-          <select
-            id="szamla1"
-            formControlName="szamla1"
-            class="w-full p-2 border border-blue-300 rounded-xl shadow-sm"
-          >
-            <option value="0" selected>Válassz számlát</option>
-            <option *ngFor="let invoice of invoiceOption" [value]="invoice.id">
-              {{ invoice.invoice_name }}
-            </option>
-            <option *ngIf="invoiceOption.length === 0" value="" disabled>
-              Nincs elérhető számla
-            </option>
-          </select>
-        </div>
+        <ng-template #invoiceSelect let-controlName let-id>
+          <div class="flex-1 min-w-[250px]">
+            <label [for]="id" class="block text-blue-800 font-medium mb-1">Számla</label>
+            <select
+              [id]="id"
+              [formControlName]="controlName"
+              class="w-full p-2 border border-blue-300 rounded-xl shadow-sm"
+            >
+              <option value="0" selected>Válassz számlát</option>
+              <option *ngFor="let invoice of invoiceOption" [value]="invoice.id">
+                {{ invoice.invoice_name }}
+              </option>
+              <option *ngIf="invoiceOption.length === 0" value="" disabled>
+                Nincs elérhető számla
+              </option>
+            </select>
+          </div>
+        </ng-template>
 
-        <!-- Összeg -->
+        <ng-container *ngTemplateOutlet="invoiceSelect; context: { controlName: 'szamla1', id: 'szamla1' }"></ng-container>
+
         <div class="w-32">
           <label for="osszeg" class="block text-blue-800 font-medium mb-1">Összeg</label>
           <input
@@ -66,46 +49,27 @@
           />
         </div>
 
-        <!-- Számla 2 -->
-        <div class="flex-1 min-w-[250px]">
-          <label for="szamla2" class="block text-blue-800 font-medium mb-1">Számla 2</label>
-          <select
-            id="szamla2"
-            formControlName="szamla2"
-            class="w-full p-2 border border-blue-300 rounded-xl shadow-sm"
-          >
-            <option value="0" selected>Válassz számlát</option>
-            <option *ngFor="let invoice of invoiceOption" [value]="invoice.id">
-              {{ invoice.invoice_name }}
-            </option>
-            <option *ngIf="invoiceOption.length === 0" value="" disabled>
-              Nincs elérhető számla
-            </option>
-          </select>
-        </div>
+        <ng-container *ngTemplateOutlet="invoiceSelect; context: { controlName: 'szamla2', id: 'szamla2' }"></ng-container>
 
-        <!-- Küldés gomb -->
         <div class="w-full flex justify-start mt-4">
           <button
             type="submit"
             class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-xl hover:bg-blue-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:hover:bg-gray-400 cursor-pointer disabled:cursor-not-allowed transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow"
           >
-            Átalakítás
+            Összeg átvitel
           </button>
         </div>
       </form>
     </div>
-    <!--  -->
 
-
-
-    <!-- Költségek listája -->
     <div class="bg-blue-100 p-6 rounded-2xl shadow-md border border-blue-200 flex-1">
       <h2 class="text-2xl font-semibold text-blue-800 mb-4">Havi költségek listája</h2>
 
-      <button (click)="selectAllCosts()" class="btn btn-primary">Összes kiválasztása</button>
-      <button (click)="deselectAllCosts()" class="btn btn-danger">Összes kiválasztás törlése</button>
-      <button (click)="calculateCost()" class="btn btn-primary">Kalkuláció</button>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button (click)="selectAllCosts()" class="btn btn-primary">Összes kiválasztása</button>
+        <button (click)="deselectAllCosts()" class="btn btn-danger">Összes kiválasztás törlése</button>
+        <button (click)="calculateCost()" class="btn btn-primary">Kalkuláció</button>
+      </div>
 
       <div class="overflow-x-auto">
         <table class="min-w-full table-auto">
@@ -123,7 +87,7 @@
                 <input
                   type="checkbox"
                   [(ngModel)]="cost.selected"
-                  [disabled]="disabledCostIds.includes(cost.id)"
+                  [disabled]="isCostDisabled(cost.id)"
                   class="form-checkbox"
                   (change)="selectedCosts()"
                 />

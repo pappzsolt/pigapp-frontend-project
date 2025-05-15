@@ -1,0 +1,14 @@
+<div *ngIf="(invoices$ | async) as invoices">
+  <div *ngFor="let group of invoices | groupBy: 2">
+    <div *ngFor="let invoice of group; index as i">
+      <app-invoice
+        (invoiceSelected)="invoiceSelected.emit($event)"
+        (invoiceChanged)="invoiceChanged.emit($event)"
+        [invoice]="invoice"
+        [invoiceIndex]="i + 1"
+      ></app-invoice>
+    </div>
+  </div>
+</div>
+
+

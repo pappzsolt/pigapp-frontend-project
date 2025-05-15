@@ -11,7 +11,9 @@ import { InvoicesService } from '../services/invoices.service';
 import { InvoiceCostSummaryService } from '../services/invoice-cost-summary.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InvoiceCostSummary } from '../../model/invoice-cost-summary.model';
-
+import { InvoiceSummaryBoxComponent } from '../invoice-summary-box/invoice-summary-box.component';
+import { InvoiceSummaryPanelComponent } from '../invoice-summary-panel/invoice-summary-panel.component';
+import { InvoiceListPanelComponent } from '../invoice-list-panel/invoice-list-panel.component';
 @Component({
   selector: 'app-home',
   imports: [
@@ -21,6 +23,9 @@ import { InvoiceCostSummary } from '../../model/invoice-cost-summary.model';
     GroupByThreePipe,
     GroupByPipe,
     ReactiveFormsModule,
+    InvoiceSummaryBoxComponent,
+    InvoiceSummaryPanelComponent,
+    InvoiceListPanelComponent,
   ],
   standalone: true,
   templateUrl: './home.component.html',
@@ -48,23 +53,6 @@ export class HomeComponent implements OnInit {
     this.getInvoiceCostSummaryService();
   }
 
-  onInvoiceSelected(invoice: Invoice) {
-    console.log('App component click', invoice);
-  }
-
-  /*   onInvoiceSave(invoice: Invoice) {
-    this.invoicesService.saveInvoice(invoice).subscribe(() => console.log('invoice save'));
-  } */
-  onInvoiceSave(invoice: Invoice) {
-    const invoiceToSave = {
-      ...invoice,
-      enable_invoice: invoice.enable_invoice ? 1 : 0,
-    };
-    this.invoicesService
-      .saveInvoice(invoiceToSave)
-      .subscribe(() => console.log('invoice save____'));
-  }
-
   getInvoiceCostSummaryService() {
     this.invoiceCostSummaryService.getInvoiceCostSummary().subscribe({
       next: data => {
@@ -74,5 +62,19 @@ export class HomeComponent implements OnInit {
         console.error('Hiba a lekérdezés során:', err);
       },
     });
+  }
+
+  onInvoiceSelected(invoice: Invoice) {
+    console.log('App component click', invoice);
+  }
+
+  onInvoiceSave(invoice: Invoice) {
+    const invoiceToSave = {
+      ...invoice,
+      enable_invoice: invoice.enable_invoice ? 1 : 0,
+    };
+    this.invoicesService
+      .saveInvoice(invoiceToSave)
+      .subscribe(() => console.log('invoice save____'));
   }
 }
