@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Directive } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { InputStyleDirective } from '../../shared/directives/input-style/input-style.directive';
 interface Field {
   label: string;
   name: string;
@@ -12,7 +12,7 @@ interface Field {
 @Component({
   selector: 'app-cost-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,InputStyleDirective],
   templateUrl: './cost-form.component.html',
   styleUrls: ['./cost-form.component.css'],
 })
@@ -104,5 +104,9 @@ export class CostFormComponent {
         return '';
     }
   }
+  getOptions(listName: string): any[] {
+  return (this as any)[listName] ?? [];
+}
+
 }
 
