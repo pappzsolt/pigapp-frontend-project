@@ -1,54 +1,45 @@
-<!-- FŐ FLEX CONTAINER -->
-<div class="container mx-auto px-4 flex flex-col lg:flex-row gap-8 mb-8">
-  <!-- Új Cash Flow hozzáadása -->
-  <div class="bg-blue-100 p-6 rounded-2xl shadow-md flex-1">
+  <div appTailwindBlueBox>
     <h2 class="text-2xl font-semibold text-blue-800 mb-4">Új Fizetés/bevételek  hozzáadása</h2>
+        <form [formGroup]="cashFlowForm" (ngSubmit)="addCost()" class="space-y-4">
+          <ng-container *ngFor="let field of fieldConfigs">
+            <div class="flex flex-col">
+              <label [for]="field.controlName" class="text-sm text-gray-700 mb-1">
+                {{ field.label }}
+              </label>
+              <input
+                *ngIf="field.type !== 'select'"
+                [id]="field.controlName"
+                [type]="field.type"
+                [formControlName]="field.controlName"
+                class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+              />
+              <select
+                *ngIf="field.type === 'select'"
+                [id]="field.controlName"
+                [formControlName]="field.controlName"
+                class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+              >
+                <option *ngFor="let option of field.options" [value]="option.id">
+                  {{ option[field.optionLabel!] }}
+                </option>
+              </select>
+            </div>
+          </ng-container>
 
-<form [formGroup]="cashFlowForm" (ngSubmit)="addCost()" class="space-y-4">
-  <ng-container *ngFor="let field of fieldConfigs">
-    <div class="flex flex-col">
-      <label [for]="field.controlName" class="text-sm text-gray-700 mb-1">
-        {{ field.label }}
-      </label>
-
-      <!-- Nem select mezők -->
-      <input
-        *ngIf="field.type !== 'select'"
-        [id]="field.controlName"
-        [type]="field.type"
-        [formControlName]="field.controlName"
-        class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-      />
-
-      <!-- Select mezők -->
-      <select
-        *ngIf="field.type === 'select'"
-        [id]="field.controlName"
-        [formControlName]="field.controlName"
-        class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-      >
-        <option *ngFor="let option of field.options" [value]="option.id">
-          {{ option[field.optionLabel!] }}
-        </option>
-      </select>
-    </div>
-  </ng-container>
-
-  <button
-    type="submit"
-    class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
-  >
-    Hozzáadás
-  </button>
-</form>
-
+          <button
+            type="submit"
+            class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+          >
+            Hozzáadás
+          </button>
+        </form>
   </div>
  <!-- Aktuális havi fizetés -->
-  <div class="bg-blue-100 p-6 rounded-2xl shadow-md flex-1">
-      <app-cashflow-table [title]="'aktuális havi fizetés'" [cashflows$]="cashflowActual$"></app-cashflow-table>
-  </div>
-</div>
-<!-- Utolsó 10 hónap -->
-<app-cashflow-table [title]="'utolsó 10 hónap'"  [cashflows$]="cashflows$"></app-cashflow-table>
+    <div appTailwindBlueBox>
+        <app-cashflow-table [title]="'aktuális havi fizetés'" [cashflows$]="cashflowActual$"></app-cashflow-table>
+    </div>
+
+  <!-- Utolsó 10 hónap -->
+  <app-cashflow-table [title]="'utolsó 10 hónap'"  [cashflows$]="cashflows$"></app-cashflow-table>
 
 
