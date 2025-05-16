@@ -1,5 +1,3 @@
-// src/app/components/cost/cost.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { CostService } from '../services/cost.service';
 import { Cost } from '../../model/cost';
@@ -17,7 +15,6 @@ import { FormsModule } from '@angular/forms';
 export class CostComponent implements OnInit {
   costs: Cost[] = [];
   costsSearchResults: Cost[] = [];
-
   invoices: any[] = [];
   devs: any[] = [];
   costRepeats: any[] = [];
@@ -27,7 +24,6 @@ export class CostComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 1;
   searchDate: string = '';
-
   constructor(
     private costService: CostService,
     private fb: FormBuilder,
@@ -46,12 +42,10 @@ export class CostComponent implements OnInit {
       paid_date: ['', Validators.required],
     });
   }
-
   ngOnInit(): void {
     this.loadCosts();
     this.loadForeignKeyData();
   }
-
   loadForeignKeyData(): void {
     this.costService.getForeignKeyData().subscribe(
       data => {
@@ -81,7 +75,6 @@ export class CostComponent implements OnInit {
     this.currentPage = page;
     this.loadCosts();
   }
-
   goToPage(page: number): void {
     if (page > 0 && page <= this.totalPages) {
       this.currentPage = page;
@@ -106,11 +99,9 @@ export class CostComponent implements OnInit {
       );
     }
   }
-
   // Költség frissítése
   markAsPaid(cost: Cost): void {
     const updatedCost = { ...cost, paid: 1 }; // vagy true, ha boolean a backend szerint
-
     this.costService.updateCost(cost.id, updatedCost).subscribe({
       next: res => {
         console.log('Fizetés sikeresen frissítve:', res);
@@ -121,7 +112,6 @@ export class CostComponent implements OnInit {
       },
     });
   }
-
   // Költség törlése
   deleteCost(id: number): void {
     this.costService.deleteCost(id).subscribe(
@@ -138,6 +128,7 @@ export class CostComponent implements OnInit {
       data => {
         this.costsSearchResults = data;
       },
+
       error => {
         console.error('Hiba történt a költségek lekérésekor', error);
       }
