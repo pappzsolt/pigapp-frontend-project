@@ -45,13 +45,13 @@
     <!-- Új költség form -->
     <div class="bg-white p-6 rounded-2xl shadow-md border border-blue-200">
       <h2 class="text-2xl font-semibold text-blue-800 mb-4">Új költség hozzáadása</h2>
-<app-cost-form
-  [invoices]="invoices"
-  [devs]="devs"
-  [costRepeats]="costRepeats"
-  [costGroups]="costGroups"
-  (formSubmit)="addCost($event)"
-></app-cost-form>
+        <app-cost-form
+          [invoices]="invoices"
+          [devs]="devs"
+          [costRepeats]="costRepeats"
+          [costGroups]="costGroups"
+          (formSubmit)="addCost($event)"
+        ></app-cost-form>
 
     </div>
   </div>

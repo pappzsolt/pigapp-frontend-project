@@ -1,6 +1,6 @@
 import { Input, EventEmitter, Output } from '@angular/core';
 import { Invoice } from '../../model/invoice';
-import { HighlightedDirective } from '../directives/highlighted.directive';
+import { HighlightedDirective } from '../shared/directives/highlighted.directive';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GroupByThreePipe } from '../pipe/group-by-three.pipe';
