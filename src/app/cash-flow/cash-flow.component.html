@@ -4,98 +4,44 @@
   <div class="bg-blue-100 p-6 rounded-2xl shadow-md flex-1">
     <h2 class="text-2xl font-semibold text-blue-800 mb-4">Új Fizetés/bevételek  hozzáadása</h2>
 
-    <form [formGroup]="cashFlowForm" (ngSubmit)="addCost()" class="space-y-4">
-      <!-- Cash Flow Name -->
-      <div class="flex flex-col">
-        <label for="cash_flow_name" class="text-sm text-gray-700 mb-1">Költség neve</label>
-        <input
-          id="cash_flow_name"
-          formControlName="cash_flow_name"
-          type="text"
-          class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-        />
-      </div>
+<form [formGroup]="cashFlowForm" (ngSubmit)="addCost()" class="space-y-4">
+  <ng-container *ngFor="let field of fieldConfigs">
+    <div class="flex flex-col">
+      <label [for]="field.controlName" class="text-sm text-gray-700 mb-1">
+        {{ field.label }}
+      </label>
 
-      <!-- Cash Flow Note -->
-      <div class="flex flex-col">
-        <label for="cash_flow_note" class="text-sm text-gray-700 mb-1">Megjegyzés</label>
-        <input
-          id="cash_flow_note"
-          formControlName="cash_flow_note"
-          type="text"
-          class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-        />
-      </div>
+      <!-- Nem select mezők -->
+      <input
+        *ngIf="field.type !== 'select'"
+        [id]="field.controlName"
+        [type]="field.type"
+        [formControlName]="field.controlName"
+        class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+      />
 
-      <!-- Amount -->
-      <div class="flex flex-col">
-        <label for="amount" class="text-sm text-gray-700 mb-1">Összeg</label>
-        <input
-          id="amount"
-          formControlName="amount"
-          type="number"
-          class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-        />
-      </div>
-
-      <!-- Cash Flow Date -->
-      <div class="flex flex-col">
-        <label for="cash_flow_date" class="text-sm text-gray-700 mb-1">Dátum</label>
-        <input
-          id="cash_flow_date"
-          formControlName="cash_flow_date"
-          type="date"
-          class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-        />
-      </div>
-
-      <!-- Dev -->
-      <div class="flex flex-col">
-        <label for="dev" class="text-sm text-gray-700 mb-1">Pénznem</label>
-        <select
-          id="dev"
-          formControlName="dev"
-          class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-        >
-          <option *ngFor="let dev of devs" [value]="dev.id">{{ dev.dev_name }}</option>
-        </select>
-      </div>
-
-      <!-- Invoice -->
-      <div class="flex flex-col">
-        <label for="invoice" class="text-sm text-gray-700 mb-1">Számla</label>
-        <select
-          id="invoice"
-          formControlName="invoice"
-          class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-        >
-          <option *ngFor="let invoice of invoices" [value]="invoice.id">
-            {{ invoice.invoice_name }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Cash Flow Group -->
-      <div class="flex flex-col">
-        <label for="cashflowgroup" class="text-sm text-gray-700 mb-1">Költség csoport</label>
-        <select
-          id="cashflowgroup"
-          formControlName="cashflowgroup"
-          class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
-        >
-          <option *ngFor="let cashflowgroup of cashFlowGroups" [value]="cashflowgroup.id">
-            {{ cashflowgroup.cash_flow_group_name }}
-          </option>
-        </select>
-      </div>
-
-      <button
-        type="submit"
-        class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+      <!-- Select mezők -->
+      <select
+        *ngIf="field.type === 'select'"
+        [id]="field.controlName"
+        [formControlName]="field.controlName"
+        class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
       >
-        Hozzáadás
-      </button>
-    </form>
+        <option *ngFor="let option of field.options" [value]="option.id">
+          {{ option[field.optionLabel!] }}
+        </option>
+      </select>
+    </div>
+  </ng-container>
+
+  <button
+    type="submit"
+    class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+  >
+    Hozzáadás
+  </button>
+</form>
+
   </div>
  <!-- Aktuális havi fizetés -->
   <div class="bg-blue-100 p-6 rounded-2xl shadow-md flex-1">
@@ -104,4 +50,5 @@
 </div>
 <!-- Utolsó 10 hónap -->
 <app-cashflow-table [title]="'utolsó 10 hónap'"  [cashflows$]="cashflows$"></app-cashflow-table>
+
 

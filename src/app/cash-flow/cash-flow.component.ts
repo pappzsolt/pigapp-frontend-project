@@ -9,6 +9,16 @@ import { AuthService } from '../services/auth.service';
 import { CashflowTableComponent } from '../cash-flow/cashflow-table/cashflow-table.component';
 import { map } from 'rxjs/operators';
 
+type FieldType = 'text' | 'number' | 'date' | 'select';
+
+interface FieldConfig {
+  label: string;
+  controlName: string;
+  type: FieldType;
+  options?: any[]; // csak select típushoz
+  optionLabel?: string; // csak select típushoz
+}
+
 @Component({
   selector: 'app-cash-flow',
   standalone: true,
@@ -22,7 +32,7 @@ export class CashFlowComponent implements OnInit {
   cashFlowGroups: any[] = [];
   cashFlowResponse: CashFlowResponse[] = [];
   cashFlowForm!: FormGroup;
-
+  fieldConfigs: FieldConfig[] = [];
   @Input()
   cashflowIndex!: number;
 
@@ -43,7 +53,6 @@ export class CashFlowComponent implements OnInit {
 
   ngOnInit(): void {
     this.cashflows$ = this.cashFlowService.getCashFlowListAll();
-    // this.cashflowActual$ = this.cashFlowService.getCashFlowLast();
     this.cashflowActual$ = this.cashFlowService
       .getCashFlowLast()
       .pipe(map(cashflow => (cashflow ? [cashflow] : [])));
@@ -68,11 +77,48 @@ export class CashFlowComponent implements OnInit {
         this.invoices = data.invoices;
         this.devs = data.devs;
         this.cashFlowGroups = data.cashflowgroup;
+
+        this.fieldConfigs = [
+          { label: 'Költség neve', controlName: 'cash_flow_name', type: 'text' },
+          { label: 'Megjegyzés', controlName: 'cash_flow_note', type: 'text' },
+          { label: 'Összeg', controlName: 'amount', type: 'number' },
+          { label: 'Dátum', controlName: 'cash_flow_date', type: 'date' },
+          {
+            label: 'Pénznem',
+            controlName: 'dev',
+            type: 'select',
+            options: this.devs,
+            optionLabel: 'dev_name',
+          },
+          {
+            label: 'Számla',
+            controlName: 'invoice',
+            type: 'select',
+            options: this.invoices,
+            optionLabel: 'invoice_name',
+          },
+          {
+            label: 'Költség csoport',
+            controlName: 'cashflowgroup',
+            type: 'select',
+            options: this.cashFlowGroups,
+            optionLabel: 'cash_flow_group_name',
+          },
+        ];
+
+        this.buildForm();
       },
       error => {
         console.error('Hiba a ForeignKey adatok betöltésekor:', error);
       }
     );
+  }
+  buildForm(): void {
+    const formGroupConfig: { [key: string]: any } = {};
+    this.fieldConfigs.forEach(field => {
+      formGroupConfig[field.controlName] = ['', Validators.required];
+    });
+    this.cashFlowForm = this.fb.group(formGroupConfig);
   }
 
   addCost(): void {
