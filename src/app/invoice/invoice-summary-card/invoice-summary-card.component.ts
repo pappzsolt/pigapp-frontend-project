@@ -7,7 +7,7 @@ import { InvoiceCostSummary } from '../../../model/invoice-cost-summary.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './invoice-summary-card.component.html',
-  styleUrls: ['./invoice-summary-card.component.css']  // styleUrl ➜ styleUrls (többes szám!)
+  styleUrls: ['./invoice-summary-card.component.css'], // styleUrl ➜ styleUrls (többes szám!)
 })
 export class InvoiceSummaryCardComponent {
   @Input() summary!: InvoiceCostSummary;

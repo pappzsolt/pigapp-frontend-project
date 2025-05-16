@@ -8,12 +8,7 @@ import { CommonModule } from '@angular/common';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { SummaryCardComponent } from '../shared/summary-card/summary-card.component';
 import { TransferMessageComponent } from '../transfer-message/transfer-message.component';
-import {
-  AutoCost,
-  CalculateCashData,
-  CalculateCashResponse,
-  MonthlyCostResponse,
-} from '../../model/cost';
+import { AutoCost, CalculateCashData, MonthlyCostResponse } from '../../model/cost';
 import { FormsModule } from '@angular/forms';
 
 @Component({

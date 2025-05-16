@@ -1,4 +1,4 @@
-import { Invoice, InvoiceOption } from '../../model/invoice';
+import { Invoice } from '../../model/invoice';
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -44,9 +44,7 @@ export class HomeComponent implements OnInit {
     private invoicesService: InvoicesService,
     @Inject(CONFIG_TOKEN) private config: AppConfig,
     private invoiceCostSummaryService: InvoiceCostSummaryService
-  ) {
-    const today = new Date();
-  }
+  ) {}
 
   ngOnInit() {
     this.invoices$ = this.invoicesService.getInvoiceList();

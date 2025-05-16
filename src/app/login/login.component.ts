@@ -4,7 +4,6 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +30,7 @@ export class LoginComponent {
         this.router.navigate(['/home']);
       },
       error: err => {
-        this.error = 'Hibás e-mail vagy jelszó';
+        this.error = 'Hibás e-mail vagy jelszó:' + err;
       },
     });
   }

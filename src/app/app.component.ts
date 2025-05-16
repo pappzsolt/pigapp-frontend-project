@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink, Router, Route } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { routes } from './app.routes';
 import { CommonModule } from '@angular/common';

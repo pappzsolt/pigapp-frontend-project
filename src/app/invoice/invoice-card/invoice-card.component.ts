@@ -1,11 +1,7 @@
-import { Invoice, InvoiceOption } from '../../../model/invoice';
+import { Invoice } from '../../../model/invoice';
 import { CommonModule } from '@angular/common';
-import { Component, Inject, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InvoiceComponent } from '../../invoice/invoice.component';
-import { InvoicesService } from '../../services/invoices.service';
-import { InvoiceCostSummaryService } from '../../services/invoice-cost-summary.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { InvoiceCostSummary } from '../../../model/invoice-cost-summary.model';
 
 @Component({
   selector: 'app-invoice-card',

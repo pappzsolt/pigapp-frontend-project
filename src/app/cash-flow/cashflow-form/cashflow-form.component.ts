@@ -20,5 +20,3 @@ export class CashflowFormComponent {
     this.submit.emit();
   }
 }
-
-

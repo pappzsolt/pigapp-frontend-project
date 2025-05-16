@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { InvoiceComponent } from './invoice/invoice.component';
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
 import { HomeComponent } from './home/home.component';
 import { CostComponent } from './cost/cost.component';
@@ -10,7 +9,6 @@ import { AutoCostComponent } from './auto-cost/auto-cost.component';
 import { MonthlyCalculationComponent } from './monthly-calculation/monthly-calculation.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
-import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
