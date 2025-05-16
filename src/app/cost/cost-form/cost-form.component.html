@@ -1,12 +1,9 @@
 <form [formGroup]="costForm" (ngSubmit)="onSubmit()" class="space-y-4">
   <ng-container *ngFor="let field of fields">
-    <!-- Normál input vagy select -->
     <div *ngIf="field.type !== 'checkbox'" class="flex flex-col">
       <label [for]="field.name" class="text-sm text-gray-700 mb-1">
         {{ field.label }}
       </label>
-
-      <!-- Input mező -->
       <input
         *ngIf="field.type !== 'select'"
         [id]="field.name"
@@ -15,8 +12,6 @@
         appInputStyle
         [disabled]="field.name === 'paid_date' && costForm.get('paid')?.value === false"
       />
-
-      <!-- Select mező -->
       <select
         *ngIf="field.type === 'select'"
         [id]="field.name"
@@ -32,8 +27,6 @@
         </option>
       </select>
     </div>
-
-    <!-- Checkbox mező -->
     <div *ngIf="field.type === 'checkbox'" class="flex items-center">
       <input
         [id]="field.name"
@@ -46,7 +39,6 @@
       </label>
     </div>
   </ng-container>
-
   <button
     type="submit"
     class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
