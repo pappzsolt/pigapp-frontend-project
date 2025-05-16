@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AutoCost, MonthlyCostResponse } from '../../model/cost';
 import { AutoCostService } from '../services/auto-cost.service';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms'; // FormsModule importálása
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { ButtonDirective } from '../shared/directives/button.directive'; // pontos útvonal a fájlhoz
 @Component({
   selector: 'app-cost-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, AlertComponent,ButtonDirective],
   templateUrl: './auto-cost.component.html',
   styleUrls: ['./auto-cost.component.css'],
 })
@@ -27,7 +27,6 @@ export class AutoCostComponent implements OnInit {
       next: (response: MonthlyCostResponse) => {
         if (response.success) {
           this.autoCosts = response.data;
-          // this.message = response.message;
         } else {
           this.error = response.message;
         }
@@ -40,30 +39,22 @@ export class AutoCostComponent implements OnInit {
     });
   }
 
-  // A kijelölés beállítása
+  // Getter: visszaadja a kijelölt költségek ID-it
+  get selectedCosts():  number[] {
+    return this.autoCosts.filter(cost => cost.selected).map(cost => cost.id);
+  }
+
   toggleSelection(cost: AutoCost): void {
     cost.selected = !cost.selected;
   }
 
-  selectedCosts(): number[] {
-    const selectedCostIds = this.autoCosts
-      .filter(cost => cost.selected) // Csak a kijelölt költségek
-      .map(cost => cost.id); // Az id-kat gyűjtjük össze
+setAllSelected(state: boolean): void {
+  this.autoCosts.forEach(cost => (cost.selected = state));
+}
 
-    return selectedCostIds; // Visszaadjuk a kiválasztott költségek ID-jait
-  }
 
-  selectAllCosts(): void {
-    this.autoCosts.forEach(cost => (cost.selected = true));
-    this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
-  }
-
-  deselectAllCosts(): void {
-    this.autoCosts.forEach(cost => (cost.selected = false));
-    this.selectedCosts(); // Hívjuk meg a selectedCosts metódust, hogy frissítsük a kijelölt költségeket
-  }
   updateCostDates(): void {
-    const selectedCostIds = this.selectedCosts();
+    const selectedCostIds = this.selectedCosts;
 
     if (selectedCostIds.length > 0) {
       this.autoCostService.updateCostDates(selectedCostIds).subscribe({
@@ -84,4 +75,8 @@ export class AutoCostComponent implements OnInit {
       this.error = 'Nincs kiválasztott költség.';
     }
   }
+onSelectionChange(): void {
+  const selectedIds = this.selectedCosts;
+
+}
 }
