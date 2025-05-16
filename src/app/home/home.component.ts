@@ -6,21 +6,20 @@ import { Observable, of } from 'rxjs';
 import { GroupByThreePipe } from '../pipe/group-by-three.pipe';
 import { GroupByPipe } from '../pipe/group-by.pipe';
 import { AppConfig, CONFIG_TOKEN } from '../config';
-import { InvoiceComponent } from '../invoice/invoice.component';
 import { InvoicesService } from '../services/invoices.service';
 import { InvoiceCostSummaryService } from '../services/invoice-cost-summary.service';
-import { ReactiveFormsModule } from '@angular/forms';
 import { InvoiceCostSummary } from '../../model/invoice-cost-summary.model';
-
+import { InvoiceCardComponent } from '../invoice/invoice-card/invoice-card.component';
+import { InvoiceSummaryCardComponent } from '../invoice/invoice-summary-card/invoice-summary-card.component';
 @Component({
   selector: 'app-home',
   imports: [
     RouterOutlet,
-    InvoiceComponent,
     CommonModule,
     GroupByThreePipe,
     GroupByPipe,
-    ReactiveFormsModule,
+    InvoiceCardComponent,
+    InvoiceSummaryCardComponent,
   ],
   standalone: true,
   templateUrl: './home.component.html',
@@ -28,10 +27,18 @@ import { InvoiceCostSummary } from '../../model/invoice-cost-summary.model';
 })
 export class HomeComponent implements OnInit {
   invoices$: Observable<Invoice[]> = of([]);
-  invoiceOption: InvoiceOption[] = [];
+
   summaries: InvoiceCostSummary[] = [];
-  startOfMonth: Date;
-  endOfMonth: Date;
+
+  get startOfMonth(): Date {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth(), 1);
+  }
+
+  get endOfMonth(): Date {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  }
 
   constructor(
     private invoicesService: InvoicesService,
@@ -39,8 +46,6 @@ export class HomeComponent implements OnInit {
     private invoiceCostSummaryService: InvoiceCostSummaryService
   ) {
     const today = new Date();
-    this.startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    this.endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
   }
 
   ngOnInit() {
@@ -55,14 +60,19 @@ export class HomeComponent implements OnInit {
   /*   onInvoiceSave(invoice: Invoice) {
     this.invoicesService.saveInvoice(invoice).subscribe(() => console.log('invoice save'));
   } */
-  onInvoiceSave(invoice: Invoice) {
-    const invoiceToSave = {
+  onInvoiceSave(invoice: Invoice): void {
+    const invoiceToSave: Invoice = {
       ...invoice,
       enable_invoice: invoice.enable_invoice ? 1 : 0,
     };
-    this.invoicesService
-      .saveInvoice(invoiceToSave)
-      .subscribe(() => console.log('invoice save____'));
+
+    this.invoicesService.saveInvoice(invoiceToSave).subscribe({
+      next: () => console.log('Számla mentve.'),
+      error: err => console.error('Mentési hiba:', err),
+    });
+  }
+  trackBySummary(index: number, summary: InvoiceCostSummary): number {
+    return summary.invoice_id; // vagy egyedi azonosító
   }
 
   getInvoiceCostSummaryService() {
