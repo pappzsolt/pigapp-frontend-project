@@ -5,10 +5,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { CostFilterComponent } from './cost-filter/cost-filter.component';
+import { CostSearchResultTableComponent } from './cost-search-result-table/cost-search-result-table.component';
+import { CostListTableComponent } from './cost-list-table/cost-list-table.component';
+import { CostFormComponent } from './cost-form/cost-form.component';
 @Component({
   selector: 'app-cost',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule,CostFilterComponent,CostSearchResultTableComponent,CostListTableComponent,CostFormComponent],
   templateUrl: './cost.component.html',
   styleUrls: ['./cost.component.css'],
 })
@@ -87,23 +91,23 @@ export class CostComponent implements OnInit {
     }
   }
   // Költség hozzáadása
-  addCost(): void {
-    if (this.costForm.valid) {
-      const newCost: Cost = this.costForm.value;
-      newCost.create_cost_date = new Date();
-      newCost.user = this.authService.getUserId();
-      newCost.paid = newCost.paid ? 1 : 0;
-      this.costService.createCost(newCost).subscribe(
-        data => {
-          this.costs.push(data);
-          this.costForm.reset(); // űrlap törlése
-        },
-        error => {
-          console.error('Hiba a költség hozzáadásakor:', error);
-        }
-      );
-    }
+addCost(form: FormGroup): void {
+  if (form.valid) {
+    const newCost = form.value;
+    newCost.create_cost_date = new Date();
+    newCost.user = this.authService.getUserId();
+    newCost.paid = newCost.paid ? 1 : 0;
+    this.costService.createCost(newCost).subscribe(
+      data => {
+        this.costs.push(data);
+      },
+      error => {
+        console.error('Hiba a költség hozzáadásakor:', error);
+      }
+    );
   }
+}
+
 
   // Költség frissítése
   markAsPaid(cost: Cost): void {
@@ -140,6 +144,10 @@ export class CostComponent implements OnInit {
         console.error('Hiba történt a költségek lekérésekor', error);
       }
     );
+  }
+  onFilterDate(date: string): void {
+    this.searchDate = date;
+    this.filterCosts();
   }
 }
 

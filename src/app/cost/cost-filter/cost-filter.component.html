@@ -1,0 +1,20 @@
+<div class="bg-blue-100 p-6 mb-6 rounded-2xl shadow-md border border-blue-200">
+  <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költség dátum szűrés</h2>
+  <form (ngSubmit)="onFilter()" class="flex flex-col sm:flex-row gap-4">
+    <label for="date" class="text-lg text-blue-800">Dátum:</label>
+    <input
+      type="date"
+      [(ngModel)]="searchDate"
+      name="date"
+      required
+      class="px-4 py-2 border rounded-md w-full sm:w-auto"
+    />
+    <button
+      type="submit"
+      class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+    >
+      Keresés
+    </button>
+  </form>
+</div>
+

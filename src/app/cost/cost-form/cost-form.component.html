@@ -1,0 +1,120 @@
+<form [formGroup]="costForm" (ngSubmit)="onSubmit()" class="space-y-4">
+  <div class="flex flex-col">
+    <label for="cost_name" class="text-sm text-gray-700 mb-1">Költség neve</label>
+    <input
+      id="cost_name"
+      formControlName="cost_name"
+      type="text"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
+
+  <div class="flex flex-col">
+    <label for="cost_note" class="text-sm text-gray-700 mb-1">Megjegyzés</label>
+    <input
+      id="cost_note"
+      formControlName="cost_note"
+      type="text"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
+
+  <div class="flex flex-col">
+    <label for="amount" class="text-sm text-gray-700 mb-1">Összeg</label>
+    <input
+      id="amount"
+      formControlName="amount"
+      type="number"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
+
+  <div class="flex flex-col">
+    <label for="cost_date" class="text-sm text-gray-700 mb-1">Dátum</label>
+    <input
+      id="cost_date"
+      formControlName="cost_date"
+      type="date"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
+
+  <div class="flex flex-col">
+    <label for="invoice" class="text-sm text-gray-700 mb-1">Számla</label>
+    <select
+      id="invoice"
+      formControlName="invoice"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+    >
+      <option *ngFor="let invoice of invoices" [value]="invoice.id">
+        {{ invoice.invoice_name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="dev" class="text-sm text-gray-700 mb-1">Pénznem</label>
+    <select
+      id="dev"
+      formControlName="dev"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+    >
+      <option *ngFor="let dev of devs" [value]="dev.id">{{ dev.dev_name }}</option>
+    </select>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="costrepeat" class="text-sm text-gray-700 mb-1">Ismétlés</label>
+    <select
+      id="costrepeat"
+      formControlName="costrepeat"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+    >
+      <option *ngFor="let costRepeat of costRepeats" [value]="costRepeat.id">
+        {{ costRepeat.cost_repeat_name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="costgroup" class="text-sm text-gray-700 mb-1">Költség csoport</label>
+    <select
+      id="costgroup"
+      formControlName="costgroup"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+    >
+      <option *ngFor="let costGroup of costGroups" [value]="costGroup.id">
+        {{ costGroup.cost_group_name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="flex items-center">
+    <input
+      id="paid"
+      type="checkbox"
+      formControlName="paid"
+      class="mr-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-blue-400"
+    />
+    <label for="paid" class="text-sm text-gray-700">Fizetve</label>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="paid_date" class="text-sm text-gray-700 mb-1">Fizetés dátuma</label>
+    <input
+      id="paid_date"
+      formControlName="paid_date"
+      type="date"
+      class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+      [disabled]="!costForm.controls['paid'].value"
+    />
+  </div>
+
+  <button
+    type="submit"
+    class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+  >
+    Hozzáadás
+  </button>
+</form>
+
