@@ -12,7 +12,7 @@ interface Field {
 @Component({
   selector: 'app-cost-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,InputStyleDirective],
+  imports: [CommonModule, ReactiveFormsModule, InputStyleDirective],
   templateUrl: './cost-form.component.html',
   styleUrls: ['./cost-form.component.css'],
 })
@@ -54,7 +54,7 @@ export class CostFormComponent {
     });
 
     // Fizetés dátum engedélyezése csak ha paid true
-    this.costForm.get('paid')?.valueChanges.subscribe((paid) => {
+    this.costForm.get('paid')?.valueChanges.subscribe(paid => {
       if (paid) {
         this.costForm.get('paid_date')?.setValidators([Validators.required]);
         this.costForm.get('paid_date')?.enable();
@@ -105,8 +105,6 @@ export class CostFormComponent {
     }
   }
   getOptions(listName: string): any[] {
-  return (this as any)[listName] ?? [];
+    return (this as any)[listName] ?? [];
+  }
 }
-
-}
-

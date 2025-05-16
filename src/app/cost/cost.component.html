@@ -1,6 +1,5 @@
 
 <div class="container mx-auto px-4 py-8">
-<!--  -->
 <div class="bg-blue-100 p-6 mb-6 rounded-2xl shadow-md border border-blue-200">
   <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költség dátum szűrés</h2>
     <app-cost-filter
@@ -10,7 +9,6 @@
     <app-cost-search-result-table [costsSearchResults]="costsSearchResults"></app-cost-search-result-table>
 
 </div>
-  <!--  -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <div class="bg-blue-100 p-6 rounded-2xl shadow-md border border-blue-200">
       <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
@@ -19,7 +17,6 @@
             (delete)="deleteCost($event)"
             (markPaid)="markAsPaid($event)"
           ></app-cost-list-table>
-      <!--  -->
       <div class="mt-4 h-12 flex justify-center items-center gap-4">
         <button
           class="w-24 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
@@ -39,10 +36,7 @@
           Következő
         </button>
       </div>
-      <!--  -->
     </div>
-
-    <!-- Új költség form -->
     <div class="bg-white p-6 rounded-2xl shadow-md border border-blue-200">
       <h2 class="text-2xl font-semibold text-blue-800 mb-4">Új költség hozzáadása</h2>
         <app-cost-form
@@ -52,7 +46,6 @@
           [costGroups]="costGroups"
           (formSubmit)="addCost($event)"
         ></app-cost-form>
-
     </div>
   </div>
 </div>

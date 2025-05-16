@@ -12,7 +12,15 @@ import { CostFormComponent } from './cost-form/cost-form.component';
 @Component({
   selector: 'app-cost',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,CostFilterComponent,CostSearchResultTableComponent,CostListTableComponent,CostFormComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CostFilterComponent,
+    CostSearchResultTableComponent,
+    CostListTableComponent,
+    CostFormComponent,
+  ],
   templateUrl: './cost.component.html',
   styleUrls: ['./cost.component.css'],
 })
@@ -91,23 +99,22 @@ export class CostComponent implements OnInit {
     }
   }
   // Költség hozzáadása
-addCost(form: FormGroup): void {
-  if (form.valid) {
-    const newCost = form.value;
-    newCost.create_cost_date = new Date();
-    newCost.user = this.authService.getUserId();
-    newCost.paid = newCost.paid ? 1 : 0;
-    this.costService.createCost(newCost).subscribe(
-      data => {
-        this.costs.push(data);
-      },
-      error => {
-        console.error('Hiba a költség hozzáadásakor:', error);
-      }
-    );
+  addCost(form: FormGroup): void {
+    if (form.valid) {
+      const newCost = form.value;
+      newCost.create_cost_date = new Date();
+      newCost.user = this.authService.getUserId();
+      newCost.paid = newCost.paid ? 1 : 0;
+      this.costService.createCost(newCost).subscribe(
+        data => {
+          this.costs.push(data);
+        },
+        error => {
+          console.error('Hiba a költség hozzáadásakor:', error);
+        }
+      );
+    }
   }
-}
-
 
   // Költség frissítése
   markAsPaid(cost: Cost): void {
@@ -150,4 +157,3 @@ addCost(form: FormGroup): void {
     this.filterCosts();
   }
 }
-

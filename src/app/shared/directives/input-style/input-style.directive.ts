@@ -2,10 +2,13 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appInputStyle]',
-  standalone: true
+  standalone: true,
 })
 export class InputStyleDirective {
-  constructor(private el: ElementRef, private renderer: Renderer2) {
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {
     this.renderer.addClass(this.el.nativeElement, 'p-2');
     this.renderer.addClass(this.el.nativeElement, 'border');
     this.renderer.addClass(this.el.nativeElement, 'border-gray-300');

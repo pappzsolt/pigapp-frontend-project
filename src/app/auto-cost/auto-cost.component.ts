@@ -8,7 +8,7 @@ import { ButtonDirective } from '../shared/directives/button.directive'; // pont
 @Component({
   selector: 'app-cost-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, AlertComponent,ButtonDirective],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, AlertComponent, ButtonDirective],
   templateUrl: './auto-cost.component.html',
   styleUrls: ['./auto-cost.component.css'],
 })
@@ -40,7 +40,7 @@ export class AutoCostComponent implements OnInit {
   }
 
   // Getter: visszaadja a kijelölt költségek ID-it
-  get selectedCosts():  number[] {
+  get selectedCosts(): number[] {
     return this.autoCosts.filter(cost => cost.selected).map(cost => cost.id);
   }
 
@@ -48,10 +48,9 @@ export class AutoCostComponent implements OnInit {
     cost.selected = !cost.selected;
   }
 
-setAllSelected(state: boolean): void {
-  this.autoCosts.forEach(cost => (cost.selected = state));
-}
-
+  setAllSelected(state: boolean): void {
+    this.autoCosts.forEach(cost => (cost.selected = state));
+  }
 
   updateCostDates(): void {
     const selectedCostIds = this.selectedCosts;
@@ -75,8 +74,7 @@ setAllSelected(state: boolean): void {
       this.error = 'Nincs kiválasztott költség.';
     }
   }
-onSelectionChange(): void {
-  const selectedIds = this.selectedCosts;
-
-}
+  onSelectionChange(): void {
+    const selectedIds = this.selectedCosts;
+  }
 }
