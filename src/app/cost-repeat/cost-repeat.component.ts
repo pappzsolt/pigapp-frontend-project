@@ -6,10 +6,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { CostRepeat } from '../../model/costrepeat';
+import { CostRepeatFormComponent } from './cost-repeat-form/cost-repeat-form.component';
+import { CostRepeatListComponent } from './cost-repeat-list/cost-repeat-list.component';
 @Component({
   selector: 'app-cost-repeat',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule,CostRepeatFormComponent,CostRepeatListComponent],
   templateUrl: './cost-repeat.component.html',
   styleUrl: './cost-repeat.component.css',
 })
