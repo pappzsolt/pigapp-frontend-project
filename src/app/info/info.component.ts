@@ -4,11 +4,14 @@ import { CommonModule } from '@angular/common';
 import { InfoService } from '../services/info.service';
 import { FormsModule } from '@angular/forms';
 import { CostStatService } from '../services/coststat.service';
-
+import { CostLoanSummaryComponent } from './cost-loan-summary/cost-loan-summary.component';
+import { SummaryTableComponent } from './summary-table/summary-table.component';
+import { CostGroupSummaryComponent } from './cost-group-summary/cost-group-summary.component';
+import { TotalSummaryComponent } from './cost-total-summary/cost-total-summary.component';
 @Component({
   selector: 'app-info',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,CostLoanSummaryComponent,SummaryTableComponent,CostGroupSummaryComponent,TotalSummaryComponent],
   templateUrl: './info.component.html',
   styleUrl: './info.component.css',
 })

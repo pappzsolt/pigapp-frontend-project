@@ -1,0 +1,49 @@
+<div class="bg-blue-100 p-6 rounded-2xl shadow-md">
+  <h2 class="text-2xl font-semibold text-blue-800 mb-6">Aktuális hónap kölcsönök</h2>
+
+  <div *ngIf="loading" class="text-center text-blue-500">Töltés...</div>
+  <div *ngIf="error" class="text-center text-red-500">{{ error }}</div>
+
+  <div *ngIf="!loading && !error">
+    <div
+      *ngFor="let item of costData"
+      class="bg-white shadow-md rounded-2xl p-6 border border-blue-300 mb-4"
+    >
+      <h3 class="text-xl font-semibold text-blue-600 mb-4">
+        {{ item.cost_name }} - {{ item.cost_note }}
+      </h3>
+
+      <div class="space-y-2">
+        <div class="flex justify-between items-center bg-blue-50 px-4 py-2 rounded-lg">
+          <span class="text-blue-700 font-medium">Összeg:</span>
+          <span class="text-blue-900 font-semibold">{{ item.amount | number }} Ft</span>
+        </div>
+
+        <div
+          class="flex justify-between items-center px-4 py-2 rounded-lg"
+          [ngClass]="{
+            'bg-green-50': item.paid === 1,
+            'bg-red-50': item.paid === 0
+          }"
+        >
+          <span class="text-blue-700 font-medium">Státusz</span>
+          <span class="text-blue-900 font-semibold">
+            {{ item.paid === 1 ? 'Fizetve' : 'Fizetésre vár' }}
+          </span>
+        </div>
+
+        <div class="flex justify-between items-center bg-blue-50 px-4 py-2 rounded-lg">
+          <span class="text-blue-700 font-medium">Költség dátuma:</span>
+          <span class="text-blue-900 font-semibold">{{ item.cost_date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 p-4 bg-blue-200 rounded-2xl shadow-inner text-center">
+    <span class="text-blue-900 font-semibold text-lg">
+      Összes kölcsön: {{ costData.length }} db
+    </span>
+  </div>
+</div>
+
