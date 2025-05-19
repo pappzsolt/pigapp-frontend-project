@@ -9,6 +9,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
 import { SummaryCardComponent } from '../shared/summary-card/summary-card.component';
 import { TransferMessageComponent } from '../transfer-message/transfer-message.component';
 import { AutoCost, CalculateCashData, MonthlyCostResponse } from '../../model/cost';
+import { CostTableComponent } from './cost-transform-table/cost-transform-table.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     SummaryCardComponent,
     TransferMessageComponent,
+    CostTableComponent,
   ],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
@@ -192,5 +194,9 @@ export class InvoiceTransformComponent implements OnInit {
   }
   isCostDisabled(costId: number): boolean {
     return this.disabledCostIds.includes(costId);
+  }
+  onCostsSelectionChange(selectedIds: number[]): void {
+    console.log('Kiválasztott költségek ID:', selectedIds);
+    // Itt dolgozd fel, pl. tárold vagy használd a kalkulációhoz
   }
 }

@@ -66,39 +66,16 @@
       <h2 class="text-2xl font-semibold text-blue-800 mb-4">Havi költségek listája</h2>
 
       <div class="flex flex-wrap gap-2 mb-4">
-        <button (click)="selectAllCosts()" class="btn btn-primary">Összes kiválasztása</button>
-        <button (click)="deselectAllCosts()" class="btn btn-danger">Összes kiválasztás törlése</button>
+
         <button (click)="calculateCost()" class="btn btn-primary">Kalkuláció</button>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="min-w-full table-auto">
-          <thead>
-            <tr class="bg-blue-200 text-blue-900">
-              <th class="px-4 py-2 text-left border-b">Választás</th>
-              <th class="px-4 py-2 text-left border-b">Költség neve</th>
-              <th class="px-4 py-2 text-left border-b">Összeg</th>
-              <th class="px-4 py-2 text-left border-b">Dátum</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cost of autoCosts" class="bg-white">
-              <td class="px-4 py-2 border-b">
-                <input
-                  type="checkbox"
-                  [(ngModel)]="cost.selected"
-                  [disabled]="isCostDisabled(cost.id)"
-                  class="form-checkbox"
-                  (change)="selectedCosts()"
-                />
-              </td>
-              <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
-              <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
-              <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<app-cost-table
+  [costs]="autoCosts"
+  [disabledIds]="disabledCostIds"
+  (selectionChange)="onCostsSelectionChange($event)"
+></app-cost-table>
+
     </div>
   </div>
 </div>

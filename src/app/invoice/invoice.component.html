@@ -6,15 +6,13 @@
       <p class="text-gray-500">ID: {{ invoice.id }}</p>
       <h3 class="text-lg font-semibold text-blue-600">
         <input
-        [value]="invoice.invoice_name"
-        type="text"
-        [(ngModel)]="invoice.invoice_name"
-        id="invoice_name"
-        class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-        required
-      />
-
-
+          [value]="invoice.invoice_name"
+          type="text"
+          [(ngModel)]="invoice.invoice_name"
+          id="invoice_name"
+          class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          required
+        />
       </h3>
     </div>
 
@@ -49,7 +47,8 @@
         required
         pattern="\d+"
         title="Kérlek, adj meg egy pozitív egész számot!"
-      /> Ft
+      />
+      Ft
     </div>
 
     <div class="mb-2 flex items-center gap-2">
@@ -63,18 +62,16 @@
       <span
         [ngClass]="{
           'text-green-600': invoice.enable_invoice,
-          'text-red-600': !invoice.enable_invoice
+          'text-red-600': !invoice.enable_invoice,
         }"
       >
         {{ invoice.enable_invoice ? 'Aktív számla' : 'Inaktív számla' }}
       </span>
     </div>
 
-
-
-
     <div class="mb-4">
-      <span class="font-medium text-blue-700">Létrehozva:</span> {{ invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
+      <span class="font-medium text-blue-700">Létrehozva:</span>
+      {{ invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
     </div>
 
     <div class="text-right">

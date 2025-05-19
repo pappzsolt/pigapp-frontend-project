@@ -1,0 +1,34 @@
+<div class="flex flex-wrap gap-2 mb-4">
+  <button (click)="selectAll()" class="btn btn-primary">Összes kiválasztása</button>
+  <button (click)="deselectAll()" class="btn btn-danger">Összes kiválasztás törlése</button>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full table-auto">
+    <thead>
+      <tr class="bg-blue-200 text-blue-900">
+        <th class="px-4 py-2 text-left border-b">Választás</th>
+        <th class="px-4 py-2 text-left border-b">Költség neve</th>
+        <th class="px-4 py-2 text-left border-b">Összeg</th>
+        <th class="px-4 py-2 text-left border-b">Dátum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cost of costs" class="bg-white">
+        <td class="px-4 py-2 border-b">
+          <input
+            type="checkbox"
+            [(ngModel)]="cost.selected"
+            [disabled]="isDisabled(cost.id)"
+            class="form-checkbox"
+            (change)="toggleSelection(cost)"
+          />
+        </td>
+        <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
+        <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
+        <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
