@@ -1,5 +1,4 @@
-<div class="container mx-auto px-4 py-6">
-  <div class="bg-blue-100 p-6 rounded-2xl shadow-md">
+
     <h2 class="text-2xl font-semibold text-blue-800 mb-4">
       {{ isEditMode ? 'Költség módosítása' : 'Új ismétlődő költség' }}
     </h2>
@@ -8,7 +7,5 @@
         [isEditMode]="isEditMode"
         (formSubmit)="onSubmit()"
       ></app-cost-repeat-form>
-
-  </div>
   <app-cost-repeat-list [costsRepeatList]="costsRepeatList"></app-cost-repeat-list>
-</div>
+

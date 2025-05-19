@@ -1,29 +1,27 @@
 <!-- Wrapper container -->
-<div class="container mx-auto px-4 space-y-8">
-  <!-- Aktuális havi költség összesítés -->
-  <div class="bg-blue-100 p-6 rounded-2xl shadow-md">
-    <h2 class="text-2xl font-semibold text-blue-800 mb-6">Aktuális havi költség összesítés</h2>
 
-    <app-summary-table [summaries]="summaries"></app-summary-table>
+<!-- Aktuális havi költség összesítés -->
 
+<h2 class="text-2xl font-semibold text-blue-800 mb-6">Aktuális havi költség összesítés</h2>
 
-    <div *ngIf="!loading && summaries.length === 0" class="text-gray-600 mt-4">
-      Nincs adat az aktuális hónapra.
-    </div>
-    <div *ngIf="loading" class="text-blue-600 mt-4">Betöltés...</div>
-    <div *ngIf="error" class="text-red-600 mt-4">{{ error }}</div>
-
-    <!-- Összesítés -->
-    <app-total-summary [totalPaid]="totalPaid" [totalUnpaid]="totalUnpaid" [loading]="loading"
-      [show]="summaries.length > 0"></app-total-summary>
-
-  </div>
-
-  <!-- Kiadás csoportok -->
-  <app-cost-group-summary [costGroupResponse]="costGroupResponse"></app-cost-group-summary>
+<app-summary-table [summaries]="summaries"></app-summary-table>
 
 
-  <!-- Aktuális hónap kölcsönök -->
-  <app-cost-loan-summary [costData]="costData" [loading]="loading" [error]="error"></app-cost-loan-summary>
-
+<div *ngIf="!loading && summaries.length === 0" class="text-gray-600 mt-4">
+  Nincs adat az aktuális hónapra.
 </div>
+<div *ngIf="loading" class="text-blue-600 mt-4">Betöltés...</div>
+<div *ngIf="error" class="text-red-600 mt-4">{{ error }}</div>
+
+<!-- Összesítés -->
+<app-total-summary [totalPaid]="totalPaid" [totalUnpaid]="totalUnpaid" [loading]="loading"
+  [show]="summaries.length > 0"></app-total-summary>
+
+
+
+<!-- Kiadás csoportok -->
+<app-cost-group-summary [costGroupResponse]="costGroupResponse"></app-cost-group-summary>
+
+
+<!-- Aktuális hónap kölcsönök -->
+<app-cost-loan-summary [costData]="costData" [loading]="loading" [error]="error"></app-cost-loan-summary>

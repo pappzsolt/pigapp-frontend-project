@@ -1,38 +1,29 @@
+<div appTailwindBlueBox>
+  <!-- Összesítő -->
+  <section class="w-full lg:w-1/2">
+    <h2 class="text-3xl font-extrabold mb-6 text-gray-800 dark:text-gray-100">Számlák költségösszesítője</h2>
+    <p class="font-sans text-sm">
+      Hónap kezdete: {{ startOfMonth | date: 'yyyy-MM-dd' }} -
+      Hónap vége: {{ endOfMonth | date: 'yyyy-MM-dd' }}
+    </p>
 
-  <div appTailwindBlueBox>
-    <!-- Összesítő -->
-    <section class="w-full lg:w-1/2">
-      <h2 class="text-3xl font-extrabold mb-6 text-gray-800 dark:text-gray-100">Számlák költségösszesítője</h2>
-      <p class="font-sans text-sm">
-        Hónap kezdete: {{ startOfMonth | date: 'yyyy-MM-dd' }} -
-        Hónap vége: {{ endOfMonth | date: 'yyyy-MM-dd' }}
-      </p>
+    <ng-container *ngFor="let summary of summaries; trackBy: trackBySummary">
+      <app-invoice-summary-card [summary]="summary"></app-invoice-summary-card>
+    </ng-container>
 
-      <ng-container *ngFor="let summary of summaries; trackBy: trackBySummary">
-        <app-invoice-summary-card [summary]="summary"></app-invoice-summary-card>
+  </section>
+
+  <!-- Számlák listája -->
+  <section class="w-full lg:w-1/2">
+
+    <h2 class="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-4">Számlák</h2>
+
+    <ng-container *ngFor="let group of invoices$ | async | groupBy: 2">
+      <ng-container *ngFor="let invoice of group; index as i">
+        <app-invoice-card [invoice]="invoice" [index]="i + 1" (invoiceSelected)="onInvoiceSelected($event)"
+          (invoiceChanged)="onInvoiceSave($event)">
+        </app-invoice-card>
       </ng-container>
-
-    </section>
-
-    <!-- Számlák listája -->
-    <section class="w-full lg:w-1/2">
-      <div appTailwindBlueBox>
-        <h2 class="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-4">Számlák</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <ng-container *ngFor="let group of invoices$ | async | groupBy: 2">
-            <ng-container *ngFor="let invoice of group; index as i">
-              <app-invoice-card
-                [invoice]="invoice"
-                [index]="i + 1"
-                (invoiceSelected)="onInvoiceSelected($event)"
-                (invoiceChanged)="onInvoiceSave($event)">
-              </app-invoice-card>
-            </ng-container>
-          </ng-container>
-        </div>
-      </div>
-    </section>
-  </div>
-
-
-
+    </ng-container>
+  </section>
+</div>
