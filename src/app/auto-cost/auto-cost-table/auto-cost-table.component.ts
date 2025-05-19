@@ -3,11 +3,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from '../../shared/directives/button.directive';
 import { AutoCost } from '../../../model/cost';
+import { AutoCostTableHeaderComponent } from './auto-cost-table-header/auto-cost-table-header.component';
+import { AutoCostTableRowComponent } from './auto-cost-table-row/auto-cost-table-row.component';
 
 @Component({
   selector: 'app-auto-cost-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonDirective],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ButtonDirective,
+    AutoCostTableHeaderComponent,
+    AutoCostTableRowComponent,
+  ],
   templateUrl: './auto-cost-table.component.html',
 })
 export class AutoCostTableComponent {
@@ -31,3 +39,4 @@ export class AutoCostTableComponent {
     this.updateDates.emit();
   }
 }
+

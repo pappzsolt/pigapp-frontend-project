@@ -8,28 +8,18 @@
     Összes kiválasztás törlése
   </button>
 
-
   <table class="min-w-full table-auto">
-    <thead>
-      <tr class="bg-blue-200 text-blue-900">
-        <th class="px-4 py-2 text-left border-b">Választás</th>
-        <th class="px-4 py-2 text-left border-b">Költség neve</th>
-        <th class="px-4 py-2 text-left border-b">Összeg</th>
-        <th class="px-4 py-2 text-left border-b">Dátum</th>
-      </tr>
-    </thead>
+    <app-auto-cost-table-header></app-auto-cost-table-header>
     <tbody>
-      <tr *ngFor="let cost of autoCosts" class="bg-white">
-        <td class="px-4 py-2 border-b">
-          <input type="checkbox" [(ngModel)]="cost.selected" [disabled]="disabledCostIds.includes(cost.id)"
-            class="form-checkbox" (change)="onCheckboxChange()" />
-        </td>
-        <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
-        <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
-        <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
-      </tr>
+      <app-auto-cost-table-row
+        *ngFor="let cost of autoCosts"
+        [cost]="cost"
+        [disabled]="disabledCostIds.includes(cost.id)"
+        (checkboxChange)="onCheckboxChange()">
+      </app-auto-cost-table-row>
     </tbody>
   </table>
+
   <button (click)="onUpdateDates()" appButton="blue" [disabled]="!selectedCosts.length">
     Költségek dátumainak frissítése
   </button>
