@@ -80,3 +80,4 @@ export class AutoCostComponent implements OnInit {
     const selectedIds = this.selectedCosts;
   }
 }
+
