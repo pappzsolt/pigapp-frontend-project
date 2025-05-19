@@ -1,51 +1,10 @@
 
-<app-alert [message]="message" [error]="error"></app-alert>
+<app-auto-cost-table
+  [autoCosts]="autoCosts"
+  [disabledCostIds]="disabledCostIds"
+  [selectedCosts]="selectedCosts"
+  (selectionChange)="onSelectionChange()"
+  (selectAll)="setAllSelected($event)"
+  (updateDates)="updateCostDates()"
+></app-auto-cost-table>
 
-<div appTailwindBlueBox>
-  <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
-<button (click)="setAllSelected(true)" appButton="blue" [disabled]="false" class="mb-4">
-  Összes kiválasztása
-</button>
-
-<button (click)="setAllSelected(false)" appButton="red">
-  Összes kiválasztás törlése
-</button>
-  <div class="overflow-x-auto">
-    <table class="min-w-full table-auto">
-      <thead>
-        <tr class="bg-blue-200 text-blue-900">
-          <th class="px-4 py-2 text-left border-b">Választás</th>
-          <!-- Checkbox oszlop -->
-          <th class="px-4 py-2 text-left border-b">Költség neve</th>
-          <th class="px-4 py-2 text-left border-b">Összeg</th>
-          <th class="px-4 py-2 text-left border-b">Dátum</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cost of autoCosts" class="bg-white">
-          <td class="px-4 py-2 border-b">
-            <input
-              type="checkbox"
-              [(ngModel)]="cost.selected"
-              [disabled]="disabledCostIds.includes(cost.id)"
-              class="form-checkbox"
-              (change)="onSelectionChange()"
-            />
-          </td>
-          <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
-          <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
-          <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="mt-4">
-<button
-  (click)="updateCostDates()"
-  appButton="blue"
-  [disabled]="!selectedCosts.length"
->
-  Költségek dátumainak frissítése
-</button>
-  </div>
-</div>
