@@ -9,11 +9,11 @@ import { Component, OnInit } from '@angular/core';
 import { MonthlyCalculationService } from '../services/monthly-calculation.service';
 import { UpcomingCost } from '../../model/cost';
 import { InvoiceDetailViewerComponent } from '../monthly-calculation/invoice-detail-viewer/invoice-detail-viewer.component';
-
+import { InvoiceSummaryViewerComponent } from './invoice-summary-viewer/invoice-summary-viewer.component';
 @Component({
   selector: 'app-monthly-calculation',
   standalone: true,
-  imports: [CommonModule, InvoiceDetailViewerComponent],
+  imports: [CommonModule, InvoiceDetailViewerComponent, InvoiceSummaryViewerComponent],
   templateUrl: './monthly-calculation.component.html',
   styleUrl: './monthly-calculation.component.css',
 })
