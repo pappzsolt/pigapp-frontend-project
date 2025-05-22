@@ -1,68 +1,9 @@
-<nav
-  class="bg-gradient-to-r from-blue-500 to-teal-500 dark:from-blue-700 dark:to-teal-800 border-b border-gray-200 dark:border-gray-700 shadow-lg">
-
-  <!-- Logo -->
-  <a class="flex items-center gap-2">
-    <img src="images/pigapp.png" class="h-8" alt="PIGAPP logo" />
-
-  </a>
-
-  <!-- Mobil menü gomb -->
-  <button (click)="toggleMenu()" class="md:hidden text-white">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  </button>
-  <!-- Menü -->
-  <ul [class.hidden]="isMenuOpen" class="md:flex font-medium items-center gap-6">
-    <li *ngFor="let item of menuItems; let i = index" class="flex items-center"
-      [ngClass]="{ 'border-l border-white/30 pl-4': i > 0 }">
-      <a [routerLink]="item.path" [ngClass]="{
-            'text-blue-100 bg-white/10 rounded px-3 py-1 shadow-inner': isActive(item.path),
-            'text-white hover:bg-white/10 hover:rounded hover:px-3 hover:py-1 transition-all duration-200':
-              !isActive(item.path)
-          }" class="block">
-        {{ item.label }}
-      </a>
-    </li>
-    <a class="text-blue-100 bg-white/10 rounded px-3 py-1 shadow-inner text-white hover:bg-white/20 hover:rounded hover:px-3 hover:py-1 transition-all duration-200 cursor-pointer"
-      (click)="logout()">
-      Logout
-    </a>
-  </ul>
-
-
-
-  <!-- Mobil menü (hamburger) -->
-  <div *ngIf="isMenuOpen" class="md:hidden bg-gray-50 dark:bg-gray-800 p-4">
-    <ul class="font-medium">
-      <li *ngFor="let item of menuItems">
-        <a [routerLink]="item.path" [ngClass]="{
-            'text-blue-600 dark:text-blue-400': isActive(item.path),
-            'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors':
-              !isActive(item.path)
-          }" class="block py-2" (click)="toggleMenu()">
-          {{ item.label }}
-        </a>
-      </li>
-    </ul>
+<div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <app-navbar [menuItems]="menuItems" (logout)="onLogout()"></app-navbar>
+  <div class="bg-blue-100 dark:bg-gray-900 p-6 rounded-2xl shadow-md">
+    <router-outlet></router-outlet>
   </div>
-</nav>
-
-
-<div class="mx-auto w-fit p-6 bg-blue-100 rounded-2xl shadow-md">
-  <router-outlet></router-outlet>
+  <app-footer></app-footer>
 </div>
 
-<footer class="bg-gradient-to-r from-teal-500 to-blue-500 dark:from-teal-700 dark:to-blue-700 text-white py-4 mt-8">
 
-  <p class="text-sm">
-    &copy; 2025 PIGAPP. Minden jog fenntartva.
-  </p>
-  <div class="mt-2">
-    <a href="/privacy" class="text-sm hover:text-blue-200">Adatvédelmi szabályzat</a>
-    <span class="mx-2">|</span>
-    <a href="/terms" class="text-sm hover:text-blue-200">Felhasználási feltételek</a>
-  </div>
-
-</footer>

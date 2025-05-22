@@ -4,12 +4,12 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { AlertMessageComponent } from '../shared/alert-message/alert-message.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AlertMessageComponent],
 })
 export class LoginComponent {
   email = '';
@@ -19,7 +19,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   onSubmit() {
     this.authService.login({ email: this.email, password: this.password }).subscribe({

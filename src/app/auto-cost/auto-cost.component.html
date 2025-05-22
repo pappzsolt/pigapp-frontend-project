@@ -4,13 +4,15 @@
   [closable]="true">
 </app-alert-message>
 
-<app-auto-cost-table
-  [autoCosts]="autoCosts"
-  [disabledCostIds]="disabledCostIds"
-  [selectedCosts]="selectedCosts"
-  (selectionChange)="onSelectionChange()"
-  (selectAll)="setAllSelected($event)"
-  (updateDates)="updateCostDates()"
-></app-auto-cost-table>
+<div appTailwindBlueBox>
+  <app-auto-cost-table
+    [autoCosts]="autoCosts"
+    [disabledCostIds]="disabledCostIds"
+    [selectedCosts]="selectedCosts"
+    (selectionChange)="onSelectionChange()"
+    (selectAll)="setAllSelected($event)"
+    (updateDates)="updateCostDates()"
+  ></app-auto-cost-table>
+</div>
 
 

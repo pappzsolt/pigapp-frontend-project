@@ -1,7 +1,4 @@
 
-
-
-<div appTailwindBlueBox>
   <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
 
   <button (click)="onSetAll(true)" appButton="blue" class="mb-4">
@@ -12,43 +9,30 @@
   </button>
 
 
-    <table class="min-w-full table-auto">
-      <thead>
-        <tr class="bg-blue-200 text-blue-900">
-          <th class="px-4 py-2 text-left border-b">Választás</th>
-          <th class="px-4 py-2 text-left border-b">Költség neve</th>
-          <th class="px-4 py-2 text-left border-b">Összeg</th>
-          <th class="px-4 py-2 text-left border-b">Dátum</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cost of autoCosts" class="bg-white">
-          <td class="px-4 py-2 border-b">
-            <input
-              type="checkbox"
-              [(ngModel)]="cost.selected"
-              [disabled]="disabledCostIds.includes(cost.id)"
-              class="form-checkbox"
-              (change)="onCheckboxChange()"
-            />
-          </td>
-          <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
-          <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
-          <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-
+  <table class="min-w-full table-auto">
+    <thead>
+      <tr class="bg-blue-200 text-blue-900">
+        <th class="px-4 py-2 text-left border-b">Választás</th>
+        <th class="px-4 py-2 text-left border-b">Költség neve</th>
+        <th class="px-4 py-2 text-left border-b">Összeg</th>
+        <th class="px-4 py-2 text-left border-b">Dátum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cost of autoCosts" class="bg-white">
+        <td class="px-4 py-2 border-b">
+          <input type="checkbox" [(ngModel)]="cost.selected" [disabled]="disabledCostIds.includes(cost.id)"
+            class="form-checkbox" (change)="onCheckboxChange()" />
+        </td>
+        <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
+        <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
+        <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
+      </tr>
+    </tbody>
+  </table>
   <div class="mt-4">
-    <button
-      (click)="onUpdateDates()"
-      appButton="blue"
-      [disabled]="!selectedCosts.length"
-    >
+    <button (click)="onUpdateDates()" appButton="blue" [disabled]="!selectedCosts.length">
       Költségek dátumainak frissítése
     </button>
   </div>
-</div>
-
 
