@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Cost } from '../../../model/cost';
-
+import { TailwindStyledTableDirective } from '../../shared/directives/tailwind-styled-table.directive';
 @Component({
   selector: 'app-cost-list-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TailwindStyledTableDirective],
   templateUrl: './cost-list-table.component.html',
   styleUrls: ['./cost-list-table.component.css'],
 })

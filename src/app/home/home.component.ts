@@ -11,6 +11,7 @@ import { InvoiceCostSummaryService } from '../services/invoice-cost-summary.serv
 import { InvoiceCostSummary } from '../../model/invoice-cost-summary.model';
 import { InvoiceCardComponent } from '../invoice/invoice-card/invoice-card.component';
 import { InvoiceSummaryCardComponent } from '../invoice/invoice-summary-card/invoice-summary-card.component';
+import { TailwindCardDirective } from './../shared/directives/tailwind-blue-box.directive';
 @Component({
   selector: 'app-home',
   imports: [
@@ -20,6 +21,7 @@ import { InvoiceSummaryCardComponent } from '../invoice/invoice-summary-card/inv
     GroupByPipe,
     InvoiceCardComponent,
     InvoiceSummaryCardComponent,
+    TailwindCardDirective,
   ],
   standalone: true,
   templateUrl: './home.component.html',

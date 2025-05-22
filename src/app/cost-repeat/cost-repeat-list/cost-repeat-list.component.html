@@ -1,33 +1,32 @@
 
   <h1 class="text-2xl font-semibold mb-6">Cost Repeat List</h1>
 
-  <table class="min-w-full table-auto border-collapse border border-gray-200">
+  <table TailwindStyledTableDirective>
     <thead>
-      <tr class="bg-gray-100">
-        <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Name</th>
-        <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Amount</th>
-        <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Date</th>
-        <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Paid</th>
-        <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Paid Date</th>
-        <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Expire Date</th>
-        <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Created Date</th>
+      <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Paid</th>
+        <th>Paid Date</th>
+        <th>Expire Date</th>
+        <th>Created Date</th>
       </tr>
     </thead>
     <tbody>
       <tr
         *ngFor="let costRepeatList of costsRepeatList"
-        class="border-b hover:bg-gray-50"
       >
-        <td class="py-3 px-6 text-sm text-gray-700">
+        <td>
           {{ costRepeatList.cost_repeat_name }}
         </td>
-        <td class="py-3 px-6 text-sm text-gray-700">
+        <td>
           {{ costRepeatList.amount }} Ft
         </td>
-        <td class="py-3 px-6 text-sm text-gray-700">
+        <td>
           {{ costRepeatList.cost_repeat_date | date: 'yyyy-MM-dd' }}
         </td>
-        <td class="py-3 px-6 text-sm">
+        <td>
           <span
             [ngClass]="{
               'text-green-500 font-semibold': costRepeatList.paid === 1,
@@ -37,13 +36,13 @@
             {{ costRepeatList.paid === 1 ? 'Paid' : 'Unpaid' }}
           </span>
         </td>
-        <td class="py-3 px-6 text-sm text-gray-700">
+        <td>
           {{ costRepeatList.paid_date | date: 'yyyy-MM-dd' }}
         </td>
-        <td class="py-3 px-6 text-sm text-gray-700">
+        <td>
           {{ costRepeatList.expire_date | date: 'yyyy-MM-dd' }}
         </td>
-        <td class="py-3 px-6 text-sm text-gray-700">
+        <td>
           {{ costRepeatList.create_cost_repeat_date | date: 'yyyy-MM-dd' }}
         </td>
       </tr>

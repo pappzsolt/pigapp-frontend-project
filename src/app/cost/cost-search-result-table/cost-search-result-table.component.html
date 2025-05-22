@@ -1,19 +1,19 @@
 <div class="overflow-x-auto">
-  <table class="min-w-full table-auto">
+  <table TailwindStyledTableDirective >
     <thead>
-      <tr class="bg-blue-200 text-blue-900">
-        <th class="px-4 py-2 text-left border-b">Költség neve</th>
-        <th class="px-4 py-2 text-left border-b">Összeg</th>
-        <th class="px-4 py-2 text-left border-b">Dátum</th>
+      <tr>
+        <th>Költség neve</th>
+        <th>Összeg</th>
+        <th>Dátum</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cost of costsSearchResults" class="bg-white">
-        <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
-        <td class="px-4 py-2 border-b text-green-700 font-semibold">
+      <tr *ngFor="let cost of costsSearchResults">
+        <td>{{ cost.cost_name }}</td>
+        <td>
           {{ cost.amount }} Ft
         </td>
-        <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
+        <td>{{ cost.cost_date }}</td>
       </tr>
     </tbody>
   </table>

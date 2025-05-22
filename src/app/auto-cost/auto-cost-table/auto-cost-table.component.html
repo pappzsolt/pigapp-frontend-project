@@ -9,24 +9,24 @@
   </button>
 
 
-  <table class="min-w-full table-auto">
+  <table appTailwindStyledTable>
     <thead>
-      <tr class="bg-blue-200 text-blue-900">
-        <th class="px-4 py-2 text-left border-b">Választás</th>
-        <th class="px-4 py-2 text-left border-b">Költség neve</th>
-        <th class="px-4 py-2 text-left border-b">Összeg</th>
-        <th class="px-4 py-2 text-left border-b">Dátum</th>
+      <tr >
+        <th >Választás</th>
+        <th>Költség neve</th>
+        <th>Összeg</th>
+        <th>Dátum</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cost of autoCosts" class="bg-white">
-        <td class="px-4 py-2 border-b">
+      <tr *ngFor="let cost of autoCosts" >
+        <td>
           <input type="checkbox" [(ngModel)]="cost.selected" [disabled]="disabledCostIds.includes(cost.id)"
             class="form-checkbox" (change)="onCheckboxChange()" />
         </td>
-        <td class="px-4 py-2 border-b">{{ cost.cost_name }}</td>
-        <td class="px-4 py-2 border-b text-green-700 font-semibold">{{ cost.amount }} Ft</td>
-        <td class="px-4 py-2 border-b">{{ cost.cost_date }}</td>
+        <td>{{ cost.cost_name }}</td>
+        <td>{{ cost.amount }} Ft</td>
+        <td>{{ cost.cost_date }}</td>
       </tr>
     </tbody>
   </table>

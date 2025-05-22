@@ -1,27 +1,27 @@
 <h2 class="text-2xl font-semibold text-blue-800 mb-4">{{ title }}</h2>
 
 
-<table class="min-w-full table-auto">
+<table appTailwindStyledTable>
   <thead>
-    <tr class="bg-blue-200">
-      <th class="px-4 py-2 text-left border-b">Típus</th>
-      <th class="px-4 py-2 text-left border-b">Felhasználó</th>
-      <th class="px-4 py-2 text-left border-b">Számla</th>
-      <th class="px-4 py-2 text-left border-b">Leírás</th>
-      <th class="px-4 py-2 text-left border-b">Összeg</th>
-      <th class="px-4 py-2 text-left border-b">Dátum</th>
+    <tr>
+      <th>Típus</th>
+      <th>Felhasználó</th>
+      <th>Számla</th>
+      <th>Leírás</th>
+      <th>Összeg</th>
+      <th>Dátum</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let cashflow of cashflows$ | async" class="bg-white">
-      <td class="px-4 py-2 border-b">{{ cashflow.cashflowgroup }}</td>
-      <td class="px-4 py-2 border-b">{{ cashflow.user }}</td>
-      <td class="px-4 py-2 border-b">{{ cashflow.invoice }}</td>
-      <td class="px-4 py-2 border-b">{{ cashflow.cash_flow_note }}</td>
-      <td class="px-4 py-2 border-b text-green-700 font-semibold">
+      <td>{{ cashflow.cashflowgroup }}</td>
+      <td>{{ cashflow.user }}</td>
+      <td>{{ cashflow.invoice }}</td>
+      <td>{{ cashflow.cash_flow_note }}</td>
+      <td>
         {{ cashflow.amount }} Ft
       </td>
-      <td class="px-4 py-2 border-b">{{ cashflow.cash_flow_date }}</td>
+      <td>{{ cashflow.cash_flow_date }}</td>
     </tr>
   </tbody>
 </table>

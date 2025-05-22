@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from '../../shared/directives/button.directive';
 import { AutoCost } from '../../../model/cost';
 import { AlertMessageComponent } from '../../shared/alert-message/alert-message.component';
+import { TailwindStyledTableDirective } from '../../shared/directives/tailwind-styled-table.directive';
 @Component({
   selector: 'app-auto-cost-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonDirective, AlertMessageComponent],
+  imports: [CommonModule, FormsModule, ButtonDirective, AlertMessageComponent,TailwindStyledTableDirective],
   templateUrl: './auto-cost-table.component.html',
 })
 export class AutoCostTableComponent {

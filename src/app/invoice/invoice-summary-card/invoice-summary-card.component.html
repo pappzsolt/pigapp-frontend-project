@@ -19,19 +19,19 @@
 
   <!-- táblázat -->
 
-    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+    <table appTailwindStyledTable>
       <thead class="bg-gray-50 dark:bg-gray-700">
         <tr>
-          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">#</th>
-          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Költségnév</th>
-          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Összeg</th>
+          <th>#</th>
+          <th>Költségnév</th>
+          <th>Összeg</th>
         </tr>
       </thead>
-      <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+      <tbody >
         <tr *ngFor="let detail of summary.details; let i = index">
-          <td class="px-6 py-3 text-sm text-gray-700 dark:text-gray-300">{{ i + 1 }}</td>
-          <td class="px-6 py-3 text-sm text-gray-900 dark:text-white">{{ detail.costrepeat_name }}</td>
-          <td class="px-6 py-3 text-sm text-green-700 dark:text-green-400 font-medium">
+          <td>{{ i + 1 }}</td>
+          <td>{{ detail.costrepeat_name }}</td>
+          <td>
             {{ detail.total_amount | number }} Ft
           </td>
         </tr>
