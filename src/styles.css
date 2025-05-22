@@ -1,54 +1,8 @@
-@import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-}
-
-.btn {
-  @apply px-4 py-2 rounded-md font-semibold transition-colors duration-200 focus:outline-none focus:ring-2;
-}
-.btn-primary {
-  @apply bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-300 disabled:bg-gray-400 disabled:text-gray-200 disabled:hover:bg-gray-400 cursor-pointer disabled:cursor-not-allowed;
-}
-.btn-danger {
-  @apply bg-red-500 text-white hover:bg-red-600 focus:ring-red-300 disabled:bg-gray-400 disabled:text-gray-200 disabled:hover:bg-gray-400 cursor-pointer disabled:cursor-not-allowed;
-}
-
-app-invoice.is-first {
-  border-top: 2px solid grey;
-  padding-top: 20px;
-}
-
-app-invoice.is-last {
-  border-bottom: 2px solid grey;
-  padding-top: 20px;
-}
-
-app-invoice.is-even {
-  background: lightgray;
-}
-
-app-invoice.is-odd {
-  background: lightcyan;
-}
-
-.warn {
-  color: red;
-}
-
-.appHighlighted {
-  box-shadow:
-    0 2px 16px 0 #de1e19,
-    0 3px 8px 0 rgba(226, 21, 19, 0.47),
-    0 6px 8px -1px #b41c18;
-}
-.card {
-  margin-bottom: 50px;
+html {
+  @apply font-sans;
 }

@@ -1,15 +1,19 @@
 // tailwind.config.js
-// tailwind.config.js
 module.exports = {
-  content: [
-    './src/**/*.{html,ts}', // FONTOS! Angular sablonok
-  ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'], // vagy más font
+        // pl. alapértelmezett font a 'Inter', ha nincs, akkor sans-serif
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },
+  content: [
+    "./src/**/*.{html,ts}",
+  ],
   plugins: [],
 };
+
+
+
+
