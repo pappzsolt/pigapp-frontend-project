@@ -1,0 +1,7 @@
+
+<div *ngIf="show" [ngClass]="alertClasses">
+  <span>{{ message }}</span>
+  <button *ngIf="closable" (click)="close()" class="ml-4 text-xl leading-none focus:outline-none">
+    &times;
+  </button>
+</div>

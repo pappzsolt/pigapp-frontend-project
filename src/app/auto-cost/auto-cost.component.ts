@@ -3,14 +3,13 @@ import { AutoCost, MonthlyCostResponse } from '../../model/cost';
 import { AutoCostService } from '../services/auto-cost.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AlertComponent } from '../shared/alert/alert.component';
 import { ButtonDirective } from '../shared/directives/button.directive'; // pontos útvonal a fájlhoz
 import { AutoCostTableComponent } from './auto-cost-table/auto-cost-table.component'; // vagy ahova elhelyezed
-
+import { AlertMessageComponent } from '../shared/alert-message/alert-message.component';
 @Component({
   selector: 'app-cost-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, AlertComponent, ButtonDirective,AutoCostTableComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, ButtonDirective,AutoCostTableComponent,AlertMessageComponent],
   templateUrl: './auto-cost.component.html',
   styleUrls: ['./auto-cost.component.css'],
 })

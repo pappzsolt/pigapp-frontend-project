@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonDirective } from '../../shared/directives/button.directive';
 import { AutoCost } from '../../../model/cost';
-
+import { AlertMessageComponent } from '../../shared/alert-message/alert-message.component';
 @Component({
   selector: 'app-auto-cost-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonDirective],
+  imports: [CommonModule, FormsModule, ButtonDirective, AlertMessageComponent],
   templateUrl: './auto-cost-table.component.html',
 })
 export class AutoCostTableComponent {
