@@ -6,7 +6,7 @@ import { TailwindStyledTableDirective } from '../../shared/directives/tailwind-s
 @Component({
   selector: 'app-cashflow-table',
   standalone: true,
-  imports: [CommonModule,TailwindStyledTableDirective],
+  imports: [CommonModule, TailwindStyledTableDirective],
   templateUrl: './cashflow-table.component.html',
 })
 export class CashflowTableComponent {

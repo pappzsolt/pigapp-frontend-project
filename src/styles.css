@@ -7,10 +7,10 @@
 
 @layer base {
   body {
-    @apply font-sans;
+    font-family: 'Poppins', sans-serif;
   }
 }
-/* pl. styles.css */
+
 .btn {
   @apply px-4 py-2 rounded-md font-semibold transition-colors duration-200 focus:outline-none focus:ring-2;
 }
@@ -20,7 +20,6 @@
 .btn-danger {
   @apply bg-red-500 text-white hover:bg-red-600 focus:ring-red-300 disabled:bg-gray-400 disabled:text-gray-200 disabled:hover:bg-gray-400 cursor-pointer disabled:cursor-not-allowed;
 }
-
 
 app-invoice.is-first {
   border-top: 2px solid grey;
