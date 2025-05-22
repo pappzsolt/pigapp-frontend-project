@@ -11,7 +11,7 @@ import { TransferMessageComponent } from '../transfer-message/transfer-message.c
 import { AutoCost, CalculateCashData, MonthlyCostResponse } from '../../model/cost';
 import { CostTableComponent } from './cost-transform-table/cost-transform-table.component';
 import { FormsModule } from '@angular/forms';
-
+import { TailwindStyledTableDirective } from '../shared/directives/tailwind-styled-table.directive';
 @Component({
   selector: 'app-invoice-transform',
   standalone: true,
@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     SummaryCardComponent,
     TransferMessageComponent,
     CostTableComponent,
+    TailwindStyledTableDirective,
   ],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
