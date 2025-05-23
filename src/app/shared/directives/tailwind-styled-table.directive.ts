@@ -21,7 +21,7 @@ export class TailwindStyledTableDirective implements AfterViewInit {
       'divide-gray-200',
       'dark:divide-gray-700',
       'font-sans', // Betűtípus az egész táblázatra
-      'text-base'  // Alap szövegméret
+      'text-sm'  // Alap szövegméret
     ];
     tableClasses.forEach(cls => this.renderer.addClass(table, cls));
 
