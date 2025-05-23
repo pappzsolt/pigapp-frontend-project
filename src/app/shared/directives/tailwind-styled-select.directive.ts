@@ -2,18 +2,20 @@ import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appTailwindStyledSelect]',
-  standalone: true
+  standalone: true,
 })
 export class TailwindStyledSelectDirective implements AfterViewInit {
-
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngAfterViewInit(): void {
     const select: HTMLSelectElement = this.el.nativeElement;
 
     const tailwindClasses: string[] = [
       'block',
-      'w-full',
+      'w-32', // <<--- Csak EZT módosítottuk (w-full → w-32)
       'px-4',
       'py-2',
       'text-base',
@@ -35,7 +37,7 @@ export class TailwindStyledSelectDirective implements AfterViewInit {
       'dark:border-gray-600',
       'dark:focus:ring-blue-400',
       'dark:focus:border-blue-400',
-      'font-sans'
+      'font-sans',
     ];
 
     tailwindClasses.forEach(cls => this.renderer.addClass(select, cls));
