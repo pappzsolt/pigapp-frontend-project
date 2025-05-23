@@ -9,8 +9,7 @@
         <input *ngIf="field.type !== 'select'" [id]="field.controlName" [type]="field.type"
           [formControlName]="field.controlName"
           class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400" />
-        <select appTailwindStyledSelect *ngIf="field.type === 'select'" [id]="field.controlName" [formControlName]="field.controlName"
-          class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400">
+        <select appTailwindStyledSelect="w-32"  *ngIf="field.type === 'select'" [id]="field.controlName" [formControlName]="field.controlName">
           <option *ngFor="let option of field.options" [value]="option.id">
             {{ option[field.optionLabel!] }}
           </option>

@@ -12,6 +12,7 @@ import { AutoCost, CalculateCashData, MonthlyCostResponse } from '../../model/co
 import { CostTableComponent } from './cost-transform-table/cost-transform-table.component';
 import { FormsModule } from '@angular/forms';
 import { TailwindStyledTableDirective } from '../shared/directives/tailwind-styled-table.directive';
+import { TailwindStyledSelectDirective } from '../shared/directives/tailwind-styled-select.directive';
 @Component({
   selector: 'app-invoice-transform',
   standalone: true,
@@ -24,6 +25,7 @@ import { TailwindStyledTableDirective } from '../shared/directives/tailwind-styl
     TransferMessageComponent,
     CostTableComponent,
     TailwindStyledTableDirective,
+    TailwindStyledSelectDirective,
   ],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
