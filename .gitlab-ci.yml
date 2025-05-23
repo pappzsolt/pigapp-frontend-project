@@ -8,9 +8,10 @@ build:
   stage: build
   image: node:18
   script:
-  - npm install -g @angular/cli
+  - sudo npm install -g @angular/cli
   - npm ci
   - ng build --configuration production
+  - npx ng version
   artifacts:
     paths:
     - dist/
