@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import { TailwindStyledSelectDirective } from '../../shared/directives/tailwind-styled-select.directive';
 @Component({
   selector: 'app-cash-flow-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,TailwindStyledSelectDirective],
   templateUrl: './cashflow-form.component.html',
 })
 export class CashflowFormComponent {
