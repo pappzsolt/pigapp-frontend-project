@@ -13,10 +13,14 @@
         [disabled]="field.name === 'paid_date' && costForm.get('paid')?.value === false"
       />
       <select
+      [ngClass]="{
+          'w-5/6': field.name === 'costrepeat',
+          'w-32': field.name !== 'costrepeat'
+        }"
+        appTailwindStyledSelect=""
         *ngIf="field.type === 'select'"
         [id]="field.name"
         [formControlName]="field.name"
-        appInputStyle
       >
         <option value="" disabled>-- Válasszon --</option>
         <option

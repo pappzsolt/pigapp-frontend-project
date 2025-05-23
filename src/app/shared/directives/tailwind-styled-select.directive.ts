@@ -5,7 +5,7 @@ import { AfterViewInit, Directive, ElementRef, Input, Renderer2 } from '@angular
   standalone: true,
 })
 export class TailwindStyledSelectDirective implements AfterViewInit {
-  @Input('appTailwindStyledSelect') widthClass: string = 'w-full'; // alapértelmezett szélesség
+  @Input('appTailwindStyledSelect') widthClass?: string;
 
   constructor(
     private el: ElementRef,
@@ -43,10 +43,13 @@ export class TailwindStyledSelectDirective implements AfterViewInit {
     ];
 
     baseClasses.forEach(cls => this.renderer.addClass(select, cls));
-    // Szélesség osztály hozzáadása paraméter alapján
-    this.renderer.addClass(select, this.widthClass);
 
-    // Egyedi stílusbeállítások
+    // Csak akkor adunk szélességosztályt, ha van értelmes érték
+    if (this.widthClass?.trim()) {
+      this.renderer.addClass(select, this.widthClass);
+    }
+
+    // Egyedi stílusok
     this.renderer.setStyle(select, 'font-family', 'Inter, ui-sans-serif, system-ui, sans-serif');
     this.renderer.setStyle(select, 'font-feature-settings', 'normal');
     this.renderer.setStyle(select, 'font-size', '14px');

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, Directive } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InputStyleDirective } from '../../shared/directives/input-style/input-style.directive';
+import { TailwindStyledSelectDirective } from '../../shared/directives/tailwind-styled-select.directive';
 interface Field {
   label: string;
   name: string;
@@ -12,7 +13,7 @@ interface Field {
 @Component({
   selector: 'app-cost-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputStyleDirective],
+  imports: [CommonModule, ReactiveFormsModule, InputStyleDirective,TailwindStyledSelectDirective],
   templateUrl: './cost-form.component.html',
   styleUrls: ['./cost-form.component.css'],
 })
