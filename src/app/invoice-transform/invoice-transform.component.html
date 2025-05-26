@@ -15,8 +15,9 @@
   <ng-template #invoiceSelect let-controlName let-id>
 
     <label [for]="id" class="block text-blue-800 font-medium mb-1">Számla</label>
-    <select appTailwindStyledSelect="w-24"  [id]="id" [formControlName]="controlName" >
-      <option value="0" selected>Válassz számlát</option>
+    <select appTailwindStyledSelect="w-24" [id]="id" [formControlName]="controlName">
+
+      <option value="" disabled>-- Válasszon --</option>
       <option *ngFor="let invoice of invoiceOption" [value]="invoice.id">
         {{ invoice.invoice_name }}
       </option>

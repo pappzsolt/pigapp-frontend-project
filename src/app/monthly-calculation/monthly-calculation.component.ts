@@ -10,10 +10,11 @@ import { MonthlyCalculationService } from '../services/monthly-calculation.servi
 import { UpcomingCost } from '../../model/cost';
 import { InvoiceDetailViewerComponent } from '../monthly-calculation/invoice-detail-viewer/invoice-detail-viewer.component';
 import { InvoiceSummaryViewerComponent } from './invoice-summary-viewer/invoice-summary-viewer.component';
+import { TailwindStyledSelectDirective } from '../shared/directives/tailwind-styled-select.directive';
 @Component({
   selector: 'app-monthly-calculation',
   standalone: true,
-  imports: [CommonModule, InvoiceDetailViewerComponent, InvoiceSummaryViewerComponent],
+  imports: [CommonModule, InvoiceDetailViewerComponent, InvoiceSummaryViewerComponent,TailwindStyledSelectDirective],
   templateUrl: './monthly-calculation.component.html',
   styleUrl: './monthly-calculation.component.css',
 })

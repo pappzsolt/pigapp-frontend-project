@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Invoice, InvoiceSummary, TotalAmountInvoice } from '../../../model/invoice';
 import { UpcomingCost } from '../../../model/cost';
-
+import { TailwindStyledSelectDirective } from '../../shared/directives/tailwind-styled-select.directive';
 @Component({
   selector: 'app-invoice-summary-viewer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,TailwindStyledSelectDirective],
   templateUrl: './invoice-summary-viewer.component.html',
 })
 export class InvoiceSummaryViewerComponent {

@@ -2,11 +2,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InvoiceWithCostDetail } from '../../../model/invoice';
-
+import { TailwindStyledSelectDirective } from '../../shared/directives/tailwind-styled-select.directive';
 @Component({
   selector: 'app-invoice-detail-viewer',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,TailwindStyledSelectDirective],
   templateUrl: './invoice-detail-viewer.component.html',
 })
 export class InvoiceDetailViewerComponent {
