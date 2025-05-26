@@ -13,21 +13,20 @@ export class StyledInputDirective implements OnInit {
       'p-2',
       'border',
       'border-gray-300',
-      'rounded-md',
+      'rounded-full', // <- itt történik a lekerekítés
       'focus:ring-2',
       'focus:ring-blue-400'
     ];
 
-    // Alap Tailwind osztályok hozzáadása
     baseClasses.forEach(className => {
       this.renderer.addClass(this.el.nativeElement, className);
     });
 
-    // Szélesség osztály hozzáadása, ha van
     if (this.widthClass) {
       this.renderer.addClass(this.el.nativeElement, this.widthClass);
     }
   }
 }
+
 
 

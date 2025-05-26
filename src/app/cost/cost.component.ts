@@ -9,6 +9,7 @@ import { CostFilterComponent } from './cost-filter/cost-filter.component';
 import { CostSearchResultTableComponent } from './cost-search-result-table/cost-search-result-table.component';
 import { CostListTableComponent } from './cost-list-table/cost-list-table.component';
 import { CostFormComponent } from './cost-form/cost-form.component';
+import { StyledInputDirective } from '../shared/directives/styled-input.directive';
 @Component({
   selector: 'app-cost',
   standalone: true,
@@ -20,6 +21,7 @@ import { CostFormComponent } from './cost-form/cost-form.component';
     CostSearchResultTableComponent,
     CostListTableComponent,
     CostFormComponent,
+    StyledInputDirective,
   ],
   templateUrl: './cost.component.html',
   styleUrls: ['./cost.component.css'],

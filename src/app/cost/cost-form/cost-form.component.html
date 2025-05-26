@@ -9,7 +9,7 @@
         [id]="field.name"
         [formControlName]="field.name"
         [type]="field.type"
-        appInputStyle
+        appStyledInput [widthClass]="'w-1/2'"
         [disabled]="field.name === 'paid_date' && costForm.get('paid')?.value === false"
       />
       <select
