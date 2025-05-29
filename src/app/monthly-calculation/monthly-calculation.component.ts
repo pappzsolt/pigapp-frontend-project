@@ -14,7 +14,12 @@ import { TailwindStyledSelectDirective } from '../shared/directives/tailwind-sty
 @Component({
   selector: 'app-monthly-calculation',
   standalone: true,
-  imports: [CommonModule, InvoiceDetailViewerComponent, InvoiceSummaryViewerComponent,TailwindStyledSelectDirective],
+  imports: [
+    CommonModule,
+    InvoiceDetailViewerComponent,
+    InvoiceSummaryViewerComponent,
+    TailwindStyledSelectDirective,
+  ],
   templateUrl: './monthly-calculation.component.html',
   styleUrl: './monthly-calculation.component.css',
 })

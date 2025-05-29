@@ -5,7 +5,7 @@ import { TailwindStyledTableDirective } from '../../shared/directives/tailwind-s
 @Component({
   selector: 'app-cost-repeat-list',
   standalone: true,
-  imports: [CommonModule,TailwindStyledTableDirective],
+  imports: [CommonModule, TailwindStyledTableDirective],
   templateUrl: './cost-repeat-list.component.html',
 })
 export class CostRepeatListComponent {

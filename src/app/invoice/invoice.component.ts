@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
 import { GroupByThreePipe } from '../pipe/group-by-three.pipe';
 import { GroupByPipe } from '../pipe/group-by.pipe';
 import { FormsModule } from '@angular/forms';
+import { ButtonDirective } from '../shared/directives/button.directive';
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [HighlightedDirective, CommonModule, GroupByThreePipe, GroupByPipe, FormsModule],
+  imports: [
+    HighlightedDirective,
+    CommonModule,
+    GroupByThreePipe,
+    GroupByPipe,
+    FormsModule,
+    ButtonDirective,
+  ],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.css',
 })

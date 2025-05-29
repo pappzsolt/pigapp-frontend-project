@@ -1,18 +1,25 @@
-  <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költség dátum szűrés</h2>
-  <form (ngSubmit)="onFilter()" class="flex flex-col sm:flex-row gap-4">
-    <label for="date" class="text-lg text-blue-800">Dátum:</label>
-    <input
-      type="date"
-      [(ngModel)]="searchDate"
-      name="date"
-      required
-      class="px-4 py-2 border rounded-md w-full sm:w-auto"
-    />
+<section class="p-4 bg-white rounded-xl shadow-md my-4">
+  <h2 class="text-xl font-semibold text-blue-900 mb-4">Költség dátum szűrés</h2>
+
+  <form (ngSubmit)="onFilter()" class="flex flex-col sm:flex-row sm:items-end gap-4">
+    <div class="flex flex-col">
+      <label for="date" class="text-sm text-blue-800 mb-1">Dátum:</label>
+      <input
+        type="date"
+        [(ngModel)]="searchDate"
+        name="date"
+        required
+        appStyledDateInput
+      />
+    </div>
+
     <button
       type="submit"
-      class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+      class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
     >
       Keresés
     </button>
   </form>
+</section>
+
 

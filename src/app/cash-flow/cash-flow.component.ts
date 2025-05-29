@@ -10,6 +10,7 @@ import { CashflowTableComponent } from '../cash-flow/cashflow-table/cashflow-tab
 import { map } from 'rxjs/operators';
 import { TailwindStyledSelectDirective } from '../shared/directives/tailwind-styled-select.directive';
 import { StyledInputDirective } from '../shared/directives/styled-input.directive';
+import { ButtonDirective } from '../shared/directives/button.directive';
 type FieldType = 'text' | 'number' | 'date' | 'select';
 
 interface FieldConfig {
@@ -23,7 +24,14 @@ interface FieldConfig {
 @Component({
   selector: 'app-cash-flow',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CashflowTableComponent,TailwindStyledSelectDirective,StyledInputDirective],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    CashflowTableComponent,
+    TailwindStyledSelectDirective,
+    StyledInputDirective,
+    ButtonDirective,
+  ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.css',
 })

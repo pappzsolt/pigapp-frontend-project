@@ -16,7 +16,7 @@
 
   <div class="flex flex-col">
     <label class="text-sm text-gray-700 mb-1">Dátum</label>
-    <input  type="date" formControlName="cash_flow_date"/>
+    <input appStyledDateInput  type="date" formControlName="cash_flow_date"/>
   </div>
 
   <div class="flex flex-col">
@@ -42,9 +42,8 @@
       </option>
     </select>
   </div>
-
-  <button type="submit"
-    class="w-full mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
-    Hozzáadás
-  </button>
+<!--
+  <button appButton="blue" type="submit">
+    Hozzáadás1
+  </button> -->
 </form>

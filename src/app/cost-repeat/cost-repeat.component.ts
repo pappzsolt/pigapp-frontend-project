@@ -12,7 +12,14 @@ import { StyledInputDirective } from '../shared/directives/styled-input.directiv
 @Component({
   selector: 'app-cost-repeat',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,CostRepeatFormComponent,CostRepeatListComponent,StyledInputDirective],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CostRepeatFormComponent,
+    CostRepeatListComponent,
+    StyledInputDirective,
+  ],
   templateUrl: './cost-repeat.component.html',
   styleUrl: './cost-repeat.component.css',
 })

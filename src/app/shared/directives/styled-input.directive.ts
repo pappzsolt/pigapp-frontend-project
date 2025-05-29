@@ -1,12 +1,15 @@
 import { Directive, ElementRef, Renderer2, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appStyledInput]'
+  selector: '[appStyledInput]',
 })
 export class StyledInputDirective implements OnInit {
   @Input() widthClass: string = 'w-full'; // alapértelmezett szélesség
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit() {
     const baseClasses = [
@@ -15,7 +18,7 @@ export class StyledInputDirective implements OnInit {
       'border-gray-300',
       'rounded-full', // <- itt történik a lekerekítés
       'focus:ring-2',
-      'focus:ring-blue-400'
+      'focus:ring-blue-400',
     ];
 
     baseClasses.forEach(className => {
@@ -27,6 +30,3 @@ export class StyledInputDirective implements OnInit {
     }
   }
 }
-
-
-

@@ -5,7 +5,7 @@ import { TailwindStyledTableDirective } from '../../shared/directives/tailwind-s
 @Component({
   selector: 'app-summary-table',
   standalone: true,
-  imports: [CommonModule,TailwindStyledTableDirective],
+  imports: [CommonModule, TailwindStyledTableDirective],
   templateUrl: './summary-table.component.html',
 })
 export class SummaryTableComponent {

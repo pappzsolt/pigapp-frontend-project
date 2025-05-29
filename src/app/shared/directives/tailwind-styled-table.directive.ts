@@ -2,10 +2,13 @@ import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appTailwindStyledTable]',
-  standalone: true
+  standalone: true,
 })
 export class TailwindStyledTableDirective implements AfterViewInit {
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngAfterViewInit(): void {
     this.addClasses();
@@ -21,7 +24,7 @@ export class TailwindStyledTableDirective implements AfterViewInit {
       'divide-gray-200',
       'dark:divide-gray-700',
       'font-sans', // Betűtípus az egész táblázatra
-      'text-sm'  // Alap szövegméret
+      'text-sm', // Alap szövegméret
     ];
     tableClasses.forEach(cls => this.renderer.addClass(table, cls));
 
@@ -43,7 +46,7 @@ export class TailwindStyledTableDirective implements AfterViewInit {
         'font-semibold',
         'text-gray-600',
         'dark:text-gray-300',
-        'font-sans'
+        'font-sans',
       ];
       classes.forEach(cls => this.renderer.addClass(th, cls));
     });
@@ -56,7 +59,7 @@ export class TailwindStyledTableDirective implements AfterViewInit {
         'dark:bg-gray-800',
         'divide-y',
         'divide-gray-100',
-        'dark:divide-gray-700'
+        'dark:divide-gray-700',
       ];
       bodyClasses.forEach(cls => this.renderer.addClass(tbody, cls));
     }
@@ -71,7 +74,7 @@ export class TailwindStyledTableDirective implements AfterViewInit {
         'font-normal',
         'text-gray-800',
         'dark:text-gray-100',
-        'font-sans'
+        'font-sans',
       ];
       classes.forEach(cls => this.renderer.addClass(td, cls));
     });

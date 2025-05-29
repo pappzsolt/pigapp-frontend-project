@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { InputStyleDirective } from '../../shared/directives/input-style/input-style.directive';
 import { TailwindStyledSelectDirective } from '../../shared/directives/tailwind-styled-select.directive';
 import { StyledInputDirective } from '../../shared/directives/styled-input.directive';
+import { ButtonDirective } from '../../shared/directives/button.directive';
 interface Field {
   label: string;
   name: string;
@@ -14,7 +15,14 @@ interface Field {
 @Component({
   selector: 'app-cost-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputStyleDirective,TailwindStyledSelectDirective,StyledInputDirective],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    InputStyleDirective,
+    TailwindStyledSelectDirective,
+    StyledInputDirective,
+    ButtonDirective,
+  ],
   templateUrl: './cost-form.component.html',
   styleUrls: ['./cost-form.component.css'],
 })

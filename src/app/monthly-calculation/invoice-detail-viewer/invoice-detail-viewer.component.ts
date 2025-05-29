@@ -6,7 +6,7 @@ import { TailwindStyledSelectDirective } from '../../shared/directives/tailwind-
 @Component({
   selector: 'app-invoice-detail-viewer',
   standalone: true,
-  imports: [CommonModule, FormsModule,TailwindStyledSelectDirective],
+  imports: [CommonModule, FormsModule, TailwindStyledSelectDirective],
   templateUrl: './invoice-detail-viewer.component.html',
 })
 export class InvoiceDetailViewerComponent {

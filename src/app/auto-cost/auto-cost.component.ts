@@ -9,7 +9,14 @@ import { AlertMessageComponent } from '../shared/alert-message/alert-message.com
 @Component({
   selector: 'app-cost-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, ButtonDirective,AutoCostTableComponent,AlertMessageComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ButtonDirective,
+    AutoCostTableComponent,
+    AlertMessageComponent,
+  ],
   templateUrl: './auto-cost.component.html',
   styleUrls: ['./auto-cost.component.css'],
 })
@@ -79,4 +86,3 @@ export class AutoCostComponent implements OnInit {
     const selectedIds = this.selectedCosts;
   }
 }
-

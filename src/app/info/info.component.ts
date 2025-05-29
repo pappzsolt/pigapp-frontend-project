@@ -11,7 +11,14 @@ import { TotalSummaryComponent } from './cost-total-summary/cost-total-summary.c
 @Component({
   selector: 'app-info',
   standalone: true,
-  imports: [CommonModule, FormsModule,CostLoanSummaryComponent,SummaryTableComponent,CostGroupSummaryComponent,TotalSummaryComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CostLoanSummaryComponent,
+    SummaryTableComponent,
+    CostGroupSummaryComponent,
+    TotalSummaryComponent,
+  ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.css',
 })

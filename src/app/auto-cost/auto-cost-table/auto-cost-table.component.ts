@@ -8,7 +8,13 @@ import { TailwindStyledTableDirective } from '../../shared/directives/tailwind-s
 @Component({
   selector: 'app-auto-cost-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonDirective, AlertMessageComponent,TailwindStyledTableDirective],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ButtonDirective,
+    AlertMessageComponent,
+    TailwindStyledTableDirective,
+  ],
   templateUrl: './auto-cost-table.component.html',
 })
 export class AutoCostTableComponent {
@@ -32,5 +38,3 @@ export class AutoCostTableComponent {
     this.updateDates.emit();
   }
 }
-
-

@@ -8,9 +8,8 @@ describe('InvoiceSummaryViewerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InvoiceSummaryViewerComponent]
-    })
-    .compileComponents();
+      imports: [InvoiceSummaryViewerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InvoiceSummaryViewerComponent);
     component = fixture.componentInstance;
