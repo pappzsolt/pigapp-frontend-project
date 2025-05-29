@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AutoCost } from '../../../model/cost';
 import { TailwindStyledTableDirective } from '../../shared/directives/tailwind-styled-table.directive';
+import { ButtonDirective } from '../../shared/directives/button.directive';
 @Component({
   selector: 'app-cost-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, TailwindStyledTableDirective],
+  imports: [CommonModule, FormsModule, TailwindStyledTableDirective,ButtonDirective],
   templateUrl: './cost-transform-table.component.html',
   styleUrls: ['./cost-transform-table.component.css'], // ha szükséges
 })

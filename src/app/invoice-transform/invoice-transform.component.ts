@@ -13,6 +13,7 @@ import { CostTableComponent } from './cost-transform-table/cost-transform-table.
 import { FormsModule } from '@angular/forms';
 import { TailwindStyledTableDirective } from '../shared/directives/tailwind-styled-table.directive';
 import { TailwindStyledSelectDirective } from '../shared/directives/tailwind-styled-select.directive';
+import { ButtonDirective } from '../shared/directives/button.directive';
 @Component({
   selector: 'app-invoice-transform',
   standalone: true,
@@ -26,6 +27,7 @@ import { TailwindStyledSelectDirective } from '../shared/directives/tailwind-sty
     CostTableComponent,
     TailwindStyledTableDirective,
     TailwindStyledSelectDirective,
+    ButtonDirective,
   ],
   templateUrl: './invoice-transform.component.html',
   styleUrls: ['./invoice-transform.component.css'],
