@@ -104,6 +104,7 @@ export class InvoiceTransformComponent implements OnInit {
     this.invoiceTransformService.getInvoiceOptions().subscribe(
       (data: InvoiceResponse) => {
         if (data && data.results) {
+          console.log('Kapott számlák:', data.results);
           this.invoiceOption = data.results;
         }
       },
@@ -128,7 +129,10 @@ export class InvoiceTransformComponent implements OnInit {
     });
   }
   onSubmit(): void {
-    this.form.markAllAsTouched(); // 💥 ez beállítja, hogy minden mező validációja azonnal fusson
+    console.log('Form state:', this.form);
+    console.log('Form value:', this.form.value);
+    console.log('Form valid:', this.form.valid);
+    this.form.markAllAsTouched();
     if (this.form.valid) {
       const { szamla1, szamla2, osszeg } = this.form.value;
       this.invoiceTransformService.transferAmount(szamla1, szamla2, osszeg).subscribe({
