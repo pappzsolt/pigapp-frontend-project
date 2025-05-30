@@ -19,9 +19,9 @@
           <input
             type="checkbox"
             [(ngModel)]="cost.selected"
+            (change)="emitSelected()"
             [disabled]="isDisabled(cost.id)"
             class="form-checkbox"
-            (change)="toggleSelection(cost)"
           />
         </td>
         <td>{{ cost.cost_name }}</td>
