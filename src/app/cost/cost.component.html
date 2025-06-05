@@ -3,7 +3,10 @@
   <app-cost-search-result-table [costsSearchResults]="costsSearchResults"></app-cost-search-result-table>
 </div>
 <h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
- <span class="text-gray-700"> d:{{ startPrevDate }} - {{ endActDate }}</span>
+<span class="text-gray-700">
+  Dátum: {{ startPrevDate | date:'yyyy. MMMM d.' }} – {{ endActDate | date:'yyyy. MMMM d.' }}
+</span>
+
 <app-cost-list-table [costs]="costs" (delete)="deleteCost($event)"
   (markPaid)="markAsPaid($event)"></app-cost-list-table>
 <div class="mt-4 h-12 flex justify-center items-center gap-4">
