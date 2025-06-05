@@ -41,6 +41,8 @@ export class CostComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 1;
   searchDate: string = '';
+  startPrevDate: string | null = null;
+  endActDate: string | null = null;
 
   constructor(
     private costService: CostService,
@@ -85,6 +87,8 @@ export class CostComponent implements OnInit {
       next: data => {
         this.costs = data.results; // A 'results' mező tartalmazza az aktuális oldal elemeit
         this.totalPages = Math.ceil(data.count / 10); // A teljes oldalak száma
+        this.startPrevDate = data.date_range.start_prev;
+        this.endActDate = data.date_range.end_act;
       },
       error: err => {
         console.error('Hiba a költségek betöltésekor:', err);
