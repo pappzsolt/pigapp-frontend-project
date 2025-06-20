@@ -66,18 +66,18 @@ export class CostFormComponent {
     // Fizetés dátum engedélyezése csak ha paid true
     this.costForm.get('paid')?.valueChanges.subscribe(paid => {
       // if (paid) {
-        this.costForm.get('paid_date')?.setValidators([Validators.required]);
-        this.costForm.get('paid_date')?.enable();
+      this.costForm.get('paid_date')?.setValidators([Validators.required]);
+      this.costForm.get('paid_date')?.enable();
       // } else {
-        // this.costForm.get('paid_date')?.clearValidators();
-        // this.costForm.get('paid_date')?.setValue('');
-        // this.costForm.get('paid_date')?.disable();
+      // this.costForm.get('paid_date')?.clearValidators();
+      // this.costForm.get('paid_date')?.setValue('');
+      // this.costForm.get('paid_date')?.disable();
       // }
       this.costForm.get('paid_date')?.updateValueAndValidity();
     });
 
     // Kezdetben disabled, ha paid nem igaz
-/*     if (!this.costForm.get('paid')?.value) {
+    /*     if (!this.costForm.get('paid')?.value) {
       this.costForm.get('paid_date')?.disable();
     } */
   }

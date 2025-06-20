@@ -7,7 +7,7 @@ import { ButtonDirective } from '../../shared/directives/button.directive';
 @Component({
   selector: 'app-cost-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, TailwindStyledTableDirective,ButtonDirective],
+  imports: [CommonModule, FormsModule, TailwindStyledTableDirective, ButtonDirective],
   templateUrl: './cost-transform-table.component.html',
   styleUrls: ['./cost-transform-table.component.css'], // ha szükséges
 })
