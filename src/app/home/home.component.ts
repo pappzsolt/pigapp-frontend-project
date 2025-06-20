@@ -12,6 +12,8 @@ import { InvoiceCostSummary } from '../../model/invoice-cost-summary.model';
 import { InvoiceCardComponent } from '../invoice/invoice-card/invoice-card.component';
 import { InvoiceSummaryCardComponent } from '../invoice/invoice-summary-card/invoice-summary-card.component';
 import { TailwindCardDirective } from './../shared/directives/tailwind-blue-box.directive';
+import { AlertMessageComponent } from '../shared/alert-message/alert-message.component'; // módosítsd az elérési utat, ha máshol van
+
 @Component({
   selector: 'app-home',
   imports: [
@@ -22,6 +24,7 @@ import { TailwindCardDirective } from './../shared/directives/tailwind-blue-box.
     InvoiceCardComponent,
     InvoiceSummaryCardComponent,
     TailwindCardDirective,
+    AlertMessageComponent,
   ],
   standalone: true,
   templateUrl: './home.component.html',
@@ -31,6 +34,10 @@ export class HomeComponent implements OnInit {
   invoices$: Observable<Invoice[]> = of([]);
 
   summaries: InvoiceCostSummary[] = [];
+
+  successMessage: string | null = null;
+
+  errorMessage: string | null = null;
 
   get startOfMonth(): Date {
     const today = new Date();
@@ -67,8 +74,15 @@ export class HomeComponent implements OnInit {
     };
 
     this.invoicesService.saveInvoice(invoiceToSave).subscribe({
-      next: () => console.log('Számla mentve.'),
-      error: err => console.error('Mentési hiba:', err),
+      next: () => {
+        this.successMessage = 'Számla sikeresen mentve.';
+        this.errorMessage = null;
+      },
+      error: err => {
+        console.error('Mentési hiba:', err);
+        this.successMessage = null;
+        this.errorMessage = 'Hiba történt a számla mentésekor.';
+      },
     });
   }
   trackBySummary(index: number, summary: InvoiceCostSummary): number {
