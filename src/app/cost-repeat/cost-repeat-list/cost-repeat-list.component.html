@@ -1,52 +1,45 @@
+<h1 class="text-2xl font-semibold mb-6">Fix költség lista</h1>
 
-  <h1 class="text-2xl font-semibold mb-6">Fix költség lista</h1>
-
-  <table appTailwindStyledTable>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Amount</th>
-        <th>Date</th>
-        <th>Paid</th>
-        <th>Paid Date</th>
-        <th>Expire Date</th>
-        <th>Created Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let costRepeatList of costsRepeatList"
-      >
-        <td>
-          {{ costRepeatList.cost_repeat_name }}
-        </td>
-        <td>
-          {{ costRepeatList.amount }} Ft
-        </td>
-        <td>
-          {{ costRepeatList.cost_repeat_date | date: 'yyyy-MM-dd' }}
-        </td>
-        <td>
-          <span
-            [ngClass]="{
-              'text-green-500 font-semibold': costRepeatList.paid === 1,
-              'text-red-500 font-semibold': costRepeatList.paid === 0
-            }"
-          >
-            {{ costRepeatList.paid === 1 ? 'Paid' : 'Unpaid' }}
-          </span>
-        </td>
-        <td>
-          {{ costRepeatList.paid_date | date: 'yyyy-MM-dd' }}
-        </td>
-        <td>
-          {{ costRepeatList.expire_date | date: 'yyyy-MM-dd' }}
-        </td>
-        <td>
-          {{ costRepeatList.create_cost_repeat_date | date: 'yyyy-MM-dd' }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-
+<table appTailwindStyledTable>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Paid</th>
+      <th>Paid Date</th>
+      <th>Expire Date</th>
+      <th>Created Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let costRepeatList of costsRepeatList">
+      <td>
+        {{ costRepeatList.cost_repeat_name }}
+      </td>
+      <td>{{ costRepeatList.amount }} Ft</td>
+      <td>
+        {{ costRepeatList.cost_repeat_date | date: 'yyyy-MM-dd' }}
+      </td>
+      <td>
+        <span
+          [ngClass]="{
+            'text-green-500 font-semibold': costRepeatList.paid === 1,
+            'text-red-500 font-semibold': costRepeatList.paid === 0,
+          }"
+        >
+          {{ costRepeatList.paid === 1 ? 'Paid' : 'Unpaid' }}
+        </span>
+      </td>
+      <td>
+        {{ costRepeatList.paid_date | date: 'yyyy-MM-dd' }}
+      </td>
+      <td>
+        {{ costRepeatList.expire_date | date: 'yyyy-MM-dd' }}
+      </td>
+      <td>
+        {{ costRepeatList.create_cost_repeat_date | date: 'yyyy-MM-dd' }}
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,9 +1,5 @@
-  <app-alert-message
-    *ngIf="error"
-    [type]="'error'"
-    [message]="error"
-    [closable]="true">
-  </app-alert-message>
+<app-alert-message *ngIf="error" [type]="'error'" [message]="error" [closable]="true">
+</app-alert-message>
 
 <div appTailwindBlueBox>
   <app-auto-cost-table
@@ -15,5 +11,3 @@
     (updateDates)="updateCostDates()"
   ></app-auto-cost-table>
 </div>
-
-

@@ -1,7 +1,7 @@
 <div *ngIf="summaries.length > 0">
   <table appTailwindStyledTable>
     <thead>
-      <tr >
+      <tr>
         <th>Számla neve</th>
         <th>Leírás</th>
         <th>Létrehozva</th>
@@ -18,14 +18,9 @@
           {{ summary.invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
         </td>
         <td>{{ summary.invoice.amount | number: '1.0-0' }} Ft</td>
-        <td>
-          {{ summary.total_paid | number: '1.0-0' }} Ft
-        </td>
-        <td>
-          {{ summary.total_unpaid | number: '1.0-0' }} Ft
-        </td>
+        <td>{{ summary.total_paid | number: '1.0-0' }} Ft</td>
+        <td>{{ summary.total_unpaid | number: '1.0-0' }} Ft</td>
       </tr>
     </tbody>
   </table>
 </div>
-

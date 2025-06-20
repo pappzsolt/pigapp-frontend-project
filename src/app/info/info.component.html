@@ -6,7 +6,6 @@
 
 <app-summary-table [summaries]="summaries"></app-summary-table>
 
-
 <div *ngIf="!loading && summaries.length === 0" class="text-gray-600 mt-4">
   Nincs adat az aktuális hónapra.
 </div>
@@ -14,14 +13,19 @@
 <div *ngIf="error" class="text-red-600 mt-4">{{ error }}</div>
 
 <!-- Összesítés -->
-<app-total-summary [totalPaid]="totalPaid" [totalUnpaid]="totalUnpaid" [loading]="loading"
-  [show]="summaries.length > 0"></app-total-summary>
-
-
+<app-total-summary
+  [totalPaid]="totalPaid"
+  [totalUnpaid]="totalUnpaid"
+  [loading]="loading"
+  [show]="summaries.length > 0"
+></app-total-summary>
 
 <!-- Kiadás csoportok -->
 <app-cost-group-summary [costGroupResponse]="costGroupResponse"></app-cost-group-summary>
 
-
 <!-- Aktuális hónap kölcsönök -->
-<app-cost-loan-summary [costData]="costData" [loading]="loading" [error]="error"></app-cost-loan-summary>
+<app-cost-loan-summary
+  [costData]="costData"
+  [loading]="loading"
+  [error]="error"
+></app-cost-loan-summary>

@@ -1,42 +1,38 @@
 <!-- invoice-summary-card.component.html -->
 
-
-  <!-- fejléc -->
-  <header class="bg-gradient-to-r from-blue-100 to-teal-100 dark:from-blue-900 dark:to-teal-900 px-6 py-4">
-    <div class="flex flex-col md:flex-row justify-between md:items-center gap-2">
-      <div>
-        <span class="text-lg font-semibold text-gray-700 dark:text-gray-200">Számla neve:</span>
-        <span class="ml-2 text-gray-900 dark:text-white">{{ summary.invoice_name }}</span>
-      </div>
-      <div>
-        <span class="text-lg font-semibold text-gray-700 dark:text-gray-200">Fizetendő összeg:</span>
-        <span class="ml-2 text-green-600 dark:text-green-400 font-bold text-xl">
-          {{ summary.total_invoice_amount | number }} Ft
-        </span>
-      </div>
+<!-- fejléc -->
+<header
+  class="bg-gradient-to-r from-blue-100 to-teal-100 dark:from-blue-900 dark:to-teal-900 px-6 py-4"
+>
+  <div class="flex flex-col md:flex-row justify-between md:items-center gap-2">
+    <div>
+      <span class="text-lg font-semibold text-gray-700 dark:text-gray-200">Számla neve:</span>
+      <span class="ml-2 text-gray-900 dark:text-white">{{ summary.invoice_name }}</span>
     </div>
-  </header>
+    <div>
+      <span class="text-lg font-semibold text-gray-700 dark:text-gray-200">Fizetendő összeg:</span>
+      <span class="ml-2 text-green-600 dark:text-green-400 font-bold text-xl">
+        {{ summary.total_invoice_amount | number }} Ft
+      </span>
+    </div>
+  </div>
+</header>
 
-  <!-- táblázat -->
+<!-- táblázat -->
 
-    <table appTailwindStyledTable>
-      <thead >
-        <tr>
-          <th>#</th>
-          <th>Költségnév</th>
-          <th>Összeg</th>
-        </tr>
-      </thead>
-      <tbody >
-        <tr *ngFor="let detail of summary.details; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ detail.costrepeat_name }}</td>
-          <td>
-            {{ detail.total_amount | number }} Ft
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-
-
+<table appTailwindStyledTable>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Költségnév</th>
+      <th>Összeg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let detail of summary.details; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ detail.costrepeat_name }}</td>
+      <td>{{ detail.total_amount | number }} Ft</td>
+    </tr>
+  </tbody>
+</table>
