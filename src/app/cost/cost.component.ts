@@ -11,6 +11,8 @@ import { CostListTableComponent } from './cost-list-table/cost-list-table.compon
 import { CostFormComponent } from './cost-form/cost-form.component';
 import { StyledInputDirective } from '../shared/directives/styled-input.directive';
 import { ButtonDirective } from '../shared/directives/button.directive';
+import { AlertMessageComponent } from '../shared/alert-message/alert-message.component';
+
 @Component({
   selector: 'app-cost',
   standalone: true,
@@ -24,14 +26,15 @@ import { ButtonDirective } from '../shared/directives/button.directive';
     CostFormComponent,
     StyledInputDirective,
     ButtonDirective,
+    AlertMessageComponent,
   ],
   templateUrl: './cost.component.html',
   styleUrls: ['./cost.component.css'],
 })
 export class CostComponent implements OnInit {
+
   costs: Cost[] = [];
   costsSearchResults: Cost[] = [];
-
   invoices: any[] = [];
   devs: any[] = [];
   costRepeats: any[] = [];
@@ -43,6 +46,9 @@ export class CostComponent implements OnInit {
   searchDate: string = '';
   startPrevDate: string | null = null;
   endActDate: string | null = null;
+  alertType: 'success' | 'error' = 'success';
+  alertMessage = '';
+  alertVisible = false;
 
   constructor(
     private costService: CostService,
@@ -116,9 +122,16 @@ export class CostComponent implements OnInit {
       this.costService.createCost(newCost).subscribe(
         data => {
           this.costs.push(data);
+          this.alertType = 'success';
+          this.alertMessage = 'Költség sikeresen hozzáadva!';
+          this.alertVisible = true;
+          form.reset();
         },
         error => {
           console.error('Hiba a költség hozzáadásakor:', error);
+          this.alertType = 'error';
+          this.alertMessage = 'Hiba történt a költség hozzáadásakor.';
+          this.alertVisible = true;
         }
       );
     }

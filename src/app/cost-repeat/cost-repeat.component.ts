@@ -9,6 +9,7 @@ import { CostRepeat } from '../../model/costrepeat';
 import { CostRepeatFormComponent } from './cost-repeat-form/cost-repeat-form.component';
 import { CostRepeatListComponent } from './cost-repeat-list/cost-repeat-list.component';
 import { StyledInputDirective } from '../shared/directives/styled-input.directive';
+import { AlertMessageComponent } from '../shared/alert-message/alert-message.component';
 @Component({
   selector: 'app-cost-repeat',
   standalone: true,
@@ -19,6 +20,7 @@ import { StyledInputDirective } from '../shared/directives/styled-input.directiv
     CostRepeatFormComponent,
     CostRepeatListComponent,
     StyledInputDirective,
+    AlertMessageComponent,
   ],
   templateUrl: './cost-repeat.component.html',
   styleUrl: './cost-repeat.component.css',
@@ -29,6 +31,9 @@ export class CostRepeatComponent implements OnInit {
   costRepeatId!: number;
   costRepeat: CostRepeat[] = [];
   costsRepeatList: CostRepeat[] = [];
+  alertType: 'success' | 'error' = 'success';
+  alertMessage = '';
+  alertVisible = false;
 
   constructor(
     private fb: FormBuilder,
@@ -59,10 +64,16 @@ export class CostRepeatComponent implements OnInit {
       this.costRepeatService.create(newCostRepeat).subscribe(
         data => {
           this.costRepeat.push(data);
+          this.alertType = 'success';
+          this.alertMessage = 'Kiadás sikeresen hozzáadva!';
+          this.alertVisible = true;
           this.costRepeatForm.reset(); // űrlap törlése
         },
         error => {
           console.error('Hiba a költség hozzáadásakor:', error);
+          this.alertType = 'error';
+          this.alertMessage = 'Hiba történt a költség hozzáadásakor. '+error;
+          this.alertVisible = true;
         }
       );
     }
