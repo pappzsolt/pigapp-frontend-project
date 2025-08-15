@@ -1,8 +1,16 @@
-<div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-  <app-navbar [menuItems]="menuItems" (logout)="onLogout()"></app-navbar>
-  <div class="bg-blue-100 dark:bg-gray-900 p-6 rounded-2xl shadow-md">
+
+<app-navbar [menuItems]="menuItems" (logout)="onLogout()"></app-navbar>
+
+<main class="grid-main">
+  <aside class="bg-gray-200 p-4">
+    Oldalsáv
+  </aside>
+
+  <section class="bg-white p-4">
     <router-outlet></router-outlet>
-  </div>
-  <app-footer></app-footer>
-</div>
+  </section>
+</main>
+
+<app-footer></app-footer>
+
 

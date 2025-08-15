@@ -3,6 +3,170 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  @apply font-sans;
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-white text-ink-900 dark:bg-ink-900 dark:text-ink-50;
+  }
+  a {
+    @apply underline-offset-4;
+  }
+
+  /* Címsorok feszesebb ritmussal */
+  h1 {
+    @apply text-3xl md:text-4xl font-extrabold tracking-tight;
+  }
+  h2 {
+    @apply text-2xl md:text-3xl font-bold tracking-tight;
+  }
+  h3 {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  /* Prose blokkok (cikkekhez) */
+  .prose-article {
+    @apply prose prose-neutral max-w-none dark:prose-invert prose-headings:tracking-tight prose-img:rounded-xl;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Komponensek (újrahasználható @apply utilok)
+   ─────────────────────────────────────────────────────────── */
+@layer components {
+  /* Konténer */
+  .wrap {
+    @apply container max-w-7xl;
+  }
+
+  /* Fejléc */
+  .site-header {
+    @apply sticky top-0 z-40 border-b border-ink-200/70 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:border-ink-800/70 dark:supports-[backdrop-filter]:bg-ink-900/60;
+  }
+  .brand {
+    @apply font-black text-2xl tracking-tight;
+  }
+  .nav {
+    @apply hidden md:flex items-center gap-6 text-sm;
+  }
+  .nav-link {
+    @apply hover:opacity-80 transition;
+  }
+
+  /* Gombok */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium shadow-soft transition;
+  }
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700;
+  }
+  .btn-outline {
+    @apply btn border border-ink-200 bg-white text-ink-900 hover:bg-ink-50 dark:border-ink-800 dark:bg-ink-900 dark:text-ink-50 dark:hover:bg-ink-800;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center h-10 w-10 rounded-xl border border-ink-200 dark:border-ink-800;
+  }
+
+  /* Jelvények */
+  .badge {
+    @apply inline-flex items-center rounded-md bg-ink-900 text-white px-2 py-0.5 text-xs dark:bg-ink-700;
+  }
+  .badge-primary {
+    @apply badge bg-primary-600;
+  }
+
+  /* Kártyák */
+  .card {
+    @apply overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-soft dark:border-ink-800 dark:bg-ink-900;
+  }
+  .card-media {
+    @apply relative block w-full h-48 md:h-56 overflow-hidden;
+  }
+  .card-media > img {
+    @apply w-full h-full object-cover;
+  }
+  .card-body {
+    @apply p-4 md:p-6;
+  }
+  .card-title {
+    @apply text-xl font-semibold leading-snug;
+  }
+  .card-meta {
+    @apply text-xs text-ink-500;
+  }
+  .card-excerpt {
+    @apply mt-2 text-sm text-ink-700 dark:text-ink-300 line-clamp-3;
+  }
+
+  /* Cikk elemek */
+  .kicker {
+    @apply text-xs font-semibold uppercase tracking-wide text-primary-600;
+  }
+  .article-title {
+    @apply text-2xl md:text-3xl font-extrabold leading-tight;
+  }
+  .article-excerpt {
+    @apply text-lg text-ink-600 dark:text-ink-300;
+  }
+
+  /* Listák */
+  .list-ranked {
+    @apply space-y-3;
+  }
+  .list-ranked-item {
+    @apply flex gap-3;
+  }
+  .list-ranked-num {
+    @apply w-5 text-sm font-semibold text-ink-400 mt-1;
+  }
+
+  /* Szekciók */
+  .section-title {
+    @apply flex items-center gap-2 text-xl font-semibold;
+  }
+  .divider {
+    @apply border-t border-ink-200 dark:border-ink-800;
+  }
+
+  /* Hírlevél */
+  .input {
+    @apply h-10 rounded-xl border border-ink-200 bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-ink-300 dark:border-ink-800 dark:bg-ink-900 dark:focus:ring-ink-700;
+  }
+
+  /* Hero kép */
+  .hero-img {
+    @apply block w-full h-80 object-cover rounded-2xl;
+  }
+
+  /* Rácsok */
+  .grid-main {
+    @apply grid grid-cols-1 lg:grid-cols-12 gap-6;
+  }
+  .grid-articles {
+    @apply grid gap-6 sm:grid-cols-2;
+  }
+
+  /* Lábléc */
+  .footer-link {
+    @apply hover:opacity-80;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Utility kiegészítések
+   ─────────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-muted {
+    @apply text-ink-500;
+  }
+  .ring-soft {
+    @apply ring-1 ring-ink-200 dark:ring-ink-800;
+  }
+}
+
+@layer utilities {
+  .grid-main {
+    @apply grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4;
+  }
 }

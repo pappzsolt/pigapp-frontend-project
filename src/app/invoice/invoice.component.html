@@ -1,33 +1,33 @@
 
-  <div class="mb-4">
-    <p class="text-gray-500">ID: {{ invoice.id }}</p>
+  <div>
+    <p>ID: {{ invoice.id }}</p>
     <h3 class="text-lg font-semibold text-blue-600">
       <input [value]="invoice.invoice_name" type="text" [(ngModel)]="invoice.invoice_name" id="invoice_name"
         class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required />
     </h3>
   </div>
 
-  <div class="mb-2">
-    <span class="font-medium text-blue-700">Felhasználó:</span> {{ invoice.user }}
+  <div>
+    <span>Felhasználó:</span> {{ invoice.user }}
   </div>
 
-  <div class="mb-4">
-    <label for="invoice_note" class="block text-blue-700 font-medium mb-1">Leírás</label>
+  <div>
+    <label for="invoice_note" >Leírás</label>
     <input [value]="invoice.invoice_note" type="text" [(ngModel)]="invoice.invoice_note" id="invoice_note"
       class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       placeholder="Számla leírása" required />
   </div>
 
-  <div class="mb-2">
-    <label for="amount" class="text-green-700 font-semibold text-base">Összeg:</label>
+  <div>
+    <label for="amount" >Összeg:</label>
     <input type="number" id="amount" name="amount" [(ngModel)]="invoice.amount" value="{{ invoice.amount }}"
       class="border rounded px-2 py-1 ml-2" min="1" step="1" required pattern="\d+"
       title="Kérlek, adj meg egy pozitív egész számot!" />
     Ft
   </div>
 
-  <div class="mb-2 flex items-center gap-2">
-    <label class="font-medium text-blue-700" for="enableInvoice">Státusz:</label>
+  <div >
+    <label  for="enableInvoice">Státusz:</label>
     <input id="enableInvoice" type="checkbox" [(ngModel)]="invoice.enable_invoice"
       class="form-checkbox h-5 w-5 text-green-600" />
     <span [ngClass]="{
@@ -38,12 +38,12 @@
     </span>
   </div>
 
-  <div class="mb-4">
+  <div >
     <span class="font-medium text-blue-700">Létrehozva:</span>
     {{ invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
   </div>
 
-  <div class="text-right">
+  <div>
     <button appButton="blue" (click)="onSaveClicked()">
       Mentés
     </button>

@@ -1,38 +1,13 @@
-<nav
-  class="bg-gradient-to-r from-blue-600 to-teal-500 dark:from-blue-800 dark:to-teal-700 border-b border-white/20 shadow-md"
->
-  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center py-4">
-
-      <!-- Logo -->
-      <a class="flex items-center gap-2 text-white text-lg font-bold" routerLink="/">
-        <img src="images/pigapp.png" class="h-8 w-8" alt="PIGAPP logo" />
-      </a>
-
-      <!-- Mobil gomb -->
-      <button (click)="toggleMenu()" class="md:hidden text-white focus:outline-none">
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-
-      <!-- Menü desktopon -->
-      <ul class="hidden md:flex items-center gap-6 text-white font-medium">
+<header class="site-header">
+  <div class="wrap py-3 flex items-center gap-4">
+    <button class="md:hidden btn-ghost" aria-label="Menü">☰</button>
+    <a class="brand" href="#">Pigapp</a>
+    <nav class="nav ml-2">
+      <ul class="hidden md:flex items-center gap-6  font-medium">
         <li *ngFor="let item of menuItems; let i = index">
           <a
             [routerLink]="item.path"
-            [ngClass]="{
-              'bg-white/20 px-3 py-1 rounded shadow-inner': isActive(item.path),
-              'hover:bg-white/10 px-3 py-1 rounded transition': !isActive(item.path)
-            }"
+
             class="block"
             >{{ item.label }}</a
           >
@@ -42,7 +17,7 @@
         <li>
           <button
             (click)="logoutClicked()"
-            class="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-1 rounded transition"
+
           >
             <svg
               class="w-4 h-4"
@@ -59,32 +34,9 @@
           </button>
         </li>
       </ul>
-    </div>
-
-    <!-- Mobil menü -->
-    <div *ngIf="isMenuOpen" class="md:hidden pb-4">
-      <ul class="flex flex-col gap-2 text-white font-medium">
-        <li *ngFor="let item of menuItems">
-          <a
-            [routerLink]="item.path"
-            (click)="toggleMenu()"
-            [ngClass]="{
-              'bg-white/20 px-3 py-2 rounded': isActive(item.path),
-              'hover:bg-white/10 px-3 py-2 rounded': !isActive(item.path)
-            }"
-            class="block"
-            >{{ item.label }}</a
-          >
-        </li>
-        <li>
-          <button
-            (click)="logoutClicked()"
-            class="w-full text-left bg-white/10 hover:bg-white/20 px-3 py-2 rounded"
-          >
-            Kijelentkezés
-          </button>
-        </li>
-      </ul>
-    </div>
+    </nav>
   </div>
-</nav>
+</header>
+
+
+

@@ -1,6 +1,6 @@
 <!-- Összesítő -->
 
-<h2 class="text-3xl font-extrabold mb-6 text-gray-800 dark:text-gray-100">
+<h2>
   Számlák költségösszesítője
 </h2>
 <p class="font-sans text-sm">
@@ -17,6 +17,8 @@
 
 <app-alert-message *ngIf="errorMessage" [type]="'error'" [message]="errorMessage" [closable]="true">
 </app-alert-message>
+
+
 <ng-container *ngFor="let summary of summaries; trackBy: trackBySummary">
   <app-invoice-summary-card [summary]="summary"></app-invoice-summary-card>
 </ng-container>
@@ -36,3 +38,4 @@
     </app-invoice-card>
   </ng-container>
 </ng-container>
+

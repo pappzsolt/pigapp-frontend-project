@@ -9,7 +9,7 @@ import { InvoiceComponent } from '../../invoice/invoice.component';
   imports: [CommonModule, InvoiceComponent],
   template: `
     <div
-      class="bg-white dark:bg-gray-800 border border-blue-300 dark:border-blue-600 p-4 rounded-2xl shadow"
+      class=""
     >
       <app-invoice
         (invoiceSelected)="onInvoiceSelected(invoice)"
