@@ -1,90 +1,103 @@
-<form [formGroup]="costRepeatForm" (ngSubmit)="formSubmit.emit()">
+<form
+  [formGroup]="costRepeatForm"
+  (ngSubmit)="formSubmit.emit()"
+  class="p-6 bg-white rounded-lg shadow-md space-y-4 max-w-2xl mx-auto"
+>
   <!-- Név -->
-  <div>
-    <label for="cost_repeat_name">Név</label>
+  <div class="flex flex-col">
+    <label for="cost_repeat_name" class="mb-1 text-gray-700 font-medium">Név</label>
     <input
       appStyledInput
-      [widthClass]="'w-1/2'"
       id="cost_repeat_name"
       type="text"
       formControlName="cost_repeat_name"
       required
+      class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-1/2"
     />
   </div>
 
   <!-- Megjegyzés -->
-  <div>
-    <label for="cost_repeat_note">Megjegyzés</label>
+  <div class="flex flex-col">
+    <label for="cost_repeat_note" class="mb-1 text-gray-700 font-medium">Megjegyzés</label>
     <input
       appStyledInput
-      [widthClass]="'w-1/2'"
       id="cost_repeat_note"
       type="text"
       formControlName="cost_repeat_note"
+      class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-1/2"
     />
   </div>
 
-  <!-- Összeg + Dátum -->
-
-  <div>
-    <label for="amount">Összeg (Ft)</label>
+  <!-- Összeg -->
+  <div class="flex flex-col">
+    <label for="amount" class="mb-1 text-gray-700 font-medium">Összeg (Ft)</label>
     <input
       appStyledInput
-      [widthClass]="'w-1/2'"
       id="amount"
       type="number"
       formControlName="amount"
+      class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-1/2"
     />
   </div>
 
-  <div>
-    <label for="cost_repeat_date">Költség dátuma</label>
+  <!-- Költség dátuma -->
+  <div class="flex flex-col">
+    <label for="cost_repeat_date" class="mb-1 text-gray-700 font-medium">Költség dátuma</label>
     <input
       appStyledInput
-      [widthClass]="'w-1/2'"
       id="cost_repeat_date"
       type="date"
       formControlName="cost_repeat_date"
       required
+      class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-1/2"
     />
   </div>
 
-  <!-- Fizetve + Fizetés dátuma -->
-
-  <div>
-    <label for="paid">Fizetve</label>
-    <select appTailwindStyledSelect="w-24" id="paid" formControlName="paid">
+  <!-- Fizetve -->
+  <div class="flex flex-col">
+    <label for="paid" class="mb-1 text-gray-700 font-medium">Fizetve</label>
+    <select
+      appTailwindStyledSelect
+      id="paid"
+      formControlName="paid"
+      class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-24"
+    >
       <option [value]="1">Igen</option>
       <option [value]="0">Nem</option>
     </select>
   </div>
 
-  <div>
-    <label for="paid_date">Fizetés dátuma</label>
+  <!-- Fizetés dátuma -->
+  <div class="flex flex-col">
+    <label for="paid_date" class="mb-1 text-gray-700 font-medium">Fizetés dátuma</label>
     <input
       appStyledInput
-      [widthClass]="'w-1/2'"
       id="paid_date"
       type="date"
       formControlName="paid_date"
+      class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-1/2"
     />
   </div>
 
   <!-- Lejárati dátum -->
   <div class="flex flex-col">
-    <label for="expire_date">Lejárati dátum</label>
+    <label for="expire_date" class="mb-1 text-gray-700 font-medium">Lejárati dátum</label>
     <input
       appStyledInput
-      [widthClass]="'w-1/2'"
       id="expire_date"
       type="date"
       formControlName="expire_date"
+      class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-1/2"
     />
   </div>
 
-  <!-- Gombok -->
+  <!-- Gomb -->
   <div>
-    <button type="submit" appButton="blue">
+    <button
+      type="submit"
+      appButton="blue"
+      class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200"
+    >
       {{ isEditMode ? 'Mentés' : 'Létrehozás' }}
     </button>
   </div>

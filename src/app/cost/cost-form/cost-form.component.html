@@ -1,27 +1,33 @@
-<form [formGroup]="costForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="costForm" (ngSubmit)="onSubmit()" class="p-6 bg-white rounded-lg shadow-md space-y-4 max-w-2xl mx-auto">
   <ng-container *ngFor="let field of fields">
-    <div *ngIf="field.type !== 'checkbox'">
-      <label [for]="field.name">
+    <!-- Normál input és select mezők -->
+    <div *ngIf="field.type !== 'checkbox'" class="flex flex-col">
+      <label [for]="field.name" class="mb-1 text-gray-700 font-medium">
         {{ field.label }}
       </label>
+
+      <!-- Input mezők -->
       <input
         *ngIf="field.type !== 'select'"
         [id]="field.name"
         [formControlName]="field.name"
         [type]="field.type"
         appStyledInput
-        [widthClass]="'w-1/2'"
         [disabled]="field.name === 'paid_date' && costForm.get('paid')?.value === false"
+        class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-1/2"
       />
+
+      <!-- Select mezők -->
       <select
-        [ngClass]="{
-          'w-5/6': field.name === 'costrepeat',
-          'w-32': field.name !== 'costrepeat',
-        }"
-        appTailwindStyledSelect=""
         *ngIf="field.type === 'select'"
         [id]="field.name"
         [formControlName]="field.name"
+        appTailwindStyledSelect
+        class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+        [ngClass]="{
+          'w-5/6': field.name === 'costrepeat',
+          'w-32': field.name !== 'costrepeat'
+        }"
       >
         <option value="" disabled>-- Válasszon --</option>
         <option *ngFor="let item of getOptions(field.listName!)" [value]="item.id">
@@ -29,16 +35,28 @@
         </option>
       </select>
     </div>
-    <div *ngIf="field.type === 'checkbox'" class="flex items-center">
+
+    <!-- Checkbox mezők -->
+    <div *ngIf="field.type === 'checkbox'" class="flex items-center space-x-2">
       <input
         [id]="field.name"
         type="checkbox"
         [formControlName]="field.name"
+        class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400"
       />
-      <label [for]="field.name">
+      <label [for]="field.name" class="text-gray-700 font-medium">
         {{ field.label }}
       </label>
     </div>
   </ng-container>
-  <button type="submit" appButton="blue">Hozzáadás</button>
+
+  <!-- Submit gomb -->
+  <button
+    type="submit"
+    appButton="blue"
+    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200"
+  >
+    Hozzáadás
+  </button>
 </form>
+

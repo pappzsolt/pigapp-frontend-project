@@ -1,17 +1,29 @@
-<app-alert-message
-  *ngIf="alertVisible"
-  [type]="alertType"
-  [message]="alertMessage"
-  [closable]="true"
-  (click)="alertVisible = false"
-></app-alert-message>
+<div class="flex flex-col md:flex-row gap-6">
+  <!-- Bal oldal: üzenet + form -->
+  <div class="flex-1 p-6 bg-white rounded-lg shadow-md">
+    <app-alert-message
+      *ngIf="alertVisible"
+      [type]="alertType"
+      [message]="alertMessage"
+      [closable]="true"
+      (click)="alertVisible = false"
+      class="mb-4"
+    ></app-alert-message>
 
-<h2 class="text-2xl font-semibold text-blue-800 mb-4">
-  {{ isEditMode ? 'Költség módosítása' : 'Új költség' }}
-</h2>
-<app-cost-repeat-form
-  [costRepeatForm]="costRepeatForm"
-  [isEditMode]="isEditMode"
-  (formSubmit)="onSubmit()"
-></app-cost-repeat-form>
-<app-cost-repeat-list [costsRepeatList]="costsRepeatList"></app-cost-repeat-list>
+    <h2 class="text-2xl font-semibold text-blue-800 mb-4">
+      {{ isEditMode ? 'Költség módosítása' : 'Új költség' }}
+    </h2>
+
+    <app-cost-repeat-form
+      [costRepeatForm]="costRepeatForm"
+      [isEditMode]="isEditMode"
+      (formSubmit)="onSubmit()"
+    ></app-cost-repeat-form>
+  </div>
+
+  <!-- Jobb oldal: lista -->
+  <div class="flex-1 p-6 bg-white rounded-lg shadow-md">
+    <app-cost-repeat-list [costsRepeatList]="costsRepeatList"></app-cost-repeat-list>
+  </div>
+</div>
+

@@ -4,41 +4,77 @@
   [message]="alertMessage"
   [closable]="true"
   (click)="alertVisible = false"
+  class="mb-4"
 ></app-alert-message>
 
+<div class="flex flex-col gap-6">
+  <!-- Felső sor: Új költség + Lista -->
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Új költség -->
+    <div appTailwindBlueBox class="flex-1">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Új költség hozzáadása</h2>
+      <app-cost-form
+        [invoices]="invoices"
+        [devs]="devs"
+        [costRepeats]="costRepeats"
+        [costGroups]="costGroups"
+        (formSubmit)="addCost($event)"
+      ></app-cost-form>
+    </div>
 
-<div appTailwindBlueBox>
-  <h2>Új költség hozzáadása</h2>
-  <app-cost-form  [invoices]="invoices" [devs]="devs" [costRepeats]="costRepeats" [costGroups]="costGroups"
-    (formSubmit)="addCost($event)"></app-cost-form>
+    <!-- Költségek listája -->
+    <div appTailwindBlueBox class="flex-[2]">
+      <h2 class="text-2xl font-semibold text-blue-800 mb-2">Költségek listája</h2>
+      <span class="block mb-4 text-gray-700">
+        Dátum: {{ startPrevDate | date:'yyyy. MMMM d.' }} – {{ endActDate | date:'yyyy. MMMM d.' }}
+      </span>
+
+      <app-cost-list-table
+        [costs]="costs"
+        (delete)="deleteCost($event)"
+        (markPaid)="markAsPaid($event)">
+      </app-cost-list-table>
+
+      <!-- Lapozás -->
+      <div class="mt-4 h-12 flex justify-center items-center gap-4">
+        <button
+          appButton="blue"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)"
+        >
+          Előző
+        </button>
+
+        <span class="text-gray-700">
+          Oldal {{ currentPage }} / {{ totalPages }}
+        </span>
+
+        <button
+          appButton="blue"
+          [disabled]="currentPage === totalPages"
+          (click)="changePage(currentPage + 1)"
+        >
+          Következő
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alsó sor: Költség dátum szűrés bal oldalon -->
+  <div class="flex flex-col md:flex-row gap-6">
+    <div appTailwindBlueBox class="flex-1">
+      <app-cost-filter
+        [searchDate]="searchDate"
+        (filter)="onFilterDate($event)">
+      </app-cost-filter>
+
+      <app-cost-search-result-table
+        [costsSearchResults]="costsSearchResults">
+      </app-cost-search-result-table>
+    </div>
+  </div>
 </div>
 
-<div appTailwindBlueBox>
-  <app-cost-filter  [searchDate]="searchDate" (filter)="onFilterDate($event)"></app-cost-filter>
-  <app-cost-search-result-table [costsSearchResults]="costsSearchResults"></app-cost-search-result-table>
-</div>
-
-
-<h2 class="text-2xl font-semibold text-blue-800 mb-4">Költségek listája</h2>
-<span class="text-gray-700">
-  Dátum: {{ startPrevDate | date:'yyyy. MMMM d.' }} – {{ endActDate | date:'yyyy. MMMM d.' }}
-</span>
-
-<app-cost-list-table [costs]="costs" (delete)="deleteCost($event)"
-  (markPaid)="markAsPaid($event)"></app-cost-list-table>
-<div class="mt-4 h-12 flex justify-center items-center gap-4">
-  <button appButton="blue"
-    [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
-    Előző
-  </button>
-
-  <span class="text-gray-700">Oldal {{ currentPage }} / {{ totalPages }}</span>
-
-  <button appButton="blue"
-    [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">
-    Következő
-  </button>
-</div>
 
 
 
