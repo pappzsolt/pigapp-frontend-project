@@ -1,59 +1,58 @@
 stages:
-- build
-- docker
-- deploy
+  - build
+  - docker
+  - deploy
 
-# Az Angular build
+# Angular build
 build:
   stage: build
   image: node:18
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
   script:
-  - npm install @angular/cli --save-dev
-  - npm ci
-  - npx ng build
-  - npx ng version
+    - npm ci
+    - npx ng build --configuration production
+    - npx ng version
   artifacts:
     paths:
-    - dist/
+      - dist/
 
-# Docker image építése és deploy
+# Docker image építése és push
 dockerize:
   stage: docker
   image: docker:24.0.7
   services:
-  - name: docker:24.0.7-dind
-    command: [ "--insecure-registry=192.168.1.37:8083" ]
-    alias: docker
+    - name: docker:24.0.7-dind
+      command: ["--insecure-registry=192.168.1.37:8083"]
+      alias: docker
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
+  dependencies:
+    - build
   script:
+    - echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted/
+    - docker build -t 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx .
+    - docker push 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
 
-  - echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted/
-  - docker build -t 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx .
-  - docker images
-  - docker push 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
-
-  artifacts:
-    paths:
-    - dist/
-
+# Deploy a szerverre
 deploy-to-server:
   stage: deploy
   image: alpine:latest
   before_script:
-  - apk add --no-cache openssh
+    - apk add --no-cache openssh
   script:
-  - echo "$SSH_PRIVATE_KEY" > id_rsa
-  - chmod 600 id_rsa
-  - cat id_rsa
-  - mkdir -p ~/.ssh
-  - ssh-keyscan -H "$DEPLOY_SERVER_IP" >> ~/.ssh/known_hosts
-  - |
-    ssh -i id_rsa $DEPLOY_USER@$DEPLOY_SERVER_IP << 'EOF'
-    echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted
-    docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
-    docker stop my-angular-app
-    docker rm my-angular-app  
-    docker run -d --name my-angular-app -p 8086:80 -p 8443:443 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
-    EOF
+    - echo "$SSH_PRIVATE_KEY" > id_rsa
+    - chmod 600 id_rsa
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -H "$DEPLOY_SERVER_IP" >> ~/.ssh/known_hosts
+    - |
+      ssh -i id_rsa $DEPLOY_USER@$DEPLOY_SERVER_IP << 'EOF'
+      echo "$NEXUS_PASSWORD" | docker login -u "$NEXUS_USERNAME" --password-stdin http://192.168.1.37:8083/repository/docker-hosted
+      docker pull 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+      docker stop my-angular-app || true
+      docker rm my-angular-app || true
+      docker run -d --name my-angular-app -p 8086:80 -p 8443:443 192.168.1.37:8083/repository/docker-hosted/my-angular-app-nginx
+      EOF
