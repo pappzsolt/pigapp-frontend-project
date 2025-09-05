@@ -1,25 +1,25 @@
 <div *ngIf="!isLoading && !errorMessage" class="p-6">
-  <h2 class="text-2xl font-bold text-gray-800 mb-4">Összesített számlaösszeg</h2>
+  <h2>Összesített számlaösszeg</h2>
   <p *ngIf="totalAmountInvoice" class="text-xl text-green-600 mb-8">
     Összesen: {{ totalAmountInvoice.totalAmountInvoice | number }} Ft
   </p>
 
-  <h2 class="text-2xl font-bold text-gray-800 mb-4">Számlák aktuális egyenlege</h2>
+  <h2>Számlák aktuális egyenlege</h2>
   <ul class="mb-8 space-y-2">
     <li *ngFor="let invoice of invoices" class="bg-gray-100 p-4 rounded-lg shadow">
-      <div class="flex justify-between">
-        <span class="font-medium">{{ invoice.invoice_name }}</span>
-        <span class="text-gray-600">{{ invoice.amount | number }} Ft</span>
+      <div >
+        <span>{{ invoice.invoice_name }}</span>
+        <span>{{ invoice.amount | number }} Ft</span>
       </div>
     </li>
   </ul>
 
-  <h2 class="text-2xl font-bold text-gray-800 mb-4">Számlák költségösszesítővel</h2>
+  <h2>Számlák költségösszesítővel</h2>
   <ul class="space-y-2">
     <li *ngFor="let summary of invoiceSummaries" class="bg-gray-50 p-4 rounded-lg shadow">
       <div class="flex flex-col">
-        <span class="font-medium">{{ summary.invoice.invoice_name }}</span>
-        <div class="text-sm text-gray-600 mt-2">
+        <span>{{ summary.invoice.invoice_name }}</span>
+        <div>
           Kifizetve: <span class="text-green-600">{{ summary.total_paid }} Ft</span>, Hátralék:
           <span class="text-red-600">{{ summary.total_unpaid }} Ft</span>
         </div>
@@ -28,12 +28,12 @@
   </ul>
 
 
-  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Közelgő kifizetések (5 napon belül)</h2>
+  <h2>Közelgő kifizetések (5 napon belül)</h2>
 
   <div *ngIf="upcomingCosts.length > 0; else noCosts">
-    <table class="min-w-full table-auto border-collapse">
+    <table>
       <thead>
-        <tr class="bg-blue-100 text-left">
+        <tr>
           <th class="p-3 border-b">Költség neve</th>
           <th class="p-3 border-b">Megjegyzés</th>
           <th class="p-3 border-b">Összeg (Ft)</th>
@@ -54,6 +54,6 @@
   </div>
 
   <ng-template #noCosts>
-    <p class="text-gray-600">Nincs kifizetés az elkövetkező 5 napban.</p>
+    <p>Nincs kifizetés az elkövetkező 5 napban.</p>
   </ng-template>
 </div>

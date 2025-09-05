@@ -2,11 +2,11 @@
 
 <!-- Aktuális havi költség összesítés -->
 
-<h2 class="text-2xl font-semibold text-blue-800 mb-6">Aktuális havi költség összesítés</h2>
+<h2>Aktuális havi költség összesítés</h2>
 
 <app-summary-table [summaries]="summaries"></app-summary-table>
 
-<div *ngIf="!loading && summaries.length === 0" class="text-gray-600 mt-4">
+<div *ngIf="!loading && summaries.length === 0">
   Nincs adat az aktuális hónapra.
 </div>
 <div *ngIf="loading" class="text-blue-600 mt-4">Betöltés...</div>

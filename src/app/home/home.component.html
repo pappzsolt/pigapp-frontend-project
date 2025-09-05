@@ -25,7 +25,7 @@
 
 <!-- Számlák listája -->
 
-<h2 class="text-2xl font-semibold text-blue-800 dark:text-blue-200 mb-4">Számlák</h2>
+<h2>Számlák</h2>
 
 <ng-container *ngFor="let group of invoices$ | async | groupBy: 2">
   <ng-container *ngFor="let invoice of group; index as i">

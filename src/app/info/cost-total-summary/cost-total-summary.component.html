@@ -1,4 +1,4 @@
-<div *ngIf="!loading && show" class="mt-6 p-4 bg-blue-200 rounded-xl text-blue-900 shadow-inner">
+<div *ngIf="!loading && show">
   <p class="font-semibold">Összesítés</p>
   <p><strong>Összes fizetett:</strong> {{ totalPaid | number: '1.0-0' }} Ft</p>
   <p><strong>Összes nem fizetett:</strong> {{ totalUnpaid | number: '1.0-0' }} Ft</p>

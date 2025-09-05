@@ -1,4 +1,4 @@
-<h2 class="text-2xl font-semibold text-blue-800 mb-2">Kiadás csoportok</h2>
+<h2>Kiadás csoportok</h2>
 <p class="text-sm text-blue-700 mb-6">
   Dátum tartomány:
   {{ costGroupResponse?.filtered_dates?.current_month_start | date: 'yyyy. MMM dd.' }} –
@@ -7,16 +7,16 @@
 
 <div
   *ngFor="let groupId of objectKeys(costGroupResponse?.cost_groups)"
-  class="bg-white shadow-md rounded-2xl p-6 border border-blue-300"
+
 >
-  <h3 class="text-xl font-semibold text-blue-600 mb-4">
+  <h3>
     Csoport:
     {{ costGroupResponse.cost_groups[groupId][0]?.costgroup_name || 'Ismeretlen Csoport' }}
   </h3>
 
   <div
     *ngFor="let item of costGroupResponse.cost_groups[groupId]"
-    class="flex justify-between items-center bg-blue-50 px-4 py-2 rounded-lg"
+
   >
     <span class="text-blue-700 font-medium">Összeg</span>
     <span class="text-blue-900 font-semibold">{{ item.total_amount | number }} Ft</span>

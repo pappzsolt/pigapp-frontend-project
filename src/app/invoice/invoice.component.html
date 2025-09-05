@@ -1,9 +1,9 @@
 
   <div>
     <p>ID: {{ invoice.id }}</p>
-    <h3 class="text-lg font-semibold text-blue-600">
+    <h3>
       <input [value]="invoice.invoice_name" type="text" [(ngModel)]="invoice.invoice_name" id="invoice_name"
-        class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required />
+         required />
     </h3>
   </div>
 
@@ -14,14 +14,13 @@
   <div>
     <label for="invoice_note" >Leírás</label>
     <input [value]="invoice.invoice_note" type="text" [(ngModel)]="invoice.invoice_note" id="invoice_note"
-      class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       placeholder="Számla leírása" required />
   </div>
 
   <div>
     <label for="amount" >Összeg:</label>
     <input type="number" id="amount" name="amount" [(ngModel)]="invoice.amount" value="{{ invoice.amount }}"
-      class="border rounded px-2 py-1 ml-2" min="1" step="1" required pattern="\d+"
+       min="1" step="1" required pattern="\d+"
       title="Kérlek, adj meg egy pozitív egész számot!" />
     Ft
   </div>
@@ -39,7 +38,7 @@
   </div>
 
   <div >
-    <span class="font-medium text-blue-700">Létrehozva:</span>
+    <span>Létrehozva:</span>
     {{ invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
   </div>
 

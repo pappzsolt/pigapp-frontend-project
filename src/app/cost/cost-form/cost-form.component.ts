@@ -57,7 +57,7 @@ export class CostFormComponent {
       cost_date: ['', Validators.required],
       invoice: ['', Validators.required],
       dev: ['', Validators.required],
-      costrepeat: ['', Validators.required],
+      // costrepeat: ['', Validators.required],
       costgroup: ['', Validators.required],
       paid: [false],
       paid_date: [''],

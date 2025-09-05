@@ -33,4 +33,5 @@ export const environment = {
   /* ezt meg me csnalni, az elküldött cost id at összegezni kell és ki kell vonni a szamlan lévő összegből, annyi maradt a hónapban */
   apiCalculateCashUrl: 'https://192.168.1.37/api/pigapp_app/calculate_cash/',
   apiUpdateInvoiceAmount: 'https://192.168.1.37/api/pigapp_app/api/update-invoice-amount/',
+  apiCostRepeatWithSum: 'https://192.168.1.37/api/pigapp_app/api/cost-summary/5/',
 };

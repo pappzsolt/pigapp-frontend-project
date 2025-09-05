@@ -1,9 +1,9 @@
 
-  <h2 class="text-2xl font-semibold text-blue-800 mb-4">Új Fizetés/bevételek hozzáadása</h2>
+  <h2>Új Fizetés/bevételek hozzáadása</h2>
   <form [formGroup]="cashFlowForm" (ngSubmit)="addCost()" class="space-y-4">
     <ng-container *ngFor="let field of fieldConfigs">
       <div class="flex flex-col">
-        <label [for]="field.controlName" class="text-sm text-gray-700 mb-1">
+        <label [for]="field.controlName">
           {{ field.label }}
         </label>
         <input *ngIf="field.type !== 'select'" appStyledInput [widthClass]="'w-1/2'"  [id]="field.controlName" [type]="field.type"

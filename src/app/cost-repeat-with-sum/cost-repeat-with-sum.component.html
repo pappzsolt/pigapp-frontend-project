@@ -1,0 +1,26 @@
+<table  class="table-auto border-collapse border border-gray-400 w-full">
+  <thead>
+    <tr>
+      <th class="border border-gray-400 px-2">Név</th>
+      <th class="border border-gray-400 px-2">Megjegyzés</th>
+      <th class="border border-gray-400 px-2">Összeg</th>
+      <th class="border border-gray-400 px-2">DB</th>
+      <th class="border border-gray-400 px-2">Fizetett Összeg</th>
+      <th class="border border-gray-400 px-2">Dátum</th>
+      <th class="border border-gray-400 px-2">Fizetve</th>
+      <th class="border border-gray-400 px-2">Lejárat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cost of costRepeatWithSum">
+      <td class="border border-gray-400 px-2">{{ cost.cost_repeat_name }}</td>
+      <td class="border border-gray-400 px-2">{{ cost.cost_repeat_note }}</td>
+      <td class="border border-gray-400 px-2">{{ cost.amount | number:'1.0-0' }} HUF</td>
+      <td class="border border-gray-400 px-2">{{ cost.cost_count | number:'1.0-0' }} db</td>
+      <td class="border border-gray-400 px-2">{{ cost.total_amount | number:'1.0-0' }} HUF</td>
+      <td class="border border-gray-400 px-2">{{ cost.cost_repeat_date | date:'yyyy-MM-dd' }}</td>
+      <td class="border border-gray-400 px-2">{{ cost.paid ? 'Igen' : 'Nem' }}</td>
+      <td class="border border-gray-400 px-2">{{ cost.expire_date | date:'yyyy-MM-dd' }}</td>
+    </tr>
+  </tbody>
+</table>

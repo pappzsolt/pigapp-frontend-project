@@ -8,12 +8,14 @@ import { InvoiceTransformComponent } from './invoice-transform/invoice-transform
 import { AutoCostComponent } from './auto-cost/auto-cost.component';
 import { MonthlyCalculationComponent } from './monthly-calculation/monthly-calculation.component';
 import { LoginComponent } from './login/login.component';
+import { CostRepeatWithSumComponent } from './cost-repeat-with-sum/cost-repeat-with-sum.component';
 import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard], data: { label: 'Home' } },
+  { path: 'costrepeatwithsum', component: CostRepeatWithSumComponent, canActivate: [AuthGuard], data: { label: 'Kölcsönök' } },
   {
     path: 'cashflow',
     component: CashFlowComponent,
