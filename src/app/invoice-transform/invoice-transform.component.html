@@ -1,23 +1,27 @@
-<app-transfer-message [message]="transferMessage"></app-transfer-message>
+<div class="space-y-6">
 
-<div  *ngIf="calculateCosts">
-  <ng-container *ngFor="let card of summaryCards">
-    <app-summary-card
-      [icon]="card.icon"
-      [title]="card.title"
-      [value]="calculateCosts[card.valueKey]"
-      [colorClass]="card.colorClass"
-    ></app-summary-card>
-  </ng-container>
-</div>
+  <!-- Transfer message -->
+  <app-transfer-message [message]="transferMessage" class="block"></app-transfer-message>
 
-<h2>Számla összeg átvitel</h2>
+  <!-- Summary cards -->
+  <div *ngIf="calculateCosts" class="flex flex-wrap gap-4">
+    <ng-container *ngFor="let card of summaryCards">
+      <app-summary-card
+        [icon]="card.icon"
+        [title]="card.title"
+        [value]="calculateCosts[card.valueKey]"
+        [colorClass]="card.colorClass"
+        class="mb-4"
+      ></app-summary-card>
+    </ng-container>
+  </div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Átviteli űrlap -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-wrap justify-between gap-4">
   <!-- SZÁMLA 1 -->
-  <div class="w-32">
-    <label for="szamla1">Számla 1</label>
-    <select id="szamla1"  formControlName="szamla1" appTailwindStyledSelect="w-24">
+  <div class="flex-1 min-w-[150px]">
+    <label for="szamla1" class="block mb-1">Számla 1</label>
+    <select id="szamla1" formControlName="szamla1" appTailwindStyledSelect="w-full">
       <option [ngValue]="null" disabled selected>-- Válasszon --</option>
       <option *ngFor="let invoice of invoiceOption" [ngValue]="invoice.id">
         {{ invoice.invoice_name }}
@@ -27,20 +31,21 @@
   </div>
 
   <!-- ÖSSZEG -->
-  <div class="w-32">
-    <label for="osszeg">Összeg</label>
+  <div class="flex-1 min-w-[150px]">
+    <label for="osszeg" class="block mb-1">Összeg</label>
     <input
       type="number"
       id="osszeg"
       formControlName="osszeg"
       placeholder="Pl. 10000"
+      class="w-full"
     />
   </div>
 
   <!-- SZÁMLA 2 -->
-  <div class="w-32">
-    <label for="szamla2" >Számla 2</label>
-    <select id="szamla2" class="w-24" formControlName="szamla2" appTailwindStyledSelect="w-24">
+  <div class="flex-1 min-w-[150px]">
+    <label for="szamla2" class="block mb-1">Számla 2</label>
+    <select id="szamla2" formControlName="szamla2" appTailwindStyledSelect="w-full">
       <option [ngValue]="null" disabled selected>-- Válasszon --</option>
       <option *ngFor="let invoice of invoiceOption" [ngValue]="invoice.id">
         {{ invoice.invoice_name }}
@@ -50,17 +55,32 @@
   </div>
 
   <!-- GOMB -->
-  <button type="submit" appButton="blue">Összeg átvitel</button>
-</form>
 
-<h2>Havi költségek listája</h2>
+  <div class="w-full mt-4">
+    <button type="submit" appButton="blue">Összeg átvitel</button>
+  </div>
 
-<div>
-  <button (click)="calculateCost()" appButton="blue">Kalkuláció</button>
-</div>
 
-<app-cost-table
-  [costs]="autoCosts"
-  [disabledIds]="disabledCostIds"
-  (selectionChange)="onCostsSelectionChange($event)"
-></app-cost-table>
+
+      <!-- GOMB -->
+      <div class="w-full mt-2">
+        <button type="submit" appButton="blue">Összeg átvitel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Havi költségek listája -->
+  <div>
+    <h2 class="text-xl font-semibold mb-4">Havi költségek listája</h2>
+    <div class="mb-4">
+      <button (click)="calculateCost()" appButton="blue">Kalkuláció</button>
+    </div>
+
+    <app-cost-table
+      [costs]="autoCosts"
+      [disabledIds]="disabledCostIds"
+      (selectionChange)="onCostsSelectionChange($event)"
+    ></app-cost-table>
+  </div>
+
+

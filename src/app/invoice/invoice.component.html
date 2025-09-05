@@ -1,51 +1,96 @@
 
+<div class="border rounded-xl p-6 shadow-md bg-white space-y-6">
+  <!-- Fejléc rész -->
   <div>
-    <p>ID: {{ invoice.id }}</p>
+    <p class="text-sm text-gray-500">ID: {{ invoice.id }}</p>
     <h3>
-      <input [value]="invoice.invoice_name" type="text" [(ngModel)]="invoice.invoice_name" id="invoice_name"
-         required />
+      <input
+        [value]="invoice.invoice_name"
+        type="text"
+        [(ngModel)]="invoice.invoice_name"
+        id="invoice_name"
+        required
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+      />
     </h3>
   </div>
 
-  <div>
-    <span>Felhasználó:</span> {{ invoice.user }}
+  <!-- Felhasználó -->
+  <div class="grid grid-cols-3 items-center gap-4">
+    <label class="font-medium text-gray-700">Felhasználó:</label>
+    <div class="col-span-2 text-gray-900">
+      {{ invoice.user }}
+    </div>
   </div>
 
-  <div>
-    <label for="invoice_note" >Leírás</label>
-    <input [value]="invoice.invoice_note" type="text" [(ngModel)]="invoice.invoice_note" id="invoice_note"
-      placeholder="Számla leírása" required />
+  <!-- Leírás -->
+  <div class="grid grid-cols-3 items-center gap-4">
+    <label for="invoice_note" class="font-medium text-gray-700">Leírás</label>
+    <input
+      [value]="invoice.invoice_note"
+      type="text"
+      [(ngModel)]="invoice.invoice_note"
+      id="invoice_note"
+      placeholder="Számla leírása"
+      required
+      class="col-span-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+    />
   </div>
 
-  <div>
-    <label for="amount" >Összeg:</label>
-    <input type="number" id="amount" name="amount" [(ngModel)]="invoice.amount" value="{{ invoice.amount }}"
-       min="1" step="1" required pattern="\d+"
-      title="Kérlek, adj meg egy pozitív egész számot!" />
-    Ft
+  <!-- Összeg -->
+  <div class="grid grid-cols-3 items-center gap-4">
+    <label for="amount" class="font-medium text-gray-700">Összeg</label>
+    <div class="col-span-2 flex items-center gap-2">
+      <input
+        type="number"
+        id="amount"
+        name="amount"
+        [(ngModel)]="invoice.amount"
+        value="{{ invoice.amount }}"
+        min="1"
+        step="1"
+        required
+        pattern="\d+"
+        title="Kérlek, adj meg egy pozitív egész számot!"
+        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+      />
+      <span class="text-gray-600">Ft</span>
+    </div>
   </div>
 
-  <div >
-    <label  for="enableInvoice">Státusz:</label>
-    <input id="enableInvoice" type="checkbox" [(ngModel)]="invoice.enable_invoice"
-      class="form-checkbox h-5 w-5 text-green-600" />
-    <span [ngClass]="{
+  <!-- Státusz -->
+  <div class="grid grid-cols-3 items-center gap-4">
+    <label for="enableInvoice" class="font-medium text-gray-700">Státusz</label>
+    <div class="col-span-2 flex items-center gap-2">
+      <input
+        id="enableInvoice"
+        type="checkbox"
+        [(ngModel)]="invoice.enable_invoice"
+        class="form-checkbox h-5 w-5 text-green-600"
+      />
+      <span
+        [ngClass]="{
           'text-green-600': invoice.enable_invoice,
-          'text-red-600': !invoice.enable_invoice,
-        }">
-      {{ invoice.enable_invoice ? 'Aktív számla' : 'Inaktív számla' }}
+          'text-red-600': !invoice.enable_invoice
+        }"
+      >
+        {{ invoice.enable_invoice ? 'Aktív számla' : 'Inaktív számla' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Létrehozva -->
+  <div class="grid grid-cols-3 items-center gap-4">
+    <span class="font-medium text-gray-700">Létrehozva</span>
+    <span class="col-span-2 text-gray-900">
+      {{ invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
     </span>
   </div>
 
-  <div >
-    <span>Létrehozva:</span>
-    {{ invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
-  </div>
-
-  <div>
+  <!-- Gomb -->
+  <div class="flex justify-end">
     <button appButton="blue" (click)="onSaveClicked()">
       Mentés
     </button>
   </div>
-
-
+</div>

@@ -1,36 +1,44 @@
-<!-- invoice-summary-card.component.html -->
-
-<!-- fejléc -->
-<header>
-  <div>
+<div class="border rounded-xl p-6 shadow-md bg-white space-y-6 mb-6">
+  <!-- fejléc -->
+  <header class="flex items-center justify-between border-b pb-4">
     <div>
-      <span>Számla neve:</span>
-      <span>{{ summary.invoice_name }}</span>
+      <p class="text-sm text-gray-500">Számla neve</p>
+      <p class="text-lg font-semibold text-gray-800">
+        {{ summary.invoice_name }}
+      </p>
     </div>
-    <div>
-      <span>Fizetendő összeg:</span>
-      <span>
+    <div class="text-right">
+      <p class="text-sm text-gray-500">Fizetendő összeg</p>
+      <p class="text-xl font-bold text-green-600">
         {{ summary.total_invoice_amount | number }} Ft
-      </span>
+      </p>
     </div>
+  </header>
+
+  <!-- táblázat -->
+  <div class="overflow-x-auto">
+    <table appTailwindStyledTable class="w-full text-sm">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="text-left px-4 py-2">#</th>
+          <th class="text-left px-4 py-2">Költségnév</th>
+          <th class="text-right px-4 py-2">Összeg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let detail of summary.details; let i = index"
+          class="hover:bg-gray-50"
+        >
+          <td class="px-4 py-2">{{ i + 1 }}</td>
+          <td class="px-4 py-2">{{ detail.costrepeat_name }}</td>
+          <td class="px-4 py-2 text-right font-medium">
+            {{ detail.total_amount | number }} Ft
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</header>
+</div>
 
-<!-- táblázat -->
 
-<table appTailwindStyledTable>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Költségnév</th>
-      <th>Összeg</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let detail of summary.details; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ detail.costrepeat_name }}</td>
-      <td>{{ detail.total_amount | number }} Ft</td>
-    </tr>
-  </tbody>
-</table>

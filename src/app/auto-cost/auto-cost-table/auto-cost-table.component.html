@@ -1,36 +1,52 @@
-<h2>Kiadások felvitele köv. hónapra</h2>
+<div class="border rounded-xl p-6 shadow-md bg-white space-y-6 mb-6">
+  <!-- fejléc -->
+  <h2 class="text-2xl font-semibold text-blue-800">Kiadások felvitele köv. hónapra</h2>
 
-<button (click)="onSetAll(true)" appButton="blue">Összes kiválasztása</button>
-<button (click)="onSetAll(false)" appButton="red">Összes kiválasztás törlése</button>
+  <!-- gombok -->
+  <div class="flex flex-wrap gap-2">
+    <button (click)="onSetAll(true)" appButton="blue">Összes kiválasztása</button>
+    <button (click)="onSetAll(false)" appButton="red">Összes kiválasztás törlése</button>
+  </div>
 
-<table appTailwindStyledTable>
-  <thead>
-    <tr>
-      <th>Választás</th>
-      <th>Költség neve</th>
-      <th>Összeg</th>
-      <th>Dátum</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cost of autoCosts">
-      <td>
-        <input
-          type="checkbox"
-          [(ngModel)]="cost.selected"
-          [disabled]="disabledCostIds.includes(cost.id)"
-          class="form-checkbox"
-          (change)="onCheckboxChange()"
-        />
-      </td>
-      <td>{{ cost.cost_name }}</td>
-      <td>{{ cost.amount }} Ft</td>
-      <td>{{ cost.cost_date }}</td>
-    </tr>
-  </tbody>
-</table>
-<div>
-  <button (click)="onUpdateDates()" appButton="blue" [disabled]="!selectedCosts.length">
-    Költségek dátumainak frissítése
-  </button>
+  <!-- táblázat -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm table-auto border-collapse">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Választás</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Költség neve</th>
+          <th class="text-right px-4 py-2 border-b border-gray-300">Összeg</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Dátum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cost of autoCosts" class="hover:bg-gray-50">
+          <td class="px-4 py-2 border-b border-gray-200">
+            <input
+              type="checkbox"
+              [(ngModel)]="cost.selected"
+              [disabled]="disabledCostIds.includes(cost.id)"
+              class="form-checkbox"
+              (change)="onCheckboxChange()"
+            />
+          </td>
+          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_name }}</td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium">{{ cost.amount }} Ft</td>
+          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_date | date:'yyyy-MM-dd' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- frissítés gomb -->
+  <div>
+    <button
+      (click)="onUpdateDates()"
+      appButton="blue"
+      [disabled]="!selectedCosts.length"
+    >
+      Költségek dátumainak frissítése
+    </button>
+  </div>
 </div>
+

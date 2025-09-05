@@ -1,34 +1,38 @@
-<div class="flex flex-wrap gap-2 mb-4">
-  <button (click)="selectAll()" appButton="blue">Összes kiválasztása</button>
-  <button (click)="deselectAll()" appButton="blue">Összes kiválasztás törlése</button>
-</div>
+<div class="border rounded-xl p-6 shadow-md bg-white space-y-6 mb-6">
+  <!-- gombok -->
+  <div class="flex flex-wrap gap-2 mb-4">
+    <button (click)="selectAll()" appButton="blue">Összes kiválasztása</button>
+    <button (click)="deselectAll()" appButton="blue">Összes kiválasztás törlése</button>
+  </div>
 
-<div class="overflow-x-auto">
-  <table appTailwindStyledTable>
-    <thead>
-      <tr >
-        <th>Választás</th>
-        <th>Költség neve</th>
-        <th>Összeg</th>
-        <th>Dátum</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let cost of costs" >
-        <td >
-          <input
-            type="checkbox"
-            [(ngModel)]="cost.selected"
-            (change)="emitSelected()"
-            [disabled]="isDisabled(cost.id)"
-            class="form-checkbox"
-          />
-        </td>
-        <td>{{ cost.cost_name }}</td>
-        <td>{{ cost.amount }} Ft</td>
-        <td>{{ cost.cost_date }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- táblázat -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm table-auto border-collapse">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Választás</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Költség neve</th>
+          <th class="text-right px-4 py-2 border-b border-gray-300">Összeg</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Dátum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cost of costs" class="hover:bg-gray-50">
+          <td class="px-4 py-2 border-b border-gray-200">
+            <input
+              type="checkbox"
+              [(ngModel)]="cost.selected"
+              (change)="emitSelected()"
+              [disabled]="isDisabled(cost.id)"
+              class="form-checkbox"
+            />
+          </td>
+          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_name }}</td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium">{{ cost.amount }} Ft</td>
+          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_date | date:'yyyy-MM-dd' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
