@@ -1,26 +1,34 @@
-<div *ngIf="summaries.length > 0">
-  <table appTailwindStyledTable>
-    <thead>
-      <tr>
-        <th>Számla neve</th>
-        <th>Leírás</th>
-        <th>Létrehozva</th>
-        <th>Számla összeg</th>
-        <th>Fizetett</th>
-        <th>Nem fizetett</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let summary of summaries">
-        <td>{{ summary.invoice.invoice_name }}</td>
-        <td>{{ summary.invoice.invoice_note }}</td>
-        <td>
-          {{ summary.invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
-        </td>
-        <td>{{ summary.invoice.amount | number: '1.0-0' }} Ft</td>
-        <td>{{ summary.total_paid | number: '1.0-0' }} Ft</td>
-        <td>{{ summary.total_unpaid | number: '1.0-0' }} Ft</td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="summaries.length > 0" class="border rounded-xl p-6 shadow-md bg-white space-y-6 mb-6">
+  <!-- fejléc -->
+  <header class="mb-4">
+    <h2 class="text-xl font-semibold text-gray-800">Számla összesítő</h2>
+  </header>
+
+  <!-- táblázat -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm table-auto border-collapse">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Számla neve</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Leírás</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Létrehozva</th>
+          <th class="text-right px-4 py-2 border-b border-gray-300">Számla összeg</th>
+          <th class="text-right px-4 py-2 border-b border-gray-300">Fizetett</th>
+          <th class="text-right px-4 py-2 border-b border-gray-300">Nem fizetett</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let summary of summaries" class="hover:bg-gray-50">
+          <td class="px-4 py-2 border-b border-gray-200">{{ summary.invoice.invoice_name }}</td>
+          <td class="px-4 py-2 border-b border-gray-200 max-w-[20rem] truncate" title="{{ summary.invoice.invoice_note || '' }}">
+            {{ summary.invoice.invoice_note }}
+          </td>
+          <td class="px-4 py-2 border-b border-gray-200">{{ summary.invoice.create_invoice_date | date: 'yyyy-MM-dd' }}</td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right">{{ summary.invoice.amount | number: '1.0-0' }} Ft</td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium text-green-700">{{ summary.total_paid | number: '1.0-0' }} Ft</td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium text-red-700">{{ summary.total_unpaid | number: '1.0-0' }} Ft</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

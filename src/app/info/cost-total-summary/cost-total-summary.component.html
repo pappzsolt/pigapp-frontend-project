@@ -1,5 +1,17 @@
-<div *ngIf="!loading && show">
-  <p class="font-semibold">Összesítés</p>
-  <p><strong>Összes fizetett:</strong> {{ totalPaid | number: '1.0-0' }} Ft</p>
-  <p><strong>Összes nem fizetett:</strong> {{ totalUnpaid | number: '1.0-0' }} Ft</p>
+<div *ngIf="!loading && show" class="border rounded-xl p-6 shadow-md bg-white space-y-4 mb-6">
+  <header>
+    <h2 class="text-xl font-semibold text-gray-800">Számlák összesítése</h2>
+  </header>
+
+  <div class="space-y-2">
+    <p class="flex justify-between items-center">
+      <span class="text-gray-600 font-medium">Összes fizetett:</span>
+      <span class="text-green-700 font-semibold">{{ totalPaid | number: '1.0-0' }} Ft</span>
+    </p>
+    <p class="flex justify-between items-center">
+      <span class="text-gray-600 font-medium">Összes nem fizetett:</span>
+      <span class="text-red-700 font-semibold">{{ totalUnpaid | number: '1.0-0' }} Ft</span>
+    </p>
+  </div>
 </div>
+
