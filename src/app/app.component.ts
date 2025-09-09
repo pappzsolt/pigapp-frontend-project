@@ -6,11 +6,11 @@ import { routes } from './app.routes';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-
+import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, FooterComponent, NavbarComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, FooterComponent, NavbarComponent,SidebarMenuComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
