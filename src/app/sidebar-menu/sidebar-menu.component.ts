@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarMenuService } from '../services/sidebar-menu.service';
 import { AuthService } from '../services/auth.service';
 import { CostSummary, CostGroupResponse, CostData } from '../../model/invoice_sum_cost.model';
+import { UpcomingCost } from '../../model/cost';
 @Component({
   selector: 'app-sidebar-menu',
   imports: [CommonModule],
@@ -14,6 +15,7 @@ export class SidebarMenuComponent {
   summaries: CostSummary[] = [];
   @Input()  totalPaid: number = 0;
   @Input()  totalUnpaid: number = 0;
+  @Input() upcomingCosts: UpcomingCost[] = [];
   constructor(
     private authService: AuthService,
     private sidebarMenuService: SidebarMenuService
@@ -33,5 +35,10 @@ export class SidebarMenuComponent {
 
   ngOnInit(): void {
     this.getMonthlySummary();
+
+    this.sidebarMenuService.getUpcomingCosts().subscribe({
+      next: data => (this.upcomingCosts = data),
+      error: err => console.error(err),
+    });
   }
 }
