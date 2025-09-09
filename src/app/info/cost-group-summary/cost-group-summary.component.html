@@ -10,21 +10,29 @@
   </header>
 
   <!-- csoportok -->
-  <div *ngFor="let groupId of objectKeys(costGroupResponse?.cost_groups)" class="border rounded-lg p-4 shadow-sm bg-gray-50 space-y-3 mb-6">
+  <div
+    *ngFor="let groupId of objectKeys(costGroupResponse?.cost_groups)"
+    class="border rounded-lg p-4 shadow-sm bg-gray-50 space-y-3 mb-6"
+  >
     <h3 class="text-lg font-medium text-gray-700">
       Csoport:
       {{ costGroupResponse.cost_groups[groupId][0]?.costgroup_name || 'Ismeretlen Csoport' }}
     </h3>
 
-    <div *ngFor="let item of costGroupResponse.cost_groups[groupId]" class="flex justify-between items-center border-b border-gray-200 py-2">
+    <div
+      *ngFor="let item of costGroupResponse.cost_groups[groupId]"
+      class="flex justify-between items-center border-b border-gray-200 py-2"
+    >
       <span class="text-blue-700 font-medium">Összeg</span>
       <span class="text-blue-900 font-semibold">{{ item.total_amount | number }} Ft</span>
     </div>
   </div>
 
   <!-- üres állapot -->
-  <div *ngIf="!costGroupResponse || objectKeys(costGroupResponse?.cost_groups).length === 0" class="text-center text-sm text-gray-500 py-8">
+  <div
+    *ngIf="!costGroupResponse || objectKeys(costGroupResponse?.cost_groups).length === 0"
+    class="text-center text-sm text-gray-500 py-8"
+  >
     Nincs megjeleníthető adat.
   </div>
 </div>
-

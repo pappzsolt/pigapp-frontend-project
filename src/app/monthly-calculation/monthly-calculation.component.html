@@ -1,18 +1,25 @@
+<!-- BAL OLDALI BLOKK (Számla kiválasztás és részletezés) -->
+<app-invoice-detail-viewer
+  [isLoading]="isLoading"
+  [errorMessage]="errorMessage"
+  [invoicesCombo]="invoicesCombo"
+  [invoiceWithCosts]="invoiceWithCosts"
+  [costCurrentPage]="costCurrentPage"
+  [pageSize]="pageSize"
+  (invoiceChange)="handleInvoiceChange($event)"
+  (nextPage)="handleNextCostPage($event)"
+  (prevPage)="handlePrevCostPage($event)"
+></app-invoice-detail-viewer>
 
-
-  <!-- BAL OLDALI BLOKK (Számla kiválasztás és részletezés) -->
-  <app-invoice-detail-viewer [isLoading]="isLoading" [errorMessage]="errorMessage" [invoicesCombo]="invoicesCombo"
-    [invoiceWithCosts]="invoiceWithCosts" [costCurrentPage]="costCurrentPage" [pageSize]="pageSize"
-    (invoiceChange)="handleInvoiceChange($event)" (nextPage)="handleNextCostPage($event)"
-    (prevPage)="handlePrevCostPage($event)"></app-invoice-detail-viewer>
-
-
-  <!-- JOBB OLDALI BLOKK (Összegzések) -->
-  <app-invoice-summary-viewer [isLoading]="isLoading" [errorMessage]="errorMessage"
-    [totalAmountInvoice]="totalAmountInvoice" [invoices]="invoices" [invoiceSummaries]="invoiceSummaries"
-    [upcomingCosts]="upcomingCosts">
-  </app-invoice-summary-viewer>
-
-
+<!-- JOBB OLDALI BLOKK (Összegzések) -->
+<app-invoice-summary-viewer
+  [isLoading]="isLoading"
+  [errorMessage]="errorMessage"
+  [totalAmountInvoice]="totalAmountInvoice"
+  [invoices]="invoices"
+  [invoiceSummaries]="invoiceSummaries"
+  [upcomingCosts]="upcomingCosts"
+>
+</app-invoice-summary-viewer>
 
 <!--  -->

@@ -26,13 +26,15 @@
     <div appTailwindBlueBox class="flex-[2]">
       <h2 class="text-2xl font-semibold text-blue-800 mb-2">Költségek listája</h2>
       <span class="block mb-4 text-gray-700">
-        Dátum: {{ startPrevDate | date:'yyyy. MMMM d.' }} – {{ endActDate | date:'yyyy. MMMM d.' }}
+        Dátum: {{ startPrevDate | date: 'yyyy. MMMM d.' }} –
+        {{ endActDate | date: 'yyyy. MMMM d.' }}
       </span>
 
       <app-cost-list-table
         [costs]="costs"
         (delete)="deleteCost($event)"
-        (markPaid)="markAsPaid($event)">
+        (markPaid)="markAsPaid($event)"
+      >
       </app-cost-list-table>
 
       <!-- Lapozás -->
@@ -45,9 +47,7 @@
           Előző
         </button>
 
-        <span class="text-gray-700">
-          Oldal {{ currentPage }} / {{ totalPages }}
-        </span>
+        <span class="text-gray-700"> Oldal {{ currentPage }} / {{ totalPages }} </span>
 
         <button
           appButton="blue"
@@ -63,18 +63,10 @@
   <!-- Alsó sor: Költség dátum szűrés bal oldalon -->
   <div class="flex flex-col md:flex-row gap-6">
     <div appTailwindBlueBox class="flex-1">
-      <app-cost-filter
-        [searchDate]="searchDate"
-        (filter)="onFilterDate($event)">
-      </app-cost-filter>
+      <app-cost-filter [searchDate]="searchDate" (filter)="onFilterDate($event)"> </app-cost-filter>
 
-      <app-cost-search-result-table
-        [costsSearchResults]="costsSearchResults">
+      <app-cost-search-result-table [costsSearchResults]="costsSearchResults">
       </app-cost-search-result-table>
     </div>
   </div>
 </div>
-
-
-
-

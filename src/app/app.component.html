@@ -1,9 +1,5 @@
 <!-- Navbar csak bejelentkezett felhasználónak -->
-<app-navbar
-  *ngIf="isLoggedIn$ | async"
-  [menuItems]="menuItems"
-  (logout)="onLogout()"
-></app-navbar>
+<app-navbar *ngIf="isLoggedIn$ | async" [menuItems]="menuItems" (logout)="onLogout()"></app-navbar>
 
 <main class="flex min-h-screen">
   <!-- Sidebar csak bejelentkezett felhasználónak -->
@@ -19,4 +15,3 @@
 
 <!-- Footer mindig látszik -->
 <app-footer></app-footer>
-

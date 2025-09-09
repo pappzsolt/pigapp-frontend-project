@@ -25,15 +25,11 @@
   <div class="border rounded-xl p-6 shadow-md bg-white">
     <h2 class="text-xl font-semibold text-gray-800 mb-4">Számlák költségösszesítővel</h2>
     <ul class="space-y-2">
-      <li
-        *ngFor="let summary of invoiceSummaries"
-        class="bg-gray-50 p-4 rounded-lg shadow-sm"
-      >
+      <li *ngFor="let summary of invoiceSummaries" class="bg-gray-50 p-4 rounded-lg shadow-sm">
         <p class="font-medium text-gray-800">{{ summary.invoice.invoice_name }}</p>
         <p class="text-sm">
           Kifizetve:
-          <span class="text-green-600 font-semibold">{{ summary.total_paid }} Ft</span>,
-          Hátralék:
+          <span class="text-green-600 font-semibold">{{ summary.total_paid }} Ft</span>, Hátralék:
           <span class="text-red-600 font-semibold">{{ summary.total_unpaid }} Ft</span>
         </p>
       </li>
@@ -74,4 +70,3 @@
     </ng-template>
   </div>
 </div>
-

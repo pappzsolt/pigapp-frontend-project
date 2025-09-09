@@ -1,7 +1,5 @@
 <div class="mb-6">
-  <h2 class="text-2xl font-bold text-gray-800">
-    Számlák költségösszesítője
-  </h2>
+  <h2 class="text-2xl font-bold text-gray-800">Számlák költségösszesítője</h2>
   <p class="mt-1 text-sm text-gray-600">
     <span class="font-medium">Hónap kezdete:</span>
     {{ startOfMonth | date: 'yyyy-MM-dd' }}
@@ -10,8 +8,6 @@
     {{ endOfMonth | date: 'yyyy-MM-dd' }}
   </p>
 </div>
-
-
 
 <app-alert-message
   *ngIf="successMessage"
@@ -23,7 +19,6 @@
 
 <app-alert-message *ngIf="errorMessage" [type]="'error'" [message]="errorMessage" [closable]="true">
 </app-alert-message>
-
 
 <ng-container *ngFor="let summary of summaries; trackBy: trackBySummary">
   <app-invoice-summary-card [summary]="summary"></app-invoice-summary-card>
@@ -44,4 +39,3 @@
     </app-invoice-card>
   </ng-container>
 </div>
-

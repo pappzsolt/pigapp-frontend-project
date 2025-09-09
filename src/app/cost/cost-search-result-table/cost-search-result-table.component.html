@@ -1,5 +1,5 @@
 <div class="overflow-x-auto">
-  <table appTailwindStyledTable >
+  <table appTailwindStyledTable>
     <thead>
       <tr>
         <th>Költség neve</th>
@@ -10,12 +10,9 @@
     <tbody>
       <tr *ngFor="let cost of costsSearchResults">
         <td>{{ cost.cost_name }}</td>
-        <td>
-          {{ cost.amount }} Ft
-        </td>
+        <td>{{ cost.amount }} Ft</td>
         <td>{{ cost.cost_date }}</td>
       </tr>
     </tbody>
   </table>
 </div>
-

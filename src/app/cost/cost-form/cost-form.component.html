@@ -1,4 +1,8 @@
-<form [formGroup]="costForm" (ngSubmit)="onSubmit()" class="p-6 bg-white rounded-lg shadow-md space-y-4 max-w-2xl mx-auto">
+<form
+  [formGroup]="costForm"
+  (ngSubmit)="onSubmit()"
+  class="p-6 bg-white rounded-lg shadow-md space-y-4 max-w-2xl mx-auto"
+>
   <ng-container *ngFor="let field of fields">
     <!-- Normál input és select mezők -->
     <div *ngIf="field.type !== 'checkbox'" class="flex flex-col">
@@ -26,7 +30,7 @@
         class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
         [ngClass]="{
           'w-5/6': field.name === 'costrepeat',
-          'w-32': field.name !== 'costrepeat'
+          'w-32': field.name !== 'costrepeat',
         }"
       >
         <option value="" disabled>-- Válasszon --</option>
@@ -59,4 +63,3 @@
     Hozzáadás
   </button>
 </form>
-

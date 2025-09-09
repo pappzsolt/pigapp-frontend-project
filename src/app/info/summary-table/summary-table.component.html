@@ -20,13 +20,24 @@
       <tbody>
         <tr *ngFor="let summary of summaries" class="hover:bg-gray-50">
           <td class="px-4 py-2 border-b border-gray-200">{{ summary.invoice.invoice_name }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 max-w-[20rem] truncate" title="{{ summary.invoice.invoice_note || '' }}">
+          <td
+            class="px-4 py-2 border-b border-gray-200 max-w-[20rem] truncate"
+            title="{{ summary.invoice.invoice_note || '' }}"
+          >
             {{ summary.invoice.invoice_note }}
           </td>
-          <td class="px-4 py-2 border-b border-gray-200">{{ summary.invoice.create_invoice_date | date: 'yyyy-MM-dd' }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 text-right">{{ summary.invoice.amount | number: '1.0-0' }} Ft</td>
-          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium text-green-700">{{ summary.total_paid | number: '1.0-0' }} Ft</td>
-          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium text-red-700">{{ summary.total_unpaid | number: '1.0-0' }} Ft</td>
+          <td class="px-4 py-2 border-b border-gray-200">
+            {{ summary.invoice.create_invoice_date | date: 'yyyy-MM-dd' }}
+          </td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right">
+            {{ summary.invoice.amount | number: '1.0-0' }} Ft
+          </td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium text-green-700">
+            {{ summary.total_paid | number: '1.0-0' }} Ft
+          </td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium text-red-700">
+            {{ summary.total_unpaid | number: '1.0-0' }} Ft
+          </td>
         </tr>
       </tbody>
     </table>
