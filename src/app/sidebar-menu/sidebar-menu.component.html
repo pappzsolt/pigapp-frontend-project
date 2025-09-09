@@ -39,4 +39,17 @@
       </div>
     </ng-template>
   </div>
+
+<div class="p-3 bg-white border rounded-lg shadow space-y-2">
+  <h3 class="font-semibold text-gray-800 text-sm">Havi bontás (aktuális + 6 hónap)</h3>
+  <div *ngFor="let month of monthlyCosts" class="p-2 border-b last:border-b-0">
+    <div class="text-gray-600 text-xs font-medium">{{ month.year_month }}</div>
+    <div class="flex justify-between mt-1">
+      <span class="text-green-600 font-semibold text-sm">Fizetett: {{ month.paid_sum | number:'1.0-0' }} Ft</span>
+      <span class="text-red-600 font-semibold text-sm">Nem fizetett: {{ month.unpaid_sum | number:'1.0-0' }} Ft</span>
+    </div>
+    <div class="mt-1 font-semibold text-sm">Összesen: {{ month.total_sum | number:'1.0-0' }} Ft</div>
+  </div>
+</div>
+
 </div>

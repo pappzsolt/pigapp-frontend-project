@@ -34,4 +34,5 @@ export const environment = {
   apiCalculateCashUrl: 'https://192.168.1.37/api/pigapp_app/calculate_cash/',
   apiUpdateInvoiceAmount: 'https://192.168.1.37/api/pigapp_app/api/update-invoice-amount/',
   apiCostRepeatWithSum: 'https://192.168.1.37/api/pigapp_app/api/cost-summary/5/',
+  apiMonthlyCostForeCast: 'https://192.168.1.37/api/pigapp_app/monthly-cost-forecast/',
 };
