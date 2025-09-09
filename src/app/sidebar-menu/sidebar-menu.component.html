@@ -1,1 +1,29 @@
-<p>sidebar-menu works!</p>
+
+<div class="space-y-4">
+  <div class="w-full p-3 bg-white border rounded-lg shadow text-xs text-gray-700">
+    <h3 class="font-semibold mb-2 text-gray-800 text-sm">Összegzés</h3>
+
+    <p>
+      <span class="font-medium">Fizetett:</span>
+      <span class="text-green-600 font-semibold">
+        {{ totalPaid | number:'1.0-0' }} Ft
+      </span>
+    </p>
+
+    <p>
+      <span class="font-medium">Nem fizetett:</span>
+      <span class="text-red-600 font-semibold">
+        {{ totalUnpaid | number:'1.0-0' }} Ft
+      </span>
+    </p>
+  </div>
+
+  <div class="w-full p-3 bg-white border rounded-lg shadow text-xs text-gray-700">
+    <h3 class="font-semibold mb-2 text-gray-800 text-sm">Másik box</h3>
+    <p>Ide jöhet bármi más adat</p>
+  </div>
+</div>
+
+
+
+

@@ -1,11 +1,13 @@
 <app-navbar [menuItems]="menuItems" (logout)="onLogout()"></app-navbar>
 
-<main class="grid-main">
-  <aside class="bg-gray-200 p-4">
+<main class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="bg-gray-200 p-4 w-64">
     <app-sidebar-menu></app-sidebar-menu>
   </aside>
 
-  <section class="bg-white p-4">
+  <!-- Content -->
+  <section class="bg-white p-4 flex-1">
     <router-outlet></router-outlet>
   </section>
 </main>
