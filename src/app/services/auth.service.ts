@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { ApiConfigService } from './api-config.service';
 import { Router } from '@angular/router';
@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
+  private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
+  isLoggedIn$ = this.loggedIn.asObservable();
+
   constructor(
     private http: HttpClient,
     private apiConfig: ApiConfigService,
@@ -27,6 +30,7 @@ export class AuthService {
 
   saveJwtToken(token: string): void {
     sessionStorage.setItem('jwt_token', token);
+    this.loggedIn.next(true); // frissítjük a státuszt
   }
 
   saveJwtRefresh(token: string): void {
@@ -44,6 +48,7 @@ export class AuthService {
   logout(): void {
     sessionStorage.removeItem('jwt_token');
     sessionStorage.removeItem('jwt_refresh');
+    this.loggedIn.next(false); // frissítjük a státuszt
     this.router.navigate(['/login']);
   }
 

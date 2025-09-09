@@ -1,15 +1,22 @@
-<app-navbar [menuItems]="menuItems" (logout)="onLogout()"></app-navbar>
+<!-- Navbar csak bejelentkezett felhasználónak -->
+<app-navbar
+  *ngIf="isLoggedIn$ | async"
+  [menuItems]="menuItems"
+  (logout)="onLogout()"
+></app-navbar>
 
 <main class="flex min-h-screen">
-  <!-- Sidebar -->
-  <aside class="bg-gray-200 p-4 w-64">
+  <!-- Sidebar csak bejelentkezett felhasználónak -->
+  <aside *ngIf="isLoggedIn$ | async" class="bg-gray-200 p-4 w-64">
     <app-sidebar-menu></app-sidebar-menu>
   </aside>
 
-  <!-- Content -->
+  <!-- Tartalom mindig látszik -->
   <section class="bg-white p-4 flex-1">
     <router-outlet></router-outlet>
   </section>
 </main>
 
+<!-- Footer mindig látszik -->
 <app-footer></app-footer>
+

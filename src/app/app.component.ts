@@ -7,20 +7,25 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, FooterComponent, NavbarComponent,SidebarMenuComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, FooterComponent, NavbarComponent, SidebarMenuComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   menuItems: { path: string; label: string }[] = [];
+  isLoggedIn$: Observable<boolean>;
 
   constructor(
     private router: Router,
     private authService: AuthService
   ) {
+    this.isLoggedIn$ = this.authService.isLoggedIn$; // Observable a login állapotra
+
     this.menuItems = routes
       .filter(route => route.data && route.data['label'])
       .map(route => ({
@@ -34,3 +39,4 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 }
+
