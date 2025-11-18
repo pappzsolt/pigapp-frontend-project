@@ -19,7 +19,7 @@
 
 <app-alert-message *ngIf="errorMessage" [type]="'error'" [message]="errorMessage" [closable]="true">
 </app-alert-message>
-
+<!-- ide az összes számla kiadás kell nem csak a kölcsönök -->
 <ng-container *ngFor="let summary of summaries; trackBy: trackBySummary">
   <app-invoice-summary-card [summary]="summary"></app-invoice-summary-card>
 </ng-container>

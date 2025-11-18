@@ -11,6 +11,12 @@
   <section class="bg-white p-4 flex-1">
     <router-outlet></router-outlet>
   </section>
+
+  <aside *ngIf="isLoggedIn$ | async" class="bg-gray-200 p-4 w-64">
+        b-side
+  </aside>
+
+
 </main>
 
 <!-- Footer mindig látszik -->
