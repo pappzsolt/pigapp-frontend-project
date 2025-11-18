@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-summary-card',
   templateUrl: './summary-card.component.html',
   standalone: true,
-  imports: [CommonModule, SummaryCardComponent],
+  imports: [CommonModule],
 })
 export class SummaryCardComponent {
   @Input() icon!: string;

@@ -5,3 +5,17 @@ npx prettier --write .
 npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier
 npm run lint
 npx eslint . --fix
+
+
+ng serve → dev environment.ts
+
+ng build --prod → prod environment.prod.ts
+npx ng serve
+npx ng serve --configuration development
+---------
+DEV mód (localhost backend → 127.0.0.1:8000)
+ng serve
+
+
+PROD build (192.168.1.37 backend)
+ng build --configuration production

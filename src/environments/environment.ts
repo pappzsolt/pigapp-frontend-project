@@ -1,13 +1,12 @@
-// src/environments/environment.prod.ts
+/// src/environments/environment.ts
 
-const API_HOST = 'https://192.168.1.37';
-//const API_HOST = 'http://127.0.0.1:8000';
+const API_HOST = 'http://127.0.0.1:8000';
 const API_BASE = `${API_HOST}/api`;
 const PIGAPP_BASE = `${API_BASE}/pigapp_app`;
 const PIGAPP_API_BASE = `${PIGAPP_BASE}/api`;
 
 export const environment = {
-  production: true,
+  production: false,
 
   // ÚJ mezők, amiket az ApiEndpoints használ
   API_HOST,
@@ -15,7 +14,7 @@ export const environment = {
   PIGAPP_BASE,
   PIGAPP_API_BASE,
 
-  // Régi mezők prod-ra
+  // A RÉGI MEZŐKET MEGHAGYJUK, hogy minden régi kód is működjön
   apiTokenUrl: `${API_BASE}/token/`,
   apiTokenRefreshUrl: `${API_BASE}/token/refresh/`,
   apiMonthlyCostsUrl: `${PIGAPP_API_BASE}/monthly-costs/`,

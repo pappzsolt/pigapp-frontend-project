@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-import { ApiConfigService } from './api-config.service';
 import { Router } from '@angular/router';
-
+import { ApiEndpoints } from '../core/api-endpoints';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,18 +13,15 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private apiConfig: ApiConfigService,
     private router: Router
   ) {}
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post<any>(this.apiConfig.apiEnvironment.apiTokenUrl, credentials);
+    return this.http.post<any>(ApiEndpoints.auth.token, credentials);
   }
 
   refreshToken(refresh: string): Observable<any> {
-    return this.http.post<any>(this.apiConfig.apiEnvironment.apiTokenRefreshUrl, {
-      refresh,
-    });
+    return this.http.post<any>(ApiEndpoints.auth.refresh, { refresh });
   }
 
   saveJwtToken(token: string): void {
@@ -53,6 +49,8 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    // ha akarod, itt ellenőrizheted a lejáratot is:
+    // return !!this.getJwtToken() && !this.isTokenExpired();
     return !!this.getJwtToken();
   }
 
