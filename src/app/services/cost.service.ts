@@ -5,40 +5,40 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cost } from '../../model/cost';
 import { ForeignKeyData } from '../../model/foreignkeydata';
-import { ApiConfigService } from './api-config.service';
+
+import { ApiEndpoints } from '../core/api-endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CostService {
-  constructor(
-    private http: HttpClient,
-    private apiConfig: ApiConfigService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   createCost(cost: Cost): Observable<Cost> {
-    return this.http.post<Cost>(this.apiConfig.apiEnvironment.apiCreateCostUrl, cost);
+    return this.http.post<Cost>(ApiEndpoints.costs.create, cost);
   }
 
   getCost(id: number): Observable<Cost> {
-    return this.http.get<Cost>(`${this.apiConfig.apiEnvironment.apiCreateCostUrl}${id}/`);
+    return this.http.get<Cost>(`${ApiEndpoints.costs.create}${id}/`);
   }
+
   getForeignKeyData(): Observable<ForeignKeyData> {
-    return this.http.get<ForeignKeyData>(this.apiConfig.apiEnvironment.apiForeignKeyDataUrl);
+    return this.http.get<ForeignKeyData>(ApiEndpoints.costs.foreignKeyData);
   }
+
   updateCost(id: number, cost: Cost): Observable<Cost> {
-    return this.http.put<Cost>(`${this.apiConfig.apiEnvironment.apiDetailCostUrl}${id}/`, cost);
+    return this.http.put<Cost>(`${ApiEndpoints.costs.detail}${id}/`, cost);
   }
 
   deleteCost(id: number): Observable<any> {
-    return this.http.delete(`${this.apiConfig.apiEnvironment.apiDetailCostUrl}${id}/`);
+    return this.http.delete(`${ApiEndpoints.costs.detail}${id}/`);
   }
 
-  // src/app/components/services/cost.service.ts
   getCosts(page: number): Observable<any> {
-    return this.http.get<any>(`${this.apiConfig.apiEnvironment.apiCostListUrl}?page=${page}`);
+    return this.http.get<any>(`${ApiEndpoints.costs.list}?page=${page}`);
   }
+
   filterCosts(searchDate: string): Observable<Cost[]> {
-    return this.http.get<Cost[]>(`${this.apiConfig.apiEnvironment.filterCostUrl}${searchDate}`);
+    return this.http.get<Cost[]>(`${ApiEndpoints.costs.filterActualDay}${searchDate}`);
   }
 }

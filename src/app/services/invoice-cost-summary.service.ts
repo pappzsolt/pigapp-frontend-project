@@ -2,20 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InvoiceCostSummary } from '../../model/invoice-cost-summary.model';
-import { ApiConfigService } from './api-config.service';
+
+import { ApiEndpoints } from '../core/api-endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InvoiceCostSummaryService {
-  constructor(
-    private http: HttpClient,
-    private apiConfig: ApiConfigService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getInvoiceCostSummary(): Observable<InvoiceCostSummary[]> {
-    return this.http.get<InvoiceCostSummary[]>(
-      this.apiConfig.apiEnvironment.apiCostRepeatInvoiceSummary
-    );
+    return this.http.get<InvoiceCostSummary[]>(ApiEndpoints.costRepeat.invoiceSummary);
   }
 }
+

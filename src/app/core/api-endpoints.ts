@@ -2,31 +2,31 @@
 
 import { environment } from '../../environments/environment';
 
-const BASE = environment.API_BASE;          // .../api
-const PIGAPP = environment.PIGAPP_BASE;     // .../api/pigapp_app
-const PIGAPP_API = environment.PIGAPP_API_BASE;  // .../api/pigapp_app/api
+const BASE = environment.API_BASE;
+const PIGAPP = environment.PIGAPP_BASE;
+const PIGAPP_API = environment.PIGAPP_API_BASE;
 
 export const ApiEndpoints = {
   /** Auth / JWT */
   auth: {
-    token: `${BASE}/token/`,                 // apiTokenUrl
-    refresh: `${BASE}/token/refresh/`,       // apiTokenRefreshUrl
+    token: `${BASE}/token/`,
+    refresh: `${BASE}/token/refresh/`,
   },
 
   /** Monthly costs + forecast */
   monthly: {
-    monthlyCosts: `${PIGAPP_API}/monthly-costs/`,        // apiMonthlyCostsUrl
-    updateCostDates: `${PIGAPP}/update-cost-dates/`,     // apiUpdateCostDatesUrl
-    forecast: `${PIGAPP}/monthly-cost-forecast/`,        // apiMonthlyCostForeCast
+    monthlyCosts: `${PIGAPP_API}/monthly-costs/`,
+    updateCostDates: `${PIGAPP}/update-cost-dates/`,
+    forecast: `${PIGAPP}/monthly-cost-forecast/`,
   },
 
   /** CashFlow */
   cashFlow: {
-    all: `${PIGAPP}/list_cash_flow/`,             // cashFlowUrlAll
-    actual: `${PIGAPP}/list_cash_flow_last/`,     // cashFlowActual
-    create: `${PIGAPP}/new_cash_flow/`,           // cashFlowNew
-    getById: `${PIGAPP_API}/cashflows/`,          // cashFlowGetById
-    calculateCash: `${PIGAPP}/calculate_cash/`,   // apiCalculateCashUrl
+    all: `${PIGAPP}/list_cash_flow/`,
+    actual: `${PIGAPP}/list_cash_flow_last/`,
+    create: `${PIGAPP}/new_cash_flow/`,
+    getById: `${PIGAPP_API}/cashflows/`,
+    calculateCash: `${PIGAPP}/calculate_cash/`,
   },
 
   /** Costs (költségek) */

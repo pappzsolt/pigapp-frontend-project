@@ -1,13 +1,22 @@
-<div class="flex flex-col md:flex-row gap-6">
+<div class="cashflow-layout">
   <!-- Bal oldali box: űrlap -->
-  <div appTailwindBlueBox class="flex-1">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">Új Fizetés/bevételek hozzáadása</h2>
-    <form [formGroup]="cashFlowForm" (ngSubmit)="addCost()" class="space-y-4">
+  <section appTailwindBlueBox class="cashflow-form-card flex-1">
+    <h2 class="cashflow-form-title">Új Fizetés / bevételek hozzáadása</h2>
+
+    <form
+      [formGroup]="cashFlowForm"
+      (ngSubmit)="addCost()"
+      class="cashflow-form"
+    >
       <ng-container *ngFor="let field of fieldConfigs">
-        <div class="flex flex-col">
-          <label [for]="field.controlName">
+        <div class="cashflow-form-field">
+          <label
+            class="cashflow-form-label"
+            [for]="field.controlName"
+          >
             {{ field.label }}
           </label>
+
           <input
             *ngIf="field.type !== 'select'"
             appStyledInput
@@ -16,38 +25,46 @@
             [type]="field.type"
             [formControlName]="field.controlName"
           />
+
           <select
-            appTailwindStyledSelect="w-32"
             *ngIf="field.type === 'select'"
+            appTailwindStyledSelect="w-48"
             [id]="field.controlName"
             [formControlName]="field.controlName"
           >
             <option value="" disabled>-- Válasszon --</option>
-            <option *ngFor="let option of field.options" [value]="option.id">
+            <option
+              *ngFor="let option of field.options"
+              [value]="option.id"
+            >
               {{ option[field.optionLabel!] }}
             </option>
           </select>
         </div>
       </ng-container>
 
-      <button type="submit" appButton="blue">Hozzáadás</button>
+      <div class="cashflow-form-actions">
+        <button type="submit" appButton="blue">
+          Hozzáadás
+        </button>
+      </div>
     </form>
-  </div>
+  </section>
 
-  <!-- Jobb oldali box: táblázatok egymás alatt -->
-  <div class="flex flex-col gap-6 flex-1">
-    <div appTailwindBlueBox>
+  <!-- Jobb oldali box: táblák egymás alatt -->
+  <section class="cashflow-side-panel flex-1">
+    <div appTailwindBlueBox class="cashflow-box">
       <app-cashflow-table
         [title]="'aktuális havi fizetés'"
         [cashflows$]="cashflowActual$"
       ></app-cashflow-table>
     </div>
 
-    <div appTailwindBlueBox>
+    <div appTailwindBlueBox class="cashflow-box">
       <app-cashflow-table
         [title]="'utolsó 10 hónap'"
         [cashflows$]="cashflows$"
       ></app-cashflow-table>
     </div>
-  </div>
+  </section>
 </div>

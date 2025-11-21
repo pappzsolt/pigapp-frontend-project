@@ -4,15 +4,16 @@
   [message]="alertMessage"
   [closable]="true"
   (click)="alertVisible = false"
-  class="mb-4"
+  class="page-alert"
 ></app-alert-message>
 
-<div class="flex flex-col gap-6">
+<div class="cost-page-layout">
   <!-- Felső sor: Új költség + Lista -->
-  <div class="flex flex-col md:flex-row gap-6">
+  <section class="cost-main-row">
     <!-- Új költség -->
-    <div appTailwindBlueBox class="flex-1">
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Új költség hozzáadása</h2>
+    <section appTailwindBlueBox class="cost-card cost-form-card flex-1">
+      <h2 class="section-title">Új költség hozzáadása</h2>
+
       <app-cost-form
         [invoices]="invoices"
         [devs]="devs"
@@ -20,25 +21,28 @@
         [costGroups]="costGroups"
         (formSubmit)="addCost($event)"
       ></app-cost-form>
-    </div>
+    </section>
 
     <!-- Költségek listája -->
-    <div appTailwindBlueBox class="flex-[2]">
-      <h2 class="text-2xl font-semibold text-blue-800 mb-2">Költségek listája</h2>
-      <span class="block mb-4 text-gray-700">
-        Dátum: {{ startPrevDate | date: 'yyyy. MMMM d.' }} –
-        {{ endActDate | date: 'yyyy. MMMM d.' }}
-      </span>
+    <section appTailwindBlueBox class="cost-card cost-list-card flex-[2]">
+      <div class="flex flex-col gap-1 mb-4">
+        <h2 class="section-title-primary">Költségek listája</h2>
+        <span class="date-range-text">
+          Dátum:
+          {{ startPrevDate | date: 'yyyy. MMMM d.' }}
+          –
+          {{ endActDate | date: 'yyyy. MMMM d.' }}
+        </span>
+      </div>
 
       <app-cost-list-table
         [costs]="costs"
         (delete)="deleteCost($event)"
         (markPaid)="markAsPaid($event)"
-      >
-      </app-cost-list-table>
+      ></app-cost-list-table>
 
       <!-- Lapozás -->
-      <div class="mt-4 h-12 flex justify-center items-center gap-4">
+      <div class="pagination-bar">
         <button
           appButton="blue"
           [disabled]="currentPage === 1"
@@ -47,7 +51,9 @@
           Előző
         </button>
 
-        <span class="text-gray-700"> Oldal {{ currentPage }} / {{ totalPages }} </span>
+        <span class="pagination-text">
+          Oldal {{ currentPage }} / {{ totalPages }}
+        </span>
 
         <button
           appButton="blue"
@@ -57,16 +63,20 @@
           Következő
         </button>
       </div>
-    </div>
-  </div>
+    </section>
+  </section>
 
   <!-- Alsó sor: Költség dátum szűrés bal oldalon -->
-  <div class="flex flex-col md:flex-row gap-6">
-    <div appTailwindBlueBox class="flex-1">
-      <app-cost-filter [searchDate]="searchDate" (filter)="onFilterDate($event)"> </app-cost-filter>
+  <section class="cost-main-row">
+    <section appTailwindBlueBox class="cost-card flex-1">
+      <app-cost-filter
+        [searchDate]="searchDate"
+        (filter)="onFilterDate($event)"
+      ></app-cost-filter>
 
-      <app-cost-search-result-table [costsSearchResults]="costsSearchResults">
-      </app-cost-search-result-table>
-    </div>
-  </div>
+      <app-cost-search-result-table
+        [costsSearchResults]="costsSearchResults"
+      ></app-cost-search-result-table>
+    </section>
+  </section>
 </div>

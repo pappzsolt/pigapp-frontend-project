@@ -2,7 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Invoice } from '../../model/invoice';
-import { ApiConfigService } from './api-config.service';
+
+import { ApiEndpoints } from '../core/api-endpoints';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,28 +13,15 @@ export class InvoicesService {
 
   private http = inject(HttpClient);
 
-  constructor(private apiConfig: ApiConfigService) {}
+  constructor() {}
 
   // Invoice lista lekérése
   getInvoiceList(): Observable<Invoice[]> {
-    return new Observable<Invoice[]>(observer => {
-      this.http.get<Invoice[]>(this.apiConfig.apiEnvironment.invoiceUrl).subscribe({
-        next: response => {
-          observer.next(response); // Az adatok továbbítása a feliratkozott komponensnek
-        },
-        error: err => {
-          console.error('Hiba:', err);
-          observer.error(err); // Hiba esetén kiadjuk az error-t
-        },
-        complete: () => {
-          observer.complete(); // Az Observable befejeződött
-        },
-      });
-    });
+    return this.http.get<Invoice[]>(ApiEndpoints.invoices.onlyInvoiceList);
   }
 
-  saveInvoice(invoice: Invoice) {
+  saveInvoice(invoice: Invoice): Observable<any> {
     console.log('InvoicesService');
-    return this.http.put(this.apiConfig.apiEnvironment.invoiceSaveUrl + invoice.id, invoice);
+    return this.http.put(`${ApiEndpoints.invoices.saveInvoiceDetail}${invoice.id}`, invoice);
   }
 }

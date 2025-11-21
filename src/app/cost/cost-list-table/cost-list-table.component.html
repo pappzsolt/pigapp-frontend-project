@@ -1,37 +1,50 @@
-<table appTailwindStyledTable>
-  <thead>
-    <tr>
-      <th>Költség neve</th>
-      <th>Összeg</th>
-      <th>Dátum</th>
-      <th>Akciók</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cost of costs">
-      <td>{{ cost.cost_name }}</td>
-      <td>{{ cost.amount }} Ft</td>
-      <td>{{ cost.cost_date }}</td>
-      <td>
-        <button
-          (click)="onDelete(cost.id)"
-          class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-        >
-          Törlés
-        </button>
+<div class="cost-list">
+  <div
+    *ngFor="let cost of costs"
+    class="cost-card"
+  >
+    <div class="cost-card-header">
+      <h3 class="cost-name">{{ cost.cost_name }}</h3>
 
-        <button
-          *ngIf="!cost.paid"
-          (click)="onMarkAsPaid(cost)"
-          class="ml-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
-        >
-          Fizetni
-        </button>
+      <span
+        class="cost-status"
+        [ngClass]="cost.paid ? 'paid' : 'unpaid'"
+      >
+        {{ cost.paid ? 'Fizetve' : 'Nincs fizetve' }}
+      </span>
+    </div>
 
-        <span *ngIf="cost.paid">
-          <img src="images/green-check.png" alt="Fizetve" class="w-5 h-5 inline" />
-        </span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    <div class="cost-details-grid">
+      <div class="cost-field">
+        <dt>Összeg</dt>
+        <dd>{{ cost.amount }} Ft</dd>
+      </div>
+
+      <div class="cost-field">
+        <dt>Dátum</dt>
+        <dd>{{ cost.cost_date | date: 'yyyy-MM-dd' }}</dd>
+      </div>
+    </div>
+
+    <div class="cost-actions">
+      <button
+        (click)="onDelete(cost.id)"
+        class="btn btn-remove"
+      >
+        Törlés
+      </button>
+
+      <button
+        *ngIf="!cost.paid"
+        (click)="onMarkAsPaid(cost)"
+        class="btn btn-green"
+      >
+        Fizetni
+      </button>
+
+      <span *ngIf="cost.paid" class="paid-icon">
+        <img src="images/green-check.png" alt="Fizetve" class="w-5 h-5" />
+      </span>
+    </div>
+  </div>
+</div>

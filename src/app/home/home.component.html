@@ -1,41 +1,51 @@
-<div class="mb-6">
-  <h2 class="text-2xl font-bold text-gray-800">Számlák költségösszesítője</h2>
-  <p class="mt-1 text-sm text-gray-600">
+<div class="mb-8 space-y-3 invoice-summary-header">
+  <h2 class="text-3xl font-bold text-gray-900 tracking-tight">
+    Számlák költségösszesítője
+  </h2>
+
+  <div class="flex items-center text-sm text-gray-600 gap-3">
     <span class="font-medium">Hónap kezdete:</span>
-    {{ startOfMonth | date: 'yyyy-MM-dd' }}
-    <span class="mx-2 text-gray-400">|</span>
+    <span class="date-pill">{{ startOfMonth | date: 'yyyy-MM-dd' }}</span>
+
+    <span class="separator"></span>
+
     <span class="font-medium">Hónap vége:</span>
-    {{ endOfMonth | date: 'yyyy-MM-dd' }}
-  </p>
+    <span class="date-pill">{{ endOfMonth | date: 'yyyy-MM-dd' }}</span>
+  </div>
 </div>
 
+<!-- Üzenetek -->
 <app-alert-message
   *ngIf="successMessage"
-  [type]="'success'"
+  type="success"
   [message]="successMessage"
   [closable]="true"
->
-</app-alert-message>
+></app-alert-message>
 
-<app-alert-message *ngIf="errorMessage" [type]="'error'" [message]="errorMessage" [closable]="true">
-</app-alert-message>
-<!-- ide az összes számla kiadás kell nem csak a kölcsönök -->
-<ng-container *ngFor="let summary of summaries; trackBy: trackBySummary">
-  <app-invoice-summary-card [summary]="summary"></app-invoice-summary-card>
-</ng-container>
+<app-alert-message
+  *ngIf="errorMessage"
+  type="error"
+  [message]="errorMessage"
+  [closable]="true"
+></app-alert-message>
 
-<!-- Számlák listája -->
+<!-- Összesítők -->
+<div class="summary-card-list">
+  <ng-container *ngFor="let summary of summaries; trackBy: trackBySummary">
+    <app-invoice-summary-card [summary]="summary"></app-invoice-summary-card>
+  </ng-container>
+</div>
 
-<h2>Számlák</h2>
+<!-- Számlák -->
+<h2 class="section-title">Számlák</h2>
 
-<div class="grid grid-cols-2 gap-6">
+<div class="invoice-grid">
   <ng-container *ngFor="let invoice of invoices$ | async; index as i">
     <app-invoice-card
       [invoice]="invoice"
       [index]="i + 1"
       (invoiceSelected)="onInvoiceSelected($event)"
       (invoiceChanged)="onInvoiceSave($event)"
-    >
-    </app-invoice-card>
+    ></app-invoice-card>
   </ng-container>
 </div>

@@ -2,34 +2,34 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InvoiceResponse, InvoiceTransferResponse } from '../../model/invoice';
-import { ApiConfigService } from './api-config.service';
 import { CalculateCashResponse, MonthlyCostResponse } from '../../model/cost';
+
+import { ApiEndpoints } from '../core/api-endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InvoiceTransformService {
-  constructor(
-    private http: HttpClient,
-    private apiConfig: ApiConfigService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getInvoiceOptions(): Observable<InvoiceResponse> {
-    return this.http.get<InvoiceResponse>(this.apiConfig.apiEnvironment.apiInvoiceComboUrl);
+    return this.http.get<InvoiceResponse>(ApiEndpoints.invoices.combo);
   }
+
   transferAmount(szamla1: number, szamla2: number, amount: number) {
     return this.http.patch<InvoiceTransferResponse>(
-      `${this.apiConfig.apiEnvironment.apiInvoiceUpdateUrl}${szamla1}/${szamla2}`,
+      `${ApiEndpoints.invoices.transfer}${szamla1}/${szamla2}`,
       { amount }
     );
   }
+
   getMonthlyCosts(): Observable<MonthlyCostResponse> {
-    return this.http.get<MonthlyCostResponse>(this.apiConfig.apiEnvironment.apiMonthlyCostsUrl);
+    return this.http.get<MonthlyCostResponse>(ApiEndpoints.monthly.monthlyCosts);
   }
 
   calculateCash(costIds: number[]): Observable<CalculateCashResponse> {
     return this.http.post<CalculateCashResponse>(
-      this.apiConfig.apiEnvironment.apiCalculateCashUrl,
+      ApiEndpoints.cashFlow.calculateCash,
       { cost_ids: costIds }
     );
   }

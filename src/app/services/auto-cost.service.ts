@@ -2,23 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MonthlyCostResponse } from '../../model/cost';
-import { environment } from '../../environments/environment.prod';
-import { ApiConfigService } from './api-config.service';
+
+import { ApiEndpoints } from '../core/api-endpoints';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AutoCostService {
-  constructor(
-    private http: HttpClient,
-    private apiConfig: ApiConfigService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getMonthlyCosts(): Observable<MonthlyCostResponse> {
-    return this.http.get<MonthlyCostResponse>(this.apiConfig.apiEnvironment.apiMonthlyCostsUrl);
+    return this.http.get<MonthlyCostResponse>(ApiEndpoints.monthly.monthlyCosts);
   }
+
   updateCostDates(costIds: number[]): Observable<any> {
-    return this.http.post<any>(this.apiConfig.apiEnvironment.apiUpdateCostDatesUrl, {
+    return this.http.post<any>(ApiEndpoints.monthly.updateCostDates, {
       cost_ids: costIds,
     });
   }
 }
+

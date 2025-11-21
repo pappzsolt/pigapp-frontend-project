@@ -1,34 +1,36 @@
-<div class="border rounded-xl p-6 shadow-md bg-white space-y-6 mb-6">
+<div class="cashflow-table-card">
   <!-- fejléc -->
-  <h2 class="text-2xl font-semibold text-blue-800">{{ title }}</h2>
+  <h2 class="cashflow-table-title">
+    {{ title }}
+  </h2>
 
   <!-- táblázat -->
-  <div class="overflow-x-auto">
-    <table class="w-full text-sm table-auto border-collapse">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Típus</th>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Felhasználó</th>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Számla</th>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Leírás</th>
-          <th class="text-right px-4 py-2 border-b border-gray-300">Összeg</th>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Dátum</th>
-        </tr>
+  <div class="cashflow-table-wrapper">
+    <table class="cashflow-table">
+      <thead>
+      <tr>
+        <th class="th-cell text-left">Típus</th>
+        <th class="th-cell text-left">Felhasználó</th>
+        <th class="th-cell text-left">Számla</th>
+        <th class="th-cell text-left">Leírás</th>
+        <th class="th-cell text-right">Összeg</th>
+        <th class="th-cell text-left">Dátum</th>
+      </tr>
       </thead>
+
       <tbody>
-        <tr
-          *ngFor="let cashflow of cashflows$ | async"
-          class="hover:bg-gray-50"
-        >
-          <td class="px-4 py-2 border-b border-gray-200">{{ cashflow.cashflowgroup }}</td>
-          <td class="px-4 py-2 border-b border-gray-200">{{ cashflow.user }}</td>
-          <td class="px-4 py-2 border-b border-gray-200">{{ cashflow.invoice }}</td>
-          <td class="px-4 py-2 border-b border-gray-200">{{ cashflow.cash_flow_note }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium">{{ cashflow.amount }} Ft</td>
-          <td class="px-4 py-2 border-b border-gray-200">{{ cashflow.cash_flow_date | date:'yyyy-MM-dd' }}</td>
-        </tr>
+      <tr
+        *ngFor="let cashflow of cashflows$ | async"
+        class="table-row-hover"
+      >
+        <td class="td-cell">{{ cashflow.cashflowgroup }}</td>
+        <td class="td-cell">{{ cashflow.user }}</td>
+        <td class="td-cell">{{ cashflow.invoice }}</td>
+        <td class="td-cell">{{ cashflow.cash_flow_note }}</td>
+        <td class="td-cell td-right td-emphasis">{{ cashflow.amount }} Ft</td>
+        <td class="td-cell">{{ cashflow.cash_flow_date | date:'yyyy-MM-dd' }}</td>
+      </tr>
       </tbody>
     </table>
   </div>
 </div>
-

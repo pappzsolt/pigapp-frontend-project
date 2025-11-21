@@ -1,38 +1,64 @@
-<div class="border rounded-xl p-6 shadow-md bg-white space-y-6 mb-6">
-  <!-- táblázat fejléc (opcionális) -->
-  <header class="mb-4">
-    <h3 class="text-lg font-semibold text-gray-800">Költségösszesítő</h3>
-
+<div class="cost-summary-card">
+  <header class="cost-summary-header">
+    <h3 class="cost-summary-title">Költségösszesítő</h3>
+    <p class="cost-summary-subtitle">
+      Ismétlődő költségek összesítve
+    </p>
   </header>
 
-  <!-- táblázat -->
-  <div class="overflow-x-auto">
-    <table class="w-full text-sm table-auto border-collapse">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Név</th>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Megjegyzés</th>
-          <th class="text-right px-4 py-2 border-b border-gray-300">Összeg</th>
-          <th class="text-right px-4 py-2 border-b border-gray-300">DB</th>
-          <th class="text-right px-4 py-2 border-b border-gray-300">Fizetett Összeg</th>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Dátum</th>
-          <th class="text-center px-4 py-2 border-b border-gray-300">Fizetve</th>
-          <th class="text-left px-4 py-2 border-b border-gray-300">Lejárat</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cost of costRepeatWithSum" class="hover:bg-gray-50">
-          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_repeat_name }}</td>
-          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_repeat_note }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 text-right">{{ cost.amount | number:'1.0-0' }} HUF</td>
-          <td class="px-4 py-2 border-b border-gray-200 text-right">{{ cost.cost_count | number:'1.0-0' }} db</td>
-          <td class="px-4 py-2 border-b border-gray-200 text-right font-medium">{{ cost.total_amount | number:'1.0-0' }} HUF</td>
-          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_repeat_date | date:'yyyy-MM-dd' }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 text-center">{{ cost.paid ? 'Igen' : 'Nem' }}</td>
-          <td class="px-4 py-2 border-b border-gray-200">{{ cost.expire_date | date:'yyyy-MM-dd' }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="cost-summary-list">
+    <div
+      *ngFor="let cost of costRepeatWithSum"
+      class="cost-item-card"
+    >
+      <!-- Fejléc: név + fizetve badge -->
+      <div class="cost-item-header">
+        <div>
+          <h4 class="cost-item-title">
+            {{ cost.cost_repeat_name }}
+          </h4>
+          <p class="cost-item-note" *ngIf="cost.cost_repeat_note">
+            {{ cost.cost_repeat_note }}
+          </p>
+        </div>
+
+        <span
+          class="cost-item-badge"
+          [ngClass]="cost.paid ? 'badge-paid' : 'badge-unpaid'"
+        >
+          {{ cost.paid ? 'Fizetve' : 'Nincs fizetve' }}
+        </span>
+      </div>
+
+      <!-- Tartalom: adatok gridben -->
+      <dl class="cost-item-grid">
+        <div class="cost-item-field">
+          <dt>Összeg</dt>
+          <dd>{{ cost.amount | number: '1.0-0' }} HUF</dd>
+        </div>
+
+        <div class="cost-item-field">
+          <dt>Darabszám</dt>
+          <dd>{{ cost.cost_count | number: '1.0-0' }} db</dd>
+        </div>
+
+        <div class="cost-item-field">
+          <dt>Fizetett összeg</dt>
+          <dd class="cost-item-total">
+            {{ cost.total_amount | number: '1.0-0' }} HUF
+          </dd>
+        </div>
+
+        <div class="cost-item-field">
+          <dt>Kezdő dátum</dt>
+          <dd>{{ cost.cost_repeat_date | date: 'yyyy-MM-dd' }}</dd>
+        </div>
+
+        <div class="cost-item-field">
+          <dt>Lejárat</dt>
+          <dd>{{ cost.expire_date | date: 'yyyy-MM-dd' }}</dd>
+        </div>
+      </dl>
+    </div>
   </div>
 </div>
-

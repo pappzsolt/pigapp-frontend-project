@@ -2,7 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Cashflow, CashFlowResponse } from '../../model/cashflow';
-import { environment } from '../../environments/environment.prod';
+import { ApiEndpoints } from '../core/api-endpoints';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,63 +12,34 @@ export class CashFlowServiceService {
   private token: string = '';
   private http = inject(HttpClient);
 
-  private today = new Date();
-  private year = this.today.getFullYear();
-  private month = String(this.today.getMonth() + 1).padStart(2, '0'); // hónap: 0-indexelt
-  private day = '01';
-
-  private formattedDate = `${this.year}-${this.month}-${this.day}`;
-
-  private originalDate = `${this.year}-${this.month}-${this.day}`;
-
-  private cashFlowUrlAll = environment.cashFlowUrlAll;
-
-  private cashFlowActual = environment.cashFlowActual;
-
-  private cashFlowNew = environment.cashFlowNew;
-
-  private cashFlowGetById = environment.cashFlowGetById;
-
-  private apiForeignKeyDataUrl = environment.apiForeignKeyDataUrl;
-
   constructor() {}
+
   getForeignKeyData(): Observable<any> {
-    return this.http.get<any>(this.apiForeignKeyDataUrl);
+    return this.http.get<any>(ApiEndpoints.costs.foreignKeyData);
   }
 
   getCashFlowListAll(): Observable<Cashflow[]> {
-    return new Observable<Cashflow[]>(observer => {
-      this.http.get<Cashflow[]>(this.cashFlowUrlAll).subscribe({
-        next: response => {
-          observer.next(response); // Az adatok továbbítása a feliratkozott komponensnek
-        },
-        error: err => {
-          console.error('Hiba:', err);
-          observer.error(err); // Hiba esetén kiadjuk az error-t
-        },
-        complete: () => {
-          observer.complete(); // Az Observable befejeződött
-        },
-      });
-    });
+    // Az extra Observable wrapper felesleges, a HttpClient már Observable-t ad vissza
+    return this.http.get<Cashflow[]>(ApiEndpoints.cashFlow.all);
   }
 
   getCashFlowLast(): Observable<Cashflow> {
-    return this.http.get<Cashflow>(this.cashFlowActual);
+    return this.http.get<Cashflow>(ApiEndpoints.cashFlow.actual);
   }
+
   getById(id: number): Observable<CashFlowResponse> {
-    return this.http.get<CashFlowResponse>(`${this.cashFlowGetById}${id}/`);
+    return this.http.get<CashFlowResponse>(`${ApiEndpoints.cashFlow.getById}${id}/`);
   }
 
   create(cashFlow: CashFlowResponse): Observable<CashFlowResponse> {
-    return this.http.post<CashFlowResponse>(this.cashFlowNew, cashFlow);
+    return this.http.post<CashFlowResponse>(ApiEndpoints.cashFlow.create, cashFlow);
   }
 
   update(id: number, cashFlow: CashFlowResponse): Observable<CashFlowResponse> {
-    return this.http.put<CashFlowResponse>(`${this.cashFlowGetById}${id}/`, cashFlow);
+    return this.http.put<CashFlowResponse>(`${ApiEndpoints.cashFlow.getById}${id}/`, cashFlow);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.cashFlowGetById}${id}/`);
+    return this.http.delete(`${ApiEndpoints.cashFlow.getById}${id}/`);
   }
 }

@@ -7,11 +7,10 @@ import {
   InvoiceWithCostDetail,
   TotalAmountInvoice,
 } from '../../model/invoice';
-
 import { UpcomingCost } from '../../model/cost';
-
-import { ApiConfigService } from './api-config.service';
 import { ForeignKeyData } from '../../model/foreignkeydata';
+
+import { ApiEndpoints } from '../core/api-endpoints';
 
 @Injectable({
   providedIn: 'root',
@@ -19,40 +18,42 @@ import { ForeignKeyData } from '../../model/foreignkeydata';
 export class MonthlyCalculationService {
   private http = inject(HttpClient);
 
-  constructor(private apiConfig: ApiConfigService) {}
+  constructor() {}
 
-  /* apiAllInvoiceSumAmountUrl */
+  /* apiAllInvoiceSumAmountUrl → ApiEndpoints.invoices.allInvoiceSumAmount */
   getTotalAmountInvoice(): Observable<TotalAmountInvoice> {
-    return this.http.get<TotalAmountInvoice>(
-      this.apiConfig.apiEnvironment.apiAllInvoiceSumAmountUrl
-    );
+    return this.http.get<TotalAmountInvoice>(ApiEndpoints.invoices.allInvoiceSumAmount);
   }
-  /* apiOnlyInvoiceListUrl */
+
+  /* apiOnlyInvoiceListUrl → ApiEndpoints.invoices.onlyInvoiceList */
   getInvoices(): Observable<Invoice[]> {
-    return this.http.get<Invoice[]>(this.apiConfig.apiEnvironment.apiOnlyInvoiceListUrl);
+    return this.http.get<Invoice[]>(ApiEndpoints.invoices.onlyInvoiceList);
   }
-  /* apiCostSummaryWithInvoiceUrl */
+
+  /* apiCostSummaryWithInvoiceUrl → ApiEndpoints.costs.summaryWithInvoice */
   getInvoicesCostSummary(): Observable<InvoiceSummary[]> {
-    return this.http.get<InvoiceSummary[]>(
-      this.apiConfig.apiEnvironment.apiCostSummaryWithInvoiceUrl
-    );
+    return this.http.get<InvoiceSummary[]>(ApiEndpoints.costs.summaryWithInvoice);
   }
+
+  /* apiInvoiceDetail → ApiEndpoints.invoices.detail */
   getInvoiceWithCostDetail(invoiceId: number): Observable<InvoiceWithCostDetail[]> {
     return this.http.get<InvoiceWithCostDetail[]>(
-      `${this.apiConfig.apiEnvironment.apiInvoiceDetail}/${invoiceId}`
+      `${ApiEndpoints.invoices.detail}${invoiceId}`
     );
   }
+
+  /* apiForeignKeyDataUrl → ApiEndpoints.costs.foreignKeyData */
   getForeignKeyData(): Observable<ForeignKeyData> {
-    return this.http.get<ForeignKeyData>(this.apiConfig.apiEnvironment.apiForeignKeyDataUrl);
+    return this.http.get<ForeignKeyData>(ApiEndpoints.costs.foreignKeyData);
   }
+
+  /* apiUpComingUnpaidCostsUrl → ApiEndpoints.costs.upcomingUnpaid */
   getUpcomingCosts(): Observable<UpcomingCost[]> {
-    return this.http
-      .get<UpcomingCost[]>(this.apiConfig.apiEnvironment.apiUpComingUnpaidCostsUrl)
-      .pipe(
-        catchError(error => {
-          console.error('Hiba a közelgő költségek lekérésekor:', error);
-          return throwError(() => new Error('Nem sikerült betölteni az adatokat.'));
-        })
-      );
+    return this.http.get<UpcomingCost[]>(ApiEndpoints.costs.upcomingUnpaid).pipe(
+      catchError(error => {
+        console.error('Hiba a közelgő költségek lekérésekor:', error);
+        return throwError(() => new Error('Nem sikerült betölteni az adatokat.'));
+      })
+    );
   }
 }
