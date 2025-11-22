@@ -1,16 +1,37 @@
-<div *ngIf="!loading && show" class="border rounded-xl p-6 shadow-md bg-white space-y-4 mb-6">
-  <header>
-    <h2 class="text-xl font-semibold text-gray-800">Számlák összesítése</h2>
+<div *ngIf="!loading && show" class="cost-summary-card">
+  <header class="flex items-center justify-between mb-2">
+    <h2 class="section-title !mb-0">
+      <span
+        class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-xs font-semibold"
+      >
+        SZ
+      </span>
+      <span>Számlák összesítése</span>
+    </h2>
+
+    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">
+      Összegzés
+    </span>
   </header>
 
-  <div class="space-y-2">
+  <div class="space-y-3 mt-2">
     <p class="flex justify-between items-center">
       <span class="text-gray-600 font-medium">Összes fizetett:</span>
-      <span class="text-green-700 font-semibold">{{ totalPaid | number: '1.0-0' }} Ft</span>
+      <span
+        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100"
+      >
+        {{ totalPaid | number: '1.0-0' }} Ft
+      </span>
     </p>
+
     <p class="flex justify-between items-center">
       <span class="text-gray-600 font-medium">Összes nem fizetett:</span>
-      <span class="text-red-700 font-semibold">{{ totalUnpaid | number: '1.0-0' }} Ft</span>
+      <span
+        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-100"
+      >
+        {{ totalUnpaid | number: '1.0-0' }} Ft
+      </span>
     </p>
   </div>
 </div>
+

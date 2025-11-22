@@ -1,52 +1,83 @@
 import { Routes } from '@angular/router';
-import { CashFlowComponent } from './cash-flow/cash-flow.component';
-import { HomeComponent } from './home/home.component';
-import { CostComponent } from './cost/cost.component';
-import { CostRepeatComponent } from './cost-repeat/cost-repeat.component';
-import { InfoComponent } from './info/info.component';
-import { InvoiceTransformComponent } from './invoice-transform/invoice-transform.component';
-import { AutoCostComponent } from './auto-cost/auto-cost.component';
-import { MonthlyCalculationComponent } from './monthly-calculation/monthly-calculation.component';
-import { LoginComponent } from './login/login.component';
-import { CostRepeatWithSumComponent } from './cost-repeat-with-sum/cost-repeat-with-sum.component';
 import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./login/login.component').then(m => m.LoginComponent),
+  },
 
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard], data: { label: 'Home' } },
-  { path: 'costrepeatwithsum', component: CostRepeatWithSumComponent, canActivate: [AuthGuard], data: { label: 'Kölcsönök' } },
+  {
+    path: 'home',
+    canActivate: [AuthGuard],
+    data: { label: 'Home' },
+    loadComponent: () =>
+      import('./home/home.component').then(m => m.HomeComponent),
+  },
+  {
+    path: 'costrepeatwithsum',
+    canActivate: [AuthGuard],
+    data: { label: 'Kölcsönök' },
+    loadComponent: () =>
+      import('./cost-repeat-with-sum/cost-repeat-with-sum.component')
+        .then(m => m.CostRepeatWithSumComponent),
+  },
   {
     path: 'cashflow',
-    component: CashFlowComponent,
     canActivate: [AuthGuard],
     data: { label: 'Fizetés/bevételek' },
+    loadComponent: () =>
+      import('./cash-flow/cash-flow.component')
+        .then(m => m.CashFlowComponent),
   },
-  { path: 'cost', component: CostComponent, canActivate: [AuthGuard], data: { label: 'Kiadások' } },
-  { path: 'info', component: InfoComponent, canActivate: [AuthGuard], data: { label: 'Info' } },
+  {
+    path: 'cost',
+    canActivate: [AuthGuard],
+    data: { label: 'Kiadások' },
+    loadComponent: () =>
+      import('./cost/cost.component')
+        .then(m => m.CostComponent),
+  },
+  {
+    path: 'info',
+    canActivate: [AuthGuard],
+    data: { label: 'Info' },
+    loadComponent: () =>
+      import('./info/info.component')
+        .then(m => m.InfoComponent),
+  },
   {
     path: 'invoicetransform',
-    component: InvoiceTransformComponent,
     canActivate: [AuthGuard],
     data: { label: 'Számlák közötti átvitel/Kalkuláció' },
+    loadComponent: () =>
+      import('./invoice-transform/invoice-transform.component')
+        .then(m => m.InvoiceTransformComponent),
   },
   {
     path: 'autocost',
-    component: AutoCostComponent,
     canActivate: [AuthGuard],
     data: { label: 'Kiadások felvitele köv hónapra' },
+    loadComponent: () =>
+      import('./auto-cost/auto-cost.component')
+        .then(m => m.AutoCostComponent),
   },
   {
     path: 'costrepeat',
-    component: CostRepeatComponent,
     canActivate: [AuthGuard],
     data: { label: 'Állandó kiadások' },
+    loadComponent: () =>
+      import('./cost-repeat/cost-repeat.component')
+        .then(m => m.CostRepeatComponent),
   },
   {
     path: 'monthlycalc',
-    component: MonthlyCalculationComponent,
     canActivate: [AuthGuard],
     data: { label: 'Havi kalkuláció' },
+    loadComponent: () =>
+      import('./monthly-calculation/monthly-calculation.component')
+        .then(m => m.MonthlyCalculationComponent),
   },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },

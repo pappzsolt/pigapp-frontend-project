@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,7 +41,11 @@
 
   /* Fejléc */
   .site-header {
-    @apply sticky top-0 z-40 border-b border-ink-200/70 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:border-ink-800/70 dark:supports-[backdrop-filter]:bg-ink-900/60;
+    @apply sticky top-0 z-40 border-b border-ink-200/70 backdrop-blur
+    supports-[backdrop-filter]:bg-white/80
+    dark:border-ink-800/70
+    dark:supports-[backdrop-filter]:bg-ink-900/70
+    shadow-sm;
   }
   .brand {
     @apply font-black text-2xl tracking-tight;
@@ -54,31 +57,47 @@
     @apply hover:opacity-80 transition;
   }
 
-  /* Gombok */
+  /* Gombok – globális, modernebb stílus */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium shadow-soft transition;
+    @apply inline-flex items-center justify-center gap-2
+    rounded-full px-4 py-2 text-sm font-medium
+    shadow-sm
+    bg-white text-ink-900
+    border border-ink-200
+    hover:bg-ink-50 hover:shadow-md
+    dark:bg-ink-900 dark:text-ink-50 dark:border-ink-800 dark:hover:bg-ink-800
+    transition-colors transition-shadow;
   }
   .btn-primary {
-    @apply btn bg-primary-600 text-white hover:bg-primary-700;
+    @apply bg-primary-600 text-white border-transparent
+    hover:bg-primary-700 hover:shadow-lg;
   }
   .btn-outline {
-    @apply btn border border-ink-200 bg-white text-ink-900 hover:bg-ink-50 dark:border-ink-800 dark:bg-ink-900 dark:text-ink-50 dark:hover:bg-ink-800;
+    @apply bg-transparent text-ink-900
+    hover:bg-ink-50
+    dark:text-ink-50 dark:hover:bg-ink-800;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center h-10 w-10 rounded-xl border border-ink-200 dark:border-ink-800;
+    @apply inline-flex items-center justify-center h-10 w-10 rounded-full
+    border border-ink-200 bg-white/70
+    hover:bg-ink-50
+    dark:border-ink-800 dark:bg-ink-900/70 dark:hover:bg-ink-800;
   }
 
   /* Jelvények */
   .badge {
-    @apply inline-flex items-center rounded-md bg-ink-900 text-white px-2 py-0.5 text-xs dark:bg-ink-700;
+    @apply inline-flex items-center rounded-full bg-ink-900 text-white px-2 py-0.5 text-xs dark:bg-ink-700;
   }
   .badge-primary {
     @apply badge bg-primary-600;
   }
 
-  /* Kártyák */
+  /* Kártyák – alap design, amit sok helyen használunk */
   .card {
-    @apply overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-soft dark:border-ink-800 dark:bg-ink-900;
+    @apply overflow-hidden rounded-2xl border border-ink-200 bg-white/95
+    shadow-md hover:shadow-lg
+    transition-shadow
+    dark:border-ink-800 dark:bg-ink-900/95;
   }
   .card-media {
     @apply relative block w-full h-48 md:h-56 overflow-hidden;
@@ -121,17 +140,21 @@
     @apply w-5 text-sm font-semibold text-ink-400 mt-1;
   }
 
-  /* Szekciók */
+  /* Szekció cím – globálisan használható */
   .section-title {
-    @apply flex items-center gap-2 text-xl font-semibold;
+    @apply flex items-center gap-2 text-xl font-semibold text-gray-900 mb-4;
   }
+
+  /* Divider */
   .divider {
     @apply border-t border-ink-200 dark:border-ink-800;
   }
 
-  /* Hírlevél */
+  /* Hírlevél input / általános input */
   .input {
-    @apply h-10 rounded-xl border border-ink-200 bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-ink-300 dark:border-ink-800 dark:bg-ink-900 dark:focus:ring-ink-700;
+    @apply h-10 rounded-xl border border-ink-200 bg-white px-3 text-sm outline-none
+    focus:ring-2 focus:ring-ink-300
+    dark:border-ink-800 dark:bg-ink-900 dark:focus:ring-ink-700;
   }
 
   /* Hero kép */
@@ -139,10 +162,7 @@
     @apply block w-full h-80 object-cover rounded-2xl;
   }
 
-  /* Rácsok */
-  .grid-main {
-    @apply grid grid-cols-1 lg:grid-cols-12 gap-6;
-  }
+  /* Rács blog-szerű oldalhoz (ha használod) */
   .grid-articles {
     @apply grid gap-6 sm:grid-cols-2;
   }
@@ -163,18 +183,20 @@
   .ring-soft {
     @apply ring-1 ring-ink-200 dark:ring-ink-800;
   }
-}
-
-@layer utilities {
+  /* A jelenleg használt fő layout rács: sidebar + content */
   .grid-main {
     @apply grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4;
   }
 }
+
 /* --- GLOBAL CUSTOM TAILWIND EXTENSIONS --- */
 
-/* Header container */
+/* Header container – invoice summary */
 .invoice-summary-header {
-  @apply bg-white p-6 rounded-xl shadow-sm border border-gray-200;
+  @apply bg-gradient-to-r from-white via-gray-50 to-white
+  p-6 rounded-2xl shadow-md
+  border border-gray-100
+  flex flex-col gap-3;
 }
 
 /* Divider pont a két dátum között */
@@ -184,12 +206,12 @@
 
 /* Dátum címkék (pill style) */
 .date-pill {
-  @apply bg-gray-100 text-gray-800 px-3 py-1 rounded-lg font-medium;
+  @apply bg-gray-100 text-gray-800 px-3 py-1 rounded-full font-medium text-sm;
 }
 
-/* Section title */
+/* Section title – invoice nézet */
 .section-title {
-  @apply text-2xl font-bold text-gray-800 mt-8 mb-4;
+  @apply flex items-center gap-2 text-2xl font-bold text-gray-800 mt-8 mb-4;
 }
 
 /* Summary card list */
@@ -208,11 +230,16 @@
 }
 
 .invoice-grid app-invoice-card:hover {
-  @apply scale-[1.02];
+  @apply -translate-y-1 scale-[1.01];
 }
-/* Fő konténer – ugyanaz az alap, mint a táblázatos verziónál */
+
+/* Fő konténer – cost summary (kártyás nézet) */
 .cost-summary-card {
-  @apply border rounded-xl p-6 shadow-md bg-white space-y-4 mb-6;
+  @apply border border-gray-100 rounded-2xl
+  p-6 shadow-md hover:shadow-lg
+  bg-gradient-to-b from-white to-gray-50
+  space-y-4 mb-6
+  transition-shadow;
 }
 
 .cost-summary-header {
@@ -234,8 +261,10 @@
 
 /* Egy elem kártya */
 .cost-item-card {
-  @apply border border-gray-200 rounded-xl p-4 bg-gray-50
-  hover:bg-gray-100 transition-colors;
+  @apply border border-gray-200 rounded-2xl p-4 bg-gray-50/80
+  hover:bg-gray-100
+  hover:shadow-sm
+  transition-colors transition-shadow;
 }
 
 /* Kártya fejléc: név + badge */
@@ -285,81 +314,7 @@
 .cost-item-total {
   @apply font-semibold text-gray-900;
 }
-/* Fő konténer – ugyanaz az alap, mint a táblázatos verziónál */
-.cost-summary-card {
-  @apply border rounded-xl p-6 shadow-md bg-white space-y-4 mb-6;
-}
 
-.cost-summary-header {
-  @apply mb-2;
-}
-
-.cost-summary-title {
-  @apply text-lg font-semibold text-gray-900 tracking-tight;
-}
-
-.cost-summary-subtitle {
-  @apply text-sm text-gray-500;
-}
-
-/* Lista */
-.cost-summary-list {
-  @apply space-y-4;
-}
-
-/* Egy elem kártya */
-.cost-item-card {
-  @apply border border-gray-200 rounded-xl p-4 bg-gray-50
-  hover:bg-gray-100 transition-colors;
-}
-
-/* Kártya fejléc: név + badge */
-.cost-item-header {
-  @apply flex items-start justify-between gap-3 mb-3;
-}
-
-.cost-item-title {
-  @apply text-base font-semibold text-gray-900;
-}
-
-.cost-item-note {
-  @apply text-sm text-gray-600;
-}
-
-/* Fizetve / nem fizetve badge */
-.cost-item-badge {
-  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
-}
-
-.badge-paid {
-  @apply bg-emerald-100 text-emerald-700 border border-emerald-200;
-}
-
-.badge-unpaid {
-  @apply bg-rose-100 text-rose-700 border border-rose-200;
-}
-
-/* Adatok gridben */
-.cost-item-grid {
-  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-2;
-}
-
-.cost-item-field {
-  @apply flex flex-col text-sm;
-}
-
-.cost-item-field dt {
-  @apply text-xs uppercase tracking-wide text-gray-500 mb-0.5;
-}
-
-.cost-item-field dd {
-  @apply text-gray-900;
-}
-
-/* Kiemelt összeg */
-.cost-item-total {
-  @apply font-semibold text-gray-900;
-}
 /* Layout az egész cashflow oldalhoz */
 .cashflow-layout {
   @apply flex flex-col md:flex-row gap-6;
@@ -367,7 +322,10 @@
 
 /* Bal oldali form kártya */
 .cashflow-form-card {
-  @apply rounded-xl shadow-md bg-white p-6 border border-gray-200 space-y-4;
+  @apply rounded-2xl shadow-md hover:shadow-lg
+  bg-gradient-to-b from-white to-gray-50
+  p-6 border border-gray-100 space-y-4
+  transition-shadow;
 }
 
 .cashflow-form-title {
@@ -389,7 +347,7 @@
 
 /* Űrlap gombok */
 .cashflow-form-actions {
-  @apply pt-2;
+  @apply pt-2 flex items-center gap-3;
 }
 
 /* Jobb oldali panel (táblák egymás alatt) */
@@ -398,12 +356,19 @@
 }
 
 .cashflow-box {
-  @apply rounded-xl shadow-md bg-white p-4 border border-gray-200;
+  @apply rounded-2xl shadow-md bg-white p-4 border border-gray-100
+  hover:shadow-lg hover:-translate-y-0.5
+  transition-shadow transition-transform;
 }
+
 /* --- CASHFLOW TABLE CARD --- */
 
 .cashflow-table-card {
-  @apply border rounded-xl p-6 shadow-md bg-white space-y-6 mb-6;
+  @apply border border-gray-100 rounded-2xl
+  p-6 shadow-md hover:shadow-lg
+  bg-gradient-to-b from-white to-gray-50
+  space-y-6 mb-6
+  transition-shadow;
 }
 
 .cashflow-table-title {
@@ -447,15 +412,17 @@
 .table-row-hover {
   @apply hover:bg-gray-50 transition-colors;
 }
-/* List container */
+
+/* List container – cost „card view” */
 .cost-list {
   @apply grid grid-cols-1 md:grid-cols-2 gap-6;
 }
 
-/* Card */
+/* Egységes cost-card kártya – lista + layout is ezt használja */
 .cost-card {
-  @apply bg-white p-5 rounded-xl shadow border border-gray-200
-  hover:shadow-md transition-shadow;
+  @apply bg-white p-6 rounded-2xl shadow-md border border-gray-100
+  hover:shadow-lg hover:-translate-y-0.5
+  transition-shadow transition-transform;
 }
 
 /* Header section */
@@ -467,7 +434,7 @@
   @apply text-lg font-semibold text-gray-800;
 }
 
-/* Status badge */
+/* Status badge cost kártyán */
 .cost-status {
   @apply px-3 py-1 rounded-full text-xs font-semibold;
 }
@@ -498,21 +465,19 @@
   @apply flex items-center gap-3;
 }
 
-.btn {
-  @apply px-4 py-2 rounded font-medium text-sm transition;
-}
-
+/* Speciális gombszínek a cost kártyáknál – a globális .btn-re épülnek */
 .btn-remove {
-  @apply bg-red-500 text-white hover:bg-red-600;
+  @apply bg-red-500 text-white border-transparent hover:bg-red-600;
 }
 
 .btn-green {
-  @apply bg-green-500 text-white hover:bg-green-600;
+  @apply bg-green-500 text-white border-transparent hover:bg-green-600;
 }
 
 .paid-icon {
   @apply flex items-center;
 }
+
 /* --- Alert --- */
 .page-alert {
   @apply mb-4;
@@ -527,26 +492,12 @@
   @apply flex flex-col md:flex-row gap-6;
 }
 
-/* --- Kártyák --- */
-.cost-card {
-  @apply rounded-xl shadow-md bg-white border border-gray-200 p-6;
-}
-
-/* Ha akarod, ezt külön a formnak finomhangolhatod */
-.cost-form-card {
-  @apply space-y-4;
-}
-
 /* Lista kártya (felső jobb oldal) */
 .cost-list-card {
   @apply space-y-4;
 }
 
-/* --- Címsorok, szövegek --- */
-.section-title {
-  @apply text-xl font-semibold text-gray-900 mb-4;
-}
-
+/* --- Címsorok, szövegek (cost oldal) --- */
 .section-title-primary {
   @apply text-2xl font-semibold text-blue-800;
 }

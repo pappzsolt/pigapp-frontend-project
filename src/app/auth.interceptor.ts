@@ -13,13 +13,15 @@ import { AuthService } from './services/auth.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(
-    null
-  );
+  private refreshTokenSubject: BehaviorSubject<string | null> =
+    new BehaviorSubject<string | null>(null);
 
   constructor(private authService: AuthService) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     const token = this.authService.getJwtToken();
     if (token) {
       request = this.addToken(request, token);
@@ -27,9 +29,15 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError(error => {
+        // 🔁 Központosított HTTP hiba loggolás
+        if (error instanceof HttpErrorResponse) {
+          this.logHttpError(error, request);
+        }
+
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
         }
+
         return throwError(() => error);
       })
     );
@@ -43,13 +51,18 @@ export class AuthInterceptor implements HttpInterceptor {
     });
   }
 
-  private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private handle401Error(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
       const refresh = this.authService.getRefreshToken();
       if (!refresh) {
+        // központosított log erre az esetre is
+        console.error('[AUTH] Nincs refresh token, nem lehet frissíteni.');
         return throwError(() => new Error('Nincs refresh token'));
       }
 
@@ -62,6 +75,13 @@ export class AuthInterceptor implements HttpInterceptor {
           return next.handle(this.addToken(request, tokenResponse.access));
         }),
         catchError(err => {
+          // frissítés hibájának loggolása is központosítva
+          if (err instanceof HttpErrorResponse) {
+            this.logHttpError(err, request, 'Token frissítés sikertelen');
+          } else {
+            console.error('[AUTH] Token frissítésnél nem HTTP hiba:', err);
+          }
+
           this.isRefreshing = false;
           return throwError(() => err);
         })
@@ -70,8 +90,30 @@ export class AuthInterceptor implements HttpInterceptor {
       return this.refreshTokenSubject.pipe(
         filter(token => token !== null),
         take(1),
-        switchMap((token: string | null) => next.handle(this.addToken(request, token!)))
+        switchMap((token: string | null) =>
+          next.handle(this.addToken(request, token!))
+        )
       );
     }
+  }
+
+  /**
+   * Központi helyen formázott HTTP hiba loggolás
+   */
+  private logHttpError(
+    error: HttpErrorResponse,
+    request: HttpRequest<any>,
+    context?: string
+  ): void {
+    const baseMessage = context ? `[HTTP ERROR] ${context}` : '[HTTP ERROR]';
+
+    console.error(baseMessage, {
+      url: request.url,
+      method: request.method,
+      status: error.status,
+      statusText: error.statusText,
+      message: error.message,
+      error: error.error,
+    });
   }
 }
