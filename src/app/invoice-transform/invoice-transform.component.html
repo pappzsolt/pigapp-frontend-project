@@ -1,46 +1,147 @@
 <div class="space-y-8">
-  <!-- Transfer message -->
-  <app-transfer-message
-    [message]="transferMessage"
-    class="block"
-  ></app-transfer-message>
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Kalkuláció</h2>
-  <!-- Summary cards -->
-  <div *ngIf="calculateCosts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <ng-container *ngFor="let card of summaryCards">
-      <app-summary-card
-        [icon]="card.icon"
-        [title]="card.title"
-        [value]="calculateCosts[card.valueKey]"
-        [colorClass]="card.colorClass"
-      ></app-summary-card>
-    </ng-container>
+  <!-- Hibaüzenet -->
+  <div *ngIf="error" class="bg-red-100 text-red-800 px-4 py-2 rounded">
+    {{ error }}
   </div>
 
-  <!-- Havi költségek listája -->
-  <div appTailwindBlueBox>
+  <!-- Fejléc + kivonat választó -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <h2 class="text-xl font-semibold text-gray-800">Bankkivonat kalkuláció</h2>
 
-
-
-
-    <app-cost-table
-      [costs]="autoCosts"
-      [disabledIds]="disabledCostIds"
-      (selectionChange)="onCostsSelectionChange($event)"
-    ></app-cost-table>
+    <div *ngIf="statements.length" class="flex items-center gap-2">
+      <label class="text-sm font-medium text-gray-700">Kivonat:</label>
+      <select
+        class="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [(ngModel)]="selectedStatementId"
+        (ngModelChange)="selectStatement($event)"
+      >
+        <option *ngFor="let s of statements" [value]="s.id">
+          {{ s.id }}
+        </option>
+      </select>
+    </div>
   </div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end mb-4">
-      <div class="col-span-1">
-        <button type="button" (click)="calculateCost()" appButton="blue" class="w-full">
-          Kalkuláció
+
+  <!-- Loader -->
+  <div *ngIf="isLoading" class="text-gray-500 text-sm">
+    Adatok betöltése...
+  </div>
+
+  <!-- Összegző kártyák -->
+  <div
+    *ngIf="!isLoading && currentStatement"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+  >
+    <app-summary-card
+      icon="💸"
+      title="Összes kiadás"
+      [value]="totalSpending"
+      colorClass="text-red-600"
+    ></app-summary-card>
+
+    <app-summary-card
+      icon="💶"
+      title="Összes bevétel"
+      [value]="totalIncome"
+      colorClass="text-green-600"
+    ></app-summary-card>
+
+    <app-summary-card
+      icon="✅"
+      title="Kijelölt tételek összege"
+      [value]="selectedTotal"
+      colorClass="text-blue-600"
+    ></app-summary-card>
+  </div>
+
+  <!-- Tranzakciók táblázata + checkboxok -->
+  <div *ngIf="!isLoading && transactions.length" appTailwindBlueBox>
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-semibold text-gray-800">Tranzakciók</h3>
+
+      <div class="flex gap-2">
+        <button
+          type="button"
+          appButton="blue"
+          (click)="selectAll()"
+        >
+          Mind kijelöl
+        </button>
+        <button
+          type="button"
+          appButton="secondary"
+          (click)="deselectAll()"
+        >
+          Kijelölés törlése
         </button>
       </div>
+    </div>
 
-      <!-- Ha van további gomb, ide jöhet -->
-      <div class="col-span-1">
-        <!-- Placeholder -->
-      </div>
-    </form>
+    <div class="overflow-x-auto">
+      <table
+        class="min-w-full border border-gray-200 text-sm"
+        appTailwindStyledTable
+      >
+        <thead>
+        <tr>
+          <th class="border px-2 py-1 text-center">
+            <input
+              type="checkbox"
+              (change)="($event.target.checked ? selectAll() : deselectAll())"
+            />
+          </th>
+          <th class="border px-2 py-1">Dátum</th>
+          <th class="border px-2 py-1">Leírás</th>
+          <th class="border px-2 py-1">Kategória</th>
+          <th class="border px-2 py-1 text-right">Összeg</th>
+          <th class="border px-2 py-1 text-right">Egyenleg</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tx of transactions">
+          <td class="border px-2 py-1 text-center">
+            <input type="checkbox" [(ngModel)]="tx.selected" />
+          </td>
+          <td class="border px-2 py-1">
+            {{ tx.konyvelesi_datum }}
+          </td>
+          <td class="border px-2 py-1">
+            {{ tx.leiras }}
+          </td>
+          <td class="border px-2 py-1">
+            {{ tx.category }}
+          </td>
+          <td class="border px-2 py-1 text-right">
+            {{ tx.osszeg | number: '1.0-2' }} HUF
+          </td>
+          <td class="border px-2 py-1 text-right">
+            {{ tx.egyenleg | number: '1.0-2' }} HUF
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Kijelölt tételek összege -->
+    <div class="mt-4 font-semibold">
+      Kijelölt tételek összesen:
+      <span
+        [ngClass]="{
+          'text-red-600': selectedTotal < 0,
+          'text-green-600': selectedTotal > 0,
+          'text-gray-700': selectedTotal === 0
+        }"
+      >
+        {{ selectedTotal | number: '1.0-2' }} HUF
+      </span>
+    </div>
+  </div>
+
+  <!-- Ha nincs tranzakció -->
+  <div
+    *ngIf="!isLoading && !transactions.length"
+    class="text-gray-500 text-sm"
+  >
+    Nincs megjeleníthető tranzakció.
+  </div>
 </div>
-
-

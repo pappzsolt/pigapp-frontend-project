@@ -356,9 +356,9 @@ export {
 
 @angular/animations/fesm2022/private_export-faY_wCkZ.mjs:
   (**
-   * @license Angular v19.2.15
+   * @license Angular v19.2.16
    * (c) 2010-2025 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-NUEDIEID.js.map
+//# sourceMappingURL=chunk-G2X4OXKE.js.map

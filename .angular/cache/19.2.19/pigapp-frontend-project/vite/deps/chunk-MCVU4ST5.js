@@ -3,14 +3,14 @@ import {
   DomAdapter,
   getDOM,
   setRootDomAdapter
-} from "./chunk-GQ6LRKJQ.js";
+} from "./chunk-CYKZXBCN.js";
 import {
   DOCUMENT,
   PLATFORM_BROWSER_ID,
   XhrFactory,
   isPlatformServer,
   parseCookieValue
-} from "./chunk-QDIDUNMF.js";
+} from "./chunk-BEVEWTA2.js";
 import {
   APP_ID,
   ApplicationModule,
@@ -45,7 +45,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-ANVCJLGX.js";
+} from "./chunk-U2H2UYH2.js";
 import {
   __spreadProps,
   __spreadValues
@@ -1226,9 +1226,9 @@ export {
 @angular/platform-browser/fesm2022/dom_renderer-DGKzginR.mjs:
 @angular/platform-browser/fesm2022/browser-0WrrQdE0.mjs:
   (**
-   * @license Angular v19.2.15
+   * @license Angular v19.2.16
    * (c) 2010-2025 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-ZLHXMVBC.js.map
+//# sourceMappingURL=chunk-MCVU4ST5.js.map

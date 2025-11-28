@@ -3,7 +3,7 @@ import {
   XhrFactory,
   isPlatformServer,
   parseCookieValue
-} from "./chunk-QDIDUNMF.js";
+} from "./chunk-BEVEWTA2.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -38,7 +38,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-ANVCJLGX.js";
+} from "./chunk-U2H2UYH2.js";
 import {
   Observable,
   concatMap,
@@ -56,7 +56,7 @@ import {
   __spreadValues
 } from "./chunk-WDMUDEB6.js";
 
-// node_modules/@angular/common/fesm2022/module-z3bvLlVg.mjs
+// node_modules/@angular/common/fesm2022/module-JS82OH2B.mjs
 var HttpHandler = class {
 };
 var HttpBackend = class {
@@ -1962,9 +1962,9 @@ var HttpXsrfCookieExtractor = class _HttpXsrfCookieExtractor {
     }]
   }], null);
 })();
+var ABSOLUTE_URL_REGEX = /^(?:https?:)?\/\//i;
 function xsrfInterceptorFn(req, next) {
-  const lcUrl = req.url.toLowerCase();
-  if (!inject(XSRF_ENABLED) || req.method === "GET" || req.method === "HEAD" || lcUrl.startsWith("http://") || lcUrl.startsWith("https://")) {
+  if (!inject(XSRF_ENABLED) || req.method === "GET" || req.method === "HEAD" || ABSOLUTE_URL_REGEX.test(req.url)) {
     return next(req);
   }
   const token = inject(HttpXsrfTokenExtractor).getToken();
@@ -2560,12 +2560,12 @@ export {
 };
 /*! Bundled license information:
 
-@angular/common/fesm2022/module-z3bvLlVg.mjs:
+@angular/common/fesm2022/module-JS82OH2B.mjs:
 @angular/common/fesm2022/http.mjs:
   (**
-   * @license Angular v19.2.15
+   * @license Angular v19.2.16
    * (c) 2010-2025 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-ZC3SGFJN.js.map
+//# sourceMappingURL=chunk-7VPYX2AH.js.map

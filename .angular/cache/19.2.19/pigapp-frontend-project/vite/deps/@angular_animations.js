@@ -17,11 +17,11 @@ import {
   trigger,
   useAnimation,
   ɵPRE_STYLE
-} from "./chunk-NUEDIEID.js";
-import "./chunk-GQ6LRKJQ.js";
+} from "./chunk-G2X4OXKE.js";
+import "./chunk-CYKZXBCN.js";
 import {
   DOCUMENT
-} from "./chunk-QDIDUNMF.js";
+} from "./chunk-BEVEWTA2.js";
 import {
   ANIMATION_MODULE_TYPE,
   Inject,
@@ -33,9 +33,9 @@ import {
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-ANVCJLGX.js";
-import "./chunk-PEBH6BBU.js";
+} from "./chunk-U2H2UYH2.js";
 import "./chunk-WPM5VTLQ.js";
+import "./chunk-PEBH6BBU.js";
 import "./chunk-4S3KYZTJ.js";
 import "./chunk-WDMUDEB6.js";
 
@@ -230,7 +230,7 @@ export {
 
 @angular/animations/fesm2022/animations.mjs:
   (**
-   * @license Angular v19.2.15
+   * @license Angular v19.2.16
    * (c) 2010-2025 Google LLC. https://angular.io/
    * License: MIT
    *)
