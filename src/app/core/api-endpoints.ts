@@ -31,17 +31,17 @@ export const ApiEndpoints = {
 
   /** Costs (költségek) */
   costs: {
-    foreignKeyData: `${PIGAPP}/foreignkey-data/`,             // apiForeignKeyDataUrl
-    create: `${PIGAPP}/create-cost/`,                         // apiCreateCostUrl
-    list: `${PIGAPP}/cost_list_natur/`,                       // apiCostListUrl
-    detail: `${PIGAPP}/cost-detail/`,                         // apiDetailCostUrl
-    filterActualDay: `${PIGAPP}/actual_day_cost_filter/`,     // filterCostUrl
-    groupCost: `${PIGAPP}/costgroup-cost/`,                   // apiCostGroupCostUrl
+    foreignKeyData: `${PIGAPP}/foreignkey-data/`,                   // apiForeignKeyDataUrl
+    create: `${PIGAPP}/create-cost/`,                               // apiCreateCostUrl
+    list: `${PIGAPP}/cost_list_natur/`,                             // apiCostListUrl
+    detail: `${PIGAPP}/cost-detail/`,                               // apiDetailCostUrl
+    filterActualDay: `${PIGAPP}/actual_day_cost_filter/`,           // filterCostUrl
+    groupCost: `${PIGAPP}/costgroup-cost/`,                         // apiCostGroupCostUrl
     currentMonthCostGroup5: `${PIGAPP}/current-month-costgroup-5/`, // apiCurrentMonthCostGroupUrl
-    summary: `${PIGAPP_API}/cost-summary/`,                   // apiInfoUrl
-    summaryWithInvoice: `${PIGAPP_API}/cost-summary/`,        // apiCostSummaryWithInvoiceUrl (ugyanaz az endpoint, más logika)
-    repeatWithSum5: `${PIGAPP_API}/cost-summary/5/`,          // apiCostRepeatWithSum
-    upcomingUnpaid: `${PIGAPP_API}/upcoming-unpaid-costs/`,   // apiUpComingUnpaidCostsUrl
+    summary: `${PIGAPP_API}/cost-summary/`,                         // apiInfoUrl
+    summaryWithInvoice: `${PIGAPP_API}/cost-summary/`,              // apiCostSummaryWithInvoiceUrl (ugyanaz az endpoint, más logika)
+    repeatWithSum5: `${PIGAPP_API}/cost-summary/5/`,                // apiCostRepeatWithSum
+    upcomingUnpaid: `${PIGAPP_API}/upcoming-unpaid-costs/`,         // apiUpComingUnpaidCostsUrl
   },
 
   /** Invoices (számlák) */
@@ -61,12 +61,26 @@ export const ApiEndpoints = {
     listAll: `${PIGAPP}/costrepeat_list/`,                    // apiCostRepeatGetAllUrl
     invoiceSummary: `${PIGAPP_API}/cost-repeat-summary/`,     // apiCostRepeatInvoiceSummary
   },
+
+  /** Bank statements (bankkivonatok / CIB parse) */
+  bankStatements: {
+    /**
+     * Lista:
+     * http://127.0.0.1:8000/api/pigapp_app/api/cib-parse/
+     *
+     * => PIGAPP_API + '/cib-parse/'
+     */
+    list: `${PIGAPP_API}/cib-parse/`,
+    // Ha később lesz külön detail endpoint:
+    // detail: (id: string | number) => `${PIGAPP_API}/cib-parse/${id}/`,
+  },
 };
 
-// ÚJ
-//import { ApiEndpoints } from '../core/api-endpoints';
-//this.http.get(ApiEndpoints.costs.list);
-
-// ÚJ
-//this.http.post(ApiEndpoints.invoices.saveInvoiceDetail, body);
-//this.http.post(ApiEndpoints.auth.token, credentials);
+// Példák használatra:
+//
+// this.http.get(ApiEndpoints.costs.list);
+// this.http.post(ApiEndpoints.invoices.saveInvoiceDetail, body);
+// this.http.post(ApiEndpoints.auth.token, credentials);
+//
+// Bankkivonatok / CIB parse lekérése:
+// this.http.get(ApiEndpoints.bankStatements.list);

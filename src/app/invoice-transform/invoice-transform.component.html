@@ -5,8 +5,12 @@
   </div>
 
   <!-- Fejléc + kivonat választó -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <h2 class="text-xl font-semibold text-gray-800">Bankkivonat kalkuláció</h2>
+  <div
+    class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+  >
+    <h2 class="text-xl font-semibold text-gray-800">
+      Bankkivonat kalkuláció
+    </h2>
 
     <div *ngIf="statements.length" class="flex items-center gap-2">
       <label class="text-sm font-medium text-gray-700">Kivonat:</label>
@@ -14,6 +18,7 @@
         class="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         [(ngModel)]="selectedStatementId"
         (ngModelChange)="selectStatement($event)"
+        appTailwindStyledSelect
       >
         <option *ngFor="let s of statements" [value]="s.id">
           {{ s.id }}
@@ -40,13 +45,6 @@
     ></app-summary-card>
 
     <app-summary-card
-      icon="💶"
-      title="Összes bevétel"
-      [value]="totalIncome"
-      colorClass="text-green-600"
-    ></app-summary-card>
-
-    <app-summary-card
       icon="✅"
       title="Kijelölt tételek összege"
       [value]="selectedTotal"
@@ -54,47 +52,44 @@
     ></app-summary-card>
   </div>
 
-  <!-- Tranzakciók táblázata + checkboxok -->
+  <!-- Tranzakciók (all_transactions) táblázat + checkboxok -->
   <div *ngIf="!isLoading && transactions.length" appTailwindBlueBox>
     <div class="flex items-center justify-between mb-3">
-      <h3 class="font-semibold text-gray-800">Tranzakciók</h3>
+      <h3 class="font-semibold text-gray-800">
+        Tranzakciók (kivonat tételei)
+      </h3>
 
       <div class="flex gap-2">
-        <button
-          type="button"
-          appButton="blue"
-          (click)="selectAll()"
-        >
+        <button type="button" appButton="blue" (click)="selectAll()">
           Mind kijelöl
         </button>
-        <button
-          type="button"
-          appButton="secondary"
-          (click)="deselectAll()"
-        >
+        <button type="button" appButton="red" (click)="deselectAll()">
           Kijelölés törlése
         </button>
       </div>
     </div>
 
-    <div class="overflow-x-auto">
+    <!-- Scrollozható táblázat, sticky fejléccel -->
+    <div
+      class="overflow-x-auto max-h-80 overflow-y-auto border border-gray-200 rounded-md"
+    >
       <table
-        class="min-w-full border border-gray-200 text-sm"
+        class="min-w-full text-sm"
         appTailwindStyledTable
       >
-        <thead>
+        <thead class="bg-gray-50 sticky top-0 z-10">
         <tr>
-          <th class="border px-2 py-1 text-center">
+          <th class="border px-2 py-1 text-center bg-gray-50">
             <input
               type="checkbox"
-              (change)="($event.target.checked ? selectAll() : deselectAll())"
+              (change)="onMasterCheckboxChange($event)"
             />
           </th>
-          <th class="border px-2 py-1">Dátum</th>
-          <th class="border px-2 py-1">Leírás</th>
-          <th class="border px-2 py-1">Kategória</th>
-          <th class="border px-2 py-1 text-right">Összeg</th>
-          <th class="border px-2 py-1 text-right">Egyenleg</th>
+          <th class="border px-2 py-1 bg-gray-50">Dátum</th>
+          <th class="border px-2 py-1 bg-gray-50">Leírás</th>
+          <th class="border px-2 py-1 bg-gray-50">Kategória</th>
+          <th class="border px-2 py-1 text-right bg-gray-50">Összeg</th>
+          <th class="border px-2 py-1 text-right bg-gray-50">Egyenleg</th>
         </tr>
         </thead>
         <tbody>
@@ -143,5 +138,191 @@
     class="text-gray-500 text-sm"
   >
     Nincs megjeleníthető tranzakció.
+  </div>
+
+  <!-- OUTGOING BY IBAN (outgoing_by_iban) -->
+  <div
+    *ngIf="!isLoading && outgoingByIbanList?.length"
+    appTailwindBlueBox
+    class="space-y-4"
+  >
+    <h3 class="font-semibold text-gray-800">Kimenő utalások IBAN szerint</h3>
+
+    <div class="grid gap-4 md:grid-cols-2">
+      <div
+        *ngFor="let o of outgoingByIbanList"
+        class="border border-gray-200 rounded-lg p-3 bg-white shadow-sm"
+      >
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <div class="text-xs text-gray-500">IBAN</div>
+            <div class="font-mono text-sm text-gray-800">
+              {{ o.iban || '–' }}
+            </div>
+            <div class="text-xs text-gray-500 mt-1">
+              Partner: <span class="font-medium">{{ o.partner || '–' }}</span>
+            </div>
+          </div>
+          <div
+            class="text-right font-semibold"
+            [ngClass]="{
+              'text-red-600': o.total_amount < 0,
+              'text-green-600': o.total_amount > 0
+            }"
+          >
+            {{ o.total_amount | number: '1.0-0' }} HUF
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-100 mt-2 pt-2 space-y-1 max-h-52 overflow-auto"
+        >
+          <div
+            *ngFor="let tx of o.transactions"
+            class="flex items-center justify-between text-xs"
+          >
+            <span class="w-24 shrink-0 font-mono text-gray-600">
+              {{ tx.date }}
+            </span>
+            <span class="flex-1 truncate px-2 text-gray-700">
+              {{ tx.description }}
+            </span>
+            <span
+              class="w-24 text-right"
+              [ngClass]="{
+                'text-red-600': tx.amount < 0,
+                'text-green-600': tx.amount > 0
+              }"
+            >
+              {{ tx.amount | number: '1.0-0' }} HUF
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAPI KÖLTÉS (daily_spending) -->
+  <div
+    *ngIf="!isLoading && dailySpendingItems.length"
+    appTailwindBlueBox
+    class="mt-6 space-y-3"
+  >
+    <h3 class="font-semibold text-gray-800">Napi költés</h3>
+
+    <div class="space-y-2">
+      <div
+        *ngFor="let d of dailySpendingItems"
+        class="flex items-center gap-2 text-xs"
+      >
+        <div class="w-24 font-mono text-gray-700">{{ d.date }}</div>
+
+        <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div
+            class="h-full"
+            [ngClass]="d.amount < 0 ? 'bg-red-400' : 'bg-green-400'"
+            [style.width.%]="getDailyBarWidth(d.amount)"
+          ></div>
+        </div>
+
+        <div
+          class="w-24 text-right font-semibold"
+          [ngClass]="{
+            'text-red-600': d.amount < 0,
+            'text-green-600': d.amount > 0
+          }"
+        >
+          {{ d.amount | number: '1.0-0' }} HUF
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BELSŐ UTALÁSOK (internal_transfers) -->
+  <div
+    *ngIf="!isLoading && internalTransfers"
+    appTailwindBlueBox
+    class="mt-6 space-y-3"
+  >
+    <h3 class="font-semibold text-gray-800">Saját számlák közti utalások</h3>
+
+    <div class="flex items-center justify-between text-sm">
+      <span class="text-gray-700">Összes belső átvezetés:</span>
+      <span
+        class="font-semibold"
+        [ngClass]="{
+          'text-red-600': (internalTransfers?.total || 0) < 0,
+          'text-green-600': (internalTransfers?.total || 0) > 0
+        }"
+      >
+        {{ internalTransfers?.total | number: '1.0-0' }} HUF
+      </span>
+    </div>
+
+    <div
+      class="border-t border-gray-100 pt-2 space-y-1 max-h-60 overflow-auto"
+    >
+      <div
+        *ngFor="let tx of internalTransfers?.transactions"
+        class="flex items-center justify-between text-xs"
+      >
+        <span class="w-24 shrink-0 font-mono text-gray-600">
+          {{ tx.date }}
+        </span>
+        <span class="flex-1 truncate px-2 text-gray-700">
+          {{ tx.description }}
+        </span>
+        <span
+          class="w-24 text-right"
+          [ngClass]="{
+            'text-red-600': tx.amount < 0,
+            'text-green-600': tx.amount > 0
+          }"
+        >
+          {{ tx.amount | number: '1.0-0' }} HUF
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KATEGÓRIA ÖSSZESÍTÉS (category_totals) -->
+  <div
+    *ngIf="!isLoading && categoryTotalItems?.length"
+    appTailwindBlueBox
+    class="mt-6 space-y-3"
+  >
+    <h3 class="font-semibold text-gray-800">Költés kategóriánként</h3>
+
+    <div class="space-y-2">
+      <div
+        *ngFor="let c of categoryTotalItems"
+        class="flex items-center justify-between text-sm"
+      >
+        <div class="flex items-center gap-2">
+          <span
+            class="inline-flex h-2 w-2 rounded-full"
+            [ngClass]="{
+              'bg-red-400': c.amount < 0,
+              'bg-green-400': c.amount > 0,
+              'bg-gray-300': c.amount === 0
+            }"
+          ></span>
+          <span class="capitalize text-gray-700">
+            {{ c.category }}
+          </span>
+        </div>
+
+        <div
+          class="font-semibold"
+          [ngClass]="{
+            'text-red-600': c.amount < 0,
+            'text-green-600': c.amount > 0,
+            'text-gray-700': c.amount === 0
+          }"
+        >
+          {{ c.amount | number: '1.0-0' }} HUF
+        </div>
+      </div>
+    </div>
   </div>
 </div>

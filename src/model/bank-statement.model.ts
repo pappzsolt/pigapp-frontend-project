@@ -1,8 +1,12 @@
+// src/app/model/bank-statement.model.ts
+
+// Egyetlen tranzakció a kivonatban
 export interface Transaction {
   konyvelesi_datum: string;
   leiras: string;
   osszeg: number;
   egyenleg: number;
+
   partner: string;
   iban: string;
   extra_sor_1: string;
@@ -11,6 +15,7 @@ export interface Transaction {
   other_party_name: string;
   comment: string;
   category: string;
+
   card_bin: string;
   card_last4: string;
   card_masked: string;
@@ -24,6 +29,8 @@ export interface Transaction {
   card_merchant: string;
 }
 
+// ----- outgoing_by_iban -----
+
 export interface OutgoingByIbanTransaction {
   date: string;
   amount: number;
@@ -31,19 +38,21 @@ export interface OutgoingByIbanTransaction {
   description: string;
 }
 
-export interface OutgoingByIbanEntry {
+export interface OutgoingByIban {
   partner: string;
   total_amount: number;
   transactions: OutgoingByIbanTransaction[];
 }
 
-export interface OutgoingByIban {
-  [iban: string]: OutgoingByIbanEntry;
+// View-model a template-hez (hozzátesszük az IBAN-t is)
+export interface OutgoingByIbanItem {
+  iban: string;
+  partner: string;
+  total_amount: number;
+  transactions: OutgoingByIbanTransaction[];
 }
 
-export interface DailySpending {
-  [isoDate: string]: number; // pl. "2025-10-01": -9290
-}
+// ----- internal_transfers -----
 
 export interface InternalTransferTransaction {
   date: string;
@@ -52,45 +61,44 @@ export interface InternalTransferTransaction {
   description: string;
 }
 
-export interface InternalTransfers {
+export interface InternalTransfersSummary {
   total: number;
   transactions: InternalTransferTransaction[];
 }
 
-/**
- * Itt volt a TS2411 hiba → az index signature-t módosítottuk
- * number | undefined-re.
- */
-export interface CategoryTotals {
-  [category: string]: number | undefined;
-  atm?: number;
-  food?: number;
-  other?: number;
-  services?: number;
-  transfer?: number;
-  transport?: number;
+// ----- category_totals -----
+
+export type CategoryTotals = Record<string, number>;
+
+export interface CategoryTotalItem {
+  category: string;
+  amount: number;
 }
+
+// ----- daily_spending -----
+
+export type DailySpendingMap = Record<string, number>;
+
+// ----- fő BankStatement -----
 
 export interface BankStatement {
   all_transactions: Transaction[];
-  outgoing_by_iban: OutgoingByIban;
-  daily_spending: DailySpending;
-  internal_transfers: InternalTransfers;
+
+  outgoing_by_iban: {
+    [iban: string]: OutgoingByIban;
+  };
+
+  daily_spending: DailySpendingMap;
+
+  internal_transfers: InternalTransfersSummary;
+
   category_totals: CategoryTotals;
 }
 
-/**
- * A backend válasza a példád alapján:
- * {
- *   "Statement_PDF_...2025.11.01": { ...BankStatement... },
- *   "Statement_PDF_...2025.12.01": { ...BankStatement... }
- * }
- */
-export interface BankStatementMap {
-  [statementId: string]: BankStatement;
-}
+// Backend map: { "Statement_PDF_...": BankStatement }
+export type BankStatementMap = Record<string, BankStatement>;
 
-/** Segéd típus listanézethez */
+// Lista nézethez: { id, data }
 export interface BankStatementItem {
   id: string;
   data: BankStatement;

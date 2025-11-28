@@ -1,3 +1,5 @@
+// src/app/invoice-transform/invoice-transform.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,11 +9,13 @@ import {
   BankStatement,
   BankStatementItem,
   Transaction,
+  OutgoingByIbanItem,
+  InternalTransfersSummary,
+  CategoryTotalItem,
 } from '../../model/bank-statement.model';
 
 import { BankStatementService } from '../services/bank-statement.service';
 
-// Ha a template-ben használod ezeket, maradhatnak:
 import { SummaryCardComponent } from '../shared/summary-card/summary-card.component';
 import { TransferMessageComponent } from '../transfer-message/transfer-message.component';
 import { CostTableComponent } from './cost-transform-table/cost-transform-table.component';
@@ -42,9 +46,7 @@ type SelectableTransaction = Transaction & { selected: boolean };
         style({ opacity: 0 }),
         animate('300ms 200ms', style({ opacity: 1 })),
       ]),
-      transition(':leave', [
-        animate('300ms', style({ opacity: 0 })),
-      ]),
+      transition(':leave', [animate('300ms', style({ opacity: 0 }))]),
     ]),
   ],
 })
@@ -64,9 +66,7 @@ export class InvoiceTransformComponent implements OnInit {
   isLoading = true;
   error: string | null = null;
 
-  constructor(
-    private bankStatementService: BankStatementService,
-  ) {}
+  constructor(private bankStatementService: BankStatementService) {}
 
   ngOnInit(): void {
     this.loadStatements();
@@ -122,23 +122,32 @@ export class InvoiceTransformComponent implements OnInit {
   // Checkbox logika
   // -----------------------------
 
-  // Egy sor kijelölése/kijelölés törlése
+  onMasterCheckboxChange(event: Event): void {
+    const input = event.target as HTMLInputElement | null;
+    if (!input) {
+      return;
+    }
+
+    if (input.checked) {
+      this.selectAll();
+    } else {
+      this.deselectAll();
+    }
+  }
+
   toggleTransactionSelection(tx: SelectableTransaction): void {
     tx.selected = !tx.selected;
   }
 
-  // Összes kijelölése
   selectAll(): void {
     this.transactions.forEach((t) => (t.selected = true));
   }
 
-  // Összes kijelölés törlése
   deselectAll(): void {
     this.transactions.forEach((t) => (t.selected = false));
   }
 
   // Kijelölt tételek összesen (összeg mező)
-  // Ha csak kiadásokat akarsz, akkor itt szűrhetsz: t.osszeg < 0
   get selectedTotal(): number {
     return this.transactions
       .filter((t) => t.selected)
@@ -170,6 +179,66 @@ export class InvoiceTransformComponent implements OnInit {
     if (!this.currentStatement) {
       return [];
     }
-    return this.bankStatementService.getDailySpendingItems(this.currentStatement);
+    return this.bankStatementService.getDailySpendingItems(
+      this.currentStatement,
+    );
   }
+
+  // Kimenő utalások IBAN szerint
+  get outgoingByIbanList(): OutgoingByIbanItem[] {
+    if (!this.currentStatement) {
+      return [];
+    }
+    return this.bankStatementService.getOutgoingByIbanItems(
+      this.currentStatement,
+    );
+  }
+
+  // Saját számlák közti utalások
+  get internalTransfers(): InternalTransfersSummary | null {
+    if (!this.currentStatement) {
+      return null;
+    }
+    return this.bankStatementService.getInternalTransfers(
+      this.currentStatement,
+    );
+  }
+
+  // Kategória összesítések
+  get categoryTotalItems(): CategoryTotalItem[] {
+    if (!this.currentStatement) {
+      return [];
+    }
+    return this.bankStatementService.getCategoryTotalItems(
+      this.currentStatement,
+    );
+  }
+  /**
+   * Legnagyobb abszolút napi költés (daily_spending alapján).
+   * Ezt használjuk a sávok szélességének arányosításához.
+   */
+  get maxDailySpendingAbs(): number {
+    const items = this.dailySpendingItems;
+    if (!items.length) {
+      return 1;
+    }
+
+    return items.reduce((max, item) => {
+      const val = Math.abs(item.amount);
+      return val > max ? val : max;
+    }, 0);
+  }
+
+  /**
+   * Napi költés sáv szélessége %-ban.
+   */
+  getDailyBarWidth(amount: number): number {
+    const max = this.maxDailySpendingAbs;
+    if (max <= 0) {
+      return 0;
+    }
+    const perc = (Math.abs(amount) / max) * 100;
+    return Math.min(100, perc);
+  }
+
 }

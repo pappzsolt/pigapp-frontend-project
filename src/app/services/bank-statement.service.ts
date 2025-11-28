@@ -1,29 +1,36 @@
+// src/app/invoice-transform/services/bank-statement.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+
 import {
   BankStatement,
   BankStatementItem,
   BankStatementMap,
+  OutgoingByIbanItem,
+  InternalTransfersSummary,
+  CategoryTotalItem,
 } from '../../model/bank-statement.model';
+import { ApiEndpoints } from '../core/api-endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BankStatementService {
   /**
-   * Backend endpoint – állítsd be arra, amit ténylegesen használsz,
-   * pl. /api/bank-statements, /api/cib-statements stb.
+   * Backend endpoint – itt most a PIGAPP_API-s lista endpoint:
+   * /api/pigapp_app/api/cib-parse/  → nálad: bank-statements
    */
-  private readonly baseUrl = '/api/bank-statements';
+  private readonly baseUrl = ApiEndpoints.bankStatements.list;
 
   constructor(private http: HttpClient) {}
 
   /**
-   * Teljes map lekérése:
+   * Teljes map:
    * {
    *   "Statement_PDF_...": { ... },
-   *   "Statement_PDF_...": { ... }
+   *   ...
    * }
    */
   getStatementsMap(): Observable<BankStatementMap> {
@@ -31,7 +38,7 @@ export class BankStatementService {
   }
 
   /**
-   * Listanézethez kényelmesebb forma:
+   * Lista:
    * [
    *   { id: 'Statement_PDF_...', data: { ... } },
    *   ...
@@ -49,47 +56,87 @@ export class BankStatementService {
   }
 
   /**
-   * Egy konkrét kivonat lekérése ID alapján.
-   *
-   * Feltételezés:
-   *   GET /api/bank-statements/:id
-   * közvetlenül a BankStatement objektumot adja vissza.
-   *
-   * Ha nálad itt is egy map jön (pl. { "Statement_PDF...": {...}}),
-   * akkor a típust és a map-olást ennek megfelelően módosítani kell.
+   * Egy konkrét kivonat ID alapján (ha lesz külön detail endpoint).
    */
   getStatementById(id: string): Observable<BankStatement> {
     return this.http.get<BankStatement>(
-      `${this.baseUrl}/${encodeURIComponent(id)}`
+      `${this.baseUrl}/${encodeURIComponent(id)}`,
     );
   }
 
-  /**
-   * Helper: napi költés (daily_spending) átalakítva grafikonbarát tömbbé.
-   */
+  // -----------------------------
+  // Helper: napi költés grafikonhoz
+  // -----------------------------
   getDailySpendingItems(
-    statement: BankStatement
+    statement: BankStatement,
   ): { date: string; amount: number }[] {
+    if (!statement.daily_spending) {
+      return [];
+    }
+
     return Object.entries(statement.daily_spending)
       .map(([date, amount]) => ({ date, amount }))
       .sort((a, b) => a.date.localeCompare(b.date));
   }
 
-  /**
-   * Helper: összes kiadás (negatív összegek összege az all_transactions-ből).
-   */
+  // -----------------------------
+  // Helper: összes kiadás (negatív összegek)
+  // -----------------------------
   getTotalSpending(statement: BankStatement): number {
     return statement.all_transactions
       .filter((t) => t.osszeg < 0)
       .reduce((sum, t) => sum + t.osszeg, 0);
   }
 
-  /**
-   * Helper: összes bevétel (pozitív összegek összege).
-   */
+  // -----------------------------
+  // Helper: összes bevétel (pozitív összegek)
+  // -----------------------------
   getTotalIncome(statement: BankStatement): number {
     return statement.all_transactions
       .filter((t) => t.osszeg > 0)
       .reduce((sum, t) => sum + t.osszeg, 0);
+  }
+
+  // -----------------------------
+  // Helper: outgoing_by_iban → lista
+  // -----------------------------
+  getOutgoingByIbanItems(statement: BankStatement): OutgoingByIbanItem[] {
+    if (!statement.outgoing_by_iban) {
+      return [];
+    }
+
+    return Object.entries(statement.outgoing_by_iban).map(
+      ([iban, value]) => ({
+        iban,
+        partner: value.partner,
+        total_amount: value.total_amount,
+        transactions: value.transactions,
+      }),
+    );
+  }
+
+  // -----------------------------
+  // Helper: internal_transfers
+  // -----------------------------
+  getInternalTransfers(
+    statement: BankStatement,
+  ): InternalTransfersSummary | null {
+    return statement.internal_transfers ?? null;
+  }
+
+  // -----------------------------
+  // Helper: category_totals → lista
+  // -----------------------------
+  getCategoryTotalItems(statement: BankStatement): CategoryTotalItem[] {
+    if (!statement.category_totals) {
+      return [];
+    }
+
+    return Object.entries(statement.category_totals).map(
+      ([category, amount]) => ({
+        category,
+        amount,
+      }),
+    );
   }
 }
