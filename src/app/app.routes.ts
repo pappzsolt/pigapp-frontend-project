@@ -72,6 +72,14 @@ export const routes: Routes = [
         .then(m => m.CostRepeatComponent),
   },
   {
+    path: 'upcomingcosts',
+    canActivate: [AuthGuard],
+    data: { label: 'Közelgő kiadások' },
+    loadComponent: () =>
+      import('./upcoming-costs/upcoming-costs.component')
+        .then(m => m.UpcomingCostsComponent),
+  },
+  {
     path: 'monthlycalc',
     canActivate: [AuthGuard],
     data: { label: 'Havi kalkuláció' },
@@ -82,4 +90,6 @@ export const routes: Routes = [
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },
+
+
 ];

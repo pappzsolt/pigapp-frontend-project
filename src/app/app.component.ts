@@ -8,11 +8,20 @@ import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 import { Observable } from 'rxjs';
+import { SidebarmenurightComponent } from './sidebar-menu/sidebarmenuright.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, FooterComponent, NavbarComponent, SidebarMenuComponent],
+  imports: [
+    RouterOutlet,
+    ReactiveFormsModule,
+    CommonModule,
+    FooterComponent,
+    NavbarComponent,
+    SidebarMenuComponent,
+    SidebarmenurightComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })

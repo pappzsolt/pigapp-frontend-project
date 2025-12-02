@@ -1,0 +1,37 @@
+<aside class="sidebar-right">
+  <div class="sidebar-header">
+    <h3>{{ title }}</h3>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul>
+      <li *ngFor="let item of items" class="sidebar-item">
+        <a
+          *ngIf="item.route; else noRoute"
+          [routerLink]="item.route"
+          class="sidebar-link"
+        >
+          <span *ngIf="item.icon" class="sidebar-icon">
+            <i [class]="item.icon"></i>
+          </span>
+          <span class="sidebar-label">{{ item.label }}</span>
+          <span *ngIf="item.badge" class="sidebar-badge">
+            {{ item.badge }}
+          </span>
+        </a>
+
+        <ng-template #noRoute>
+          <span class="sidebar-link sidebar-link-static">
+            <span *ngIf="item.icon" class="sidebar-icon">
+              <i [class]="item.icon"></i>
+            </span>
+            <span class="sidebar-label">{{ item.label }}</span>
+            <span *ngIf="item.badge" class="sidebar-badge">
+              {{ item.badge }}
+            </span>
+          </span>
+        </ng-template>
+      </li>
+    </ul>
+  </nav>
+</aside>
