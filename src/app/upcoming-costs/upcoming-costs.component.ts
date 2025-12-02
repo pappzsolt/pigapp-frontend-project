@@ -6,8 +6,8 @@ import {
   UpcomingCostsResponse,
   UpcomingCostItem,
   UpcomingMonthData,
-} from '../../models/upcoming-costs.model';
-import { UpcomingCostsService } from '../../services/upcoming-costs.service';
+} from '../../model/upcoming-costs.model';
+import { UpcomingCostsService } from '../services/upcoming-costs.service';
 
 @Component({
   selector: 'app-upcoming-costs',

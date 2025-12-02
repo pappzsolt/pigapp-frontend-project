@@ -41,7 +41,8 @@ export const ApiEndpoints = {
     summary: `${PIGAPP_API}/cost-summary/`,                         // apiInfoUrl
     summaryWithInvoice: `${PIGAPP_API}/cost-summary/`,              // apiCostSummaryWithInvoiceUrl (ugyanaz az endpoint, más logika)
     repeatWithSum5: `${PIGAPP_API}/cost-summary/5/`,                // apiCostRepeatWithSum
-    upcomingUnpaid: `${PIGAPP_API}/upcoming-unpaid-costs/`,         // apiUpComingUnpaidCostsUrl
+    upcomingUnpaid: `${PIGAPP_API}/upcoming-unpaid-costs/`,
+    upcomingCosts: `${PIGAPP_API}/upcoming-costs/`,
   },
 
   /** Invoices (számlák) */
