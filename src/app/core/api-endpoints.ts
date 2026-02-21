@@ -43,6 +43,7 @@ export const ApiEndpoints = {
     repeatWithSum5: `${PIGAPP_API}/cost-summary/5/`,                // apiCostRepeatWithSum
     upcomingUnpaid: `${PIGAPP_API}/upcoming-unpaid-costs/`,
     upcomingCosts: `${PIGAPP_API}/upcoming-costs/`,
+    costCheck: `${PIGAPP}/cost-check/`,
   },
 
   /** Invoices (számlák) */

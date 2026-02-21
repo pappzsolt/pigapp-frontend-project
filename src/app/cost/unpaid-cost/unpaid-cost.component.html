@@ -1,0 +1,64 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <h2 class="text-2xl font-bold mb-6 text-gray-800">Nem fizetett költségek</h2>
+
+  <!-- Betöltés és hiba üzenetek -->
+  <p *ngIf="loading" class="text-blue-600 font-medium mb-4">Betöltés...</p>
+  <p *ngIf="error" class="text-red-600 font-medium mb-4">{{ error }}</p>
+
+  <!-- Kártyák a költségekhez -->
+  <div *ngIf="costs?.length" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div *ngFor="let cost of costs" class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between transition-transform hover:scale-105">
+
+      <!-- Fő adatok -->
+      <div class="mb-3">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ cost.cost_name }}</h3>
+        <p class="text-gray-700"><span class="font-medium">Összeg:</span> {{ cost.amount | currency }}</p>
+        <p class="text-gray-700"><span class="font-medium">Dátum:</span> {{ cost.cost_date | date:'yyyy.MM.dd' }}</p>
+        <p class="text-gray-700"><span class="font-medium">Számla:</span> {{ cost.invoice?.invoice_name || '-' }}</p>
+        <p class="text-gray-700"><span class="font-medium">Fejlesztő:</span> {{ cost.dev?.name || '-' }}</p>
+        <p class="text-gray-700"><span class="font-medium">Csoport:</span> {{ cost.costgroup?.group_name || '-' }}</p>
+        <p class="text-gray-700"><span class="font-medium">Felhasználó:</span> {{ cost.user?.username || '-' }}</p>
+        <p class="text-gray-700"><span class="font-medium">Fizetve:</span>
+          <span [ngClass]="cost.paid ? 'text-green-600' : 'text-red-600'">{{ cost.paid ? 'Igen' : 'Nem' }}</span>
+        </p>
+      </div>
+
+      <!-- Checkbox kiválasztáshoz -->
+      <div class="flex items-center mt-2">
+        <input
+          type="checkbox"
+          [(ngModel)]="cost.selected"
+          id="cost-{{cost.id}}"
+          class="mr-2 h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+        >
+        <label for="cost-{{cost.id}}" class="text-gray-800 font-medium">Kiválasztás</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ha nincs adat -->
+  <p *ngIf="!costs?.length && !loading" class="text-gray-500 mt-6 text-center text-lg">Nincs nem fizetett költség.</p>
+
+  <!-- Összegzés -->
+  <div *ngIf="selectedTotal > 0" class="mt-6 text-right text-lg font-semibold text-gray-900">
+    Kiválasztott összeg: <span class="text-blue-600">{{ selectedTotal | currency }}</span>
+  </div>
+
+  <!-- Lapozás -->
+  <div *ngIf="costs?.length" class="flex justify-between mt-6">
+    <button
+      class="px-5 py-2 bg-white border rounded-lg shadow hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      [disabled]="!previousUrl"
+      (click)="previousPage()"
+    >
+      Előző
+    </button>
+    <button
+      class="px-5 py-2 bg-white border rounded-lg shadow hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      [disabled]="!nextUrl"
+      (click)="nextPage()"
+    >
+      Következő
+    </button>
+  </div>
+</div>

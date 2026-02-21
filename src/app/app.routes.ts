@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 
+
 export const routes: Routes = [
   {
     path: 'login',
@@ -78,6 +79,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./upcoming-costs/upcoming-costs.component')
         .then(m => m.UpcomingCostsComponent),
+  },
+  {
+    path: 'unpaid-cost',
+    canActivate: [AuthGuard],
+    data: { label: 'Kiadás check' },
+    loadComponent: () =>
+      import('./cost/unpaid-cost/unpaid-cost.component')
+        .then(m => m.UnpaidCostComponent),
   },
   {
     path: 'monthlycalc',

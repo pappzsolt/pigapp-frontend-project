@@ -20,5 +20,6 @@ export class SidebarmenurightComponent {
   @Input() title: string = 'Menü';
   @Input() items: SidebarMenuRightItem[] = [
     { label: 'Közelgő kiadások', route: '/upcomingcosts' },
+    { label: 'Kiadás check', route: '/unpaid-cost' },
   ];
 }
