@@ -1,3 +1,4 @@
+// unpaid-cost.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
@@ -10,26 +11,43 @@ import { ApiEndpoints } from '../core/api-endpoints';
 export class UnpaidCostService {
   constructor(private http: HttpClient) {}
 
-  /**
-   * Lekéri az összes nem fizetett költséget, hozzáadva a `selected` mezőt
-   */
-  getUnpaidCosts(): Observable<PaginatedUnpaidCostResponse & { results: (UnpaidCost & { selected: boolean })[] }> {
+  private transformCost(cost: any): UnpaidCost & { selected: boolean } {
+    return {
+      id: cost.id,
+      cost_name: cost.cost_name,
+      amount: cost.amount,
+      cost_date: cost.cost_date,
+      paid: !!cost.paid,  // 0/1 → boolean
+      invoice: cost.invoice ? {
+        id: cost.invoice.id,
+        invoice_name: cost.invoice.invoice_name,
+        invoice_note: cost.invoice.invoice_note,
+        create_invoice_date: cost.invoice.create_invoice_date,
+        amount: cost.invoice.amount,
+        user: cost.invoice.user,
+        enable_invoice: !!cost.invoice.enable_invoice
+      } : undefined,
+      dev: cost.dev ? { id: cost.dev.id, name: cost.dev.dev_name } : undefined,
+      costgroup: cost.costgroup ? { id: cost.costgroup.id, group_name: cost.costgroup.cost_group_name } : undefined,
+      user: cost.user ? { id: cost.user.id, username: cost.user.username } : undefined,
+      selected: false
+    };
+  }
+
+  getUnpaidCosts(): Observable<PaginatedUnpaidCostResponse> {
     return this.http.get<PaginatedUnpaidCostResponse>(ApiEndpoints.costs.costCheck).pipe(
       map(data => ({
         ...data,
-        results: data.results.map(cost => ({ ...cost, selected: false }))
+        results: data.results.map(cost => this.transformCost(cost))
       }))
     );
   }
 
-  /**
-   * Lapozásnál URL alapján lekéri a következő/adott oldalt, hozzáadva a `selected` mezőt
-   */
-  getUnpaidCostsByUrl(url: string): Observable<PaginatedUnpaidCostResponse & { results: (UnpaidCost & { selected: boolean })[] }> {
+  getUnpaidCostsByUrl(url: string): Observable<PaginatedUnpaidCostResponse> {
     return this.http.get<PaginatedUnpaidCostResponse>(url).pipe(
       map(data => ({
         ...data,
-        results: data.results.map(cost => ({ ...cost, selected: false }))
+        results: data.results.map(cost => this.transformCost(cost))
       }))
     );
   }

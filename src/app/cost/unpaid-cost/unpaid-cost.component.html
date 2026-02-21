@@ -5,22 +5,33 @@
   <p *ngIf="loading" class="text-blue-600 font-medium mb-4">Betöltés...</p>
   <p *ngIf="error" class="text-red-600 font-medium mb-4">{{ error }}</p>
 
-  <!-- Kártyák a költségekhez -->
+  <!-- Kártyák -->
   <div *ngIf="costs?.length" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-    <div *ngFor="let cost of costs" class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between transition-transform hover:scale-105">
+    <div *ngFor="let cost of costs"
+         class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between transition-transform hover:scale-105">
 
       <!-- Fő adatok -->
-      <div class="mb-3">
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ cost.cost_name }}</h3>
-        <p class="text-gray-700"><span class="font-medium">Összeg:</span> {{ cost.amount | currency }}</p>
+      <div class="mb-4">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="text-lg font-semibold text-gray-900">{{ cost.cost_name }}</h3>
+          <span
+            class="px-2 py-1 rounded-full text-sm font-semibold"
+            [ngClass]="cost.paid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
+          >
+            {{ cost.paid ? 'Fizetve' : 'Nem fizetett' }}
+          </span>
+        </div>
+
+        <p class="text-gray-700"><span class="font-medium">Összeg:</span> {{ cost.amount | currency:'HUF':'symbol':'1.0-0' }}</p>
         <p class="text-gray-700"><span class="font-medium">Dátum:</span> {{ cost.cost_date | date:'yyyy.MM.dd' }}</p>
         <p class="text-gray-700"><span class="font-medium">Számla:</span> {{ cost.invoice?.invoice_name || '-' }}</p>
-        <p class="text-gray-700"><span class="font-medium">Fejlesztő:</span> {{ cost.dev?.name || '-' }}</p>
-        <p class="text-gray-700"><span class="font-medium">Csoport:</span> {{ cost.costgroup?.group_name || '-' }}</p>
-        <p class="text-gray-700"><span class="font-medium">Felhasználó:</span> {{ cost.user?.username || '-' }}</p>
-        <p class="text-gray-700"><span class="font-medium">Fizetve:</span>
-          <span [ngClass]="cost.paid ? 'text-green-600' : 'text-red-600'">{{ cost.paid ? 'Igen' : 'Nem' }}</span>
+        <p class="text-gray-700"><span class="font-medium">Fejlesztő:</span>
+          <span class="px-1 py-0.5 bg-blue-100 text-blue-800 rounded">{{ cost.dev?.name || '-' }}</span>
         </p>
+        <p class="text-gray-700"><span class="font-medium">Csoport:</span>
+          <span class="px-1 py-0.5 bg-purple-100 text-purple-800 rounded">{{ cost.costgroup?.group_name || '-' }}</span>
+        </p>
+        <p class="text-gray-700"><span class="font-medium">Felhasználó:</span> {{ cost.user?.username || '-' }}</p>
       </div>
 
       <!-- Checkbox kiválasztáshoz -->
@@ -41,7 +52,7 @@
 
   <!-- Összegzés -->
   <div *ngIf="selectedTotal > 0" class="mt-6 text-right text-lg font-semibold text-gray-900">
-    Kiválasztott összeg: <span class="text-blue-600">{{ selectedTotal | currency }}</span>
+    Kiválasztott összeg: <span class="text-blue-600">{{ selectedTotal | currency:'HUF':'symbol':'1.0-0' }}</span>
   </div>
 
   <!-- Lapozás -->
