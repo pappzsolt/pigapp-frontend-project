@@ -1,36 +1,88 @@
-<div class="cashflow-table-card">
-  <!-- fejléc -->
-  <h2 class="cashflow-table-title">
+<div class="cashflow-container">
+
+  <h2 class="cashflow-title">
     {{ title }}
   </h2>
 
-  <!-- táblázat -->
-  <div class="cashflow-table-wrapper">
-    <table class="cashflow-table">
-      <thead>
-      <tr>
-        <th class="th-cell text-left">Típus</th>
-        <th class="th-cell text-left">Felhasználó</th>
-        <th class="th-cell text-left">Számla</th>
-        <th class="th-cell text-left">Leírás</th>
-        <th class="th-cell text-right">Összeg</th>
-        <th class="th-cell text-left">Dátum</th>
-      </tr>
-      </thead>
 
-      <tbody>
-      <tr
-        *ngFor="let cashflow of cashflows$ | async"
-        class="table-row-hover"
-      >
-        <td class="td-cell">{{ cashflow.cashflowgroup }}</td>
-        <td class="td-cell">{{ cashflow.user }}</td>
-        <td class="td-cell">{{ cashflow.invoice }}</td>
-        <td class="td-cell">{{ cashflow.cash_flow_note }}</td>
-        <td class="td-cell td-right td-emphasis">{{ cashflow.amount }} Ft</td>
-        <td class="td-cell">{{ cashflow.cash_flow_date | date:'yyyy-MM-dd' }}</td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="cashflow-list">
+
+    <div
+      *ngFor="let cashflow of cashflows$ | async"
+      class="cashflow-card"
+    >
+
+      <!-- TOP ROW -->
+
+      <div class="cashflow-top">
+
+        <div class="cashflow-type">
+          {{ cashflow.cashflowgroup }}
+        </div>
+
+        <div class="cashflow-amount">
+          {{ cashflow.amount }} Ft
+        </div>
+
+      </div>
+
+
+
+      <!-- NOTE -->
+
+      <div class="cashflow-note">
+        {{ cashflow.cash_flow_note }}
+      </div>
+
+
+
+      <!-- GRID INFO -->
+
+      <div class="cashflow-grid">
+
+        <div class="info-box">
+
+          <div class="info-label">
+            Felhasználó
+          </div>
+
+          <div class="info-value">
+            {{ cashflow.user }}
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-label">
+            Számla
+          </div>
+
+          <div class="info-value">
+            {{ cashflow.invoice }}
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-label">
+            Dátum
+          </div>
+
+          <div class="info-value">
+            {{ cashflow.cash_flow_date | date:'yyyy-MM-dd' }}
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
   </div>
+
 </div>

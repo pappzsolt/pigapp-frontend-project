@@ -2,11 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  UpcomingCostsResponse,
-  UpcomingCostItem,
-  UpcomingMonthData,
-} from '../../model/upcoming-costs.model';
+import { UpcomingCostsResponse, UpcomingMonthData } from '../../model/upcoming-costs.model';
 import { UpcomingCostsService } from '../services/upcoming-costs.service';
 
 @Component({
@@ -31,7 +27,7 @@ export class UpcomingCostsComponent implements OnInit {
     this.error = null;
 
     this.upcomingCostsService.getUpcomingCosts().subscribe({
-      next: (response) => {
+      next: response => {
         if (!response.success) {
           this.error = response.error ?? 'Ismeretlen hiba történt.';
           this.data = null;
@@ -40,7 +36,7 @@ export class UpcomingCostsComponent implements OnInit {
         }
         this.loading = false;
       },
-      error: (err) => {
+      error: err => {
         this.error = 'Nem sikerült betölteni az adatokat.';
         console.error('UpcomingCosts error:', err);
         this.loading = false;
@@ -49,7 +45,7 @@ export class UpcomingCostsComponent implements OnInit {
     });
   }
 
-  trackByCostId(index: number, item: UpcomingCostItem): number {
+  trackByCostId(index: number, item: any): number {
     return item.id;
   }
 

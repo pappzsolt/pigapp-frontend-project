@@ -26,13 +26,14 @@ export interface User {
 export interface UnpaidCost {
   id: number;
   cost_name: string;
+  cost_note?: string; // ← hozzáadva, opcionális
   amount: number;
   cost_date: string;
   paid: boolean;
-  invoice?: Invoice;           // optional
-  costgroup?: CostGroup;       // optional
-  dev?: Dev;                   // optional
-  user?: User;                 // optional
+  invoice?: Invoice;
+  costgroup?: CostGroup;
+  dev?: Dev;
+  user?: User;
 }
 
 export interface PaginatedUnpaidCostResponse {

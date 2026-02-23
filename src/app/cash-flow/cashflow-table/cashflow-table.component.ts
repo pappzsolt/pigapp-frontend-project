@@ -8,6 +8,7 @@ import { TailwindStyledTableDirective } from '../../shared/directives/tailwind-s
   standalone: true,
   imports: [CommonModule, TailwindStyledTableDirective],
   templateUrl: './cashflow-table.component.html',
+  styleUrls: ['./cashflow-table.component.css']
 })
 export class CashflowTableComponent {
   @Input() cashflows$!: Observable<Cashflow[]>;

@@ -56,14 +56,7 @@ export const routes: Routes = [
       import('./invoice-transform/invoice-transform.component')
         .then(m => m.InvoiceTransformComponent),
   },
-  {
-    path: 'autocost',
-    canActivate: [AuthGuard],
-    data: { label: 'Kiadások felvitele köv hónapra' },
-    loadComponent: () =>
-      import('./auto-cost/auto-cost.component')
-        .then(m => m.AutoCostComponent),
-  },
+
   {
     path: 'costrepeat',
     canActivate: [AuthGuard],

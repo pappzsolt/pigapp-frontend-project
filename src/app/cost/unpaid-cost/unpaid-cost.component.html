@@ -1,23 +1,68 @@
-<div class="p-6 bg-gray-50 min-h-screen">
-  <h2 class="text-2xl font-bold mb-6 text-gray-800">Nem fizetett költségek</h2>
+<div class="p-6 bg-gray-50 min-h-screen font-sans">
+  <h2 class="text-3xl font-extrabold mb-6 text-gray-900 tracking-wide">Nem fizetett költségek</h2>
 
   <!-- Betöltés és hiba üzenetek -->
-  <p *ngIf="loading" class="text-blue-600 font-medium mb-4">Betöltés...</p>
+  <p *ngIf="loading" class="text-blue-600 font-medium mb-4 animate-pulse">Betöltés...</p>
   <p *ngIf="error" class="text-red-600 font-medium mb-4">{{ error }}</p>
 
-  <!-- Kártyák -->
-  <div *ngIf="costs?.length" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+  <!-- Találatok és összeg egymás mellett -->
+  <div class="mt-4 mb-6 flex flex-col md:flex-row gap-4">
+    <!-- Találatok száma -->
+    <div *ngIf="totalResults >= 0"
+         class="flex-1 p-4 bg-gray-100 border-l-4 border-gray-400 rounded-lg shadow hover:shadow-md transition flex justify-between items-center">
+      <span class="font-medium text-gray-800 text-lg">Találatok száma:</span>
+      <span class="text-gray-700 font-semibold text-lg">{{ totalResults }}</span>
+    </div>
+
+    <!-- Kiválasztott összeg -->
+    <div *ngIf="selectedTotal > 0"
+         class="flex-1 p-4 bg-blue-50 border-l-4 border-blue-400 rounded-lg shadow hover:shadow-md transition flex justify-between items-center">
+      <span class="font-medium text-gray-800 text-lg">Kiválasztott összeg:</span>
+      <span class="text-blue-600 font-bold text-lg">{{ selectedTotal | currency:'HUF':'symbol':'1.0-0' }}</span>
+    </div>
+  </div>
+
+  <!-- Hónapokra csoportosított tételek -->
+  <div *ngIf="costs?.length" class="mt-6">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-4 tracking-wide">Tételek hónapok szerint</h2>
+
+    <div class="space-y-6">
+      <ng-container *ngFor="let month of groupCostsByMonth(costs)">
+        <div class="bg-white rounded-xl shadow-md border border-gray-200 p-5 hover:shadow-lg transition">
+          <div class="flex justify-between items-center mb-3">
+            <span class="font-semibold text-gray-800 text-lg">{{ month.name }}</span>
+            <span class="text-gray-500 text-sm">{{ month.items.length }} tétel</span>
+          </div>
+
+          <div class="divide-y divide-gray-100">
+            <div *ngFor="let item of month.items"
+                 class="py-3 flex justify-between items-center hover:bg-gray-50 rounded-md transition px-2">
+              <div class="flex-1">
+                <div class="font-medium text-gray-900">{{ item.cost_name }}</div>
+                <div class="text-sm text-gray-500">{{ item.cost_note || '-' }}</div>
+              </div>
+              <div class="text-right">
+                <span class="text-gray-800 font-semibold">{{ item.amount | currency:'HUF':'symbol':'1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Kártyák részletei -->
+  <div *ngIf="costs.length" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-6">
     <div *ngFor="let cost of costs"
-         class="bg-white rounded-xl shadow-md p-5 flex flex-col justify-between transition-transform hover:scale-105">
+         class="bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02] hover:shadow-xl">
 
       <!-- Fő adatok -->
-      <div class="mb-4">
+      <div class="mb-4 space-y-1">
         <div class="flex justify-between items-center mb-2">
           <h3 class="text-lg font-semibold text-gray-900">{{ cost.cost_name }}</h3>
           <span
-            class="px-2 py-1 rounded-full text-sm font-semibold"
-            [ngClass]="cost.paid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
-          >
+            class="px-3 py-1 rounded-full text-sm font-semibold"
+            [ngClass]="cost.paid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'">
             {{ cost.paid ? 'Fizetve' : 'Nem fizetett' }}
           </span>
         </div>
@@ -26,50 +71,25 @@
         <p class="text-gray-700"><span class="font-medium">Dátum:</span> {{ cost.cost_date | date:'yyyy.MM.dd' }}</p>
         <p class="text-gray-700"><span class="font-medium">Számla:</span> {{ cost.invoice?.invoice_name || '-' }}</p>
         <p class="text-gray-700"><span class="font-medium">Fejlesztő:</span>
-          <span class="px-1 py-0.5 bg-blue-100 text-blue-800 rounded">{{ cost.dev?.name || '-' }}</span>
+          <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-lg">{{ cost.dev?.name || '-' }}</span>
         </p>
         <p class="text-gray-700"><span class="font-medium">Csoport:</span>
-          <span class="px-1 py-0.5 bg-purple-100 text-purple-800 rounded">{{ cost.costgroup?.group_name || '-' }}</span>
+          <span class="px-2 py-0.5 bg-purple-100 text-purple-800 rounded-lg">{{ cost.costgroup?.group_name || '-' }}</span>
         </p>
         <p class="text-gray-700"><span class="font-medium">Felhasználó:</span> {{ cost.user?.username || '-' }}</p>
       </div>
 
       <!-- Checkbox kiválasztáshoz -->
-      <div class="flex items-center mt-2">
-        <input
-          type="checkbox"
-          [(ngModel)]="cost.selected"
-          id="cost-{{cost.id}}"
-          class="mr-2 h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        >
+      <div class="flex items-center mt-3">
+        <input type="checkbox" [(ngModel)]="cost.selected" id="cost-{{cost.id}}"
+               class="mr-3 h-5 w-5 text-blue-600 border-gray-300 rounded-lg focus:ring-blue-500">
         <label for="cost-{{cost.id}}" class="text-gray-800 font-medium">Kiválasztás</label>
       </div>
     </div>
   </div>
 
   <!-- Ha nincs adat -->
-  <p *ngIf="!costs?.length && !loading" class="text-gray-500 mt-6 text-center text-lg">Nincs nem fizetett költség.</p>
-
-  <!-- Összegzés -->
-  <div *ngIf="selectedTotal > 0" class="mt-6 text-right text-lg font-semibold text-gray-900">
-    Kiválasztott összeg: <span class="text-blue-600">{{ selectedTotal | currency:'HUF':'symbol':'1.0-0' }}</span>
-  </div>
-
-  <!-- Lapozás -->
-  <div *ngIf="costs?.length" class="flex justify-between mt-6">
-    <button
-      class="px-5 py-2 bg-white border rounded-lg shadow hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      [disabled]="!previousUrl"
-      (click)="previousPage()"
-    >
-      Előző
-    </button>
-    <button
-      class="px-5 py-2 bg-white border rounded-lg shadow hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      [disabled]="!nextUrl"
-      (click)="nextPage()"
-    >
-      Következő
-    </button>
-  </div>
+  <p *ngIf="!costs.length && !loading" class="text-gray-500 mt-6 text-center text-lg">
+    Nincs nem fizetett költség.
+  </p>
 </div>

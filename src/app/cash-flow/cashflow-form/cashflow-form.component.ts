@@ -17,6 +17,7 @@ import { ButtonDirective } from '../../shared/directives/button.directive';
     ButtonDirective,
   ],
   templateUrl: './cashflow-form.component.html',
+  styleUrls: ['./cashflow-form.component.css']
 })
 export class CashflowFormComponent {
   @Input() cashFlowForm!: FormGroup;

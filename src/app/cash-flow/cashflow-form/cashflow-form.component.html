@@ -1,52 +1,160 @@
-<form [formGroup]="cashFlowForm" (ngSubmit)="submitForm()">
-  <div class="flex flex-col">
-    <label>Költség neve</label>
-    <input type="text" formControlName="cash_flow_name" />
+<form
+  [formGroup]="cashFlowForm"
+  (ngSubmit)="submitForm()"
+  class="cashflow-form-container"
+>
+
+  <div class="cashflow-form-card">
+
+    <h2 class="cashflow-form-title">
+      Cashflow hozzáadása
+    </h2>
+
+
+    <div class="form-grid">
+
+      <div class="form-box">
+
+        <label class="form-label">
+          Költség neve
+        </label>
+
+        <input
+          type="text"
+          formControlName="cash_flow_name"
+          appStyledInput
+          class="full-width"
+        />
+
+      </div>
+
+
+
+      <div class="form-box">
+
+        <label class="form-label">
+          Megjegyzés
+        </label>
+
+        <input
+          type="text"
+          formControlName="cash_flow_note"
+          appStyledInput
+          class="full-width"
+        />
+
+      </div>
+
+
+
+      <div class="form-box">
+
+        <label class="form-label">
+          Összeg
+        </label>
+
+        <input
+          type="number"
+          formControlName="amount"
+          appStyledInput
+          class="full-width"
+        />
+
+      </div>
+
+
+
+      <div class="form-box">
+
+        <label class="form-label">
+          Dátum
+        </label>
+
+        <input
+          appStyledDateInput
+          type="date"
+          formControlName="cash_flow_date"
+          class="full-width"
+        />
+
+      </div>
+
+
+
+      <div class="form-box">
+
+        <label class="form-label">
+          Pénznem
+        </label>
+
+        <select
+          formControlName="dev"
+          appTailwindStyledSelect
+          class="full-width"
+        >
+          <option *ngFor="let dev of devs" [value]="dev.id">
+            {{ dev.dev_name }}
+          </option>
+        </select>
+
+      </div>
+
+
+
+      <div class="form-box">
+
+        <label class="form-label">
+          Számla
+        </label>
+
+        <select
+          formControlName="invoice"
+          appTailwindStyledSelect
+          class="full-width"
+        >
+          <option *ngFor="let invoice of invoices" [value]="invoice.id">
+            {{ invoice.invoice_name }}
+          </option>
+        </select>
+
+      </div>
+
+
+
+      <div class="form-box">
+
+        <label class="form-label">
+          Költség csoport
+        </label>
+
+        <select
+          formControlName="cashflowgroup"
+          appTailwindStyledSelect
+          class="full-width"
+        >
+          <option *ngFor="let group of cashFlowGroups" [value]="group.id">
+            {{ group.cash_flow_group_name }}
+          </option>
+        </select>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="form-button-row">
+
+      <button
+        appButton="blue"
+        type="submit"
+      >
+        Hozzáadás
+      </button>
+
+    </div>
+
+
   </div>
 
-  <div >
-    <label>Megjegyzés</label>
-    <input type="text" formControlName="cash_flow_note" />
-  </div>
-
-  <div>
-    <label>Összeg</label>
-    <input type="number" formControlName="amount" />
-  </div>
-
-  <div>
-    <label>Dátum</label>
-    <input appStyledDateInput type="date" formControlName="cash_flow_date" />
-  </div>
-
-  <div>
-    <label>Pénznem</label>
-    <select formControlName="dev">
-      <option *ngFor="let dev of devs" [value]="dev.id">{{ dev.dev_name }}</option>
-    </select>
-  </div>
-
-  <div>
-    <label>Számla</label>
-    <select formControlName="invoice">
-      <option *ngFor="let invoice of invoices" [value]="invoice.id">
-        {{ invoice.invoice_name }}
-      </option>
-    </select>
-  </div>
-
-  <div>
-    <label>Költség csoport</label>
-    <select
-      formControlName="cashflowgroup"
-    >
-      <option *ngFor="let group of cashFlowGroups" [value]="group.id">
-        {{ group.cash_flow_group_name }}
-      </option>
-    </select>
-  </div>
-  <!--
-  <button appButton="blue" type="submit">
-    Hozzáadás1
-  </button> -->
 </form>
