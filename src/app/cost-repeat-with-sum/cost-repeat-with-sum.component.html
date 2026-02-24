@@ -1,64 +1,105 @@
-<div class="cost-summary-card">
-  <header class="cost-summary-header">
-    <h3 class="cost-summary-title">Költségösszesítő</h3>
-    <p class="cost-summary-subtitle">
-      Ismétlődő költségek összesítve
-    </p>
-  </header>
+<div class="min-h-screen bg-gray-50 p-6 font-sans">
 
-  <div class="cost-summary-list">
-    <div
-      *ngFor="let cost of costRepeatWithSum"
-      class="cost-item-card"
-    >
-      <!-- Fejléc: név + fizetve badge -->
-      <div class="cost-item-header">
-        <div>
-          <h4 class="cost-item-title">
-            {{ cost.cost_repeat_name }}
-          </h4>
-          <p class="cost-item-note" *ngIf="cost.cost_repeat_note">
-            {{ cost.cost_repeat_note }}
-          </p>
+  <div class="max-w-5xl mx-auto">
+
+
+    <!-- HEADER -->
+
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+        Költségösszesítő
+      </h1>
+      <p class="text-gray-500 mt-1">
+        Ismétlődő költségek összesítve
+      </p>
+    </header>
+
+
+
+    <!-- COST ITEMS -->
+
+    <div class="space-y-6">
+
+      <div
+        *ngFor="let cost of costRepeatWithSum"
+        class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-lg transition"
+      >
+
+
+        <!-- HEADER: név + badge -->
+
+        <div class="flex justify-between items-start mb-4">
+
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">
+              {{ cost.cost_repeat_name }}
+            </h3>
+
+            <p *ngIf="cost.cost_repeat_note" class="text-sm text-gray-500 mt-1">
+              {{ cost.cost_repeat_note }}
+            </p>
+          </div>
+
+          <span
+            class="px-3 py-1 rounded-full text-xs font-semibold"
+            [ngClass]="cost.paid
+              ? 'bg-green-100 text-green-700'
+              : 'bg-red-100 text-red-700'"
+          >
+            {{ cost.paid ? 'Fizetve' : 'Nincs fizetve' }}
+          </span>
+
         </div>
 
-        <span
-          class="cost-item-badge"
-          [ngClass]="cost.paid ? 'badge-paid' : 'badge-unpaid'"
-        >
-          {{ cost.paid ? 'Fizetve' : 'Nincs fizetve' }}
-        </span>
+
+
+        <!-- GRID: adatok -->
+
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+
+          <div class="flex justify-between">
+            <dt>Összeg</dt>
+            <dd class="font-semibold text-gray-900">
+              {{ cost.amount | number:'1.0-0' }} HUF
+            </dd>
+          </div>
+
+          <div class="flex justify-between">
+            <dt>Darabszám</dt>
+            <dd class="font-semibold text-gray-900">
+              {{ cost.cost_count | number:'1.0-0' }} db
+            </dd>
+          </div>
+
+          <div class="flex justify-between">
+            <dt>Fizetett összeg</dt>
+            <dd class="font-semibold text-gray-900">
+              {{ cost.total_amount | number:'1.0-0' }} HUF
+            </dd>
+          </div>
+
+          <div class="flex justify-between">
+            <dt>Kezdő dátum</dt>
+            <dd class="text-gray-900">
+              {{ cost.cost_repeat_date | date:'yyyy-MM-dd' }}
+            </dd>
+          </div>
+
+          <div class="flex justify-between">
+            <dt>Lejárat</dt>
+            <dd class="text-gray-900">
+              {{ cost.expire_date | date:'yyyy-MM-dd' }}
+            </dd>
+          </div>
+
+        </dl>
+
+
       </div>
 
-      <!-- Tartalom: adatok gridben -->
-      <dl class="cost-item-grid">
-        <div class="cost-item-field">
-          <dt>Összeg</dt>
-          <dd>{{ cost.amount | number: '1.0-0' }} HUF</dd>
-        </div>
-
-        <div class="cost-item-field">
-          <dt>Darabszám</dt>
-          <dd>{{ cost.cost_count | number: '1.0-0' }} db</dd>
-        </div>
-
-        <div class="cost-item-field">
-          <dt>Fizetett összeg</dt>
-          <dd class="cost-item-total">
-            {{ cost.total_amount | number: '1.0-0' }} HUF
-          </dd>
-        </div>
-
-        <div class="cost-item-field">
-          <dt>Kezdő dátum</dt>
-          <dd>{{ cost.cost_repeat_date | date: 'yyyy-MM-dd' }}</dd>
-        </div>
-
-        <div class="cost-item-field">
-          <dt>Lejárat</dt>
-          <dd>{{ cost.expire_date | date: 'yyyy-MM-dd' }}</dd>
-        </div>
-      </dl>
     </div>
+
+
   </div>
+
 </div>

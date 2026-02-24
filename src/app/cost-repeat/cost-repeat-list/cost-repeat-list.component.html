@@ -1,45 +1,114 @@
-<h1>Fix költség lista</h1>
+<div class="min-h-screen bg-gray-50 p-6 font-sans">
 
-<table appTailwindStyledTable>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Date</th>
-      <th>Paid</th>
-      <th>Paid Date</th>
-      <th>Expire Date</th>
-      <th>Created Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let costRepeatList of costsRepeatList">
-      <td>
-        {{ costRepeatList.cost_repeat_name }}
-      </td>
-      <td>{{ costRepeatList.amount }} Ft</td>
-      <td>
-        {{ costRepeatList.cost_repeat_date | date: 'yyyy-MM-dd' }}
-      </td>
-      <td>
-        <span
-          [ngClass]="{
-            'text-green-500 font-semibold': costRepeatList.paid === 1,
-            'text-red-500 font-semibold': costRepeatList.paid === 0,
-          }"
-        >
-          {{ costRepeatList.paid === 1 ? 'Paid' : 'Unpaid' }}
-        </span>
-      </td>
-      <td>
-        {{ costRepeatList.paid_date | date: 'yyyy-MM-dd' }}
-      </td>
-      <td>
-        {{ costRepeatList.expire_date | date: 'yyyy-MM-dd' }}
-      </td>
-      <td>
-        {{ costRepeatList.create_cost_repeat_date | date: 'yyyy-MM-dd' }}
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <div class="max-w-7xl mx-auto">
+
+
+    <!-- HEADER -->
+
+    <div class="mb-6">
+
+      <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+        Fix költség lista
+      </h1>
+
+      <p class="text-gray-500 mt-1">
+        Ismétlődő költségek áttekintése
+      </p>
+
+    </div>
+
+
+
+    <!-- TABLE WRAPPER -->
+
+    <div class="overflow-x-auto bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+      <table class="min-w-full divide-y divide-gray-200" appTailwindStyledTable>
+
+        <thead class="bg-gray-100">
+
+        <tr>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Név
+          </th>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Összeg
+          </th>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Dátum
+          </th>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Fizetve
+          </th>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Fizetés dátuma
+          </th>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Lejárati dátum
+          </th>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Létrehozva
+          </th>
+
+        </tr>
+
+        </thead>
+
+        <tbody class="bg-white divide-y divide-gray-100">
+
+        <tr *ngFor="let costRepeatList of costsRepeatList" class="hover:bg-gray-50 transition">
+
+          <td class="px-6 py-3 text-gray-900">
+            {{ costRepeatList.cost_repeat_name }}
+          </td>
+
+          <td class="px-6 py-3 text-gray-900 font-semibold">
+            {{ costRepeatList.amount }} Ft
+          </td>
+
+          <td class="px-6 py-3 text-gray-900">
+            {{ costRepeatList.cost_repeat_date | date: 'yyyy-MM-dd' }}
+          </td>
+
+          <td class="px-6 py-3">
+              <span
+                [ngClass]="{
+                  'text-green-500 font-semibold': costRepeatList.paid === 1,
+                  'text-red-500 font-semibold': costRepeatList.paid === 0
+                }"
+              >
+                {{ costRepeatList.paid === 1 ? 'Paid' : 'Unpaid' }}
+              </span>
+          </td>
+
+          <td class="px-6 py-3 text-gray-900">
+            {{ costRepeatList.paid_date | date: 'yyyy-MM-dd' }}
+          </td>
+
+          <td class="px-6 py-3 text-gray-900">
+            {{ costRepeatList.expire_date | date: 'yyyy-MM-dd' }}
+          </td>
+
+          <td class="px-6 py-3 text-gray-900">
+            {{ costRepeatList.create_cost_repeat_date | date: 'yyyy-MM-dd' }}
+          </td>
+
+        </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+  </div>
+
+</div>

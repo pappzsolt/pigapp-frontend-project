@@ -1,6 +1,7 @@
-<div *ngIf="!isLoading && !errorMessage" class="space-y-8">
+<div *ngIf="!isLoading && !errorMessage" class="space-y-8 max-w-4xl mx-auto">
+
   <!-- Összesített számlaösszeg -->
-  <div class="border rounded-xl p-6 shadow-md bg-white">
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
     <h2 class="text-xl font-semibold text-gray-800 mb-4">Összesített számlaösszeg</h2>
     <p *ngIf="totalAmountInvoice" class="text-2xl text-green-600 font-bold">
       Összesen: {{ totalAmountInvoice.totalAmountInvoice | number }} Ft
@@ -8,13 +9,10 @@
   </div>
 
   <!-- Számlák aktuális egyenlege -->
-  <div class="border rounded-xl p-6 shadow-md bg-white">
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
     <h2 class="text-xl font-semibold text-gray-800 mb-4">Számlák aktuális egyenlege</h2>
     <ul class="space-y-2">
-      <li
-        *ngFor="let invoice of invoices"
-        class="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-sm"
-      >
+      <li *ngFor="let invoice of invoices" class="flex justify-between items-center bg-gray-50 p-4 rounded-xl shadow-sm">
         <span class="font-medium text-gray-700">{{ invoice.invoice_name }}</span>
         <span class="font-semibold text-blue-700">{{ invoice.amount | number }} Ft</span>
       </li>
@@ -22,45 +20,46 @@
   </div>
 
   <!-- Számlák költségösszesítővel -->
-  <div class="border rounded-xl p-6 shadow-md bg-white">
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
     <h2 class="text-xl font-semibold text-gray-800 mb-4">Számlák költségösszesítővel</h2>
     <ul class="space-y-2">
-      <li *ngFor="let summary of invoiceSummaries" class="bg-gray-50 p-4 rounded-lg shadow-sm">
+      <li *ngFor="let summary of invoiceSummaries" class="bg-gray-50 p-4 rounded-xl shadow-sm">
         <p class="font-medium text-gray-800">{{ summary.invoice.invoice_name }}</p>
         <p class="text-sm">
           Kifizetve:
-          <span class="text-green-600 font-semibold">{{ summary.total_paid }} Ft</span>, Hátralék:
-          <span class="text-red-600 font-semibold">{{ summary.total_unpaid }} Ft</span>
+          <span class="text-green-600 font-semibold">{{ summary.total_paid | number }} Ft</span>,
+          Hátralék:
+          <span class="text-red-600 font-semibold">{{ summary.total_unpaid | number }} Ft</span>
         </p>
       </li>
     </ul>
   </div>
 
   <!-- Közelgő kifizetések -->
-  <div class="border rounded-xl p-6 shadow-md bg-white">
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
     <h2 class="text-xl font-semibold text-gray-800 mb-4">Közelgő kifizetések (5 napon belül)</h2>
 
     <div *ngIf="upcomingCosts.length > 0; else noCosts" class="overflow-x-auto">
       <table class="w-full text-sm table-auto border-collapse">
         <thead class="bg-gray-50">
-          <tr>
-            <th class="text-left px-4 py-2 border-b border-gray-300">Költség neve</th>
-            <th class="text-left px-4 py-2 border-b border-gray-300">Megjegyzés</th>
-            <th class="text-right px-4 py-2 border-b border-gray-300">Összeg (Ft)</th>
-            <th class="text-left px-4 py-2 border-b border-gray-300">Kiadás dátuma</th>
-            <th class="text-left px-4 py-2 border-b border-gray-300">Számla</th>
-          </tr>
+        <tr>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Költség neve</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Megjegyzés</th>
+          <th class="text-right px-4 py-2 border-b border-gray-300">Összeg (Ft)</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Kiadás dátuma</th>
+          <th class="text-left px-4 py-2 border-b border-gray-300">Számla</th>
+        </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cost of upcomingCosts" class="hover:bg-gray-50">
-            <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_name }}</td>
-            <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_note }}</td>
-            <td class="px-4 py-2 border-b border-gray-200 text-right text-green-700 font-semibold">
-              {{ cost.amount | number }} Ft
-            </td>
-            <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_date }}</td>
-            <td class="px-4 py-2 border-b border-gray-200">#{{ cost.invoice }}</td>
-          </tr>
+        <tr *ngFor="let cost of upcomingCosts" class="hover:bg-gray-50">
+          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_name }}</td>
+          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_note || '–' }}</td>
+          <td class="px-4 py-2 border-b border-gray-200 text-right text-green-700 font-semibold">
+            {{ cost.amount | number }} Ft
+          </td>
+          <td class="px-4 py-2 border-b border-gray-200">{{ cost.cost_date | date:'yyyy-MM-dd' }}</td>
+          <td class="px-4 py-2 border-b border-gray-200">#{{ cost.invoice }}</td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -69,4 +68,5 @@
       <p class="text-gray-500 text-sm">Nincs kifizetés az elkövetkező 5 napban.</p>
     </ng-template>
   </div>
+
 </div>

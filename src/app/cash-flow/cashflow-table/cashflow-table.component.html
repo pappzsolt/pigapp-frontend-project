@@ -1,88 +1,127 @@
-<div class="cashflow-container">
+<div class="min-h-screen bg-gray-50 p-6 font-sans">
 
-  <h2 class="cashflow-title">
-    {{ title }}
-  </h2>
+  <div class="max-w-6xl mx-auto">
 
 
-  <div class="cashflow-list">
+    <!-- HEADER -->
 
-    <div
-      *ngFor="let cashflow of cashflows$ | async"
-      class="cashflow-card"
-    >
+    <div class="mb-8">
 
-      <!-- TOP ROW -->
+      <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+        {{ title }}
+      </h1>
 
-      <div class="cashflow-top">
-
-        <div class="cashflow-type">
-          {{ cashflow.cashflowgroup }}
-        </div>
-
-        <div class="cashflow-amount">
-          {{ cashflow.amount }} Ft
-        </div>
-
-      </div>
-
-
-
-      <!-- NOTE -->
-
-      <div class="cashflow-note">
-        {{ cashflow.cash_flow_note }}
-      </div>
-
-
-
-      <!-- GRID INFO -->
-
-      <div class="cashflow-grid">
-
-        <div class="info-box">
-
-          <div class="info-label">
-            Felhasználó
-          </div>
-
-          <div class="info-value">
-            {{ cashflow.user }}
-          </div>
-
-        </div>
-
-
-        <div class="info-box">
-
-          <div class="info-label">
-            Számla
-          </div>
-
-          <div class="info-value">
-            {{ cashflow.invoice }}
-          </div>
-
-        </div>
-
-
-        <div class="info-box">
-
-          <div class="info-label">
-            Dátum
-          </div>
-
-          <div class="info-value">
-            {{ cashflow.cash_flow_date | date:'yyyy-MM-dd' }}
-          </div>
-
-        </div>
-
-
-      </div>
+      <p class="text-gray-500 mt-1">
+        Cashflow tételek listája
+      </p>
 
     </div>
 
+
+
+    <!-- LISTA -->
+
+    <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+
+
+      <div
+        *ngFor="let cashflow of cashflows$ | async"
+        class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6
+               hover:shadow-lg transition duration-200"
+      >
+
+
+        <!-- HEADER ROW -->
+
+        <div class="flex justify-between items-start mb-4">
+
+
+          <div class="text-sm font-semibold text-blue-700 bg-blue-50 px-3 py-1 rounded-lg">
+
+            {{ cashflow.cashflowgroup }}
+
+          </div>
+
+
+          <div class="text-lg font-bold text-gray-900">
+
+            {{ cashflow.amount }} Ft
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- MEGJEGYZÉS -->
+
+        <div class="text-gray-600 text-sm mb-5">
+
+          {{ cashflow.cash_flow_note }}
+
+        </div>
+
+
+
+        <!-- INFO GRID -->
+
+        <div class="space-y-3 text-sm">
+
+
+          <div class="flex justify-between border-t pt-3">
+
+            <span class="text-gray-500">
+              Felhasználó
+            </span>
+
+            <span class="font-medium text-gray-900">
+              {{ cashflow.user }}
+            </span>
+
+          </div>
+
+
+
+          <div class="flex justify-between">
+
+            <span class="text-gray-500">
+              Számla
+            </span>
+
+            <span class="font-medium text-gray-900">
+              {{ cashflow.invoice }}
+            </span>
+
+          </div>
+
+
+
+          <div class="flex justify-between">
+
+            <span class="text-gray-500">
+              Dátum
+            </span>
+
+            <span class="font-medium text-gray-900">
+
+              {{ cashflow.cash_flow_date | date:'yyyy-MM-dd' }}
+
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
   </div>
+
 
 </div>

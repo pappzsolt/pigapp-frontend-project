@@ -1,50 +1,157 @@
-<div class="cost-list">
-  <div
-    *ngFor="let cost of costs"
-    class="cost-card"
-  >
-    <div class="cost-card-header">
-      <h3 class="cost-name">{{ cost.cost_name }}</h3>
+<div class="min-h-screen bg-gray-50 p-6 font-sans">
 
-      <span
-        class="cost-status"
-        [ngClass]="cost.paid ? 'paid' : 'unpaid'"
-      >
-        {{ cost.paid ? 'Fizetve' : 'Nincs fizetve' }}
-      </span>
+  <div class="max-w-6xl mx-auto">
+
+
+    <!-- HEADER -->
+
+    <div class="mb-8">
+
+      <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+        Költségek
+      </h1>
+
+      <p class="text-gray-500 mt-1">
+        Költségek listája
+      </p>
+
     </div>
 
-    <div class="cost-details-grid">
-      <div class="cost-field">
-        <dt>Összeg</dt>
-        <dd>{{ cost.amount }} Ft</dd>
+
+
+    <!-- COST GRID -->
+
+    <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+
+
+      <div
+        *ngFor="let cost of costs"
+        class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6
+               hover:shadow-lg transition duration-200"
+      >
+
+
+        <!-- HEADER -->
+
+        <div class="flex justify-between items-start mb-4">
+
+
+          <h3 class="text-lg font-semibold text-gray-900">
+
+            {{ cost.cost_name }}
+
+          </h3>
+
+
+          <span
+            class="px-3 py-1 rounded-full text-xs font-semibold"
+            [ngClass]="cost.paid
+            ? 'bg-green-100 text-green-700'
+            : 'bg-red-100 text-red-700'"
+          >
+
+            {{ cost.paid ? 'Fizetve' : 'Nincs fizetve' }}
+
+          </span>
+
+
+        </div>
+
+
+
+        <!-- INFO -->
+
+        <div class="space-y-3 text-sm">
+
+
+          <div class="flex justify-between border-t pt-3">
+
+            <span class="text-gray-500">
+              Összeg
+            </span>
+
+            <span class="font-semibold text-gray-900">
+
+              {{ cost.amount }} Ft
+
+            </span>
+
+          </div>
+
+
+
+          <div class="flex justify-between">
+
+            <span class="text-gray-500">
+              Dátum
+            </span>
+
+            <span class="font-medium text-gray-900">
+
+              {{ cost.cost_date | date: 'yyyy-MM-dd' }}
+
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- ACTIONS -->
+
+        <div class="mt-6 pt-4 border-t flex justify-between items-center">
+
+
+          <!-- DELETE -->
+
+          <button
+            (click)="onDelete(cost.id)"
+            class="px-4 py-2 rounded-xl bg-red-500 hover:bg-red-600
+                   text-white font-medium transition"
+          >
+            Törlés
+          </button>
+
+
+
+          <!-- PAY BUTTON -->
+
+          <button
+            *ngIf="!cost.paid"
+            (click)="onMarkAsPaid(cost)"
+            class="px-4 py-2 rounded-xl bg-green-500 hover:bg-green-600
+                   text-white font-medium transition"
+          >
+            Fizetni
+          </button>
+
+
+
+          <!-- PAID ICON -->
+
+          <span *ngIf="cost.paid">
+
+            <img
+              src="images/green-check.png"
+              alt="Fizetve"
+              class="w-6 h-6"
+            />
+
+          </span>
+
+
+        </div>
+
+
       </div>
 
-      <div class="cost-field">
-        <dt>Dátum</dt>
-        <dd>{{ cost.cost_date | date: 'yyyy-MM-dd' }}</dd>
-      </div>
+
     </div>
 
-    <div class="cost-actions">
-      <button
-        (click)="onDelete(cost.id)"
-        class="btn btn-remove"
-      >
-        Törlés
-      </button>
 
-      <button
-        *ngIf="!cost.paid"
-        (click)="onMarkAsPaid(cost)"
-        class="btn btn-green"
-      >
-        Fizetni
-      </button>
-
-      <span *ngIf="cost.paid" class="paid-icon">
-        <img src="images/green-check.png" alt="Fizetve" class="w-5 h-5" />
-      </span>
-    </div>
   </div>
+
+
 </div>

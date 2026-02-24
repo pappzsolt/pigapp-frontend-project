@@ -1,18 +1,75 @@
-<div class="overflow-x-auto">
-  <table appTailwindStyledTable>
-    <thead>
-      <tr>
-        <th>Költség neve</th>
-        <th>Összeg</th>
-        <th>Dátum</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let cost of costsSearchResults">
-        <td>{{ cost.cost_name }}</td>
-        <td>{{ cost.amount }} Ft</td>
-        <td>{{ cost.cost_date }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="min-h-screen bg-gray-50 p-6 font-sans">
+
+  <div class="max-w-6xl mx-auto">
+
+
+    <!-- HEADER -->
+
+    <div class="mb-6">
+
+      <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+        Költség keresés
+      </h1>
+
+      <p class="text-gray-500 mt-1">
+        Keresés eredmények
+      </p>
+
+    </div>
+
+
+
+    <!-- TABLE WRAPPER -->
+
+    <div class="overflow-x-auto bg-white rounded-2xl border border-gray-200 shadow-sm">
+
+      <table class="min-w-full divide-y divide-gray-200" appTailwindStyledTable>
+
+        <thead class="bg-gray-100">
+
+        <tr>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Költség neve
+          </th>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Összeg
+          </th>
+
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+            Dátum
+          </th>
+
+        </tr>
+
+        </thead>
+
+        <tbody class="bg-white divide-y divide-gray-100">
+
+        <tr *ngFor="let cost of costsSearchResults" class="hover:bg-gray-50 transition">
+
+          <td class="px-6 py-3 text-gray-900">
+            {{ cost.cost_name }}
+          </td>
+
+          <td class="px-6 py-3 text-gray-900 font-semibold">
+            {{ cost.amount }} Ft
+          </td>
+
+          <td class="px-6 py-3 text-gray-900">
+            {{ cost.cost_date }}
+          </td>
+
+        </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+  </div>
+
 </div>
