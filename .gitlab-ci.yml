@@ -6,7 +6,9 @@ stages:
 # Angular build
 build:
   stage: build
-  image: node:18
+  image: node:20 # Node frissítve 20-as LTS-re
+  tags:
+    - docker  # biztosítja, hogy a Docker executor futtassa
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
