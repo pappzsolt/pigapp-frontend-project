@@ -31,37 +31,38 @@ export const ApiEndpoints = {
 
   /** Costs (költségek) */
   costs: {
-    foreignKeyData: `${PIGAPP}/foreignkey-data/`,                   // apiForeignKeyDataUrl
-    create: `${PIGAPP}/create-cost/`,                               // apiCreateCostUrl
-    list: `${PIGAPP}/cost_list_natur/`,                             // apiCostListUrl
-    detail: `${PIGAPP}/cost-detail/`,                               // apiDetailCostUrl
-    filterActualDay: `${PIGAPP}/actual_day_cost_filter/`,           // filterCostUrl
-    groupCost: `${PIGAPP}/costgroup-cost/`,                         // apiCostGroupCostUrl
+    foreignKeyData: `${PIGAPP}/foreignkey-data/`, // apiForeignKeyDataUrl
+    create: `${PIGAPP}/create-cost/`, // apiCreateCostUrl
+    list: `${PIGAPP}/cost_list_natur/`, // apiCostListUrl
+    detail: `${PIGAPP}/cost-detail/`, // apiDetailCostUrl
+    filterActualDay: `${PIGAPP}/actual_day_cost_filter/`, // filterCostUrl
+    groupCost: `${PIGAPP}/costgroup-cost/`, // apiCostGroupCostUrl
     currentMonthCostGroup5: `${PIGAPP}/current-month-costgroup-5/`, // apiCurrentMonthCostGroupUrl
-    summary: `${PIGAPP_API}/cost-summary/`,                         // apiInfoUrl
-    summaryWithInvoice: `${PIGAPP_API}/cost-summary/`,              // apiCostSummaryWithInvoiceUrl (ugyanaz az endpoint, más logika)
-    repeatWithSum5: `${PIGAPP_API}/cost-summary/5/`,                // apiCostRepeatWithSum
+    summary: `${PIGAPP_API}/cost-summary/`, // apiInfoUrl
+    summaryWithInvoice: `${PIGAPP_API}/cost-summary/`, // apiCostSummaryWithInvoiceUrl (ugyanaz az endpoint, más logika)
+    repeatWithSum5: `${PIGAPP_API}/cost-summary/5/`, // apiCostRepeatWithSum
     upcomingUnpaid: `${PIGAPP_API}/upcoming-unpaid-costs/`,
     upcomingCosts: `${PIGAPP_API}/upcoming-costs/`,
     costCheck: `${PIGAPP}/cost-check/`,
+    previousMonth: `${PIGAPP}/previous-month-costs/`,
   },
 
   /** Invoices (számlák) */
   invoices: {
-    onlyInvoiceList: `${PIGAPP}/only_invoice_list/`,          // invoiceUrl, apiOnlyInvoiceListUrl
-    saveInvoiceDetail: `${PIGAPP}/only_invoice_detail/`,      // invoiceSaveUrl
-    combo: `${PIGAPP_API}/invoices/combo/`,                   // apiInvoiceComboUrl
-    transfer: `${PIGAPP}/invoice/transfer/`,                  // apiInvoiceUpdateUrl
+    onlyInvoiceList: `${PIGAPP}/only_invoice_list/`, // invoiceUrl, apiOnlyInvoiceListUrl
+    saveInvoiceDetail: `${PIGAPP}/only_invoice_detail/`, // invoiceSaveUrl
+    combo: `${PIGAPP_API}/invoices/combo/`, // apiInvoiceComboUrl
+    transfer: `${PIGAPP}/invoice/transfer/`, // apiInvoiceUpdateUrl
     allInvoiceSumAmount: `${PIGAPP}/all_invoice_sum_amount/`, // apiAllInvoiceSumAmountUrl
-    detail: `${PIGAPP}/invoice_detail/`,                      // apiInvoiceDetail
-    updateAmount: `${PIGAPP_API}/update-invoice-amount/`,     // apiUpdateInvoiceAmount
+    detail: `${PIGAPP}/invoice_detail/`, // apiInvoiceDetail
+    updateAmount: `${PIGAPP_API}/update-invoice-amount/`, // apiUpdateInvoiceAmount
   },
 
   /** CostRepeat (ismétlődő költségek) */
   costRepeat: {
-    create: `${PIGAPP}/new_cost_repeat/`,                     // apiCostRepeatCreateUrl
-    listAll: `${PIGAPP}/costrepeat_list/`,                    // apiCostRepeatGetAllUrl
-    invoiceSummary: `${PIGAPP_API}/cost-repeat-summary/`,     // apiCostRepeatInvoiceSummary
+    create: `${PIGAPP}/new_cost_repeat/`, // apiCostRepeatCreateUrl
+    listAll: `${PIGAPP}/costrepeat_list/`, // apiCostRepeatGetAllUrl
+    invoiceSummary: `${PIGAPP_API}/cost-repeat-summary/`, // apiCostRepeatInvoiceSummary
   },
 
   /** Bank statements (bankkivonatok / CIB parse) */
