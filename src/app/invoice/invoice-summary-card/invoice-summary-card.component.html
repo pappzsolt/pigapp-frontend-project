@@ -1,55 +1,86 @@
-<div class="min-h-screen bg-gray-50 p-6 font-sans">
+<div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
 
-  <div class="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm p-6 space-y-6 mb-6">
+  <!-- FEJLÉC -->
+  <header class="flex items-start justify-between gap-4 px-4 md:px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-white to-gray-50">
 
-    <!-- FEJLÉC -->
+    <div class="min-w-0">
 
-    <header class="flex items-center justify-between border-b pb-4">
+      <p class="text-xs uppercase tracking-wide text-gray-500 font-medium">
+        Számla neve
+      </p>
 
-      <div>
-        <p class="text-sm text-gray-500">Számla neve</p>
-        <p class="text-lg font-semibold text-gray-800">{{ summary.invoice_name }}</p>
-      </div>
-
-      <div class="text-right">
-        <p class="text-sm text-gray-500">Fizetendő összeg</p>
-        <p class="text-xl font-bold text-green-600">{{ summary.total_invoice_amount | number }} Ft</p>
-      </div>
-
-    </header>
-
-
-
-    <!-- TÁBLÁZAT -->
-
-    <div class="overflow-x-auto">
-
-      <table appTailwindStyledTable class="w-full text-sm">
-
-        <thead class="bg-gray-50">
-        <tr>
-          <th class="text-left px-4 py-2">#</th>
-          <th class="text-left px-4 py-2">Költségnév</th>
-          <th class="text-right px-4 py-2">Összeg</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr
-          *ngFor="let detail of summary.details; let i = index"
-          class="hover:bg-gray-50 transition"
-        >
-          <td class="px-4 py-2">{{ i + 1 }}</td>
-          <td class="px-4 py-2">{{ detail.costrepeat_name }}</td>
-          <td class="px-4 py-2 text-right font-medium text-gray-900">
-            {{ detail.total_amount | number }} Ft
-          </td>
-        </tr>
-        </tbody>
-
-      </table>
+      <h3 class="text-base md:text-lg font-semibold text-gray-900 truncate">
+        {{ summary.invoice_name }}
+      </h3>
 
     </div>
+
+    <div class="text-right shrink-0">
+
+      <p class="text-xs uppercase tracking-wide text-gray-500 font-medium">
+        Fizetendő összeg
+      </p>
+
+      <p class="text-lg md:text-2xl font-bold text-green-600">
+        {{ summary.total_invoice_amount | number }} Ft
+      </p>
+
+    </div>
+
+  </header>
+
+  <!-- TÁBLÁZAT -->
+  <div class="overflow-x-auto">
+
+    <table
+      appTailwindStyledTable
+      class="w-full text-sm"
+    >
+
+      <thead class="bg-gray-50 border-b border-gray-100">
+
+      <tr>
+
+        <th class="w-14 px-4 py-3 text-left text-xs font-semibold tracking-wide text-gray-500 uppercase">
+          #
+        </th>
+
+        <th class="px-4 py-3 text-left text-xs font-semibold tracking-wide text-gray-500 uppercase">
+          Költségnév
+        </th>
+
+        <th class="px-4 py-3 text-right text-xs font-semibold tracking-wide text-gray-500 uppercase">
+          Összeg
+        </th>
+
+      </tr>
+
+      </thead>
+
+      <tbody class="divide-y divide-gray-100">
+
+      <tr
+        *ngFor="let detail of summary.details; let i = index"
+        class="hover:bg-gray-50 transition-colors duration-150"
+      >
+
+        <td class="px-4 py-3 text-gray-500 font-medium">
+          {{ i + 1 }}
+        </td>
+
+        <td class="px-4 py-3 text-gray-800 font-medium">
+          {{ detail.costrepeat_name }}
+        </td>
+
+        <td class="px-4 py-3 text-right font-semibold text-gray-900 whitespace-nowrap">
+          {{ detail.total_amount | number }} Ft
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
 
   </div>
 

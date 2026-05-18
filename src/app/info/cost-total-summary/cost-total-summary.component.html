@@ -1,55 +1,160 @@
-<div *ngIf="!loading && show" class="min-h-screen bg-gray-50 p-6 font-sans">
+<div *ngIf="!loading && show" class="bg-gray-50 p-4 md:p-6">
 
-  <div class="max-w-md mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm p-6 space-y-4">
+  <div class="max-w-3xl mx-auto">
 
-    <!-- HEADER -->
+    <!-- CARD -->
+    <div class="bg-white border border-gray-200 rounded-3xl shadow-sm overflow-hidden">
 
-    <header class="flex items-center justify-between mb-2">
+      <!-- HEADER -->
+      <div
+        class="px-5 md:px-6 py-5 border-b border-gray-100
+               bg-gradient-to-r from-white to-gray-50"
+      >
 
-      <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-        <span
-          class="inline-flex h-8 w-8 items-center justify-center rounded-full
-                 bg-blue-100 text-blue-700 text-xs font-semibold"
-        >
-          SZ
-        </span>
+          <div class="flex items-center gap-3">
 
-        <span>Számlák összesítése</span>
+            <div
+              class="inline-flex h-11 w-11 items-center justify-center rounded-2xl
+                     bg-blue-100 text-blue-700 shadow-sm shrink-0"
+            >
 
-      </h2>
+              <span class="text-sm font-bold">
+                SZ
+              </span>
 
-      <span class="text-xs font-medium uppercase tracking-wide text-gray-500">
-        Összegzés
-      </span>
+            </div>
 
-    </header>
+            <div>
 
+              <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+                Számlák összesítése
+              </h2>
 
+              <p class="text-sm text-gray-500 mt-1">
+                Fizetett és nem fizetett összegek áttekintése
+              </p>
 
-    <!-- ÖSSZESÍTŐ -->
+            </div>
 
-    <div class="space-y-3 mt-2 text-sm">
+          </div>
 
-      <p class="flex justify-between items-center">
-        <span class="text-gray-600 font-medium">Összes fizetett:</span>
-        <span
-          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
-                 bg-emerald-50 text-emerald-700 border border-emerald-100"
-        >
-          {{ totalPaid | number:'1.0-0' }} Ft
-        </span>
-      </p>
+          <!-- BADGE -->
+          <div
+            class="inline-flex items-center px-4 py-2 rounded-2xl
+                   bg-blue-50 text-blue-700 border border-blue-100
+                   text-xs font-semibold uppercase tracking-wide w-fit"
+          >
+            Összegzés
+          </div>
 
-      <p class="flex justify-between items-center">
-        <span class="text-gray-600 font-medium">Összes nem fizetett:</span>
-        <span
-          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
-                 bg-rose-50 text-rose-700 border border-rose-100"
-        >
-          {{ totalUnpaid | number:'1.0-0' }} Ft
-        </span>
-      </p>
+        </div>
+
+      </div>
+
+      <!-- CONTENT -->
+      <div class="p-5 md:p-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- PAID -->
+          <div
+            class="rounded-3xl border border-emerald-200
+                   bg-gradient-to-br from-emerald-50 to-white
+                   p-5 shadow-sm"
+          >
+
+            <div class="flex items-start justify-between gap-4">
+
+              <div>
+
+                <p class="text-xs uppercase tracking-wide text-emerald-600 font-semibold mb-2">
+                  Összes fizetett
+                </p>
+
+                <h3 class="text-2xl font-bold text-emerald-700 break-words">
+                  {{ totalPaid | number:'1.0-0' }} Ft
+                </h3>
+
+              </div>
+
+              <div
+                class="w-12 h-12 rounded-2xl bg-emerald-100
+                       flex items-center justify-center shrink-0"
+              >
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6 text-emerald-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- UNPAID -->
+          <div
+            class="rounded-3xl border border-rose-200
+                   bg-gradient-to-br from-rose-50 to-white
+                   p-5 shadow-sm"
+          >
+
+            <div class="flex items-start justify-between gap-4">
+
+              <div>
+
+                <p class="text-xs uppercase tracking-wide text-rose-600 font-semibold mb-2">
+                  Összes nem fizetett
+                </p>
+
+                <h3 class="text-2xl font-bold text-rose-700 break-words">
+                  {{ totalUnpaid | number:'1.0-0' }} Ft
+                </h3>
+
+              </div>
+
+              <div
+                class="w-12 h-12 rounded-2xl bg-rose-100
+                       flex items-center justify-center shrink-0"
+              >
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-6 h-6 text-rose-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 

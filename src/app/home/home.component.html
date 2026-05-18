@@ -1,45 +1,78 @@
-<div class="mb-8 space-y-3 invoice-summary-header">
-  <h2 class="text-3xl font-bold text-gray-900 tracking-tight">
-    Számlák költségösszesítője
-  </h2>
+<!-- HEADER -->
+<div class="mb-5 space-y-2">
 
-  <div class="flex items-center text-sm text-gray-600 gap-3">
-    <span class="font-medium">Hónap kezdete:</span>
-    <span class="date-pill">{{ startOfMonth | date: 'yyyy-MM-dd' }}</span>
+  <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-2">
 
-    <span class="separator"></span>
+    <h2 class="text-xl md:text-3xl font-bold text-gray-900 tracking-tight">
+      Számlák költségösszesítője
+    </h2>
 
-    <span class="font-medium">Hónap vége:</span>
-    <span class="date-pill">{{ endOfMonth | date: 'yyyy-MM-dd' }}</span>
+    <div class="flex items-center gap-2 text-xs md:text-sm text-gray-600 bg-white border border-gray-100 rounded-lg px-3 py-1 w-fit">
+
+      <span class="font-medium">Hónap:</span>
+
+      <span class="date-pill">
+        {{ startOfMonth | date: 'yyyy-MM-dd' }}
+      </span>
+
+      <span class="text-gray-300">→</span>
+
+      <span class="date-pill">
+        {{ endOfMonth | date: 'yyyy-MM-dd' }}
+      </span>
+
+    </div>
+
   </div>
+
 </div>
 
-<!-- Üzenetek -->
-<app-alert-message
-  *ngIf="successMessage"
-  type="success"
-  [message]="successMessage"
-  [closable]="true"
-></app-alert-message>
+<!-- ÜZENETEK -->
+<div class="space-y-2 mb-4">
 
-<app-alert-message
-  *ngIf="errorMessage"
-  type="error"
-  [message]="errorMessage"
-  [closable]="true"
-></app-alert-message>
+  <app-alert-message
+    *ngIf="successMessage"
+    type="success"
+    [message]="successMessage"
+    [closable]="true"
+  ></app-alert-message>
 
-<!-- Összesítők -->
-<div class="summary-card-list">
+  <app-alert-message
+    *ngIf="errorMessage"
+    type="error"
+    [message]="errorMessage"
+    [closable]="true"
+  ></app-alert-message>
+
+</div>
+
+<!-- ÖSSZESÍTŐK (top insight cards) -->
+<div class="summary-card-list grid gap-3 md:gap-4 mb-6">
+
   <ng-container *ngFor="let summary of summaries; trackBy: trackBySummary">
-    <app-invoice-summary-card [summary]="summary"></app-invoice-summary-card>
+    <app-invoice-summary-card
+      [summary]="summary"
+    ></app-invoice-summary-card>
   </ng-container>
+
 </div>
 
-<!-- Számlák -->
-<h2 class="section-title">Számlák</h2>
+<!-- SZÁMLÁK HEADER -->
+<div class="flex items-center justify-between mb-3">
 
-<div class="invoice-grid">
+  <h3 class="text-lg md:text-xl font-semibold text-gray-900">
+    Számlák
+  </h3>
+
+  <span class="text-xs text-gray-500">
+    {{ (invoices$ | async)?.length || 0 }} tétel
+  </span>
+
+</div>
+
+<!-- SZÁMLA GRID -->
+<div class="invoice-grid grid gap-3 md:gap-4">
+
   <ng-container *ngFor="let invoice of invoices$ | async; index as i">
     <app-invoice-card
       [invoice]="invoice"
@@ -48,4 +81,5 @@
       (invoiceChanged)="onInvoiceSave($event)"
     ></app-invoice-card>
   </ng-container>
+
 </div>

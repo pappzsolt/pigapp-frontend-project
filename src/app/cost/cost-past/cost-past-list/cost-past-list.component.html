@@ -1,136 +1,476 @@
-<div class="p-6 space-y-6 bg-gray-50 min-h-screen">
+<div class="bg-gray-50 min-h-screen p-4 md:p-6">
 
-  <!-- Loading -->
-  <div *ngIf="loading" class="text-center text-gray-500">Betöltés...</div>
+  <div class="max-w-7xl mx-auto space-y-6">
 
-  <!-- Error -->
-  <div *ngIf="error" class="text-red-500 font-semibold">{{ error }}</div>
+    <!-- PAGE HEADER -->
+    <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
 
-  <!-- Cost cards -->
-  <div *ngFor="let cost of costs"
-       class="relative rounded-2xl p-6 border shadow-sm hover:shadow-md transition-all duration-200"
-       [ngClass]="isSelected(cost)
-          ? 'bg-blue-50 border-blue-200 ring-2 ring-blue-300'
-          : 'bg-white border-gray-200'">
+      <div>
 
-    <!-- Bal oldali szín sáv -->
-    <div class="absolute left-0 top-0 h-full w-1 rounded-l-2xl transition-colors duration-300"
-         [ngClass]="isSelected(cost) ? 'bg-blue-500' : 'bg-gray-200'">
+        <div class="flex items-center gap-3 mb-2">
+
+          <div
+            class="w-11 h-11 rounded-2xl bg-blue-100
+                   flex items-center justify-center shadow-sm"
+          >
+
+            <span class="text-sm font-bold text-blue-700">
+              CF
+            </span>
+
+          </div>
+
+          <div>
+
+            <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
+              Költségek kezelése
+            </h1>
+
+            <p class="text-sm text-gray-500 mt-1">
+              Költségek szerkesztése és másolása következő hónapra
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SUMMARY -->
+      <div
+        class="bg-white border border-gray-200 rounded-2xl
+               px-4 py-3 shadow-sm w-fit"
+      >
+
+        <div class="flex items-center gap-3">
+
+          <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+
+          <div>
+
+            <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">
+              Költségek
+            </p>
+
+            <p class="text-sm font-semibold text-gray-900">
+              {{ costs.length }} db
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- Felső sor: modern toggle -->
-    <div class="flex items-center justify-between mb-4">
+    <!-- LOADING -->
+    <div
+      *ngIf="loading"
+      class="bg-white border border-gray-200 rounded-3xl
+             p-10 text-center shadow-sm"
+    >
 
-      <div class="flex items-center space-x-3">
+      <div class="flex flex-col items-center gap-4">
 
-        <!-- Toggle -->
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            class="sr-only peer"
-            [checked]="isSelected(cost)"
-            (change)="toggleSelection(cost)" />
+        <div
+          class="w-12 h-12 border-4 border-blue-100 border-t-blue-500
+                 rounded-full animate-spin"
+        ></div>
 
-          <!-- Toggle háttér -->
-          <div class="w-11 h-6 bg-gray-300 rounded-full
-                      peer-checked:bg-blue-500
-                      transition-colors duration-300">
+        <p class="text-sm text-gray-500">
+          Betöltés...
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- ERROR -->
+    <div
+      *ngIf="error"
+      class="bg-red-50 border border-red-200 rounded-3xl
+             p-5 text-red-600 font-medium shadow-sm"
+    >
+      {{ error }}
+    </div>
+
+    <!-- LIST -->
+    <div
+      *ngIf="!loading && !error"
+      class="space-y-6"
+    >
+
+      <!-- CARD -->
+      <div
+        *ngFor="let cost of costs"
+        class="relative bg-white border rounded-3xl shadow-sm
+               overflow-hidden transition-all duration-300 hover:shadow-lg"
+        [ngClass]="isSelected(cost)
+          ? 'border-blue-300 ring-2 ring-blue-100'
+          : 'border-gray-200'"
+      >
+
+        <!-- LEFT BAR -->
+        <div
+          class="absolute left-0 top-0 h-full w-1 transition-colors duration-300"
+          [ngClass]="isSelected(cost)
+            ? 'bg-blue-500'
+            : 'bg-gray-200'"
+        ></div>
+
+        <!-- HEADER -->
+        <div
+          class="px-5 md:px-6 py-5 border-b border-gray-100
+                 bg-gradient-to-r from-white to-gray-50"
+        >
+
+          <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
+
+            <!-- LEFT -->
+            <div class="flex items-center gap-4">
+
+              <!-- TOGGLE -->
+              <label class="relative inline-flex items-center cursor-pointer">
+
+                <input
+                  type="checkbox"
+                  class="sr-only peer"
+                  [checked]="isSelected(cost)"
+                  (change)="toggleSelection(cost)"
+                />
+
+                <div
+                  class="w-12 h-7 bg-gray-300 rounded-full
+                         peer-checked:bg-blue-500
+                         transition-all duration-300"
+                ></div>
+
+                <div
+                  class="absolute left-1 top-1
+                         w-5 h-5 bg-white rounded-full shadow
+                         transition-transform duration-300
+                         peer-checked:translate-x-5"
+                ></div>
+
+              </label>
+
+              <!-- TITLE -->
+              <div>
+
+                <h2
+                  class="text-lg font-semibold transition-colors duration-200"
+                  [ngClass]="isSelected(cost)
+                    ? 'text-blue-700'
+                    : 'text-gray-900'"
+                >
+                  {{ cost.cost_name || 'Költség' }}
+                </h2>
+
+                <p class="text-sm text-gray-500 mt-1">
+                  Másolás következő hónapra
+                </p>
+
+              </div>
+
+            </div>
+
+            <!-- ID -->
+            <div
+              class="inline-flex items-center px-3 py-1 rounded-xl
+                     bg-gray-100 text-gray-600 text-xs font-semibold
+                     w-fit"
+            >
+              ID: {{ cost.id }}
+            </div>
+
           </div>
 
-          <!-- Toggle gomb -->
-          <div class="absolute left-1 top-1
-                      w-4 h-4 bg-white rounded-full shadow
-                      transition-transform duration-300
-                      peer-checked:translate-x-5">
-          </div>
-        </label>
+        </div>
 
-        <span class="text-sm font-medium transition-colors duration-200"
-              [ngClass]="isSelected(cost) ? 'text-blue-700' : 'text-gray-600'">
-          Másolás következő hónapra
+        <!-- CONTENT -->
+        <div class="p-5 md:p-6">
+
+          <!-- FORM GRID -->
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+            <!-- NÉV -->
+            <div class="space-y-2">
+
+              <label class="text-sm font-semibold text-gray-700">
+                Név
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="cost.cost_name"
+                class="w-full h-11 rounded-xl border border-gray-300
+                       bg-white px-4 text-sm text-gray-800 shadow-sm
+                       focus:outline-none focus:ring-4 focus:ring-blue-100
+                       focus:border-blue-500 transition-all"
+              />
+
+            </div>
+
+            <!-- MEGJEGYZÉS -->
+            <div class="space-y-2">
+
+              <label class="text-sm font-semibold text-gray-700">
+                Megjegyzés
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="cost.cost_note"
+                class="w-full h-11 rounded-xl border border-gray-300
+                       bg-white px-4 text-sm text-gray-800 shadow-sm
+                       focus:outline-none focus:ring-4 focus:ring-blue-100
+                       focus:border-blue-500 transition-all"
+              />
+
+            </div>
+
+            <!-- ÖSSZEG -->
+            <div class="space-y-2">
+
+              <label class="text-sm font-semibold text-gray-700">
+                Összeg (Ft)
+              </label>
+
+              <div class="relative">
+
+                <input
+                  type="number"
+                  [(ngModel)]="cost.amount"
+                  class="w-full h-11 rounded-xl border border-gray-300
+                         bg-white px-4 pr-14 text-sm text-gray-800 shadow-sm
+                         focus:outline-none focus:ring-4 focus:ring-blue-100
+                         focus:border-blue-500 transition-all"
+                />
+
+                <span
+                  class="absolute right-4 top-1/2 -translate-y-1/2
+                         text-sm font-medium text-gray-400"
+                >
+                  Ft
+                </span>
+
+              </div>
+
+            </div>
+
+            <!-- DÁTUM -->
+            <div class="space-y-2">
+
+              <label class="text-sm font-semibold text-gray-700">
+                Költség dátuma
+              </label>
+
+              <input
+                type="date"
+                [(ngModel)]="cost.cost_date"
+                class="w-full h-11 rounded-xl border border-gray-300
+                       bg-white px-4 text-sm text-gray-800 shadow-sm
+                       focus:outline-none focus:ring-4 focus:ring-blue-100
+                       focus:border-blue-500 transition-all"
+              />
+
+            </div>
+
+            <!-- FIZETVE -->
+            <div
+              class="flex items-center gap-4 rounded-2xl
+                     border border-gray-200 bg-gray-50 px-4 py-3"
+            >
+
+              <input
+                type="checkbox"
+                [(ngModel)]="cost.paid"
+                class="h-5 w-5 rounded border-gray-300
+                       text-blue-600 focus:ring-blue-500"
+              />
+
+              <div>
+
+                <p class="text-sm font-semibold text-gray-800">
+                  Fizetve
+                </p>
+
+                <p class="text-xs text-gray-500">
+                  Jelöld fizetettnek
+                </p>
+
+              </div>
+
+            </div>
+
+            <!-- FIZETÉS DÁTUMA -->
+            <div class="space-y-2">
+
+              <label class="text-sm font-semibold text-gray-700">
+                Fizetés dátuma
+              </label>
+
+              <input
+                type="date"
+                [(ngModel)]="cost.paid_date"
+                class="w-full h-11 rounded-xl border border-gray-300
+                       bg-white px-4 text-sm text-gray-800 shadow-sm
+                       focus:outline-none focus:ring-4 focus:ring-blue-100
+                       focus:border-blue-500 transition-all"
+              />
+
+            </div>
+
+            <!-- LÉTREHOZVA -->
+            <div class="space-y-2">
+
+              <label class="text-sm font-semibold text-gray-700">
+                Létrehozva
+              </label>
+
+              <input
+                type="text"
+                [value]="cost.create_cost_date"
+                disabled
+                class="w-full h-11 rounded-xl border border-gray-200
+                       bg-gray-100 px-4 text-sm text-gray-500"
+              />
+
+            </div>
+
+          </div>
+
+          <!-- ACTIONS -->
+          <div
+            class="flex flex-col sm:flex-row items-stretch sm:items-center
+                   justify-end gap-3 mt-8"
+          >
+
+            <button
+              (click)="saveCost(cost)"
+              class="px-5 py-2.5 rounded-2xl bg-blue-500
+                     text-white font-semibold shadow-sm
+                     hover:bg-blue-600 hover:shadow-md
+                     transition-all duration-200"
+            >
+              Mentés
+            </button>
+
+            <button
+              (click)="deleteCost(cost.id)"
+              class="px-5 py-2.5 rounded-2xl bg-red-500
+                     text-white font-semibold shadow-sm
+                     hover:bg-red-600 hover:shadow-md
+                     transition-all duration-200"
+            >
+              Törlés
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- EMPTY -->
+      <div
+        *ngIf="costs.length === 0"
+        class="bg-white border border-dashed border-gray-300
+               rounded-3xl p-12 text-center shadow-sm"
+      >
+
+        <div
+          class="w-16 h-16 mx-auto rounded-2xl bg-gray-100
+                 flex items-center justify-center mb-4"
+        >
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-8 h-8 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 17v-6h13v6M9 5h13v6M3 5h.01M3 11h.01M3 17h.01"
+            />
+          </svg>
+
+        </div>
+
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          Nincs előző havi költség
+        </h3>
+
+        <p class="text-sm text-gray-500">
+          Jelenleg nincs megjeleníthető adat.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- COPY BUTTON -->
+    <div class="flex justify-end">
+
+      <button
+        (click)="createNextMonthCosts()"
+        class="inline-flex items-center gap-3
+               px-6 py-3 rounded-2xl
+               bg-green-500 text-white font-semibold
+               shadow-lg hover:bg-green-600 hover:shadow-xl
+               transition-all duration-200"
+      >
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 16h8M8 12h8m-8-4h8M4 6h16v12H4z"
+          />
+        </svg>
+
+        <span>
+          Kiválasztott költségek másolása következő hónapra
         </span>
 
-      </div>
-
-      <div class="text-sm font-semibold text-gray-500">
-        ID: {{ cost.id }}
-      </div>
-    </div>
-
-    <!-- Grid mezők -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-      <div>
-        <label class="form-label">Név</label>
-        <input type="text" [(ngModel)]="cost.cost_name" class="form-input" />
-      </div>
-
-      <div>
-        <label class="form-label">Megjegyzés</label>
-        <input type="text" [(ngModel)]="cost.cost_note" class="form-input" />
-      </div>
-
-      <div>
-        <label class="form-label">Összeg (Ft)</label>
-        <input type="number" [(ngModel)]="cost.amount" class="form-input" />
-      </div>
-
-      <div>
-        <label class="form-label">Költség dátuma</label>
-        <input type="date" [(ngModel)]="cost.cost_date" class="form-input" />
-      </div>
-
-      <div class="flex items-center space-x-3 pt-6">
-        <input type="checkbox" [(ngModel)]="cost.paid"
-               class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
-        <label class="text-sm font-medium text-gray-700">Fizetve</label>
-      </div>
-
-      <div>
-        <label class="form-label">Fizetés dátuma</label>
-        <input type="date" [(ngModel)]="cost.paid_date" class="form-input" />
-      </div>
-
-      <div>
-        <label class="form-label">Létrehozva</label>
-        <input type="text" [value]="cost.create_cost_date" disabled
-               class="mt-1 block w-full border-gray-200 bg-gray-100 rounded-xl px-3 py-2 text-sm" />
-      </div>
-
-    </div>
-
-    <!-- Gombok -->
-    <div class="flex justify-end space-x-3 mt-6">
-      <button (click)="saveCost(cost)"
-              class="px-5 py-2.5 bg-blue-500 text-white rounded-xl shadow hover:bg-blue-600 transition">
-        Mentés
       </button>
 
-      <button (click)="deleteCost(cost.id)"
-              class="px-5 py-2.5 bg-red-500 text-white rounded-xl shadow hover:bg-red-600 transition">
-        Törlés
-      </button>
     </div>
 
   </div>
 
-  <!-- Másolás gomb -->
-  <div class="flex justify-end">
-    <button (click)="createNextMonthCosts()"
-            class="px-6 py-3 bg-green-500 text-white rounded-2xl shadow-lg hover:bg-green-600 transition font-semibold">
-      Kiválasztott costok másolása következő hónapra
-    </button>
-  </div>
+  <!-- STICKY TOTAL -->
+  <div
+    class="sticky bottom-0 mt-6
+           bg-white/90 backdrop-blur-xl
+           border border-gray-200 shadow-lg
+           rounded-3xl px-6 py-4"
+  >
 
-  <!-- Nincs adat -->
-  <div *ngIf="!loading && costs.length === 0"
-       class="text-gray-500 text-center py-10">
-    Nincs előző hónap költség.
-  </div>
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
 
-  <!-- Sticky bottom total -->
-  <div class="sticky bottom-0 bg-white/90 backdrop-blur border-t border-gray-200 p-4 flex justify-end font-semibold text-lg">
-    Összesen: {{ totalAmount | number }} Ft
+      <span class="text-sm font-medium text-gray-500">
+        Összes költség
+      </span>
+
+      <span class="text-2xl font-bold text-gray-900">
+        {{ totalAmount | number }} Ft
+      </span>
+
+    </div>
+
   </div>
 
 </div>
